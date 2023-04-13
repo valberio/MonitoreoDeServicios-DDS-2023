@@ -93,9 +93,9 @@ public class Contrasenia {
                     String[] contraseniasUsadas = lineaLeida.split(" ");
                     for(int i = 0 ; i < contraseniasUsadas.length ; i++) {
                         if(palabras[i].equals(contrasenia)) {
-                            System.out.println(lineaLeida);
-                            System.out.println("La contraseña ingresada no es valida, se encuentra entre las 10mil mas usadas");
-                            System.out.println("");
+                            return true;
+                        } else {
+                            return false;
                         }
                     }
                 }
