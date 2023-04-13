@@ -3,7 +3,13 @@ package domain.registro;
 
 import java.util.Objects;
 import java.lang.*;
-
+// IMPORTS PARA ARCHIVOS
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.util.Scanner;
+import java.util.StringTokenizer;
+//
 public class Contrasenia {
 
     protected String contrasenia;
@@ -61,6 +67,7 @@ public class Contrasenia {
             contrasenia = contrasenia.replace(" ", "");
         }
     }
+    
 
     /*
     public boolean aceptaAsciiYEspacios(){
@@ -69,6 +76,34 @@ public class Contrasenia {
         //TODO
         return true;
     }*/
+    
+    //VERIFICACION DE QUE UNA CONTRASEÑA NO ESTE ENTRE LAS 10000 MAS USADAS
+    public boolean laContraseniaEsMuyUsada () {
+        File archivoContrasenias = new File("RUTA_DEL_ARCHIVO_DE_CONTRASEÑAS_MAS_USADAS/Archivo.txt");
+        try {
+            // SI EXISTE EL ARCHIVO
+            if(archivoContrasenias.exists()) {
+                // ABRE LECTURA DEL ARCHIVO
+                BufferedReader leerArchivo = new BufferedReader(new FileReader(archivoContrasenias));
+                // LINEA LEIDA
+                String lineaLeida;
+                // MIENTRAS LA LINEA LEIDA NO SEA NULL
+                while((lineaLeida = leerArchivo.readLine()) != null) {
+                    lineasTotales = lineasTotales + 1;
+                    String[] contraseniasUsadas = lineaLeida.split(" ");
+                    for(int i = 0 ; i < contraseniasUsadas.length ; i++) {
+                        if(palabras[i].equals(contrasenia)) {
+                            System.out.println(lineaLeida);
+                            System.out.println("La contraseña ingresada no es valida, se encuentra entre las 10mil mas usadas");
+                            System.out.println("");
+                        }
+                    }
+                }
+            }
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }
 
 // COSAS QUE HAY QUE VERIFICAR
