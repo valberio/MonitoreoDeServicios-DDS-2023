@@ -20,6 +20,7 @@ public class Contrasenia {
 * aceptar carateres del ascii y espacio
 * CUESTION DE ESPACIOS CONSECUTIVOS ()
 * No itilizar credenciales x defecto de sw
+* Medidor de fuerza de la contraseña (fuerte, normal, débil)
 *
 * */
     public Contrasenia(String contrasenia)
