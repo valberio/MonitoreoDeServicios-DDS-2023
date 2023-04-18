@@ -1,7 +1,8 @@
 package domain.roles;
 
-abstract public class Rol {
+import domain.comunidad.Comunidad;
 
-    private String nombre;
-    private Comunidad Comunidad;
+public abstract class Rol {
+
+    protected Comunidad comunidad;
 }
