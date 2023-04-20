@@ -1,4 +1,4 @@
-package domain.comunidad;
+package domain.roles;
 
 public class Miembro {
 

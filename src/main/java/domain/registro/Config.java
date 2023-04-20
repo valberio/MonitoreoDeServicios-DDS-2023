@@ -1,2 +1,6 @@
-package domain.registro;public class Config {
+package domain.registro;
+
+public class Config {
+
+
 }

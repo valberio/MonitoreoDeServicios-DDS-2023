@@ -1,18 +1,20 @@
 package domain.registro;
 
 
-import java.util.Objects;
+import java.lang.reflect.Array;
+import java.util.*;
 import java.lang.*;
 // IMPORTS PARA ARCHIVOS
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.util.Scanner;
-import java.util.StringTokenizer;
+
 //
 public class Contrasenia {
 
-    protected String contrasenia;
+    private String contrasenia;
+
+    private ArrayList<Condicion>;
 
 /* COSAS A CUMPLIR
 * Más de 8 caracteres hasta 64
