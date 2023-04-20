@@ -3,7 +3,7 @@ package domain.registro.condicionesContra;
 import domain.registro.Contrasenia;
 
 import java.util.Objects;
-/*
+
 public class RepeticionCaracteres implements Condicion{
     @Override
     public boolean cumpleCondicion(Contrasenia contrasenia) {

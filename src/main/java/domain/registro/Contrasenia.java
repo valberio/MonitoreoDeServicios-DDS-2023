@@ -1,7 +1,7 @@
 package domain.registro;
 
 import domain.config.Config;
-import domain.registro.condicionesContra.Condicion;
+import domain.registro.condicionesContra.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -46,7 +46,6 @@ public class Contrasenia {
                return true;
             }
         }
-
         return false;
     }
 
