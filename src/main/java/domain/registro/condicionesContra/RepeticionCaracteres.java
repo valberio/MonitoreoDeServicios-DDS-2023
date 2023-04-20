@@ -15,7 +15,7 @@ public class RepeticionCaracteres implements Condicion{
         return false;
     }
 
-    public boolean noRepiteCaracteres(Contrasenia contrasenia) {
+    /*public boolean noRepiteCaracteres(Contrasenia contrasenia) {
         for (int i = 0; i < contrasenia.getContrasenia().length()-2; i++){
             if (Objects.equals(contrasenia.getContrasenia().charAt(i), contrasenia.getContrasenia().charAt(i+1)) && Objects.equals(contrasenia.getContrasenia().charAt(i+1), contrasenia.getContrasenia().charAt(i+2))){
                 throw new ContraseniaRepiteCaracteresException("La contraseña repite caracteres");
@@ -23,7 +23,19 @@ public class RepeticionCaracteres implements Condicion{
         }
 
         return true;
+    }*/
+    public boolean noRepiteCaracteres(Contrasenia contrasenia)
+    {
+        if(! this.tieneCaracteresRepetidosXVeces(contrasenia.getContrasenia(), 3))
+        {
+            return true;
+        }
+        else
+        {
+            throw new ContraseniaRepiteCaracteresException("La contraseña repite muchos caracteres");
+        }
     }
+
     public boolean tieneCaracteresRepetidosXVeces(String contrasenia, int nroRepes)
     {
            Boolean hayRepetido = false;
@@ -38,7 +50,7 @@ public class RepeticionCaracteres implements Condicion{
                        contadorRepeticiones++;
                    }
                }
-               if (contadorRepeticiones == nroRepes)
+               if (contadorRepeticiones >= nroRepes)
                {
                    hayRepetido = true;
                    break;

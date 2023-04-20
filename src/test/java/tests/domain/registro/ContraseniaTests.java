@@ -1,23 +1,22 @@
 package tests.domain.registro;
 
 import domain.registro.Contrasenia;
-import domain.registro.condicionesContra.Longitud;
-import domain.registro.condicionesContra.Condicion;
-import domain.registro.condicionesContra.RepeticionCaracteres;
-import domain.registro.condicionesContra.ContraseniaNoCumpleConLongitudException;
+import domain.registro.condicionesContra.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class contraseniaTests {
+public class ContraseniaTests {
 
     private Contrasenia contraseniaNOAcortable = new Contrasenia("1234    ");
     private Contrasenia contraseniaAcortable = new Contrasenia("12345678  ");
     private Contrasenia contraseniaCorta = new Contrasenia("1234");
     private Contrasenia contraseniaLarga = new Contrasenia("12345678901234567890123456789012345678901234567890");
     private Contrasenia contraseniaConRepes = new Contrasenia("1111234");
+    private Contrasenia contraseniaSinRepes = new Contrasenia("12345678");
+    private Contrasenia contraseniaEspecial = new Contrasenia("123#");
 
     private Longitud longitud = new Longitud();
     private RepeticionCaracteres repeticiones = new RepeticionCaracteres();
@@ -49,7 +48,29 @@ public class contraseniaTests {
     @Test
     public void testClaveConRepeticiones()
     {
-        assertTrue(repeticiones.tieneCaracteresRepetidosXVeces(contraseniaConRepes.getContrasenia(), 4));
+        Assertions.assertTrue(repeticiones.tieneCaracteresRepetidosXVeces(contraseniaConRepes.getContrasenia(), 3));
+    }
+    @Test
+    public void testClaveConRepeticionesException()
+    {
+        Assertions.assertThrows(ContraseniaRepiteCaracteresException.class, () -> {
+            repeticiones.noRepiteCaracteres(contraseniaConRepes);
+        }, "Se espera que se lance una excepcion");
+    }
+    @Test
+    public void testClaveSinRepeticionesException()
+    {
+        Assertions.assertTrue(repeticiones.noRepiteCaracteres(contraseniaSinRepes));
+    }
+    @Test
+    public void testClaveTieneCaracEspecial()
+    {
+        Assertions.assertTrue(contraseniaEspecial.tieneCaracterEspecial());
+    }
+    @Test
+    public void testNoTieneCaracEspecial()
+    {
+        Assertions.assertFalse(contraseniaCorta.tieneCaracterEspecial());
     }
 }
 

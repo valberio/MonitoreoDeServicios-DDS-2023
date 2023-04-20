@@ -6,6 +6,7 @@ import domain.registro.condicionesContra.medidorFuerza.MedidorDeFuerza;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.lang.reflect.Array;
 import java.util.*;
 import java.lang.*;
 // IMPORTS PARA ARCHIVOS
@@ -42,7 +43,8 @@ public class Contrasenia {
         this.reducirEspacios();
         return validador.stream().allMatch(condicion->condicion.cumpleCondicion(this));
     }
-    
+
+
     public boolean repiteCaracteres() {
 
         for (int i = 0; i < this.contrasenia.length()-2; i++){
@@ -123,22 +125,20 @@ public class Contrasenia {
         }
 
         return tieneMayus && tieneMinus;
-
     }
 
     public boolean tieneCaracterEspecial(){
-        
+
+        char[] caracteresEspeciales = {'!', '¡', '?', '¿', '#', '$', '|', '°', '%', '/', '@', '%', '^', '&', '*', '(', ')', '-', '+', '=', '{', '}', '[', ']', ';', ':', '"'};  
+        for(char c: contrasenia.toCharArray()) {
+            for(char i: caracteresEspeciales)
+            {
+                if (c == i) {return true;}
+            }
+        }
+        return false;
     }
-
-
 }
-
-// COSAS QUE HAY QUE VERIFICAR
-/*  Contraseñas obtenidas de corpus de violaciones anteriores.
-    Palabras de diccionario.
-    Caracteres repetitivos o secuenciales (por ejemplo, "aaaaaa", "1234abcd").
-    Palabras específicas del contexto, como el nombre del servicio, el nombre de usuario y sus derivados.
- */
 
 
 
