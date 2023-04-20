@@ -1,13 +1,11 @@
 package domain.transporte;
 
-import domain.servicios.Servicio;
-
-import java.util.List;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class LineaDeTransporte {
     private String nombre;
     private Estacion estacionOrigen;
     private Estacion estacionDestino;
-    private List<Estacion> recorrido;
-
+    private ArrayList<Estacion> recorrido;
 }

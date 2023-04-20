@@ -1,7 +1,10 @@
 package domain.registro;
 
+import domain.config.Config;
+import domain.registro.condicionesContra.Condicion;
+import lombok.Getter;
+import lombok.Setter;
 
-import java.lang.reflect.Array;
 import java.util.*;
 import java.lang.*;
 // IMPORTS PARA ARCHIVOS
@@ -9,30 +12,32 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 
-//
+@Getter
+@Setter
 public class Contrasenia {
 
     private String contrasenia;
+    private Usuario usuario;
+    private ArrayList<Condicion> validador;
 
-    private ArrayList<Condicion>;
+    private String medidorDeFuerza;
 
-/* COSAS A CUMPLIR
-* Más de 8 caracteres hasta 64
-* verificar que no esté en las 10.000 contras mas usadas
-* aceptar carateres del ascii y espacio
-* CUESTION DE ESPACIOS CONSECUTIVOS ()
-* No itilizar credenciales x defecto de sw
-* Medidor de fuerza de la contraseña (fuerte, normal, débil)
-*
-* */
     public Contrasenia(String contrasenia)
     {
         this.contrasenia = contrasenia;
     }
 
-    public boolean esValida(Usuario usuario) {
-        //TODO
-        return this.esDebil() && !this.utilizaCredencialesPorDefecto(usuario);
+    public boolean esValida() {
+        this.reducirEspacios();
+        return validador.stream().allMatch(condicion->condicion.cumpleCondicion(this));
+    }
+
+    public boolean esDebil() {
+        return this.contrasenia.length() <= 8;
+    }
+
+    public boolean excedeCaracteres() {
+        return this.contrasenia.length() >=64;
     }
 
     public boolean repiteCaracteres() {
@@ -45,23 +50,13 @@ public class Contrasenia {
         }
 
         return false;
-
-    }
-    public boolean esDebil() {
-        return this.contrasenia.length() <= 8;
-    }
-
-    public boolean utilizaCredencialesPorDefecto(Usuario usuario) {
-        return Objects.equals(usuario.getUsuario(), this.contrasenia);
     }
 
     public void reducirEspacios() {
-
         int largoClaveConEspacios = contrasenia.length();
         int cantEspacios = 0;
         for (int i = 0; i < contrasenia.length(); i++){
-            if (java.lang.Character.isWhitespace(contrasenia.charAt(i)))
-            {
+            if (java.lang.Character.isWhitespace(contrasenia.charAt(i))){
                 cantEspacios++;
             }
         }
@@ -70,35 +65,31 @@ public class Contrasenia {
             contrasenia = contrasenia.replace(" ", "");
         }
     }
-    
 
-    /*
-    public boolean aceptaAsciiYEspacios(){
-        boolean isAscii = CharMatcher.ascii().matchesAllOf(someString);
+    public boolean utilizaCredencialesPorDefecto() {
+        return Objects.equals(this.usuario.getUsuario(), this.contrasenia);
+    }
 
-        //TODO
-        return true;
-    }*/
+
     
     //VERIFICACION DE QUE UNA CONTRASEÑA NO ESTE ENTRE LAS 10000 MAS USADAS
-    public boolean laContraseniaEsMuyUsada () {
-        File archivoContrasenias = new File("RUTA_DEL_ARCHIVO_DE_CONTRASEÑAS_MAS_USADAS/Archivo.txt");
+    public boolean esMuyUsada () {
+        File archivoContrasenias = new File(Config.RUTA_ARCHIVOS + "peoresContraseñas.txt");
         try {
-            // SI EXISTE EL ARCHIVO
             if(archivoContrasenias.exists()) {
-                // ABRE LECTURA DEL ARCHIVO
+
                 BufferedReader leerArchivo = new BufferedReader(new FileReader(archivoContrasenias));
                 // LINEA LEIDA
                 String lineaLeida;
+                int lineasTotales=0;
+
                 // MIENTRAS LA LINEA LEIDA NO SEA NULL
                 while((lineaLeida = leerArchivo.readLine()) != null) {
-                    lineasTotales = lineasTotales + 1;
+                    lineasTotales++;
                     String[] contraseniasUsadas = lineaLeida.split(" ");
                     for(int i = 0 ; i < contraseniasUsadas.length ; i++) {
-                        if(palabras[i].equals(contrasenia)) {
+                        if(contraseniasUsadas[i].equals(contrasenia)) {
                             return true;
-                        } else {
-                            return false;
                         }
                     }
                 }
@@ -106,7 +97,11 @@ public class Contrasenia {
         } catch(Exception e) {
             System.out.println(e.getMessage());
         }
+
+        return true;
     }
+
+
 }
 
 // COSAS QUE HAY QUE VERIFICAR

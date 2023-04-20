@@ -1,6 +1,6 @@
 package domain.roles;
 
-public class Miembro {
+public class Miembro extends Rol {
 
 
 
