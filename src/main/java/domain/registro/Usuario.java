@@ -5,10 +5,13 @@ import domain.roles.Rol;
 import domain.roles.Administrador;
 import domain.roles.Miembro;
 import domain.comunidad.Comunidad;
+import lombok.Setter;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 @Getter
+@Setter
 
 public class Usuario {
 
@@ -26,12 +29,14 @@ public class Usuario {
         this.bloqueado = false;
     }
 
-    public void añadirRol(Comunidad comunidad){
+    public void aniadirRol(Comunidad comunidad){
         Rol nuevoRol = new Miembro(comunidad);
-        roles.add(nuevoRol);
+        this.roles.add(nuevoRol);
     }
 
     public void removerRol(Comunidad comunidad){
-            roles.remove(roles.stream().findFirst())
+
+        this.roles.remove(roles.stream().filter(unRol-> unRol.getComunidad().equals(comunidad)).findFirst());
     }
+
 }

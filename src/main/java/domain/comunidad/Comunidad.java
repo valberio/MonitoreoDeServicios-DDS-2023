@@ -26,12 +26,12 @@ public class Comunidad {
         serviciosDeInteres.remove(servicio);
     }
 
-    public void añadirMiembro(Usuario usuario){
+    public void aniadirMiembro(Usuario usuario){
         this.miembros.add(usuario);
-        usuario.añadirRol(this);
+        usuario.aniadirRol(this);
     }
 
-    public void removerMiembro(Usuario usuario){
+    public void eliminarMiembro(Usuario usuario){
         this.miembros.remove(usuario);
         usuario.removerRol(this);
     }

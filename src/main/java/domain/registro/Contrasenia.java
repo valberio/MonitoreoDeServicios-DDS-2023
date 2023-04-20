@@ -33,9 +33,6 @@ public class Contrasenia {
         return validador.stream().allMatch(condicion->condicion.cumpleCondicion(this));
     }
 
-    public boolean esDebil() {
-        return this.contrasenia.length() <= 8;
-    }
 
     public boolean excedeCaracteres() {
         return this.contrasenia.length() >=64;

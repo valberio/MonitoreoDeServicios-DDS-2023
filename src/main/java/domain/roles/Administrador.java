@@ -14,7 +14,7 @@ public class Administrador extends Rol{
     }
 
     public void darDeAlta(Usuario usuario){
-        comunidad.añadirMiembro(usuario);
+        comunidad.aniadirMiembro(usuario);
     }
 
     public void darDeBaja(Usuario usuario){
