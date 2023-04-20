@@ -9,7 +9,7 @@ public class Longitud implements Condicion {
         try {
             return this.cumpleConLongitud(contrasenia);
         }catch (ContraseniaNoCumpleConLongitudException e){
-            System.out.println("La contrasenia no cumple con la longitud necesaria");
+            System.out.println(e.getMessage());
         }
         return false;
     }
@@ -28,7 +28,7 @@ public class Longitud implements Condicion {
         }
         else{
 
-            throw new ContraseniaNoCumpleConLongitudException("La contraseña etc etc");
+            throw new ContraseniaNoCumpleConLongitudException("La contrasenia no cumple con la longitud necesaria");
 
         }
     }

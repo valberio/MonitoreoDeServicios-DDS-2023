@@ -2,6 +2,7 @@ package domain.registro;
 
 import domain.config.Config;
 import domain.registro.condicionesContra.*;
+import domain.registro.condicionesContra.medidorFuerza.MedidorDeFuerza;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,26 +19,30 @@ public class Contrasenia {
 
     private String contrasenia;
     private Usuario usuario;
-    private ArrayList<Condicion> validador;
+    private ArrayList<Condicion> validador = new ArrayList<>();
 
-    private String medidorDeFuerza;
+    private MedidorDeFuerza fuerza;
 
-    public Contrasenia(String contrasenia)
-    {
+    public Contrasenia(String contrasenia) {
         this.contrasenia = contrasenia;
+        this.instanciarCondiciones();
     }
 
+    private void instanciarCondiciones() {
+
+        this.validador.add(new Longitud());
+        this.validador.add(new RepeticionCaracteres());
+        this.validador.add(new UsoDeCredenciales());
+        this.validador.add(new UsoReiterado());
+    }
+
+    //
     public boolean esValida() {
 
         this.reducirEspacios();
         return validador.stream().allMatch(condicion->condicion.cumpleCondicion(this));
     }
-
-    //NO ME ANIMO A BORRARLO, PERO YA FUE DELAGADO EN LA CONDICION LONGITUD
-    /*public boolean excedeCaracteres() {
-        return this.contrasenia.length() >=64;
-    }
-    */
+    
     public boolean repiteCaracteres() {
 
         for (int i = 0; i < this.contrasenia.length()-2; i++){
@@ -96,6 +101,33 @@ public class Contrasenia {
         }
 
         return true;
+    }
+
+    //Condiciones para medidor de fuerza
+    public boolean tieneNum(){
+        for(int i = 0; i < this.contrasenia.length(); i++){
+            if(java.lang.Character.isDigit(this.contrasenia.charAt(i))){
+                return true;
+            }
+        }
+        return false;
+    }
+    public boolean tieneMayusyMinus() {
+        boolean tieneMayus = false;
+        boolean tieneMinus = false;
+
+        for (int i = 0; i  < this.contrasenia.length(); i++)
+        {
+            if(java.lang.Character.isLowerCase(this.contrasenia.charAt(i))) {tieneMinus = true;}
+            if(java.lang.Character.isUpperCase(this.contrasenia.charAt(i))) {tieneMayus = true;}
+        }
+
+        return tieneMayus && tieneMinus;
+
+    }
+
+    public boolean tieneCaracterEspecial(){
+        
     }
 
 
