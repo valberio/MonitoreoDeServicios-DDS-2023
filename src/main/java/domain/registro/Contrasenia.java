@@ -28,6 +28,7 @@ public class Contrasenia {
     }
 
     public boolean esValida() {
+
         this.reducirEspacios();
         return validador.stream().allMatch(condicion->condicion.cumpleCondicion(this));
     }
@@ -42,8 +43,8 @@ public class Contrasenia {
 
     public boolean repiteCaracteres() {
 
-        for (int i = 0; i < contrasenia.length()-1; i++){
-            if (Objects.equals(contrasenia.charAt(i), contrasenia.charAt(i+1)))
+        for (int i = 0; i < this.contrasenia.length()-2; i++){
+            if (Objects.equals(this.contrasenia.charAt(i), this.contrasenia.charAt(i+1)) && Objects.equals(this.contrasenia.charAt(i+1),this.contrasenia.charAt(i+2)));
             {
                return true;
             }

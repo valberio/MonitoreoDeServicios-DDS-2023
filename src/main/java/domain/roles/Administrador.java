@@ -14,10 +14,10 @@ public class Administrador extends Rol{
     }
 
     public void darDeAlta(Usuario usuario){
-        usuario.habilitar();
+        comunidad.añadirMiembro(usuario);
     }
 
     public void darDeBaja(Usuario usuario){
-        usuario.deshabilitar();
+        comunidad.eliminarMiembro(usuario);
     }
 }

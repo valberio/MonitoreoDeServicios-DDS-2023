@@ -9,4 +9,15 @@ public class Estacion {
     private ArrayList<Servicio> serviciosBrindados;
 
 
+    public void brindarUnServicio(Servicio servicio) {
+
+        serviciosBrindados.add(servicio);
+    }
+
+    public void quitarUnServicio(Servicio servicio) {
+
+        serviciosBrindados.remove(servicio);
+    }
+
+
 }

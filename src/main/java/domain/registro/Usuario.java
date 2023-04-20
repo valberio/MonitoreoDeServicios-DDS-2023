@@ -2,6 +2,9 @@ package domain.registro;
 
 import lombok.Getter;
 import domain.roles.Rol;
+import domain.roles.Administrador;
+import domain.roles.Miembro;
+import domain.comunidad.Comunidad;
 
 import java.util.ArrayList;
 
@@ -23,6 +26,12 @@ public class Usuario {
         this.bloqueado = false;
     }
 
-    public void habilitar(){ bloqueado = false;}
-    public void deshabilitar(){ bloqueado = true; }
+    public void añadirRol(Comunidad comunidad){
+        Rol nuevoRol = new Miembro(comunidad);
+        roles.add(nuevoRol);
+    }
+
+    public void removerRol(Comunidad comunidad){
+            roles.remove(roles.stream().findFirst())
+    }
 }
