@@ -33,11 +33,11 @@ public class Contrasenia {
         return validador.stream().allMatch(condicion->condicion.cumpleCondicion(this));
     }
 
-
-    public boolean excedeCaracteres() {
+    //NO ME ANIMO A BORRARLO, PERO YA FUE DELAGADO EN LA CONDICION LONGITUD
+    /*public boolean excedeCaracteres() {
         return this.contrasenia.length() >=64;
     }
-
+    */
     public boolean repiteCaracteres() {
 
         for (int i = 0; i < this.contrasenia.length()-2; i++){
