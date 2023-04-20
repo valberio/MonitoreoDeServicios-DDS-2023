@@ -7,16 +7,11 @@ public class Longitud implements Condicion {
     @Override
     public boolean cumpleCondicion(Contrasenia contrasenia) {
         try {
-            this.cumpleConLongitud(contrasenia);
+            return this.cumpleConLongitud(contrasenia);
         }catch (ContraseniaNoCumpleConLongitudException e){
             System.out.println("La contrasenia no cumple con la longitud necesaria");
         }
-        if(cumpleConLongitud(contrasenia)
-        {
-            return True;
-        }
-            else
-                throw Exception
+        return false;
     }
     public boolean excedeCaracteres(Contrasenia contrasenia)
     {
@@ -27,8 +22,14 @@ public class Longitud implements Condicion {
     }
     public boolean cumpleConLongitud(Contrasenia contrasenia){
 
-        return ( !excedeCaracteres(contrasenia)) && ( !noAlcanzaCaracteres(contrasenia));
+        if((! excedeCaracteres(contrasenia) && ! noAlcanzaCaracteres(contrasenia)))
+        {
+            return true;
+        }
+        else{
+
+            throw new ContraseniaNoCumpleConLongitudException("La contraseña etc etc");
+
+        }
     }
-
-
 }
