@@ -1,9 +1,12 @@
 package tests.domain.registro;
 
 import domain.registro.Contrasenia;
+import domain.registro.Usuario;
 import domain.registro.condicionesContra.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
+
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -13,13 +16,27 @@ public class ContraseniaTests {
     private Contrasenia contraseniaNOAcortable = new Contrasenia("1234    ");
     private Contrasenia contraseniaAcortable = new Contrasenia("12345678  ");
     private Contrasenia contraseniaCorta = new Contrasenia("1234");
-    private Contrasenia contraseniaLarga = new Contrasenia("12345678901234567890123456789012345678901234567890");
-    private Contrasenia contraseniaConRepes = new Contrasenia("1111234");
+    private Contrasenia contraseniaLarga = new Contrasenia("1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890");
+    private Contrasenia contraseniaConRepes = new Contrasenia("1111234678");
     private Contrasenia contraseniaSinRepes = new Contrasenia("12345678");
     private Contrasenia contraseniaEspecial = new Contrasenia("123#");
+    private Contrasenia contraseniaValida = new Contrasenia("Abcd12345_");
 
+    private ArrayList<Condicion> validador = new ArrayList<>();
     private Longitud longitud = new Longitud();
     private RepeticionCaracteres repeticiones = new RepeticionCaracteres();
+    private UsoDeCredenciales usoDeCredenciales = new UsoDeCredenciales();
+    private UsoReiterado usoReiterado = new UsoReiterado();
+
+    private void instanciarCondiciones() {
+
+        this.validador.add(longitud);
+        this.validador.add(repeticiones);
+        this.validador.add(usoDeCredenciales);
+        this.validador.add(usoReiterado);
+    }
+    private Usuario usuarioValido = new Usuario("Pepito", contraseniaValida, "pepito@gmail.com");
+
     @Test
     public void test()
     {
@@ -36,15 +53,23 @@ public class ContraseniaTests {
         }, "Se espera que se lance una excepcion");
     }
 
-    //@Test //TODO Detallito: si la clave es muy larga tira un error (creo que de overflow), no
-    //se me ocurre cómo solucionarlo así que dejo comentado
-    /*public void testClaveLarga()
+    public void testClaveLarga()
     {
-        assertThrows(ContraseniaNoCumpleConLongitudException.class, () ->
+        Assertions.assertThrows(ContraseniaNoCumpleConLongitudException.class, () ->
         {longitud.cumpleConLongitud(contraseniaLarga);
         }, "Se espera que se lance una excepcion");
-    }*/
+    }
 
+    @Test
+    public void testContraseniaEsValida(){
+        this.instanciarCondiciones();
+        Assertions.assertFalse( contraseniaCorta.esValida());
+    }
+    @Test
+    public void testContraseniaNoEsValida(){
+        this.instanciarCondiciones();
+        Assertions.assertFalse(contraseniaCorta.esValida());
+    }
     @Test
     public void testClaveConRepeticiones()
     {
