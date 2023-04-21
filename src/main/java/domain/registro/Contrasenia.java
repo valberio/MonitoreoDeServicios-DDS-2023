@@ -2,6 +2,7 @@ package domain.registro;
 
 import domain.config.Config;
 import domain.registro.condicionesContra.*;
+import domain.registro.condicionesContra.medidorFuerza.Debil;
 import domain.registro.condicionesContra.medidorFuerza.MedidorDeFuerza;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,6 +28,7 @@ public class Contrasenia {
     public Contrasenia(String contrasenia) {
         this.contrasenia = contrasenia;
         this.instanciarCondiciones();
+        this.fuerza = new Debil();
     }
 
     private void instanciarCondiciones() {
@@ -138,6 +140,11 @@ public class Contrasenia {
         }
         return false;
     }
+
+    public void mostrarFuerza(){
+        //this.fuerza.getClassName();
+    }
+
 }
 
 
