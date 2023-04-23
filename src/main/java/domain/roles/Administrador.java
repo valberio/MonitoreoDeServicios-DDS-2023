@@ -8,11 +8,11 @@ import domain.transporte.TipoDeTransporte;
 
 public class Administrador extends Rol{
 
-    public void darDeAlta(Servicio servicio){
+    public void habilitarServicio(Servicio servicio){
         servicio.habilitar();
     }
 
-    public void darDeBaja(Servicio servicio){
+    public void deshabilitarServicio(Servicio servicio){
         servicio.deshabilitar();
     }
 
@@ -28,9 +28,7 @@ public class Administrador extends Rol{
         ServicioPublico nuevoServicioPublico = new ServicioPublico(linea, tipoDeTransporte);
     }
 
-    public void habilitarServicioPublico(ServicioPublico servicioPublico) {
-        servicioPublico.setEstaHabilitado(true);
-    }
+    public void habilitarServicioPublico(ServicioPublico servicioPublico) {servicioPublico.setEstaHabilitado(true); }
 
     public void deshabilitarServicioPublico(ServicioPublico servicioPublico) { servicioPublico.setEstaHabilitado(false); }
 

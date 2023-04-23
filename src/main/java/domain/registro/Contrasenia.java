@@ -80,7 +80,7 @@ public class Contrasenia {
     
     //VERIFICACION DE QUE UNA CONTRASEÑA NO ESTE ENTRE LAS 10000 MAS USADAS
     public boolean esMuyUsada () {
-        File archivoContrasenias = new File(Config.RUTA_ARCHIVOS + "peoresContraseñas.txt");
+        File archivoContrasenias = new File(Config.RUTA_ARCHIVOS + Config.NOMBRE_ARCHIVO);
         try {
             if(archivoContrasenias.exists()) {
 

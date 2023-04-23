@@ -3,15 +3,14 @@ package domain.registro.condicionesContra.medidorFuerza;
 
 import domain.registro.Contrasenia;
 
-public interface MedidorDeFuerza {
+public abstract class MedidorDeFuerza {
 
-    public void fuerza(Contrasenia contrasenia);
-
-   /* public String getClassName() {
+    public void fuerza(Contrasenia contrasenia) {
 
         String className = this.getClass().getSimpleName();
         System.out.println("Contrasenia:" + className);
+
     }
 
-    */
+
 }

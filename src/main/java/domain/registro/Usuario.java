@@ -38,5 +38,4 @@ public class Usuario {
 
         this.roles.remove(roles.stream().filter(unRol-> unRol.getComunidad().equals(comunidad)).findFirst());
     }
-
 }
