@@ -1,6 +1,5 @@
 package domain.transporte;
 
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,8 +7,14 @@ import lombok.Setter;
 @Setter
 public class ServicioPublico {
     private LineaDeTransporte lineaDeTransporte;
-    private String tipoDeTransporte;
+    private TipoDeTransporte tipoDeTransporte;
 
-    private Boolean estaHabilitado;
+    private Boolean estaHabilitado = true;
+
+    public ServicioPublico(LineaDeTransporte lineaDeTransporte, TipoDeTransporte tipoDeTransporte){
+        this.lineaDeTransporte = lineaDeTransporte;
+        this.tipoDeTransporte = tipoDeTransporte;
+    }
+
 
 }

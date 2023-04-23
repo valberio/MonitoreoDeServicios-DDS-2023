@@ -129,7 +129,7 @@ public class Contrasenia {
 
     public boolean tieneCaracterEspecial(){
 
-        char[] caracteresEspeciales = {'!', '¡', '?', '¿', '#', '$', '|', '°', '%', '/', '@', '%', '^', '&', '*', '(', ')', '-', '+', '=', '{', '}', '[', ']', ';', ':', '"'};  
+        char[] caracteresEspeciales = {'!', '¡', '?', '¿', '#', '$', '|', '°', '%', '/', '@', '%', '^', '&', '*', '(', ')', '-', '+', '=', '{', '}', '[', ']', ';', ':', '"'};
         for(char c: contrasenia.toCharArray()) {
             for(char i: caracteresEspeciales)
             {
