@@ -10,10 +10,7 @@ import lombok.Setter;
 import java.lang.reflect.Array;
 import java.util.*;
 import java.lang.*;
-// IMPORTS PARA ARCHIVOS
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
+
 
 @Getter
 @Setter
@@ -22,7 +19,6 @@ public class Contrasenia {
     private String contrasenia;
     private Usuario usuario;
     private ArrayList<Condicion> validador = new ArrayList<>();
-
     private MedidorDeFuerza fuerza;
 
     public Contrasenia(String contrasenia) {
@@ -46,18 +42,6 @@ public class Contrasenia {
         return validador.stream().allMatch(condicion->condicion.cumpleCondicion(this));
     }
 
-
-    public boolean repiteCaracteres() {
-
-        for (int i = 0; i < this.contrasenia.length()-2; i++){
-            if (Objects.equals(this.contrasenia.charAt(i), this.contrasenia.charAt(i+1)) && Objects.equals(this.contrasenia.charAt(i+1),this.contrasenia.charAt(i+2)));
-            {
-               return true;
-            }
-        }
-        return false;
-    }
-
     public void reducirEspacios() {
         int largoClaveConEspacios = contrasenia.length();
         int cantEspacios = 0;
@@ -70,41 +54,6 @@ public class Contrasenia {
         {
             contrasenia = contrasenia.replace(" ", "");
         }
-    }
-
-    public boolean utilizaCredencialesPorDefecto() {
-        return Objects.equals(this.usuario.getUsuario(), this.contrasenia);
-    }
-
-
-    
-    //VERIFICACION DE QUE UNA CONTRASEÑA NO ESTE ENTRE LAS 10000 MAS USADAS
-    public boolean esMuyUsada () {
-        File archivoContrasenias = new File(Config.RUTA_ARCHIVOS + Config.NOMBRE_ARCHIVO);
-        try {
-            if(archivoContrasenias.exists()) {
-
-                BufferedReader leerArchivo = new BufferedReader(new FileReader(archivoContrasenias));
-                // LINEA LEIDA
-                String lineaLeida;
-                int lineasTotales=0;
-
-                // MIENTRAS LA LINEA LEIDA NO SEA NULL
-                while((lineaLeida = leerArchivo.readLine()) != null) {
-                    lineasTotales++;
-                    String[] contraseniasUsadas = lineaLeida.split(" ");
-                    for(int i = 0 ; i < contraseniasUsadas.length ; i++) {
-                        if(contraseniasUsadas[i].equals(contrasenia)) {
-                            return true;
-                        }
-                    }
-                }
-            }
-        } catch(Exception e) {
-            System.out.println(e.getMessage());
-        }
-
-        return true;
     }
 
     //Condiciones para medidor de fuerza
@@ -141,10 +90,10 @@ public class Contrasenia {
         return false;
     }
 
-    public void mostrarFuerza(){
-        //this.fuerza.getClassName();
-    }
+    public void mostrarFuerza() {
 
+        this.fuerza.fuerza(this);
+    }
 }
 
 

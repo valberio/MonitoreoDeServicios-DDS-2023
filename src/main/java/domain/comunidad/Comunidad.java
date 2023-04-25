@@ -22,7 +22,6 @@ public class Comunidad {
     }
 
     public void darDeBaja(Servicio servicio){
-        //Tendría la misma función que el Administrador? Quiza la responsabilidad de darlo de baja en si es del admin y la comunidad se lo pide
         serviciosDeInteres.remove(servicio);
     }
 

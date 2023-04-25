@@ -3,7 +3,9 @@ package domain.registro.condicionesContra.medidorFuerza;
 import domain.registro.Contrasenia;
 
 public class Debil extends MedidorDeFuerza {
+
     //Para que sea debil está entre 8 y 10 caracteres
+
     @Override
     public void fuerza(Contrasenia contrasenia) {
         if (this.cumpleCondicionesParaModerada(contrasenia)) {

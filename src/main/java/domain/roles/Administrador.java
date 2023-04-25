@@ -32,5 +32,4 @@ public class Administrador extends Rol{
 
     public void deshabilitarServicioPublico(ServicioPublico servicioPublico) { servicioPublico.setEstaHabilitado(false); }
 
-
 }

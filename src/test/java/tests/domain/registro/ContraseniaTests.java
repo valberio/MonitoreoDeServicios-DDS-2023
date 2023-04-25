@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ContraseniaTests {
 
@@ -38,22 +39,22 @@ public class ContraseniaTests {
     private Usuario usuarioValido = new Usuario("Pepito", contraseniaValida, "pepito@gmail.com");
 
     @Test
-    public void test()
+    public void testReducirEspaciosCuandoSeaNecesario()
     {
         contraseniaNOAcortable.reducirEspacios();
 
-        //Assertions.assertEquals();
+        Assertions.assertEquals(contraseniaNOAcortable.getContrasenia(), "1234");
     }
 
     @Test //Verificando que las contraseñas cortas lancen una expecion
-    public void test1()
+    public void testLanzarExcepcionContraCorta()
     {
         assertThrows(ContraseniaNoCumpleConLongitudException.class, () -> {
             longitud.cumpleConLongitud(contraseniaCorta);
         }, "Se espera que se lance una excepcion");
     }
 
-    public void testClaveLarga()
+    public void testClaveMuyLarga()
     {
         Assertions.assertThrows(ContraseniaNoCumpleConLongitudException.class, () ->
         {longitud.cumpleConLongitud(contraseniaLarga);
