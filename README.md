@@ -1,6 +1,6 @@
 
-#Grupo 05 - Entrega 1 TP ANUAL 
-#Integrantes: 
+# Grupo 05 - Entrega 1 TP ANUAL 
+# Integrantes: 
 - Alberio, Valentina
 - Gobbi, Micaela
 - Larocca, Florencia
