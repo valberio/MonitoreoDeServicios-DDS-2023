@@ -1,13 +1,11 @@
 package domain.registro;
 
-import domain.config.Config;
 import domain.registro.condicionesContra.*;
 import domain.registro.condicionesContra.medidorFuerza.Debil;
 import domain.registro.condicionesContra.medidorFuerza.MedidorDeFuerza;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.lang.reflect.Array;
 import java.util.*;
 import java.lang.*;
 
@@ -18,28 +16,22 @@ public class Contrasenia {
 
     private String contrasenia;
     private Usuario usuario;
-    private ArrayList<Condicion> validador = new ArrayList<>();
+
+    private Validador validador = new Validador();
     private MedidorDeFuerza fuerza;
 
     public Contrasenia(String contrasenia) {
         this.contrasenia = contrasenia;
-        this.instanciarCondiciones();
         this.fuerza = new Debil();
     }
 
-    private void instanciarCondiciones() {
-
-        this.validador.add(new Longitud());
-        this.validador.add(new RepeticionCaracteres());
-        this.validador.add(new UsoDeCredenciales());
-        this.validador.add(new UsoReiterado());
-    }
 
     //
     public boolean esValida() {
 
         this.reducirEspacios();
-        return validador.stream().allMatch(condicion->condicion.cumpleCondicion(this));
+        return validador.esValida(this);
+
     }
 
     public void reducirEspacios() {

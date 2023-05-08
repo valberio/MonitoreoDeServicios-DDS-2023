@@ -1,9 +1,13 @@
 package domain.roles;
 
 import domain.comunidad.Comunidad;
+import domain.registro.Usuario;
 
-public class Miembro extends Rol {
-    public Miembro(Comunidad comunidad) {
-        this.comunidad = comunidad;
-    }
+import java.util.ArrayList;
+
+public class Miembro {
+
+    Usuario usuario;
+    ArrayList<Comunidad> comunidades = new ArrayList<>();
+
 }

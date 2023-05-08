@@ -3,7 +3,7 @@ package domain.transporte;
 import domain.servicios.Servicio;
 import java.util.ArrayList;
 
-public class Estacion {
+public class Establecimiento {
     private String nombre;
     private String ubicacionGeografica;
     private ArrayList<Servicio> serviciosBrindados;

@@ -1,13 +1,17 @@
 package domain.roles;
 
+import domain.comunidad.Comunidad;
 import domain.registro.Usuario;
 import domain.servicios.Servicio;
-import domain.transporte.LineaDeTransporte;
+import domain.transporte.Entidad;
 import domain.transporte.ServicioPublico;
-import domain.transporte.TipoDeTransporte;
 
-public class Administrador extends Rol{
+import java.util.ArrayList;
 
+public class Administrador {
+
+    Usuario usuario;
+    ArrayList<Comunidad> comunidades = new ArrayList<>();
     public void habilitarServicio(Servicio servicio){
         servicio.habilitar();
     }
@@ -16,16 +20,32 @@ public class Administrador extends Rol{
         servicio.deshabilitar();
     }
 
-    public void darDeAlta(Usuario usuario){
-        comunidad.aniadirMiembro(usuario);
+    public void darDeAlta(Miembro miembro, Comunidad comunidad){
+        int i;
+
+        for (i=0; i<comunidades.size();i++) {
+
+            if(comunidades.get(i).equals(comunidad)) {
+                comunidades.get(i).aniadirMiembro(miembro);
+            }
+        }
+
     }
 
-    public void darDeBaja(Usuario usuario){
-        comunidad.eliminarMiembro(usuario);
+    public void darDeBaja(Miembro miembro, Comunidad comunidad){
+        int i;
+
+        for (i=0; i<comunidades.size();i++) {
+
+            if(comunidades.get(i).equals(comunidad)) {
+                comunidades.get(i).eliminarMiembro(miembro);
+            }
+        }
+
     }
 
-    public void darDeAlta(LineaDeTransporte linea, TipoDeTransporte tipoDeTransporte) {
-        ServicioPublico nuevoServicioPublico = new ServicioPublico(linea, tipoDeTransporte);
+    public void darDeAlta(Entidad linea) {
+        ServicioPublico nuevoServicioPublico = new ServicioPublico(linea);
     }
 
     public void habilitarServicioPublico(ServicioPublico servicioPublico) {servicioPublico.setEstaHabilitado(true); }

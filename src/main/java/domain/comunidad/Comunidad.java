@@ -2,6 +2,7 @@ package domain.comunidad;
 
 import domain.registro.Usuario;
 import domain.roles.Administrador;
+import domain.roles.Miembro;
 import domain.servicios.Servicio;
 
 import java.util.ArrayList;
@@ -9,8 +10,8 @@ import java.util.List;
 
 public class Comunidad {
     private String nombre;
-    private ArrayList<Usuario> miembros;
-    private ArrayList<Administrador> administradores;
+    private ArrayList<Miembro> miembros = new ArrayList<Miembro>();
+    private ArrayList<Administrador> administradores = new ArrayList<Administrador>();
     private ArrayList<Servicio> serviciosDeInteres;
 
     public void definirServicio(String tipoDeServicio, String descripcion){
@@ -25,13 +26,11 @@ public class Comunidad {
         serviciosDeInteres.remove(servicio);
     }
 
-    public void aniadirMiembro(Usuario usuario){
-        this.miembros.add(usuario);
-        usuario.aniadirRol(this);
+    public void aniadirMiembro(Miembro miembro){
+        this.miembros.add(miembro);
     }
 
-    public void eliminarMiembro(Usuario usuario){
-        this.miembros.remove(usuario);
-        usuario.removerRol(this);
+    public void eliminarMiembro(Miembro miembro){
+        this.miembros.remove(miembro);
     }
 }

@@ -2,6 +2,7 @@ package tests.domain.registro;
 
 import domain.registro.Contrasenia;
 import domain.registro.Usuario;
+import domain.registro.Validador;
 import domain.registro.condicionesContra.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
@@ -23,18 +24,14 @@ public class ContraseniaTests {
     private Contrasenia contraseniaEspecial = new Contrasenia("123#");
     private Contrasenia contraseniaValida = new Contrasenia("Abcd12345_");
 
-    private ArrayList<Condicion> validador = new ArrayList<>();
+    private Validador validador = new Validador();
     private Longitud longitud = new Longitud();
     private RepeticionCaracteres repeticiones = new RepeticionCaracteres();
     private UsoDeCredenciales usoDeCredenciales = new UsoDeCredenciales();
     private UsoReiterado usoReiterado = new UsoReiterado();
 
     private void instanciarCondiciones() {
-
-        this.validador.add(longitud);
-        this.validador.add(repeticiones);
-        this.validador.add(usoDeCredenciales);
-        this.validador.add(usoReiterado);
+        this.validador.agregarCondiciones(longitud, repeticiones, usoDeCredenciales, usoReiterado);
     }
     private Usuario usuarioValido = new Usuario("Pepito", contraseniaValida, "pepito@gmail.com");
 

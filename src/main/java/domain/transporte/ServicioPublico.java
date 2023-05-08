@@ -6,14 +6,11 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ServicioPublico {
-    private LineaDeTransporte lineaDeTransporte;
-    private TipoDeTransporte tipoDeTransporte;
-
+    private Entidad entidad;
     private Boolean estaHabilitado = true;
 
-    public ServicioPublico(LineaDeTransporte lineaDeTransporte, TipoDeTransporte tipoDeTransporte){
-        this.lineaDeTransporte = lineaDeTransporte;
-        this.tipoDeTransporte = tipoDeTransporte;
+    public ServicioPublico(Entidad entidad){
+        this.entidad = entidad;
     }
 
 
