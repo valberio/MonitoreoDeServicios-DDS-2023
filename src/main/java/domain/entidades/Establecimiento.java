@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class Establecimiento {
     private String nombre;
     private String ubicacionGeografica;
-    private ArrayList<Servicio> serviciosBrindados;
+    private ArrayList<Servicio> serviciosBrindados = new ArrayList<>();
 
 
     public void brindarUnServicio(Servicio servicio) {
