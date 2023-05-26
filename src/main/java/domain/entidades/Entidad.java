@@ -1,10 +1,12 @@
-package domain.transporte;
+package domain.entidades;
 
+import domain.servicios.Servicio;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.io.Serial;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 @Getter
@@ -13,5 +15,8 @@ public class Entidad {
     private String nombre;
     private ArrayList<Establecimiento> establecimientosAsociados; // Asumiendo que la lista esta ordenada, se podria de aqui extraer estacion origen y destino cuando corresponda
 
+    public Stream<Servicio> serviciosConIncidente() {
 
+        return establecimientosAsociados.stream().flatMap(Establecimiento::obtenerServiciosIncidentados);
+    }
 }

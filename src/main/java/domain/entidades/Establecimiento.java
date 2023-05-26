@@ -1,7 +1,8 @@
-package domain.transporte;
+package domain.entidades;
 
 import domain.servicios.Servicio;
 import java.util.ArrayList;
+import java.util.stream.Stream;
 
 public class Establecimiento {
     private String nombre;
@@ -19,5 +20,10 @@ public class Establecimiento {
         serviciosBrindados.remove(servicio);
     }
 
+    public Stream<Servicio> obtenerServiciosIncidentados() {
+
+        return serviciosBrindados.stream().filter(servicio->!servicio.getEstaHabilitado());
+
+    }
 
 }

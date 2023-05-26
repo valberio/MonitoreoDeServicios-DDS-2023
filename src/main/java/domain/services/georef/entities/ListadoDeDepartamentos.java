@@ -1,2 +1,5 @@
-package domain.services.georef.entities;public class ListadoDeDepartamentos {
+package domain.services.georef.entities;
+
+public class ListadoDeDepartamentos {
+
 }

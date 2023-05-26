@@ -1,5 +1,9 @@
 package domain.servicios;
 
+
+import lombok.Getter;
+
+@Getter
 public class Servicio{
 
         private String tipoDeServicio;
