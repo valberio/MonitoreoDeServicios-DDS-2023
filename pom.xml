@@ -20,6 +20,28 @@
 
   <dependencies>
     <dependency>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-install-plugin</artifactId>
+      <version>2.4</version>
+      <type>maven-plugin</type>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-deploy-plugin</artifactId>
+      <version>2.7</version>
+      <type>maven-plugin</type>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-site-plugin</artifactId>
+      <version>3.3</version>
+      <type>maven-plugin</type>
+    </dependency>
+
+
+    <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
       <version>5.9.2</version>
@@ -45,12 +67,21 @@
       <version>2.9.0</version>
     </dependency>
 
+    <!-- https://mvnrepository.com/artifact/com.opencsv/opencsv -->
+    <dependency>
+      <groupId>com.opencsv</groupId>
+      <artifactId>opencsv</artifactId>
+      <version>5.7.1</version>
+    </dependency>
+
     <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
-    <dependency> //La añadimos nosotras
+    <dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
       <version>19.0</version>
     </dependency>
+
+
 
 
   </dependencies>
