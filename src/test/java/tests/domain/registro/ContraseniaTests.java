@@ -1,13 +1,15 @@
 package tests.domain.registro;
 
+import com.opencsv.exceptions.CsvValidationException;
 import domain.registro.Contrasenia;
 import domain.registro.Usuario;
 import domain.registro.Validador;
 import domain.registro.condicionesContra.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
+import domain.entidades.cargaEntidadesyEntesReguladores;
 
-
+import java.io.IOException;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -96,5 +98,11 @@ public class ContraseniaTests {
     {
         Assertions.assertFalse(contraseniaCorta.tieneCaracterEspecial());
     }
+
+    @Test
+    public void testCarga() throws CsvValidationException, IOException {
+            cargaEntidadesyEntesReguladores carga = new cargaEntidadesyEntesReguladores();
+            carga.CargarEntitidadesYEntesReguladores();
+        }
 }
 

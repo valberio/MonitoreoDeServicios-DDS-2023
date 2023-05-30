@@ -13,10 +13,15 @@ import java.util.stream.Stream;
 @Setter
 public class Entidad {
     private String nombre;
-    private ArrayList<Establecimiento> establecimientosAsociados; // Asumiendo que la lista esta ordenada, se podria de aqui extraer estacion origen y destino cuando corresponda
+    private ArrayList<Establecimiento> establecimientosAsociados; // Asumiendo que la lista esta ordenada, se podria de aqui extraer estacion origen y destino cuando correspond
+    private EnteRegulador ente;
 
     public Stream<Servicio> serviciosConIncidente() {
 
         return establecimientosAsociados.stream().flatMap(Establecimiento::obtenerServiciosIncidentados);
     }
 }
+
+
+
+
