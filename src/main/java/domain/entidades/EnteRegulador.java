@@ -9,6 +9,7 @@ public class EnteRegulador {
     private String nombre;
 
     public EnteRegulador( String nombre ) {
+        this.nombre = nombre;
     }
 
 }

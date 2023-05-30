@@ -16,18 +16,17 @@ public class cargaEntidadesyEntesReguladores {
                 String[] linea;
                 String[] linea2;
 
-                while ((linea = reader.readNext()) != null) {
+                while (((linea = reader.readNext()) != null) && ((linea2 = reader.readNext()) != null)) {
 
                     Entidad entidad = new Entidad();
 
                     entidad.setNombre(linea[0]);
 
-                    linea2 = reader.readNext();
-                    EnteRegulador ente = new EnteRegulador(linea2[0]);
-                    entidad.setEnte(ente);
+                    entidad.setEnte(new EnteRegulador(linea2[0]));
 
                     System.out.println(entidad.getNombre());
                     System.out.println(entidad.getEnte().getNombre());
+
                 }
             } catch (IOException e) {
                 e.printStackTrace();
