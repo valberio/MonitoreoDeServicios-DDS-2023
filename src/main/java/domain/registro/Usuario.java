@@ -1,5 +1,6 @@
 package domain.registro;
 
+import domain.Localizacion.Localizacion;
 import domain.roles.Rol;
 import domain.servicios.Servicio;
 import domain.entidades.Entidad;
@@ -19,6 +20,8 @@ public class Usuario {
     private String email;
     private Contrasenia contrasenia;
     private Boolean bloqueado = false;
+
+    private Localizacion localizacion;
 
     ArrayList<Rol> roles = new ArrayList<>();
     ArrayList<Entidad> entidadesDeInteres = new ArrayList<Entidad>();

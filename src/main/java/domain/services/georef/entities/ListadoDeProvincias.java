@@ -9,7 +9,6 @@ public class ListadoDeProvincias {
     public Parametro parametros;
     public List<Provincia> provincias;
 
-
     private class Parametro{
         public List<String> campos;
 

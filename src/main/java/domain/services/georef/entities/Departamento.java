@@ -1,8 +1,15 @@
 package domain.services.georef.entities;
 
+import domain.Localizacion.Localizacion;
+
 import java.util.ArrayList;
 
-public class Departamento {
-    public int id;
-    public String nombre;
+public class Departamento extends Localizacion {
+    public String obtenerse() {
+
+        return "NULL";
+
+    }
+
+
 }

@@ -9,7 +9,7 @@ import domain.services.georef.entities.Provincia;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class EjemploDeUsoApi {
+/*public class EjemploDeUsoApi {
 
     public static void main(String[] args) throws IOException{
         ServicioGeoref servicioGeoref = ServicioGeoref.getInstancia();
@@ -35,4 +35,4 @@ public class EjemploDeUsoApi {
 
     }
 
-}
+}*/

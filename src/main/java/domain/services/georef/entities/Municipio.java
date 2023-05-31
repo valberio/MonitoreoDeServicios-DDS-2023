@@ -1,7 +1,10 @@
 package domain.services.georef.entities;
 
-public class Municipio {
-    public int id;
-    public String nombre;
+import domain.Localizacion.Localizacion;
 
+public class Municipio extends Localizacion {
+    public String obtenerse() {
+
+        return "hola";
+    }
 }

@@ -1,6 +1,14 @@
 package domain.services.georef.entities;
 
-public class Provincia {
-    public int id;
-    public String nombre;
+import domain.Localizacion.Localizacion;
+
+import java.io.IOException;
+
+public class Provincia extends Localizacion {
+
+    public String obtenerse() throws IOException {
+
+        Provincia unaProvincia = this.servicioGeoref.listadoDeProvincias(id).provincias.get(0);
+        return unaProvincia.nombre;
+    }
 }

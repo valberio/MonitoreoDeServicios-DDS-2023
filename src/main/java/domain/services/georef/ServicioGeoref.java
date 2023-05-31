@@ -29,10 +29,10 @@ public class ServicioGeoref {
         return instancia;
     }
 
-    public ListadoDeProvincias listadoDeProvincias() throws IOException {
+    public ListadoDeProvincias listadoDeProvincias(int id) throws IOException {
 
         GeorefService georefService = this.retrofit.create(GeorefService.class);
-        Call<ListadoDeProvincias> requestProvinciasArg = georefService.provincias();
+        Call<ListadoDeProvincias> requestProvinciasArg = georefService.provincias(id);
         Response<ListadoDeProvincias> responseProvinciasArgs = requestProvinciasArg.execute(); //aca llamo a la api
         return responseProvinciasArgs.body(); //aca la matcheo con mi clase molde
 
@@ -48,10 +48,10 @@ public class ServicioGeoref {
     }
 
 
-    public ListadoDeDepartamentos listadoDeDepartamentosDeMunicipiosDeProvincia() throws IOException {
+    public ListadoDeDepartamentos listadoDeDepartamentosDeMunicipiosDeProvincia(int id) throws IOException {
 
         GeorefService georefService = this.retrofit.create(GeorefService.class);
-        Call<ListadoDeDepartamentos> requestDepartamentos = georefService.departamentos(); //hago uso del primer metodo q hice para deptos
+        Call<ListadoDeDepartamentos> requestDepartamentos = georefService.departamentos(id); //hago uso del primer metodo q hice para deptos
         Response<ListadoDeDepartamentos> responseDepartamentos = requestDepartamentos.execute(); //aca llamo a la api
         return responseDepartamentos.body(); //aca la matcheo con mi clase molde
 
