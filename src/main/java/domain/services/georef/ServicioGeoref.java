@@ -38,7 +38,7 @@ public class ServicioGeoref {
 
     }
 
-    public ListadoDeMunicipios listadoDeMunicipiosDeProvincia(int id) throws IOException {
+    public ListadoDeMunicipios listadoDeMunicipios(int id) throws IOException {
 
         GeorefService georefService = this.retrofit.create(GeorefService.class);
         Call<ListadoDeMunicipios> requestMunicipiosDeProvincia = georefService.municipios(id); //hago uso del primer metodo q hice para municipios
@@ -48,7 +48,7 @@ public class ServicioGeoref {
     }
 
 
-    public ListadoDeDepartamentos listadoDeDepartamentosDeMunicipiosDeProvincia(int id) throws IOException {
+    public ListadoDeDepartamentos listadoDeDepartamentos(int id) throws IOException {
 
         GeorefService georefService = this.retrofit.create(GeorefService.class);
         Call<ListadoDeDepartamentos> requestDepartamentos = georefService.departamentos(id); //hago uso del primer metodo q hice para deptos
