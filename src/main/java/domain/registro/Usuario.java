@@ -7,6 +7,7 @@ import domain.entidades.Entidad;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
@@ -36,5 +37,10 @@ public class Usuario {
     public ArrayList<Servicio> serviciosDeInteres(){
 
         return entidadesDeInteres.stream().flatMap(entidad->entidad.serviciosConIncidente()).collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    public String getLocalizacion() throws IOException {
+
+        return localizacion.obtenerse();
     }
 }

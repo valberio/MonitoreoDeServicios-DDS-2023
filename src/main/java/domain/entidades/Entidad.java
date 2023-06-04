@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.ArrayList;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 
@@ -15,7 +14,6 @@ import java.util.stream.Stream;
 public class Entidad {
     private String nombre;
     private ArrayList<Establecimiento> establecimientosAsociados; // Asumiendo que la lista esta ordenada, se podria de aqui extraer estacion origen y destino cuando correspond
-    private EnteRegulador ente;
 
     private Localizacion localizacion;
 

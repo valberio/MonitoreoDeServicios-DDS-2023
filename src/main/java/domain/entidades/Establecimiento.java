@@ -1,12 +1,13 @@
 package domain.entidades;
 
+import domain.Localizacion.Localizacion;
 import domain.servicios.Servicio;
 import java.util.ArrayList;
 import java.util.stream.Stream;
 
 public class Establecimiento {
     private String nombre;
-    private String ubicacionGeografica;
+    private Localizacion ubicacionGeografica;
     private ArrayList<Servicio> serviciosBrindados = new ArrayList<>();
 
 

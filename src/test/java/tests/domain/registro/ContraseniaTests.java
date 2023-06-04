@@ -7,10 +7,9 @@ import domain.registro.Validador;
 import domain.registro.condicionesContra.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
-import domain.entidades.cargaEntidadesyEntesReguladores;
+import domain.entidades.cargaEntidadesyOrgDeControl;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -101,8 +100,8 @@ public class ContraseniaTests {
 
     @Test
     public void testCarga() throws CsvValidationException, IOException {
-            cargaEntidadesyEntesReguladores carga = new cargaEntidadesyEntesReguladores();
-            carga.CargarEntitidadesYEntesReguladores();
+            cargaEntidadesyOrgDeControl carga = new cargaEntidadesyOrgDeControl();
+            carga.cargarEntidadesYOrgDeControl();
         }
 }
 
