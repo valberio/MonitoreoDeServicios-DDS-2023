@@ -1,7 +1,7 @@
 package domain.entidades;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
-
+import lombok.Getter;
 import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Array;
@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Getter
 public class cargaEntidadesyOrgDeControl {
 
     protected ArrayList<OrganismoDeControl> organismosRegistrados = new ArrayList<OrganismoDeControl>();
@@ -31,7 +32,8 @@ public class cargaEntidadesyOrgDeControl {
                             .filter(organismo -> organismo.getNombre().equals(nombreOrganismo))
                             .findFirst();
 
-                    organismoEncontrado.get().AnadirPrestadoraControlada(new PrestadoraDeServicio(linea[1]));
+                    organismoEncontrado.get().AnadirPrestadoraControlada(new PrestadoraDeServicio(linea[1]));;
+
                 }
                 else {
                     OrganismoDeControl organismo = new OrganismoDeControl(linea[0]);
@@ -39,6 +41,7 @@ public class cargaEntidadesyOrgDeControl {
                     organismo.AnadirPrestadoraControlada(new PrestadoraDeServicio(linea[1]));
                 }
             }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -51,5 +54,6 @@ public class cargaEntidadesyOrgDeControl {
 
         return (nombresOrganismosRegistrados.contains(nombre));
     }
+
 }
 
