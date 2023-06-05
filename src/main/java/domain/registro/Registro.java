@@ -1,12 +1,13 @@
 package domain.registro;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 
 public class Registro {
     //momentaneo hasta que se puedan implementar correctamente los usuariosYaRegistrados
     private ArrayList<Usuario> usuariosRegistrados;
-    public void registrarUsuario(String usuario, Contrasenia contrasenia, String email) {
+    public void registrarUsuario(String usuario, Contrasenia contrasenia, String email) throws IOException {
         if (this.noEstaRegistrado(usuario) && contrasenia.esValida()) {
             Usuario nuevoUsuario = new Usuario(usuario, contrasenia, email);
             this.usuariosRegistrados.add(nuevoUsuario);

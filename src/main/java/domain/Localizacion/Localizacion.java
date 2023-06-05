@@ -7,7 +7,12 @@ import java.io.IOException;
 public abstract class Localizacion {
     public int id;
     public String nombre;
+    public ServicioGeoref servicioGeoref = ServicioGeoref.getInstancia();
 
-    protected ServicioGeoref servicioGeoref = ServicioGeoref.getInstancia();
-    public abstract String obtenerse() throws IOException;
+    public abstract Localizacion obtenerse(int id) throws IOException;
+
+    public abstract String obtenerNombre(int id) throws IOException;
+
+
+
 }

@@ -9,23 +9,21 @@ import lombok.Setter;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Getter
 @Setter
 
 public class Usuario {
-
     private String usuario;
     private String apellido;
     private String email;
     private Contrasenia contrasenia;
-    private Boolean bloqueado = false;
-
+    private Boolean bloqueado;
     private Localizacion localizacion;
-
     ArrayList<Rol> roles = new ArrayList<>();
-    ArrayList<Entidad> entidadesDeInteres = new ArrayList<Entidad>();
+    ArrayList<Entidad> entidadesDeInteres = new ArrayList<>();
 
     public Usuario(String usuario, Contrasenia contrasenia, String email) {
         this.usuario = usuario;
@@ -34,13 +32,14 @@ public class Usuario {
         this.bloqueado = false;
     }
 
+    public void agregarEntidadesDeInteres (Entidad ... entidad) {
+
+        entidadesDeInteres.addAll(List.of(entidad));
+    }
+
     public ArrayList<Servicio> serviciosDeInteres(){
 
         return entidadesDeInteres.stream().flatMap(entidad->entidad.serviciosConIncidente()).collect(Collectors.toCollection(ArrayList::new));
     }
 
-    public String getLocalizacion() throws IOException {
-
-        return localizacion.obtenerse();
-    }
 }

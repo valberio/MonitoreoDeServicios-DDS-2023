@@ -37,7 +37,6 @@ public class cargaEntidadesyOrgDeControl {
                     OrganismoDeControl organismo = new OrganismoDeControl(linea[0]);
                     organismosRegistrados.add(organismo);
                     organismo.AnadirPrestadoraControlada(new PrestadoraDeServicio(linea[1]));
-
                 }
             }
         } catch (IOException e) {

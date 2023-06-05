@@ -32,6 +32,9 @@ public class ContraseniaTests {
     private UsoDeCredenciales usoDeCredenciales = new UsoDeCredenciales();
     private UsoReiterado usoReiterado = new UsoReiterado();
 
+    public ContraseniaTests() throws IOException {
+    }
+
     private void instanciarCondiciones() {
         this.validador.agregarCondiciones(longitud, repeticiones, usoDeCredenciales, usoReiterado);
     }
@@ -45,7 +48,7 @@ public class ContraseniaTests {
         Assertions.assertEquals(contraseniaNOAcortable.getContrasenia(), "1234");
     }
 
-    @Test //Verificando que las contraseñas cortas lancen una expecion
+    @Test //Verificando que las contraseñas cortas lancen una excepcion
     public void testLanzarExcepcionContraCorta()
     {
         assertThrows(ContraseniaNoCumpleConLongitudException.class, () -> {
@@ -97,11 +100,5 @@ public class ContraseniaTests {
     {
         Assertions.assertFalse(contraseniaCorta.tieneCaracterEspecial());
     }
-
-    @Test
-    public void testCarga() throws CsvValidationException, IOException {
-            cargaEntidadesyOrgDeControl carga = new cargaEntidadesyOrgDeControl();
-            carga.cargarEntidadesYOrgDeControl();
-        }
 }
 

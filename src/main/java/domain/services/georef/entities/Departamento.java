@@ -6,11 +6,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Departamento extends Localizacion {
-    public String obtenerse() throws IOException {
+
+    public Localizacion obtenerse(int id) throws IOException {
 
         Departamento unDepartamento = this.servicioGeoref.listadoDeDepartamentos(id).departamentos.get(0);
-        return unDepartamento.nombre;
+        return unDepartamento;
 
+    }
+
+    public String obtenerNombre(int id) throws IOException{
+        return this.obtenerse(this.id).nombre;
     }
 
 }
