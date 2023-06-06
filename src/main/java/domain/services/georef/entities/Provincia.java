@@ -13,7 +13,8 @@ public class Provincia extends Localizacion {
         return unaProvincia;
     }
 
+    @Override
     public String obtenerNombre(int id) throws IOException{
-        return this.obtenerse(this.id).nombre;
+        return this.obtenerse(id).nombre;
     }
 }

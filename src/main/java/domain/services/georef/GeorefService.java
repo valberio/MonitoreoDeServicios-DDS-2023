@@ -8,11 +8,14 @@ import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 public interface GeorefService {
+
     @GET("provincias")
-    Call<ListadoDeProvincias> provincias(@Query("campos") int idProvincia);
+    Call<ListadoDeProvincias> provincias();
+    @GET("provincias")
+    Call<ListadoDeProvincias> provincias(@Query("campos") int campos);
 
     @GET("municipios")
-    Call<ListadoDeMunicipios> municipios(@Query("provincia") int idMunicipio);
+    Call<ListadoDeMunicipios> municipios(@Query("provincia") int idProvincia);
 
     @GET("departamentos")
     Call<ListadoDeDepartamentos> departamentos(@Query("campos") int idDepartamento);
