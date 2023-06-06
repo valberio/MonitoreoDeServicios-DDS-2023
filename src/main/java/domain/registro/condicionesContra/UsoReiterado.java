@@ -22,7 +22,7 @@ public class UsoReiterado implements Condicion{
 
 
     public boolean esMuyUsada (Contrasenia contrasenia) {
-        File archivoContrasenias = new File(Config.RUTA_ARCHIVOS + Config.NOMBRE_ARCHIVO);
+        File archivoContrasenias = new File(Config.RUTA_ARCHIVOS + Config.PEORES_CONTRASEÑAS_TXT);
         try {
             if(archivoContrasenias.exists()) {
 
