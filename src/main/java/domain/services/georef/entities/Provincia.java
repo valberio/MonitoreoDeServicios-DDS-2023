@@ -6,9 +6,10 @@ import java.io.IOException;
 
 public class Provincia extends Localizacion {
 
-    public Localizacion obtenerse(int id) throws IOException {
 
-        Provincia unaProvincia = this.servicioGeoref.listadoDeProvincias(id).provincias.get(0);
+    public Provincia obtenerse(int id) throws IOException {
+
+        Provincia unaProvincia = this.servicioGeoref.listadoDeProvincias().provincias.get(id);
         return unaProvincia;
     }
 

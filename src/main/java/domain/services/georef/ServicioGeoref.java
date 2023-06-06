@@ -32,7 +32,7 @@ public class ServicioGeoref {
     public ListadoDeProvincias listadoDeProvincias(int id) throws IOException {
 
         GeorefService georefService = this.retrofit.create(GeorefService.class);
-        Call<ListadoDeProvincias> requestProvinciasArg = georefService.provincias(id);
+        Call<ListadoDeProvincias> requestProvinciasArg = georefService.provincias();
         Response<ListadoDeProvincias> responseProvinciasArgs = requestProvinciasArg.execute(); //aca llamo a la api
         return responseProvinciasArgs.body(); //aca la matcheo con mi clase molde
 
