@@ -3,6 +3,8 @@ package tests.domain.api;
 import com.opencsv.exceptions.CsvValidationException;
 import domain.Localizacion.Localizacion;
 import domain.entidades.Entidad;
+import domain.entidades.Establecimiento;
+import domain.services.georef.ServicioGeoref;
 import domain.services.georef.entities.Provincia;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
