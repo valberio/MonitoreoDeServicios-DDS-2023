@@ -19,13 +19,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class APITest {
-    private Entidad lineaMitre = new Entidad("Linea Mitre");
-    //private Provincia buenosAires = new Provincia(06);
-
-
     public APITest() throws IOException {
     }
-    
+
 
     @Test
     public void probarLlamadasMunicipios() throws IOException {
