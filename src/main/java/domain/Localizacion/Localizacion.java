@@ -13,6 +13,4 @@ public abstract class Localizacion {
 
     public abstract String obtenerNombre(int id) throws IOException;
 
-
-
 }

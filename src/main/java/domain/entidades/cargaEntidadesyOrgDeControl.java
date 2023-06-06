@@ -55,5 +55,7 @@ public class cargaEntidadesyOrgDeControl {
         return (nombresOrganismosRegistrados.contains(nombre));
     }
 
+    
+
 }
 
