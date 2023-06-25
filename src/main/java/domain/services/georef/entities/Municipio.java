@@ -6,6 +6,8 @@ import java.io.IOException;
 
 public class Municipio extends Localizacion {
 
+    private ListadoDeDepartamentos departamentos;
+
     public Municipio obtenerse(int id) throws IOException {
 
        Municipio unMunicipio = this.servicioGeoref.listadoDeMunicipios(id).municipios.get(0);
