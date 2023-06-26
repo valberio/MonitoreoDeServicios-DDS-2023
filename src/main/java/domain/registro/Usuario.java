@@ -1,6 +1,7 @@
 package domain.registro;
 
 import domain.Localizacion.Localizacion;
+import domain.notificaciones.NotificadorRevisiones;
 import domain.roles.Rol;
 import domain.servicios.Servicio;
 import domain.entidades.Entidad;
@@ -40,6 +41,12 @@ public class Usuario {
     public ArrayList<Servicio> serviciosDeInteres(){
 
         return entidadesDeInteres.stream().flatMap(entidad->entidad.serviciosConIncidente()).collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    public void modificarLocalizacion(Localizacion nuevaLocalizacion){
+        this.localizacion = nuevaLocalizacion;
+        NotificadorRevisiones notificadorRevisiones = new NotificadorRevisiones();
+        notificadorRevisiones.enviarSugerenciasRevisionA(this);
     }
 
 }

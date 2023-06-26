@@ -1,11 +1,16 @@
 package tests.domain.api;
 
 import com.opencsv.exceptions.CsvValidationException;
+import datos.ArchivoIncidentes;
 import domain.Localizacion.Localizacion;
 import domain.entidades.Entidad;
 import domain.entidades.Establecimiento;
+import domain.incidente.Incidente;
+import domain.registro.Usuario;
 import domain.services.georef.ServicioGeoref;
 import domain.services.georef.entities.*;
+import domain.servicios.PrestacionDeServicio;
+import domain.servicios.Servicio;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
@@ -41,6 +46,40 @@ public class APITest {
         Provincia provincia = new Provincia();
         System.out.println(provincia.obtenerNombre(22));
         Assertions.assertEquals(provincia.obtenerNombre(22), "Buenos Aires");
+    }
+
+    @Test
+    public void testearLocalizacion() throws IOException {
+        Provincia provincia = new Provincia();
+        System.out.println(provincia.obtenerNombre(1));
+    }
+
+    @Test
+    public void testearEstasCerca(){
+        Provincia provincia = new Provincia();
+        provincia.id = 1;
+        Provincia provincia1 = new Provincia();
+        provincia1.id = 1;
+
+        Assertions.assertTrue(provincia.estasCercaDe(provincia1));
+    }
+
+    @Test
+    public void testearNotificaciones(){
+
+        Provincia provincia = new Provincia();
+        provincia.id = 10;
+
+        Servicio servicio = new Servicio("Baño", "Baño");
+
+        Establecimiento establecimiento = new Establecimiento("Facultad", provincia);
+
+        PrestacionDeServicio prestacionDeServicio = new PrestacionDeServicio(servicio, establecimiento);
+
+        Incidente incidente = new Incidente(prestacionDeServicio, new Usuario("pepe", null, null), null);
+
+        Usuario usuario = new Usuario("Pepita", null, null);
+        usuario.modificarLocalizacion(provincia);
     }
 }
 

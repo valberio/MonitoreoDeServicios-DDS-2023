@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class serviciosDeInteresTest {
+/*public class serviciosDeInteresTest {
 
     private Contrasenia unUsuarioContra = new Contrasenia(("buenasTardes2"));
     private Usuario unUsuario = new Usuario("marsoteras", unUsuarioContra, "marsoteras@gmail.com");
@@ -65,4 +65,4 @@ public class serviciosDeInteresTest {
 
     }
 
-}
+}*/

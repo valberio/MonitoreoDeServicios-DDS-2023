@@ -16,8 +16,10 @@ public class Establecimiento {
     private String nombre;
     private Localizacion ubicacionGeografica;
     private ArrayList<PrestacionDeServicio> serviciosBrindados = new ArrayList<>();
-    public Establecimiento(String nombre) {
+    public Establecimiento(String nombre, Localizacion ubicacionGeografica)
+    {
         this.nombre = nombre;
+        this.ubicacionGeografica = ubicacionGeografica;
     }
 
     public void brindarServicios(PrestacionDeServicio ... servicio) {
