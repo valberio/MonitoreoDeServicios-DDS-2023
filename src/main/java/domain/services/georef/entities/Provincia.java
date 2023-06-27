@@ -6,6 +6,7 @@ import java.io.IOException;
 
 public class Provincia extends Localizacion {
 
+    private ListadoDeMunicipios municipios;
 
     public Provincia obtenerse(int id) throws IOException {
 
