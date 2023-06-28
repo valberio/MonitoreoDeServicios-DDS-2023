@@ -1,10 +1,14 @@
 package domain.registro;
 
 import domain.Localizacion.Localizacion;
+<<<<<<< HEAD
 import domain.comunidad.Comunidad;
 import domain.notificaciones.MedioNotificacion;
 import domain.notificaciones.envio.ModoDeRecepcion;
 import domain.notificaciones.envio.PreferenciaEnvioNotificacion;
+=======
+import domain.notificaciones.NotificadorRevisiones;
+>>>>>>> fbc63f7ef26b05aeea77b85cfca34023553ea90c
 import domain.roles.Rol;
 import domain.servicios.PrestacionDeServicio;
 import domain.servicios.Servicio;
@@ -58,6 +62,7 @@ public class Usuario {
         return entidadesDeInteres.stream().flatMap(entidad->entidad.serviciosConIncidente()).collect(Collectors.toCollection(ArrayList::new));
     }
 
+<<<<<<< HEAD
 
     public boolean teInteresa(PrestacionDeServicio servicioAfectado) {
 
@@ -68,4 +73,12 @@ public class Usuario {
 
         return roles.stream().anyMatch(rol->rol.getComunidad().equals(comunidad));
     }
+=======
+    public void modificarLocalizacion(Localizacion nuevaLocalizacion){
+        this.localizacion = nuevaLocalizacion;
+        NotificadorRevisiones notificadorRevisiones = new NotificadorRevisiones();
+        notificadorRevisiones.enviarSugerenciasRevisionA(this);
+    }
+
+>>>>>>> fbc63f7ef26b05aeea77b85cfca34023553ea90c
 }

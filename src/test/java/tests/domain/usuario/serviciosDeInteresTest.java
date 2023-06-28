@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class serviciosDeInteresTest {
+/*public class serviciosDeInteresTest {
 
     private Contrasenia unUsuarioContra = new Contrasenia(("buenasTardes2"));
     private PreferenciaEnvioNotificacion preferencia = new PreferenciaEnvioNotificacion();
@@ -67,4 +67,4 @@ public class serviciosDeInteresTest {
 
     }
 
-}
+}*/

@@ -9,7 +9,7 @@ import java.util.Collection;
 public class Servicio {
 
         private String tipoDeServicio;
-        private String descripcion;
+        public String descripcion;
 
 
         public Servicio(String tipoDeServicio, String descripcion) {
@@ -20,6 +20,5 @@ public class Servicio {
         public void modificarDescripcion(String nuevaDescripcion){
                 this.descripcion = nuevaDescripcion;
         }
-
 
 }
