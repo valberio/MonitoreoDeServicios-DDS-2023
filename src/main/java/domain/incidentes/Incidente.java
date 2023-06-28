@@ -24,6 +24,7 @@ public class Incidente {
 
     public Comunidad comunidadDondeSeReporta;
 
+    Notificador notificador = Notificador.getInstancia();
     String descripcion;
 
     public Incidente(PrestacionDeServicio prestacionDeServicio, Usuario usuarioReportador, LocalDateTime fechaReporte)
@@ -37,7 +38,6 @@ public class Incidente {
 
     }
 
-    Notificador notificador = Notificador.getInstancia();
 
     public void reportar() {
 
