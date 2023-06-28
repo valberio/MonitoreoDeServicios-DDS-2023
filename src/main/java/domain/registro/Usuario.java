@@ -79,6 +79,4 @@ public class Usuario {
         NotificadorRevisiones notificadorRevisiones = new NotificadorRevisiones();
         notificadorRevisiones.enviarSugerenciasRevisionA(this);
     }
-
->>>>>>> fbc63f7ef26b05aeea77b85cfca34023553ea90c
 }

@@ -23,11 +23,11 @@ public class cargaEntidadesyOrgDeControl {
 
             while ((linea = reader.readNext()) != null) {
                 //Formato CSV:
-                //Organismo de Control, Entidad Prestad ora
+                //Organismo de Control, CUIT, Entidad Prestad ora
 
-                if(organismoYaRegistrado(linea[0]))
+                if(organismoYaRegistrado(linea[1]))
                 {
-                    final String nombreOrganismo = linea[0];
+                    final String cuit = linea[1];
 
                     Optional<OrganismoDeControl> organismoEncontrado = organismosRegistrados.stream()
                             .filter(organismo -> organismo.getNombre().equals(nombreOrganismo))
@@ -42,7 +42,6 @@ public class cargaEntidadesyOrgDeControl {
                     organismo.AnadirPrestadoraControlada(new PrestadoraDeServicio(linea[1]));
                 }
             }
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -53,7 +52,7 @@ public class cargaEntidadesyOrgDeControl {
                 .map(OrganismoDeControl::getNombre)
                 .collect(Collectors.toList());
 
-        return (nombresOrganismosRegistrados.contains(nombre));
+        return (cuitsOrganismosRegistrados.contains(CUIT));
     }
 
     
