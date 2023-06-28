@@ -3,6 +3,7 @@ package tests.domain.usuario;
 import domain.comunidad.Comunidad;
 import domain.entidades.Entidad;
 import domain.entidades.Establecimiento;
+import domain.notificaciones.envio.PreferenciaEnvioNotificacion;
 import domain.registro.Contrasenia;
 import domain.registro.Usuario;
 import domain.servicios.PrestacionDeServicio;
@@ -18,7 +19,8 @@ import java.util.ArrayList;
 public class serviciosDeInteresTest {
 
     private Contrasenia unUsuarioContra = new Contrasenia(("buenasTardes2"));
-    private Usuario unUsuario = new Usuario("marsoteras", unUsuarioContra, "marsoteras@gmail.com");
+    private PreferenciaEnvioNotificacion preferencia = new PreferenciaEnvioNotificacion();
+    private Usuario unUsuario = new Usuario("marsoteras", unUsuarioContra, "marsoteras@gmail.com", preferencia);
 
     private Entidad lineaMitre = new Entidad("Linea Mitre");
     private Establecimiento Retiro = new Establecimiento("Estacion Retiro");

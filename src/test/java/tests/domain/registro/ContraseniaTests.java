@@ -1,6 +1,7 @@
 package tests.domain.registro;
 
 import com.opencsv.exceptions.CsvValidationException;
+import domain.notificaciones.envio.PreferenciaEnvioNotificacion;
 import domain.registro.Contrasenia;
 import domain.registro.Usuario;
 import domain.registro.Validador;
@@ -32,13 +33,15 @@ public class ContraseniaTests {
     private UsoDeCredenciales usoDeCredenciales = new UsoDeCredenciales();
     private UsoReiterado usoReiterado = new UsoReiterado();
 
+    private PreferenciaEnvioNotificacion preferencia;
+
     public ContraseniaTests() throws IOException {
     }
 
     private void instanciarCondiciones() {
         this.validador.agregarCondiciones(longitud, repeticiones, usoDeCredenciales, usoReiterado);
     }
-    private Usuario usuarioValido = new Usuario("Pepito", contraseniaValida, "pepito@gmail.com");
+    private Usuario usuarioValido = new Usuario("Pepito", contraseniaValida, "pepito@gmail.com", preferencia );
 
     @Test
     public void testReducirEspaciosCuandoSeaNecesario()

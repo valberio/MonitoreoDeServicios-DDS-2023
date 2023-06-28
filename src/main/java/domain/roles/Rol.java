@@ -1,9 +1,13 @@
 package domain.roles;
 
 import domain.comunidad.Comunidad;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 
+@Getter
+@Setter
 public class Rol {
 
     String nombre;
