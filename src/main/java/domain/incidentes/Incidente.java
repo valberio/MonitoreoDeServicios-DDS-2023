@@ -1,28 +1,41 @@
-package incidentes;
+package domain.incidentes;
 
+import datos.ArchivoIncidentes;
 import domain.comunidad.Comunidad;
 import domain.notificaciones.Notificador;
 import domain.registro.Registro;
 import domain.registro.Usuario;
 import domain.servicios.PrestacionDeServicio;
+import lombok.Getter;
+import lombok.Setter;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
-import java.util.stream.Collectors;
 
+@Getter
+@Setter
 public class Incidente {
-    PrestacionDeServicio servicioAfectado;
 
-    Usuario usuarioQueReporta;
+    public PrestacionDeServicio servicioAfectado;
+    public Usuario usuarioReportador;
+    public LocalDateTime fechaReporte;
+    public LocalDateTime fechaResolucion;
 
-    Comunidad comunidadDondeSeReporta;
+    public Comunidad comunidadDondeSeReporta;
 
     String descripcion;
 
-    LocalDateTime fechaYHora;
+    public Incidente(PrestacionDeServicio prestacionDeServicio, Usuario usuarioReportador, LocalDateTime fechaReporte)
+    {
+        this.servicioAfectado = prestacionDeServicio;
+        this.usuarioReportador = usuarioReportador;
+        this.fechaReporte = fechaReporte;
+
+        ArchivoIncidentes archivo = ArchivoIncidentes.getInstance();
+        archivo.guardarIncidente(this);
+
+    }
 
     Notificador notificador = Notificador.getInstancia();
 
@@ -44,8 +57,8 @@ public class Incidente {
 
         usuariosInteresados.addAll(interesadosPorComunidadEnComun);
 
-        if(usuariosInteresados.contains(usuarioQueReporta)) {
-            usuariosInteresados.remove(usuarioQueReporta);
+        if(usuariosInteresados.contains(usuarioReportador)) {
+            usuariosInteresados.remove(usuarioReportador);
         }
 
         return this.obtenerUsuariosInteresadosSinRepetir(usuariosInteresados);
@@ -54,16 +67,16 @@ public class Incidente {
 
     public ArrayList<Usuario> obtenerUsuariosInteresadosSinRepetir(ArrayList<Usuario> usuarios) {
 
-            HashSet<Usuario> conjunto = new HashSet<>();
-            ArrayList<Usuario>usuariosDuplicados = new ArrayList<>();
+        HashSet<Usuario> conjunto = new HashSet<>();
+        ArrayList<Usuario>usuariosDuplicados = new ArrayList<>();
 
-            for (Usuario usuario : usuarios) {
-                if (!conjunto.add(usuario)) {
-                    usuariosDuplicados.add(usuario);
-                }
+        for (Usuario usuario : usuarios) {
+            if (!conjunto.add(usuario)) {
+                usuariosDuplicados.add(usuario);
             }
+        }
 
-            usuarios.removeAll(usuariosDuplicados);
+        usuarios.removeAll(usuariosDuplicados);
 
         return usuarios;
     }

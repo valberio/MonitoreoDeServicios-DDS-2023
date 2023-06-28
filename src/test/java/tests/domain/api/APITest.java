@@ -1,17 +1,12 @@
 package tests.domain.api;
 
-import com.opencsv.exceptions.CsvValidationException;
-import datos.ArchivoIncidentes;
-import domain.Localizacion.Localizacion;
-import domain.entidades.Entidad;
 import domain.entidades.Establecimiento;
-import domain.incidente.Incidente;
+import domain.incidentes.Incidente;
 import domain.registro.Usuario;
 import domain.services.georef.ServicioGeoref;
 import domain.services.georef.entities.*;
 import domain.servicios.PrestacionDeServicio;
 import domain.servicios.Servicio;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 

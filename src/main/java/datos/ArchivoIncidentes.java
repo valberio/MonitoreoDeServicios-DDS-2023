@@ -1,6 +1,8 @@
 package datos;
 
-import domain.incidente.Incidente;
+
+
+import domain.incidentes.Incidente;
 
 import java.util.ArrayList;
 

@@ -1,7 +1,7 @@
 package domain.notificaciones;
 
 import domain.registro.Usuario;
-import incidentes.Incidente;
+import domain.incidentes.Incidente;
 
 import java.util.ArrayList;
 
