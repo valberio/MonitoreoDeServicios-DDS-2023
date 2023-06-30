@@ -22,4 +22,9 @@ public class PrestacionDeServicio {
         this.establecimiento = establecimiento;
         estaHabilitado = true;
     }
+
+    public String obtenerTextoRelevante() {
+
+        return "servicio: " + this.servicio.getDescripcion() + "en establecimiento: " + this.establecimiento.getNombre();
+    }
 }

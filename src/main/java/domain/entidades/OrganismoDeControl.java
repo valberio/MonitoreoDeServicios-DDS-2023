@@ -9,7 +9,7 @@ import java.util.ArrayList;
 @Setter
 public class OrganismoDeControl {
     private String nombre;
-
+    private String CUIT;
     private ArrayList<PrestadoraDeServicio> EntidadesPrestadorasControladas = new ArrayList<PrestadoraDeServicio>();
 
     public OrganismoDeControl(String nombre ) {

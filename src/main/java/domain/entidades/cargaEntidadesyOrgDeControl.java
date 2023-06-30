@@ -5,17 +5,15 @@ import domain.config.Config;
 import lombok.Getter;
 import java.io.FileReader;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Getter
 public class cargaEntidadesyOrgDeControl {
 
-    protected ArrayList<OrganismoDeControl> organismosRegistrados = new ArrayList<OrganismoDeControl>();
+    protected ArrayList<OrganismoDeControl> organismosRegistrados = new ArrayList<>();
 
-    public void cargarEntidadesYOrgDeControl() throws IOException, CsvValidationException {
+    public void cargarEntidadesYOrgDeControl() throws CsvValidationException {
         String archivo = Config.RUTA_CSV;
 
         try (CSVReader reader = new CSVReader(new FileReader(archivo))) {
@@ -30,16 +28,17 @@ public class cargaEntidadesyOrgDeControl {
                     final String cuit = linea[1];
 
                     Optional<OrganismoDeControl> organismoEncontrado = organismosRegistrados.stream()
-                            .filter(organismo -> organismo.getNombre().equals(nombreOrganismo))
+                            .filter(organismo -> organismo.getCUIT().equals(cuit))
                             .findFirst();
 
-                    organismoEncontrado.get().AnadirPrestadoraControlada(new PrestadoraDeServicio(linea[1]));;
+                    organismoEncontrado.get().AnadirPrestadoraControlada(new PrestadoraDeServicio(linea[2]));
 
                 }
                 else {
                     OrganismoDeControl organismo = new OrganismoDeControl(linea[0]);
+                    organismo.setCUIT(linea[1]);
                     organismosRegistrados.add(organismo);
-                    organismo.AnadirPrestadoraControlada(new PrestadoraDeServicio(linea[1]));
+                    organismo.AnadirPrestadoraControlada(new PrestadoraDeServicio(linea[2]));
                 }
             }
         } catch (IOException e) {
@@ -47,15 +46,11 @@ public class cargaEntidadesyOrgDeControl {
         }
     }
 
-    private Boolean organismoYaRegistrado(String nombre){
-        ArrayList<String> nombresOrganismosRegistrados = (ArrayList<String>) organismosRegistrados.stream()
-                .map(OrganismoDeControl::getNombre)
-                .collect(Collectors.toList());
+    private Boolean organismoYaRegistrado(String CUIT){
+        ArrayList<String> cuitsOrganismosRegistrados = (ArrayList<String>) organismosRegistrados.stream()
+                .map(OrganismoDeControl::getCUIT)
+                .toList();
 
         return (cuitsOrganismosRegistrados.contains(CUIT));
     }
-
-    
-
 }
-

@@ -27,8 +27,7 @@ public class Incidente {
     Notificador notificador = Notificador.getInstancia();
     String descripcion;
 
-    public Incidente(PrestacionDeServicio prestacionDeServicio, Usuario usuarioReportador, LocalDateTime fechaReporte)
-    {
+    public Incidente(PrestacionDeServicio prestacionDeServicio, Usuario usuarioReportador, LocalDateTime fechaReporte) {
         this.servicioAfectado = prestacionDeServicio;
         this.usuarioReportador = usuarioReportador;
         this.fechaReporte = fechaReporte;
@@ -79,6 +78,11 @@ public class Incidente {
         usuarios.removeAll(usuariosDuplicados);
 
         return usuarios;
+    }
+
+    public String getLocalizacion() {
+
+        return this.servicioAfectado.getEstablecimiento().getUbicacionGeografica().nombre;
     }
 
 }
