@@ -2,6 +2,8 @@ package domain.registro;
 
 import domain.Localizacion.Localizacion;
 import domain.comunidad.Comunidad;
+import domain.entidades.Establecimiento;
+import domain.incidentes.Incidente;
 import domain.notificaciones.MedioNotificacion;
 import domain.notificaciones.envio.ModoDeRecepcion;
 import domain.notificaciones.envio.PreferenciaEnvioNotificacion;
@@ -73,5 +75,13 @@ public class Usuario {
         this.localizacion = nuevaLocalizacion;
         NotificadorRevisiones notificadorRevisiones = new NotificadorRevisiones();
         notificadorRevisiones.enviarSugerenciasRevisionA(this);
+    }
+
+    public void informarIncidente(Incidente unIncidente){
+        this.roles.stream().forEach(rol-> rol.getComunidad().seInformoUnIncidente(unIncidente));
+    }
+
+    public void resolverIncidente(Incidente unIncidente){
+        this.roles.stream().forEach(rol-> rol.getComunidad().seResolvioUnIncidente(unIncidente));
     }
 }

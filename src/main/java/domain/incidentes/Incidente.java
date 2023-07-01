@@ -34,6 +34,8 @@ public class Incidente {
 
         ArchivoIncidentes archivo = ArchivoIncidentes.getInstance();
         archivo.guardarIncidente(this);
+        // cuando se crea un incidente deberiamos deshabilitar la prestacion de servicio? o de eso se va a
+        // encargar un usuario superior?
 
     }
 
