@@ -5,6 +5,7 @@ import domain.comunidad.Comunidad;
 import domain.entidades.Establecimiento;
 import domain.incidentes.Incidente;
 import domain.notificaciones.MedioNotificacion;
+import domain.notificaciones.Notificador;
 import domain.notificaciones.envio.ModoDeRecepcion;
 import domain.notificaciones.envio.PreferenciaEnvioNotificacion;
 import domain.notificaciones.NotificadorRevisiones;
@@ -78,10 +79,14 @@ public class Usuario {
     }
 
     public void informarIncidente(Incidente unIncidente){
-        this.roles.stream().forEach(rol-> rol.getComunidad().seInformoUnIncidente(unIncidente));
+        Notificador notificador = new Notificador() ;
+        notificador.getInstancia().creeUnIncidente(unIncidente);
+        unIncidente.comunidadDondeSeReporta.seInformoUnIncidente(unIncidente);
     }
 
     public void resolverIncidente(Incidente unIncidente){
-        this.roles.stream().forEach(rol-> rol.getComunidad().seResolvioUnIncidente(unIncidente));
+        Notificador notificador = new Notificador();
+        notificador.getInstancia().cerreUnIncidente(unIncidente);
+        unIncidente.comunidadDondeSeReporta.seResolvioUnIncidente(unIncidente);
     }
 }

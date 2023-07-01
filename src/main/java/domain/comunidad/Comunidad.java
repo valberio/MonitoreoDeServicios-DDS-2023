@@ -29,14 +29,10 @@ public class Comunidad {
     }
 
     public void seInformoUnIncidente(Incidente unIncidente){
-        Notificador notificador = new Notificador() ;
-        notificador.getInstancia().creeUnIncidente(unIncidente);
         this.incidentesReportados.add(unIncidente);
     }
 
     public void seResolvioUnIncidente(Incidente unIncidente){
-        Notificador notificador = new Notificador();
-        notificador.getInstancia().cerreUnIncidente(unIncidente);
         this.incidentesReportados.remove(unIncidente);
     }
 
