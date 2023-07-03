@@ -2,6 +2,7 @@ package domain.incidentes;
 
 import datos.ArchivoIncidentes;
 import domain.comunidad.Comunidad;
+import domain.entidades.Entidad;
 import domain.notificaciones.Notificador;
 import domain.registro.Registro;
 import domain.registro.Usuario;
@@ -9,7 +10,9 @@ import domain.servicios.PrestacionDeServicio;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.HashSet;
 
@@ -85,6 +88,15 @@ public class Incidente {
     public String getLocalizacion() {
 
         return this.servicioAfectado.getEstablecimiento().getUbicacionGeografica().nombre;
+    }
+
+    public Entidad obtenerEntidad(){
+        return this.servicioAfectado.getEstablecimiento().getEntidad();
+    }
+
+    public Long obtenerTiempoDeCierre(){
+        Duration duracion = Duration.between(this.getFechaReporte(), this.getFechaResolucion());
+        return (duracion.toHours() % 24);
     }
 
 }

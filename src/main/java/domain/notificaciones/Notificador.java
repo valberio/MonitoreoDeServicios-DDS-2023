@@ -25,7 +25,7 @@ public class Notificador {
         return instancia;
     }
 
-    public static void creeUnIncidente(Incidente incidente) {
+    public static void creeUnIncidente(Incidente incidente){
         builder.construirTexto(incidente, new Creacion());
         notificar(incidente);
     }

@@ -16,6 +16,8 @@ public class Establecimiento {
     private String nombre;
     private Localizacion ubicacionGeografica;
     private ArrayList<PrestacionDeServicio> serviciosBrindados = new ArrayList<>();
+
+    private Entidad entidad;
     public Establecimiento(String nombre, Localizacion ubicacionGeografica)
     {
         this.nombre = nombre;
@@ -37,5 +39,7 @@ public class Establecimiento {
         return serviciosBrindados.stream().filter(prestacion->!prestacion.getEstaHabilitado()).map(prestacion->prestacion.getServicio());
 
     }
+
+
 
 }

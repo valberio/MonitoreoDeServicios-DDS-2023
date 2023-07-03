@@ -1,5 +1,6 @@
 package domain.servicios;
 
+import domain.entidades.Entidad;
 import domain.entidades.Establecimiento;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,5 +27,9 @@ public class PrestacionDeServicio {
     public String obtenerTextoRelevante() {
 
         return "servicio: " + this.servicio.getDescripcion() + "en establecimiento: " + this.establecimiento.getNombre();
+    }
+
+    public Entidad obtenerEntidadAfectada(){
+        return establecimiento.getEntidad();
     }
 }
