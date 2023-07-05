@@ -4,12 +4,17 @@ import domain.notificaciones.creacion.Cierre;
 import domain.notificaciones.creacion.Creacion;
 import domain.notificaciones.creacion.NotificacionBuilder;
 import domain.notificaciones.creacion.Revision;
-import domain.notificaciones.envio.ModoDeRecepcion;
 import domain.registro.Usuario;
 import domain.incidentes.Incidente;
+import lombok.Getter;
+import lombok.Setter;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+@Getter
+@Setter
 public class Notificador {
 
     private static Notificador instancia = null;
@@ -40,11 +45,15 @@ public class Notificador {
         notificar(incidente);
     }
 
+    public static Notificacion construirNotificacion() {
+
+        return builder.construirNotificacion(LocalDateTime.now());
+    }
+
     public static void notificar(Incidente incidente) {
-        Notificacion notificacion = builder.construirNotificacion();
 
         ArrayList<Usuario> usuariosInteresados = incidente.obtenerUsuariosInteresados();
-        notificarUsuarios(usuariosInteresados, notificacion);
+        notificarUsuarios(usuariosInteresados, construirNotificacion());
     }
 
     public static void notificarUsuarios(ArrayList<Usuario> usuarios, Notificacion notificacion){
@@ -53,11 +62,34 @@ public class Notificador {
         int i;
         for(i=0; i<=usuarios.size(); i++){
 
-            Usuario usuarioTemporal = usuarios.get(i);
+            Usuario usuario = usuarios.get(i);
 
-           usuarioTemporal.getMedioPreferido().enviarNotificacionA(notificacion, usuarioTemporal);
-           usuarioTemporal.getModoRecepcion().recibir(notificacion);
-
+            notificar(usuario, notificacion);
         }
     }
+
+    public static void agruparTextoNotificacion(String nuevoTexto) {
+
+        builder.editarTexto(nuevoTexto);
+    }
+
+
+    public static void inicioTextoResumen() {
+
+        builder.construirTexto("Estos son todos los incidentes que ocurrieron mientras no estabas: \n");
+    }
+
+    public static void notificar(Usuario usuario) {
+
+        Notificacion notificacion = construirNotificacion();
+
+        usuario.getModoRecepcion().enviarNotificacionA(usuario, notificacion);
+
+    }
+
+    public static void notificar(Usuario usuario, Notificacion notificacion) {
+        usuario.getModoRecepcion().enviarNotificacionA(usuario, notificacion);
+
+    }
 }
+

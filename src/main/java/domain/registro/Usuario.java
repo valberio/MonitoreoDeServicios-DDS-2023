@@ -2,13 +2,12 @@ package domain.registro;
 
 import domain.Localizacion.Localizacion;
 import domain.comunidad.Comunidad;
-import domain.entidades.Establecimiento;
 import domain.incidentes.Incidente;
 import domain.notificaciones.MedioNotificacion;
 import domain.notificaciones.Notificador;
-import domain.notificaciones.envio.ModoDeRecepcion;
 import domain.notificaciones.envio.PreferenciaEnvioNotificacion;
 import domain.notificaciones.NotificadorRevisiones;
+import domain.notificaciones.envio.Recepcion;
 import domain.roles.Rol;
 import domain.servicios.PrestacionDeServicio;
 import domain.servicios.Servicio;
@@ -16,7 +15,6 @@ import domain.entidades.Entidad;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.io.IOException;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +30,7 @@ public class Usuario {
     private Boolean bloqueado;
     private Localizacion localizacion;
     private MedioNotificacion medioPreferido; // Email o Wpp
-    private ModoDeRecepcion modoRecepcion; // Sincronico o asincronico
+    private Recepcion modoRecepcion; // Sincronico o asincronico
     private ArrayList<LocalTime> horariosDisponibles; //LocalTime horaActual = LocalTime.of(15, 30, 0);
     ArrayList<Rol> roles = new ArrayList<>();
     ArrayList<Entidad> entidadesDeInteres = new ArrayList<>();

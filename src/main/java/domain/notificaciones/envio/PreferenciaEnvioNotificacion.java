@@ -1,7 +1,6 @@
 package domain.notificaciones.envio;
 
 import domain.notificaciones.MedioNotificacion;
-import domain.notificaciones.envio.ModoDeRecepcion;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,6 +10,6 @@ public class PreferenciaEnvioNotificacion {
 
     MedioNotificacion medioNotificacion;
 
-    ModoDeRecepcion recepcionNotificacion;
+    Recepcion recepcionNotificacion;
 
 }

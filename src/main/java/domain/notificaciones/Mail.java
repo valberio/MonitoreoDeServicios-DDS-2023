@@ -1,9 +1,12 @@
 package domain.notificaciones;
 
-public class Mail implements MedioNotificacion{
+import domain.registro.Usuario;
+
+public class Mail implements MedioNotificacion {
+
 
     @Override
-    public void enviarNotificacionA() {
+    public void enviarNotificacionA(Usuario usuario, Notificacion notificacion) {
 
     }
 }

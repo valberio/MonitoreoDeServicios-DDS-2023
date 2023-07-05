@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -71,9 +72,9 @@ public class APITest {
 
         PrestacionDeServicio prestacionDeServicio = new PrestacionDeServicio(servicio, establecimiento);
 
-        Incidente incidente = new Incidente(prestacionDeServicio, new Usuario("pepe", null, null), null);
+        Incidente incidente = new Incidente(prestacionDeServicio, new Usuario("pepe", null, null, null), LocalDateTime.now());
 
-        Usuario usuario = new Usuario("Pepita", null, null);
+        Usuario usuario = new Usuario("Pepita", null, null, null);
         usuario.modificarLocalizacion(provincia);
     }
 }
