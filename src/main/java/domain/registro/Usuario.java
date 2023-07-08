@@ -34,6 +34,7 @@ public class Usuario {
     private ArrayList<LocalTime> horariosDisponibles; //LocalTime horaActual = LocalTime.of(15, 30, 0);
     ArrayList<Rol> roles = new ArrayList<>();
     ArrayList<Entidad> entidadesDeInteres = new ArrayList<>();
+    private String identificado = "sin definir";
 
     public Usuario(String usuario, Contrasenia contrasenia, String email, PreferenciaEnvioNotificacion preferenciaNotificaciones) {
         this.usuario = usuario;
@@ -86,5 +87,14 @@ public class Usuario {
         Notificador notificador = new Notificador();
         notificador.getInstancia().cerreUnIncidente(unIncidente);
         unIncidente.comunidadDondeSeReporta.seResolvioUnIncidente(unIncidente);
+    }
+
+    // afectado/observador pero #chequear, no puede ser tan simple
+    public void serObservador(){
+        identificado = "observador";
+    }
+
+    public void serAfectado(){
+        identificado = "afectado";
     }
 }
