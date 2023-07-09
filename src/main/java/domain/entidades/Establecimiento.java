@@ -13,11 +13,12 @@ import java.util.stream.Stream;
 @Getter
 @Setter
 public class Establecimiento {
+
     private String nombre;
     private Localizacion ubicacionGeografica;
     private ArrayList<PrestacionDeServicio> serviciosBrindados = new ArrayList<>();
-
     private Entidad entidad;
+
     public Establecimiento(String nombre, Localizacion ubicacionGeografica)
     {
         this.nombre = nombre;

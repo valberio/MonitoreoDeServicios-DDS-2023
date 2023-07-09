@@ -1,13 +1,16 @@
-package domain.notificaciones.envio;
+package domain.notificaciones.tiempoDeEnvio;
 
 import domain.notificaciones.Notificacion;
 import domain.notificaciones.Notificador;
 import domain.notificaciones.creacion.Creacion;
 import domain.registro.Usuario;
+import org.quartz.Job;
+import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;
 
 import java.util.ArrayList;
 
-public class Recepcion {
+public class Recepcion implements Job {
 
     private ModoRecepcion modo;
     private ArrayList<EnviarNotificacion> notificacionesSinEnviar;
@@ -31,25 +34,15 @@ public class Recepcion {
                 if(notificacion.getContextoIncidente() instanceof Creacion) {
                     notificacionesSinEnviar.add(new EnviarNotificacion(usuario,notificacion));
                 }
-                //2 horarios
+
+
                 break;
         }
 
     }
 
-    public void enviarNotificacionResumen() {
-
-        Notificador.inicioTextoResumen();
-        Usuario usuarioInteresado = null;
-
-
-        for (EnviarNotificacion comando : notificacionesSinEnviar) {
-
-            usuarioInteresado = comando.getUsuario();
-            comando.ejecutar();
-
-        }
-
-       Notificador.notificar(usuarioInteresado);
+    @Override
+    public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
+        Notificador.enviarNotificacionResumen(this.notificacionesSinEnviar);
     }
 }

@@ -1,6 +1,7 @@
 package domain.incidentes;
 
 import datos.ArchivoIncidentes;
+import datos.RepositorioUsuarios;
 import domain.comunidad.Comunidad;
 import domain.entidades.Entidad;
 import domain.notificaciones.Notificador;
@@ -24,24 +25,23 @@ public class Incidente {
     public Usuario usuarioReportador;
     public LocalDateTime fechaReporte;
     public LocalDateTime fechaResolucion;
-
+    public EstadoIncidente estado = EstadoIncidente.ACTIVO;
     public Comunidad comunidadDondeSeReporta;
-
     Notificador notificador = Notificador.getInstancia();
     String descripcion;
 
-    public Incidente(PrestacionDeServicio prestacionDeServicio, Usuario usuarioReportador, LocalDateTime fechaReporte) {
+    public Incidente(PrestacionDeServicio prestacionDeServicio, Usuario usuarioReportador, LocalDateTime fechaReporte, Comunidad comunidad) {
         this.servicioAfectado = prestacionDeServicio;
         this.usuarioReportador = usuarioReportador;
         this.fechaReporte = fechaReporte;
+        this.comunidadDondeSeReporta = comunidad;
 
         ArchivoIncidentes archivo = ArchivoIncidentes.getInstance();
         archivo.guardarIncidente(this);
-        // cuando se crea un incidente deberiamos deshabilitar la prestacion de servicio? o de eso se va a
-        // encargar un usuario superior?
+
+        this.servicioAfectado.setEstaHabilitado(false);
 
     }
-
 
     public void reportar() {
 
@@ -51,7 +51,7 @@ public class Incidente {
 
     public ArrayList<Usuario> obtenerUsuariosInteresados() {
 
-        ArrayList<Usuario> usuariosRegistrados = Registro.getInstancia().getUsuariosRegistrados();
+        ArrayList<Usuario> usuariosRegistrados = RepositorioUsuarios.getUsuariosRegistrados();
 
         ArrayList<Usuario> usuariosInteresadosEnServicio = (ArrayList<Usuario>) usuariosRegistrados.stream().filter(usuario->usuario.teInteresa(servicioAfectado)).toList();
 
@@ -97,6 +97,19 @@ public class Incidente {
     public Long obtenerTiempoDeCierre(){
         Duration duracion = Duration.between(this.getFechaReporte(), this.getFechaResolucion());
         return (duracion.toHours() % 24);
+    }
+
+    public Long obtenerDiferenciaDeRegistroEntre(Incidente incidente2){
+        Duration duracion = Duration.between(this.getFechaReporte(), incidente2.getFechaReporte());
+        return (duracion.toHours() % 24);
+
+    }
+
+    public void cerrarse()
+    {
+        this.fechaResolucion = LocalDateTime.now();
+        this.setEstado(EstadoIncidente.RESUELTO);
+        notificador.cerreUnIncidente(this);
     }
 
 }

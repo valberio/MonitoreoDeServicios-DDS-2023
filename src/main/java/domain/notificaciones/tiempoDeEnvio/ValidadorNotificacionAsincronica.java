@@ -1,10 +1,7 @@
-package domain.notificaciones.envio;
+package domain.notificaciones.tiempoDeEnvio;
 
 import domain.notificaciones.Notificacion;
-import domain.notificaciones.Notificador;
-import domain.notificaciones.creacion.NotificacionBuilder;
 
-import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 

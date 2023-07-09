@@ -2,9 +2,11 @@ package datos;
 
 
 
+import domain.incidentes.EstadoIncidente;
 import domain.incidentes.Incidente;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ArchivoIncidentes {
 
@@ -17,5 +19,9 @@ public class ArchivoIncidentes {
     }
     public void guardarIncidente(Incidente incidente){
         this.incidentes.add(incidente);
+    }
+
+    public List<Incidente> consultarIncidentePorEstado(EstadoIncidente estado){
+        return incidentes.stream().filter(incidente -> incidente.getEstado() == estado).toList();
     }
 }

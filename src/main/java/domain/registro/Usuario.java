@@ -2,12 +2,10 @@ package domain.registro;
 
 import domain.Localizacion.Localizacion;
 import domain.comunidad.Comunidad;
-import domain.incidentes.Incidente;
-import domain.notificaciones.MedioNotificacion;
 import domain.notificaciones.Notificador;
-import domain.notificaciones.envio.PreferenciaEnvioNotificacion;
-import domain.notificaciones.NotificadorRevisiones;
-import domain.notificaciones.envio.Recepcion;
+import domain.notificaciones.medioEnvio.MedioNotificacion;
+import domain.notificaciones.tiempoDeEnvio.PreferenciaEnvioNotificacion;
+import domain.notificaciones.tiempoDeEnvio.Recepcion;
 import domain.roles.Rol;
 import domain.servicios.PrestacionDeServicio;
 import domain.servicios.Servicio;
@@ -18,6 +16,7 @@ import lombok.Setter;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Getter
@@ -34,7 +33,8 @@ public class Usuario {
     private ArrayList<LocalTime> horariosDisponibles; //LocalTime horaActual = LocalTime.of(15, 30, 0);
     ArrayList<Rol> roles = new ArrayList<>();
     ArrayList<Entidad> entidadesDeInteres = new ArrayList<>();
-    private String identificado = "sin definir";
+
+    private List<Map<PrestacionDeServicio,Identificador>> impactosDePrestaciones;
 
     public Usuario(String usuario, Contrasenia contrasenia, String email, PreferenciaEnvioNotificacion preferenciaNotificaciones) {
         this.usuario = usuario;
@@ -43,6 +43,11 @@ public class Usuario {
         this.bloqueado = false;
         this.setPreferencias(preferenciaNotificaciones);
         horariosDisponibles = new ArrayList<>();
+    }
+
+    public void configurarHorariosDisponibles (LocalTime ... horario) {
+
+        horariosDisponibles.addAll(List.of(horario));
     }
 
     public void setPreferencias(PreferenciaEnvioNotificacion preferencia) {
@@ -56,10 +61,13 @@ public class Usuario {
 
         entidadesDeInteres.addAll(List.of(entidad));
     }
+
     public ArrayList<Servicio> serviciosDeInteres() {
 
         return entidadesDeInteres.stream().flatMap(entidad -> entidad.serviciosConIncidente()).collect(Collectors.toCollection(ArrayList::new));
     }
+
+
 
     public boolean teInteresa(PrestacionDeServicio servicioAfectado) {
 
@@ -73,28 +81,16 @@ public class Usuario {
 
     public void modificarLocalizacion(Localizacion nuevaLocalizacion){
         this.localizacion = nuevaLocalizacion;
-        NotificadorRevisiones notificadorRevisiones = new NotificadorRevisiones();
+        Notificador notificadorRevisiones = new Notificador();
         notificadorRevisiones.enviarSugerenciasRevisionA(this);
     }
 
-    public void informarIncidente(Incidente unIncidente){
-        Notificador notificador = new Notificador() ;
-        notificador.getInstancia().creeUnIncidente(unIncidente);
-        unIncidente.comunidadDondeSeReporta.seInformoUnIncidente(unIncidente);
+
+    public void serObservador() {
+        impactoPrestacion = Identificador.OBSERVADOR;
     }
 
-    public void resolverIncidente(Incidente unIncidente){
-        Notificador notificador = new Notificador();
-        notificador.getInstancia().cerreUnIncidente(unIncidente);
-        unIncidente.comunidadDondeSeReporta.seResolvioUnIncidente(unIncidente);
-    }
-
-    // afectado/observador pero #chequear, no puede ser tan simple
-    public void serObservador(){
-        identificado = "observador";
-    }
-
-    public void serAfectado(){
-        identificado = "afectado";
+    public void serAfectado() {
+        impactoPrestacion = Identificador.AFECTADO;
     }
 }

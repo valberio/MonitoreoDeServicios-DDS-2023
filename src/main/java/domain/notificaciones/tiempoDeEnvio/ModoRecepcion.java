@@ -1,4 +1,4 @@
-package domain.notificaciones.envio;
+package domain.notificaciones.tiempoDeEnvio;
 
 public enum ModoRecepcion {
 

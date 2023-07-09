@@ -1,6 +1,8 @@
 package domain.roles;
 
 import domain.comunidad.Comunidad;
+import domain.incidentes.Incidente;
+import domain.notificaciones.Notificador;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,6 +15,8 @@ public class Rol {
     String nombre;
 
     Comunidad comunidad;
+
+    Notificador notificador;
 
     ArrayList<Permiso> permisos = new ArrayList<>();
 

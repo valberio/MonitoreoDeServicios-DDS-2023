@@ -1,4 +1,4 @@
-package domain.notificaciones.envio;
+package domain.notificaciones.tiempoDeEnvio;
 
 import domain.notificaciones.Notificacion;
 import domain.notificaciones.Notificador;

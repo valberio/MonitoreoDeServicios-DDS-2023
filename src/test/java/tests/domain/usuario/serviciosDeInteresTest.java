@@ -1,21 +1,5 @@
 package tests.domain.usuario;
 
-import domain.comunidad.Comunidad;
-import domain.entidades.Entidad;
-import domain.entidades.Establecimiento;
-import domain.notificaciones.envio.PreferenciaEnvioNotificacion;
-import domain.registro.Contrasenia;
-import domain.registro.Usuario;
-import domain.servicios.PrestacionDeServicio;
-import domain.servicios.Servicio;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import java.io.IOException;
-import java.util.ArrayList;
-
 /*public class serviciosDeInteresTest {
 
     private Contrasenia unUsuarioContra = new Contrasenia(("buenasTardes2"));

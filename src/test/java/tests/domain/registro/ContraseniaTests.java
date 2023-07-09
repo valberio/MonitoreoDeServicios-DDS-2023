@@ -1,14 +1,12 @@
 package tests.domain.registro;
 
-import com.opencsv.exceptions.CsvValidationException;
-import domain.notificaciones.envio.PreferenciaEnvioNotificacion;
+import domain.notificaciones.tiempoDeEnvio.PreferenciaEnvioNotificacion;
 import domain.registro.Contrasenia;
 import domain.registro.Usuario;
 import domain.registro.Validador;
 import domain.registro.condicionesContra.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
-import domain.entidades.cargaEntidadesyOrgDeControl;
 
 import java.io.IOException;
 

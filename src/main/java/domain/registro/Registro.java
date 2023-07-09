@@ -1,12 +1,11 @@
 package domain.registro;
 
-import domain.notificaciones.Notificador;
-import domain.notificaciones.envio.PreferenciaEnvioNotificacion;
+import datos.RepositorioUsuarios;
+import domain.notificaciones.tiempoDeEnvio.PreferenciaEnvioNotificacion;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Objects;
 
 @Getter
@@ -14,6 +13,7 @@ import java.util.Objects;
 public class Registro {
 
     private static Registro instancia = null;
+    private RepositorioUsuarios repositorioUsuarios = RepositorioUsuarios.getInstance();
 
     public static Registro  getInstancia(){
         if(instancia==null) {
@@ -22,19 +22,16 @@ public class Registro {
 
         return instancia;
     }
-
-    //momentaneo hasta que se puedan implementar correctamente los usuariosYaRegistrados
-    private ArrayList<Usuario> usuariosRegistrados;
     public void registrarUsuario(String usuario, Contrasenia contrasenia, String email, PreferenciaEnvioNotificacion preferenciaEnvioNotificacion) throws IOException {
         if (this.noEstaRegistrado(usuario) && contrasenia.esValida()) {
             Usuario nuevoUsuario = new Usuario(usuario, contrasenia, email, preferenciaEnvioNotificacion);
-            this.usuariosRegistrados.add(nuevoUsuario);
+            RepositorioUsuarios.agregarUnUsuario(nuevoUsuario);
             contrasenia.mostrarFuerza();
         }
     }
 
     public boolean noEstaRegistrado(String usuario){
-        return usuariosRegistrados.stream().noneMatch(Usuario -> Objects.equals(Usuario.getUsuario(), usuario));
+        return  RepositorioUsuarios.getUsuariosRegistrados().stream().noneMatch(Usuario -> Objects.equals(Usuario.getUsuario(), usuario));
     }
 
 }

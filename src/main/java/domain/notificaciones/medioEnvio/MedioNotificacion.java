@@ -1,5 +1,6 @@
-package domain.notificaciones;
+package domain.notificaciones.medioEnvio;
 
+import domain.notificaciones.Notificacion;
 import domain.registro.Usuario;
 
 public interface MedioNotificacion {

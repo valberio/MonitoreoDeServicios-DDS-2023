@@ -32,17 +32,4 @@ public class Comunidad {
         this.incidentesReportados.add(unIncidente);
     }
 
-    public void seResolvioUnIncidente(Incidente unIncidente){
-        this.incidentesReportados.remove(unIncidente);
-    }
-
-    /*
-    public void aniadirMiembro(Miembro miembro){
-        this.miembros.add(miembro);
-    }
-
-    public void eliminarMiembro(Miembro miembro){
-        this.miembros.remove(miembro);
-    }
-    */
 }

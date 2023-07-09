@@ -1,9 +1,12 @@
 package domain.notificaciones;
 
+import datos.ArchivoIncidentes;
+import domain.Localizacion.Localizacion;
 import domain.notificaciones.creacion.Cierre;
 import domain.notificaciones.creacion.Creacion;
 import domain.notificaciones.creacion.NotificacionBuilder;
 import domain.notificaciones.creacion.Revision;
+import domain.notificaciones.tiempoDeEnvio.EnviarNotificacion;
 import domain.registro.Usuario;
 import domain.incidentes.Incidente;
 import lombok.Getter;
@@ -12,6 +15,8 @@ import lombok.Setter;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -30,21 +35,34 @@ public class Notificador {
         return instancia;
     }
 
-    public static void creeUnIncidente(Incidente incidente){
+    public void creeUnIncidente(Incidente incidente){
         builder.construirTexto(incidente, new Creacion());
         notificar(incidente);
     }
 
-    public static void cerreUnIncidente(Incidente incidente){
+    public void cerreUnIncidente(Incidente incidente){
         builder.construirTexto(incidente,new Cierre());
         notificar(incidente);
     }
 
-    public static void pedidoDeRevisionDeIncidente(Incidente incidente){
+    public void pedidoDeRevisionDeIncidente(Incidente incidente){
         builder.construirTexto(incidente, new Revision());
         notificar(incidente);
     }
 
+    public void enviarSugerenciasRevisionA(Usuario usuario){
+
+        Localizacion localizacionUsuario = usuario.getLocalizacion();
+        List<Incidente> incidentesCercanos;
+        incidentesCercanos = ArchivoIncidentes.getInstance().incidentes.stream()
+                .filter(incidente -> incidente.getServicioAfectado().getEstablecimiento().getUbicacionGeografica().
+                        estasCercaDe(localizacionUsuario)).
+                        collect(Collectors.toList());
+
+        for (Incidente incidenteCercano : incidentesCercanos) {
+            this.pedidoDeRevisionDeIncidente(incidenteCercano);
+        }
+    }
     public static Notificacion construirNotificacion() {
 
         return builder.construirNotificacion(LocalDateTime.now());
@@ -58,7 +76,6 @@ public class Notificador {
 
     public static void notificarUsuarios(ArrayList<Usuario> usuarios, Notificacion notificacion){
         
-        // acá adentro le saca al usuario su medio preferido, modo de recepción y manda la notif por wpp/mail y cuando suceden//sin apuros
         int i;
         for(i=0; i<=usuarios.size(); i++){
 
@@ -88,8 +105,25 @@ public class Notificador {
     }
 
     public static void notificar(Usuario usuario, Notificacion notificacion) {
+
         usuario.getModoRecepcion().enviarNotificacionA(usuario, notificacion);
 
+    }
+
+    public static void enviarNotificacionResumen(ArrayList<EnviarNotificacion> notificacionesSinEnviar) {
+
+        inicioTextoResumen();
+        Usuario usuarioInteresado = null;
+
+
+        for (EnviarNotificacion comando : notificacionesSinEnviar) {
+
+            usuarioInteresado = comando.getUsuario();
+            comando.ejecutar();
+
+        }
+
+        notificar(usuarioInteresado);
     }
 }
 

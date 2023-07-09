@@ -1,6 +1,6 @@
-package domain.notificaciones.envio;
+package domain.notificaciones.tiempoDeEnvio;
 
-import domain.notificaciones.MedioNotificacion;
+import domain.notificaciones.medioEnvio.MedioNotificacion;
 import lombok.Getter;
 import lombok.Setter;
 

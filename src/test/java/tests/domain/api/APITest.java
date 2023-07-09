@@ -1,5 +1,6 @@
 package tests.domain.api;
 
+import domain.comunidad.Comunidad;
 import domain.entidades.Establecimiento;
 import domain.incidentes.Incidente;
 import domain.registro.Usuario;
@@ -72,7 +73,9 @@ public class APITest {
 
         PrestacionDeServicio prestacionDeServicio = new PrestacionDeServicio(servicio, establecimiento);
 
-        Incidente incidente = new Incidente(prestacionDeServicio, new Usuario("pepe", null, null, null), LocalDateTime.now());
+        Comunidad comunidad = new Comunidad();
+
+        Incidente incidente = new Incidente(prestacionDeServicio, new Usuario("pepe", null, null, null), LocalDateTime.now(), comunidad);
 
         Usuario usuario = new Usuario("Pepita", null, null, null);
         usuario.modificarLocalizacion(provincia);
