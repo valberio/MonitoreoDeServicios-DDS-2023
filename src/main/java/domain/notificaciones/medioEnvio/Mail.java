@@ -6,7 +6,6 @@ import javax.mail.*;
 import javax.mail.internet.*;
 import java.util.Properties;
 
-//Todo lo que es smtp host y port nose si vale la pena dejar honestamente
 
 public class Mail {
 

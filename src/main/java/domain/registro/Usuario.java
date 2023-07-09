@@ -30,11 +30,11 @@ public class Usuario {
     private Localizacion localizacion;
     private MedioNotificacion medioPreferido; // Email o Wpp
     private Recepcion modoRecepcion; // Sincronico o asincronico
-    private ArrayList<LocalTime> horariosDisponibles; //LocalTime horaActual = LocalTime.of(15, 30, 0);
+    private ArrayList<LocalTime> horariosDisponibles;
     ArrayList<Rol> roles = new ArrayList<>();
     ArrayList<Entidad> entidadesDeInteres = new ArrayList<>();
 
-    private List<Map<PrestacionDeServicio,Identificador>> impactosDePrestaciones;
+    private List<Map<PrestacionDeServicio, Identificador>> impactosDePrestaciones;
 
     public Usuario(String usuario, Contrasenia contrasenia, String email, PreferenciaEnvioNotificacion preferenciaNotificaciones) {
         this.usuario = usuario;
@@ -45,7 +45,7 @@ public class Usuario {
         horariosDisponibles = new ArrayList<>();
     }
 
-    public void configurarHorariosDisponibles (LocalTime ... horario) {
+    public void configurarHorariosDisponibles(LocalTime... horario) {
 
         horariosDisponibles.addAll(List.of(horario));
     }
@@ -57,7 +57,7 @@ public class Usuario {
 
     }
 
-    public void agregarEntidadesDeInteres (Entidad ... entidad) {
+    public void agregarEntidadesDeInteres(Entidad... entidad) {
 
         entidadesDeInteres.addAll(List.of(entidad));
     }
@@ -68,29 +68,23 @@ public class Usuario {
     }
 
 
-
     public boolean teInteresa(PrestacionDeServicio servicioAfectado) {
 
-        return this.serviciosDeInteres().stream().anyMatch(servicio->servicioAfectado.getServicio().equals(servicio));
+        return this.serviciosDeInteres().stream().anyMatch(servicio -> servicioAfectado.getServicio().equals(servicio));
     }
 
     public boolean estasEn(Comunidad comunidad) {
 
-        return roles.stream().anyMatch(rol->rol.getComunidad().equals(comunidad));
+        return roles.stream().anyMatch(rol -> rol.getComunidad().equals(comunidad));
     }
 
-    public void modificarLocalizacion(Localizacion nuevaLocalizacion){
+    public void modificarLocalizacion(Localizacion nuevaLocalizacion) {
         this.localizacion = nuevaLocalizacion;
         Notificador notificadorRevisiones = new Notificador();
         notificadorRevisiones.enviarSugerenciasRevisionA(this);
     }
 
-
-    public void serObservador() {
-        impactoPrestacion = Identificador.OBSERVADOR;
-    }
-
-    public void serAfectado() {
-        impactoPrestacion = Identificador.AFECTADO;
-    }
 }
+
+
+
