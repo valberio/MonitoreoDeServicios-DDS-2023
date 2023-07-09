@@ -2,6 +2,8 @@ package domain.incidentes;
 
 import domain.entidades.Entidad;
 
+import java.lang.reflect.Array;
+import java.time.Duration;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -38,6 +40,46 @@ public class Ranking {
                 //TODO
                 return null;
         }
+
+        public ArrayList<ArrayList<Incidente>> obtenerIncidentesPorPrestacion(ArrayList<Incidente> incidentes){
+                ArrayList<ArrayList<Incidente>> incidentesPorPrestacion = new ArrayList<>();
+
+
+                for (Incidente incidente : incidentes) {
+                        boolean encontrada = false;
+
+                        // Buscar la sublista correspondiente a la prestación del incidente
+                        for (ArrayList<Incidente> prestacion : incidentesPorPrestacion) {
+                                if (prestacion.get(0).getServicioAfectado().equals(incidente.getServicioAfectado())) {
+                                        // Agregar el incidente a la sublista existente
+                                        prestacion.add(incidente);
+                                        encontrada = true;
+                                        break;
+                                }
+                        }
+
+                        // Si no se encontró una sublista existente, crear una nueva y agregar el incidente
+                        if (!encontrada) {
+                                ArrayList<Incidente> nuevaPrestacion = new ArrayList<>();
+                                nuevaPrestacion.add(incidente);
+                                incidentesPorPrestacion.add(nuevaPrestacion);
+                        }
+                }
+
+                return incidentesPorPrestacion;
+        }
+
+        public Long obtenerDiferenciaDeRegistroEntre(Incidente incidente1, Incidente incidente2){
+                Duration duracion = Duration.between(incidente1.getFechaReporte(), incidente2.getFechaReporte());
+                return (duracion.toHours() % 24);
+
+        }
+
+        //if(obtenerDiferenciaDeRegistroEntre(incidente1, incidente2) < 24)
+        //if(incidente1.getfechaDeReporte().before(incidente1.getfechaDeReporte())) me quedo con la 1 else me quedo con la 2
+        //incidente.getEstado() == EstadoIncidente.ACTIVO; lo tengo que descartar. Si ya fue resuelto, si se considera para el ranking
+
+
 
         public Map<Entidad, Integer> generarPromedioCierrePorEntidad(Map<Entidad, List<Incidente>> incidentesPorEntidad) {
                 Map<Entidad, Integer> promedioCierrePorEntidad = new HashMap<>();
