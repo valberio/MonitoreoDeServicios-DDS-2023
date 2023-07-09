@@ -6,5 +6,5 @@ import domain.registro.Usuario;
 public interface MedioNotificacion {
 
 
-    void enviarNotificacionA(Usuario usuario, Notificacion notificacion);
+    public void enviarNotificacionA(Usuario usuario, Notificacion notificacion);
 }

@@ -26,6 +26,7 @@ public class Usuario {
     private String usuario;
     private String email;
     private Contrasenia contrasenia;
+    private String numeroTelefono;
     private Boolean bloqueado;
     private Localizacion localizacion;
     private MedioNotificacion medioPreferido; // Email o Wpp
