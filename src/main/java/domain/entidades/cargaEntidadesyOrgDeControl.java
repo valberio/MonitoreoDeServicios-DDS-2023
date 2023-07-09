@@ -1,6 +1,7 @@
 package domain.entidades;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
+import datos.RepositorioEntidadesyOrganismos;
 import domain.config.Config;
 import lombok.Getter;
 import java.io.FileReader;
@@ -14,6 +15,8 @@ public class cargaEntidadesyOrgDeControl {
     protected ArrayList<OrganismoDeControl> organismosRegistrados = new ArrayList<>();
 
     public void cargarEntidadesYOrgDeControl() throws CsvValidationException {
+
+        RepositorioEntidadesyOrganismos repositorio = RepositorioEntidadesyOrganismos.getInstance();
         String archivo = Config.RUTA_CSV;
 
         try (CSVReader reader = new CSVReader(new FileReader(archivo))) {
@@ -38,7 +41,12 @@ public class cargaEntidadesyOrgDeControl {
                     OrganismoDeControl organismo = new OrganismoDeControl(linea[0]);
                     organismo.setCUIT(linea[1]);
                     organismosRegistrados.add(organismo);
-                    organismo.AnadirPrestadoraControlada(new PrestadoraDeServicio(linea[2]));
+
+                    PrestadoraDeServicio prestadora = new PrestadoraDeServicio(linea[2])
+                    organismo.AnadirPrestadoraControlada(prestadora);
+
+                    repositorio.guardarOrganismoDeControl(organismo);
+                    repositorio.guardarPrestadoraDeServicio(prestadora);
                 }
             }
         } catch (IOException e) {

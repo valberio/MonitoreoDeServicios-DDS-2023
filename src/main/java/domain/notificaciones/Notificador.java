@@ -1,6 +1,6 @@
 package domain.notificaciones;
 
-import datos.ArchivoIncidentes;
+import datos.RepositorioIncidentes;
 import domain.Localizacion.Localizacion;
 import domain.notificaciones.creacion.Cierre;
 import domain.notificaciones.creacion.Creacion;
@@ -12,7 +12,6 @@ import domain.incidentes.Incidente;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +53,7 @@ public class Notificador {
 
         Localizacion localizacionUsuario = usuario.getLocalizacion();
         List<Incidente> incidentesCercanos;
-        incidentesCercanos = ArchivoIncidentes.getInstance().incidentes.stream()
+        incidentesCercanos = RepositorioIncidentes.getInstance().incidentes.stream()
                 .filter(incidente -> incidente.getServicioAfectado().getEstablecimiento().getUbicacionGeografica().
                         estasCercaDe(localizacionUsuario)).
                         collect(Collectors.toList());

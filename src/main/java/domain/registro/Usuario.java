@@ -35,7 +35,7 @@ public class Usuario {
     ArrayList<Rol> roles = new ArrayList<>();
     ArrayList<Entidad> entidadesDeInteres = new ArrayList<>();
 
-    private List<Map<PrestacionDeServicio, Identificador>> impactosDePrestaciones;
+    private Map<PrestacionDeServicio, Identificador> impactosDePrestaciones;
 
     public Usuario(String usuario, Contrasenia contrasenia, String email, PreferenciaEnvioNotificacion preferenciaNotificaciones) {
         this.usuario = usuario;

@@ -1,10 +1,9 @@
 package domain.incidentes.rankings;
 
-import datos.ArchivoIncidentes;
+import datos.RepositorioIncidentes;
 import domain.entidades.Entidad;
 import domain.incidentes.EstadoIncidente;
 import domain.incidentes.Incidente;
-import domain.incidentes.IncidentesSemanales;
 
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
@@ -16,9 +15,9 @@ import java.util.stream.Collectors;
 public class Filtrador {
 
     public ArrayList<Incidente> filtrarIncidentesUltimaSemana(){
-        ArchivoIncidentes archivoIncidentes = new ArchivoIncidentes();
+        RepositorioIncidentes repositorioIncidentes = new RepositorioIncidentes();
 
-        return filtrarOcurridosUltimaSemana(ArchivoIncidentes.getInstance().incidentes);
+        return filtrarOcurridosUltimaSemana(RepositorioIncidentes.getInstance().incidentes);
     }
 
     public Map<Entidad, List<Incidente>> separarPorEntidadAfectada(ArrayList<Incidente> incidentes){

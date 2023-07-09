@@ -8,13 +8,13 @@ import domain.incidentes.Incidente;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ArchivoIncidentes {
+public class RepositorioIncidentes {
 
     public ArrayList<Incidente> incidentes = new ArrayList<Incidente>();
-    private static ArchivoIncidentes instancia = null;
+    private static RepositorioIncidentes instancia = null;
 
-    public static ArchivoIncidentes getInstance(){
-        if (instancia == null){instancia = new ArchivoIncidentes();}
+    public static RepositorioIncidentes getInstance(){
+        if (instancia == null){instancia = new RepositorioIncidentes();}
         return instancia;
     }
     public void guardarIncidente(Incidente incidente){

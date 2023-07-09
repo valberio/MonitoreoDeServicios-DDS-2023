@@ -1,11 +1,10 @@
 package domain.incidentes;
 
-import datos.ArchivoIncidentes;
+import datos.RepositorioIncidentes;
 import datos.RepositorioUsuarios;
 import domain.comunidad.Comunidad;
 import domain.entidades.Entidad;
 import domain.notificaciones.Notificador;
-import domain.registro.Registro;
 import domain.registro.Usuario;
 import domain.servicios.PrestacionDeServicio;
 import lombok.Getter;
@@ -13,7 +12,6 @@ import lombok.Setter;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.Period;
 import java.util.ArrayList;
 import java.util.HashSet;
 
@@ -36,7 +34,7 @@ public class Incidente {
         this.fechaReporte = fechaReporte;
         this.comunidadDondeSeReporta = comunidad;
 
-        ArchivoIncidentes archivo = ArchivoIncidentes.getInstance();
+        RepositorioIncidentes archivo = RepositorioIncidentes.getInstance();
         archivo.guardarIncidente(this);
 
         this.servicioAfectado.setEstaHabilitado(false);
