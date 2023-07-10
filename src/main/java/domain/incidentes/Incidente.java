@@ -10,10 +10,12 @@ import domain.servicios.PrestacionDeServicio;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.lang.reflect.Array;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -51,13 +53,14 @@ public class Incidente {
 
         ArrayList<Usuario> usuariosRegistrados = RepositorioUsuarios.getUsuariosRegistrados();
 
-        ArrayList<Usuario> usuariosInteresadosEnServicio = (ArrayList<Usuario>) usuariosRegistrados.stream().filter(usuario->usuario.teInteresa(servicioAfectado)).toList();
+        ArrayList<Usuario> usuariosInteresadosEnServicio = usuariosRegistrados.stream().filter(usuario->usuario.teInteresa(servicioAfectado)).collect(Collectors.toList());
 
-        ArrayList<Usuario> interesadosPorComunidadEnComun = (ArrayList<Usuario>) usuariosRegistrados.stream().filter(usuario->usuario.estasEn(comunidadDondeSeReporta)).toList(); //le saco la lista de roles al usuario y la comunidad de esa lista de roles. Me fijo si es compatible la comunidad con la comunidad del usuario que reportó
+        ArrayList<Usuario> interesadosPorComunidadEnComun = usuariosRegistrados.stream().filter(usuario->usuario.estasEn(comunidadDondeSeReporta)).toList(); //le saco la lista de roles al usuario y la comunidad de esa lista de roles. Me fijo si es compatible la comunidad con la comunidad del usuario que reportó
 
         ArrayList<Usuario> usuariosInteresados = new ArrayList<>(usuariosInteresadosEnServicio);
 
         usuariosInteresados.addAll(interesadosPorComunidadEnComun);
+
 
         if(usuariosInteresados.contains(usuarioReportador)) {
             usuariosInteresados.remove(usuarioReportador);
