@@ -76,12 +76,15 @@ public class Notificador {
     public static void notificarUsuarios(ArrayList<Usuario> usuarios, Notificacion notificacion){
         
         int i;
-        for(i=0; i<=usuarios.size(); i++){
+        if(!usuarios.isEmpty()) {
+            for(i=0; i<=usuarios.size(); i++){
 
-            Usuario usuario = usuarios.get(i);
+                Usuario usuario = usuarios.get(i);
 
-            notificar(usuario, notificacion);
+                notificar(usuario, notificacion);
+            }
         }
+
     }
 
     public static void agruparTextoNotificacion(String nuevoTexto) {

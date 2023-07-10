@@ -5,7 +5,9 @@ import domain.incidentes.Incidente;
 import domain.notificaciones.Notificacion;
 import domain.notificaciones.Notificador;
 import domain.notificaciones.medioEnvio.MedioNotificacion;
+import domain.notificaciones.tiempoDeEnvio.ModoRecepcion;
 import domain.notificaciones.tiempoDeEnvio.PreferenciaEnvioNotificacion;
+import domain.notificaciones.tiempoDeEnvio.Recepcion;
 import domain.registro.Contrasenia;
 import domain.registro.Usuario;
 import domain.Localizacion.Localizacion;
@@ -26,7 +28,7 @@ public class NotificadorTests {
         }
     };
     private Contrasenia contraCarla = new Contrasenia("takataka123!!");
-    private PreferenciaEnvioNotificacion pref = new PreferenciaEnvioNotificacion(medio, recepcion); //what the
+    private PreferenciaEnvioNotificacion pref = new PreferenciaEnvioNotificacion(medio, new Recepcion(ModoRecepcion.ASINCRONICA)); //what the
     private Usuario usuarioTest = new Usuario("Carla Luna", contraCarla, "carlaluna@gmail.com", pref);
 
     //Incidente1

@@ -39,11 +39,7 @@ public class NotificacionesTest {
 
         Contrasenia contrasenia = new Contrasenia("Juan1234");
 
-        PreferenciaEnvioNotificacion preferencia = new PreferenciaEnvioNotificacion();
-
-        preferencia.setMedioNotificacion(new WhatsApp());
-
-        preferencia.setRecepcionNotificacion(new Recepcion(ModoRecepcion.SINCRONICA));
+        PreferenciaEnvioNotificacion preferencia = new PreferenciaEnvioNotificacion(new WhatsApp(),new Recepcion(ModoRecepcion.SINCRONICA));
 
         Usuario usuarioReportador = new Usuario("juan",contrasenia,"jperez@gmail.com", preferencia);
 

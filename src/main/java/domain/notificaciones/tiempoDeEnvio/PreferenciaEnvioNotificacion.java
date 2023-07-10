@@ -12,4 +12,8 @@ public class PreferenciaEnvioNotificacion {
 
     Recepcion recepcionNotificacion;
 
+    public PreferenciaEnvioNotificacion(MedioNotificacion medioNotificacion, Recepcion recepcionNotificacion) {
+        this.medioNotificacion = medioNotificacion;
+        this.recepcionNotificacion = recepcionNotificacion;
+    }
 }
