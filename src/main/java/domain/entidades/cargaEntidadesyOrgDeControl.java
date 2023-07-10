@@ -42,7 +42,7 @@ public class cargaEntidadesyOrgDeControl {
                     organismo.setCUIT(linea[1]);
                     organismosRegistrados.add(organismo);
 
-                    PrestadoraDeServicio prestadora = new PrestadoraDeServicio(linea[2])
+                    PrestadoraDeServicio prestadora = new PrestadoraDeServicio(linea[2]);
                     organismo.AnadirPrestadoraControlada(prestadora);
 
                     repositorio.guardarOrganismoDeControl(organismo);
