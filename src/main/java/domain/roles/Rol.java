@@ -16,8 +16,6 @@ public class Rol {
 
     Comunidad comunidad;
 
-    Notificador notificador;
-
     ArrayList<Permiso> permisos = new ArrayList<>();
 
     boolean tenesPermiso(Permiso unPermiso) {
