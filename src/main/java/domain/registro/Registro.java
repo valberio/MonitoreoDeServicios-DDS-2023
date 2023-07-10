@@ -30,8 +30,15 @@ public class Registro {
         }
     }
 
+    public void registrarUsuario(Usuario usuario) {
+        if (this.noEstaRegistrado(usuario.getUsuario()) && usuario.getContrasenia().esValida()) {
+            RepositorioUsuarios.agregarUnUsuario(usuario);
+            usuario.getContrasenia().mostrarFuerza();
+        }
+    }
+
     public boolean noEstaRegistrado(String usuario){
-        return  RepositorioUsuarios.getUsuariosRegistrados().stream().noneMatch(Usuario -> Objects.equals(Usuario.getUsuario(), usuario));
+        return RepositorioUsuarios.getUsuariosRegistrados().stream().noneMatch(Usuario -> Objects.equals(Usuario.getUsuario(), usuario));
     }
 
 }
