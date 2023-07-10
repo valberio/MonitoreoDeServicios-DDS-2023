@@ -13,13 +13,12 @@ public class RepositorioUsuarios {
 
     private static RepositorioUsuarios instancia = null;
 
-    private static ArrayList<Usuario> usuariosRegistrados;
+    private static ArrayList<Usuario> usuariosRegistrados = new ArrayList<Usuario>();
 
 
     public static RepositorioUsuarios getInstance(){
         if(instancia==null) {
             instancia = new RepositorioUsuarios();
-            usuariosRegistrados = new ArrayList<>();
         }
 
         return instancia;

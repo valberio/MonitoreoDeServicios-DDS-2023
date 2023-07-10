@@ -7,12 +7,12 @@ import javax.mail.internet.*;
 import java.util.Properties;
 
 
-public class Mail {
+public class Mail implements  MedioNotificacion{
 
     private static final String SMTP_HOST = "smtp.gmail.com";
     private static final String SMTP_PORT = "587";
 
-    public static void enviarNotificacionA(Usuario usuario, Notificacion notificacion) throws MessagingException {
+    public void enviarNotificacionA(Usuario usuario, Notificacion notificacion) throws MessagingException {
         Properties properties = new Properties();
         properties.put("mail.smtp.host", SMTP_HOST);
         properties.put("mail.smtp.port", SMTP_PORT);

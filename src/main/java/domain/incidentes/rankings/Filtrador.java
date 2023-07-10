@@ -15,9 +15,9 @@ import java.util.stream.Collectors;
 public class Filtrador {
 
     public ArrayList<Incidente> filtrarIncidentesUltimaSemana(){
-        RepositorioIncidentes repositorioIncidentes = new RepositorioIncidentes();
+        RepositorioIncidentes repositorioIncidentes = RepositorioIncidentes.getInstance();
 
-        return filtrarOcurridosUltimaSemana(RepositorioIncidentes.getInstance().incidentes);
+        return filtrarOcurridosUltimaSemana(repositorioIncidentes.incidentes);
     }
 
     public Map<Entidad, List<Incidente>> separarPorEntidadAfectada(ArrayList<Incidente> incidentes){

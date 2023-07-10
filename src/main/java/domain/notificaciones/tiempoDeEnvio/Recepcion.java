@@ -4,6 +4,7 @@ import domain.notificaciones.Notificacion;
 import domain.notificaciones.Notificador;
 import domain.notificaciones.creacion.Creacion;
 import domain.registro.Usuario;
+import lombok.SneakyThrows;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
@@ -22,6 +23,7 @@ public class Recepcion implements Job {
         notificacionesSinEnviar = new ArrayList<>();
     }
 
+    @SneakyThrows
     public void enviarNotificacionA(Usuario usuario, Notificacion notificacion) {
 
         switch(this.modo) {
