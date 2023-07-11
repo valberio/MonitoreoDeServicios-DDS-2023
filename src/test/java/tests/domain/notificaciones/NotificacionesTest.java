@@ -42,7 +42,7 @@ public class NotificacionesTest {
 
         Comunidad comunidadAfectada = new Comunidad();
 
-        Incidente incidente = reportadorDeIncidentes.crearIncidente(servicioAfectado, usuarioReportador,comunidadAfectada);
+        Incidente incidente = reportadorDeIncidentes.crearIncidente(servicioAfectado, usuarioReportador,comunidadAfectada, "");
         
 
         assert(incidente.getEstado().equals(EstadoIncidente.ACTIVO));

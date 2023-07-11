@@ -31,11 +31,12 @@ public class Incidente {
     Notificador notificador = Notificador.getInstancia();
     String descripcion;
 
-    public Incidente(PrestacionDeServicio prestacionDeServicio, Usuario usuarioReportador, LocalDateTime fechaReporte, Comunidad comunidad) {
+    public Incidente(PrestacionDeServicio prestacionDeServicio, Usuario usuarioReportador, LocalDateTime fechaReporte, Comunidad comunidad, String observacion) {
         this.servicioAfectado = prestacionDeServicio;
         this.usuarioReportador = usuarioReportador;
         this.fechaReporte = fechaReporte;
         this.comunidadDondeSeReporta = comunidad;
+        this.descripcion = observacion;
 
         RepositorioIncidentes archivo = RepositorioIncidentes.getInstance();
         archivo.guardarIncidente(this);

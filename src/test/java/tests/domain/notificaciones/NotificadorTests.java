@@ -47,7 +47,7 @@ public class NotificadorTests {
     private PrestacionDeServicio prestacion1 = new PrestacionDeServicio(servicio1, establecimiento1);
     private LocalDateTime date1 = LocalDateTime.of(2023, 7, 10, 15, 30);
     private Comunidad comunidad1 = new Comunidad(); //what the
-    private Incidente incidente1 = new Incidente(prestacion1, usuarioTest, date1, comunidad1);
+    private Incidente incidente1 = new Incidente(prestacion1, usuarioTest, date1, comunidad1, "");
 
     //Incidente2
 

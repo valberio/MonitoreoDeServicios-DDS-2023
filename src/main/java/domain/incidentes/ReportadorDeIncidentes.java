@@ -9,15 +9,15 @@ import java.time.LocalDateTime;
 
 public class ReportadorDeIncidentes {
 
-    Notificador notificador;
+    Notificador notificador = Notificador.getInstancia();
 
-    public Incidente crearIncidente(PrestacionDeServicio prestacionDeServicio, Usuario usuario, Comunidad comunidad) {
+    public Incidente crearIncidente(PrestacionDeServicio prestacionDeServicio, Usuario usuario, Comunidad comunidad, String observacion) {
 
-        Incidente nuevoIncidente = new Incidente(prestacionDeServicio,usuario, LocalDateTime.now(), comunidad);
+        Incidente nuevoIncidente = new Incidente(prestacionDeServicio,usuario, LocalDateTime.now(), comunidad, observacion);
 
-        Notificador.getInstancia().creeUnIncidente(nuevoIncidente);
+        notificador.creeUnIncidente(nuevoIncidente);
 
-        nuevoIncidente.getComunidadDondeSeReporta().seInformoUnIncidente(nuevoIncidente);
+        comunidad.seInformoUnIncidente(nuevoIncidente);
 
         return nuevoIncidente;
     }
