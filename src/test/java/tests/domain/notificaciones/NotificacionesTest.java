@@ -1,16 +1,11 @@
 package tests.domain.notificaciones;
 
-import domain.Localizacion.Localizacion;
 import domain.comunidad.Comunidad;
 import domain.entidades.Establecimiento;
 import domain.incidentes.EstadoIncidente;
 import domain.incidentes.Incidente;
-import domain.incidentes.IncidenteFactory;
-import domain.notificaciones.medioEnvio.AdapterTwillio;
-import domain.notificaciones.medioEnvio.AdapterWhatsapp;
-import domain.notificaciones.medioEnvio.MedioNotificacion;
+import domain.incidentes.ReportadorDeIncidentes;
 import domain.notificaciones.medioEnvio.WhatsApp;
-import domain.notificaciones.tiempoDeEnvio.EnviarNotificacion;
 import domain.notificaciones.tiempoDeEnvio.ModoRecepcion;
 import domain.notificaciones.tiempoDeEnvio.PreferenciaEnvioNotificacion;
 import domain.notificaciones.tiempoDeEnvio.Recepcion;
@@ -22,8 +17,6 @@ import domain.servicios.PrestacionDeServicio;
 import domain.servicios.Servicio;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import static org.mockito.Mockito.*;
 public class NotificacionesTest {
 
     @Test
@@ -45,11 +38,11 @@ public class NotificacionesTest {
 
         Registro.getInstancia().registrarUsuario(usuarioReportador);
 
-        IncidenteFactory incidenteFactory = new IncidenteFactory();
+        ReportadorDeIncidentes reportadorDeIncidentes = new ReportadorDeIncidentes();
 
         Comunidad comunidadAfectada = new Comunidad();
 
-        Incidente incidente = incidenteFactory.crearIncidente(servicioAfectado, usuarioReportador,comunidadAfectada);
+        Incidente incidente = reportadorDeIncidentes.crearIncidente(servicioAfectado, usuarioReportador,comunidadAfectada);
         
 
         assert(incidente.getEstado().equals(EstadoIncidente.ACTIVO));

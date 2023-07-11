@@ -7,7 +7,7 @@ import domain.servicios.PrestacionDeServicio;
 
 import java.time.LocalDateTime;
 
-public class IncidenteFactory {
+public class ReportadorDeIncidentes {
 
     Notificador notificador;
 

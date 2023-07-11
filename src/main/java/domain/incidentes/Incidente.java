@@ -44,12 +44,6 @@ public class Incidente {
 
     }
 
-    public void reportar() {
-
-        Notificador.notificar(this);
-
-    }
-
     public ArrayList<Usuario> obtenerUsuariosInteresados() {
 
         ArrayList<Usuario> usuariosRegistrados = RepositorioUsuarios.getUsuariosRegistrados();
