@@ -1,12 +1,13 @@
 package domain.registro;
 
-import domain.Localizacion.Localizacion;
+
 import domain.comunidad.Comunidad;
 import domain.notificaciones.Notificador;
 import domain.notificaciones.medioEnvio.MedioNotificacion;
 import domain.notificaciones.tiempoDeEnvio.PreferenciaEnvioNotificacion;
 import domain.notificaciones.tiempoDeEnvio.Recepcion;
 import domain.roles.Rol;
+import domain.services.georef.entities.Ubicacion;
 import domain.servicios.PrestacionDeServicio;
 import domain.servicios.Servicio;
 import domain.entidades.Entidad;
@@ -28,7 +29,7 @@ public class Usuario {
     private Contrasenia contrasenia;
     private String numeroTelefono;
     private Boolean bloqueado;
-    private Localizacion localizacion;
+    private Ubicacion localizacion;
     private MedioNotificacion medioPreferido; // Email o Wpp
     private Recepcion modoRecepcion; // Sincronico o asincronico
     private ArrayList<LocalTime> horariosDisponibles;
@@ -79,7 +80,7 @@ public class Usuario {
         return roles.stream().anyMatch(rol -> rol.getComunidad().equals(comunidad));
     }
 
-    public void modificarLocalizacion(Localizacion nuevaLocalizacion) {
+    public void modificarLocalizacion(Ubicacion nuevaLocalizacion) {
         this.localizacion = nuevaLocalizacion;
         Notificador notificadorRevisiones = new Notificador();
         notificadorRevisiones.enviarSugerenciasRevisionA(this);

@@ -1,7 +1,7 @@
 package domain.notificaciones;
 
 import datos.RepositorioIncidentes;
-import domain.Localizacion.Localizacion;
+
 import domain.notificaciones.creacion.Cierre;
 import domain.notificaciones.creacion.Creacion;
 import domain.notificaciones.creacion.NotificacionBuilder;
@@ -9,6 +9,7 @@ import domain.notificaciones.creacion.Revision;
 import domain.notificaciones.tiempoDeEnvio.EnviarNotificacion;
 import domain.registro.Usuario;
 import domain.incidentes.Incidente;
+import domain.services.georef.entities.Ubicacion;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -51,7 +52,7 @@ public class Notificador {
 
     public void enviarSugerenciasRevisionA(Usuario usuario){
 
-        Localizacion localizacionUsuario = usuario.getLocalizacion();
+        Ubicacion localizacionUsuario = usuario.getLocalizacion();
         List<Incidente> incidentesCercanos;
         incidentesCercanos = RepositorioIncidentes.getInstance().incidentes.stream()
                 .filter(incidente -> incidente.getServicioAfectado().getEstablecimiento().getUbicacionGeografica().

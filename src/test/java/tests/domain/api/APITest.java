@@ -19,68 +19,52 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
-
 public class APITest {
     public APITest() throws IOException {
     }
 
-
     @Test
-    public void probarLlamadasMunicipios() throws IOException {
+    public void probarLlamadasAPI() throws IOException {
         ServicioGeoref servicioGeoref = ServicioGeoref.getInstancia();
-        servicioGeoref.listadoDeMunicipios(10);
+        Ubicacion ubicacion = servicioGeoref.obtenerDetallesUbicacion(-34.75, -58.4);
 
-        Municipio municipio = new Municipio();
-
-        System.out.println(municipio.obtenerNombre(10));
-
-        Assertions.assertEquals(municipio.obtenerNombre(10), "Belén");
+        System.out.println("Latitud: " + ubicacion.getLat());
+        System.out.println("Longitud: " + ubicacion.getLon());
+        System.out.println("Provincia: " + ubicacion.getProvincia().getNombre());
+        System.out.println("Municipio: " + ubicacion.getMunicipio().getNombre());
+        System.out.println("Departamento: " + ubicacion.getDepartamento().getNombre());
     }
+
     @Test
-    public void testearLlamadasProvincias() throws IOException {
+    public void testarEstasCercaDe() throws IOException {
         ServicioGeoref servicioGeoref = ServicioGeoref.getInstancia();
-        servicioGeoref.listadoDeProvincias();
-        Provincia provincia = new Provincia();
-        System.out.println(provincia.obtenerNombre(22));
-        Assertions.assertEquals(provincia.obtenerNombre(22), "Buenos Aires");
+
+        Ubicacion ubicacion1 = servicioGeoref.obtenerDetallesUbicacion(-34.75, -58.4);
+        Ubicacion ubicacion2 = servicioGeoref.obtenerDetallesUbicacion(-34.756, -58.5);
+
+        System.out.println(ubicacion1.getDepartamento().getNombre() + " está cerca de " + ubicacion2.getDepartamento().getNombre());
+
+
+        Assertions.assertTrue(ubicacion1.estasCercaDe(ubicacion2));
     }
 
     @Test
-    public void testearLocalizacion() throws IOException {
-        Provincia provincia = new Provincia();
-        System.out.println(provincia.obtenerNombre(1));
-    }
+    public void testarNoEstasCercaDe() throws IOException {
+        ServicioGeoref servicioGeoref = ServicioGeoref.getInstancia();
 
-    @Test
-    public void testearEstasCerca(){
-        Provincia provincia = new Provincia();
-        provincia.id = 1;
-        Provincia provincia1 = new Provincia();
-        provincia1.id = 1;
+        Ubicacion ubicacion1 = servicioGeoref.obtenerDetallesUbicacion(-34.6, -58.4);
+        Ubicacion ubicacion2 = servicioGeoref.obtenerDetallesUbicacion(-34.75, -58.4);
 
-        Assertions.assertTrue(provincia.estasCercaDe(provincia1));
-    }
+        System.out.println(ubicacion1.getDepartamento().getNombre() + " no está cerca de " + ubicacion2.getDepartamento().getNombre());
 
-    @Test
-    public void testearNotificaciones(){
-
-        Provincia provincia = new Provincia();
-        provincia.id = 10;
-
-        Servicio servicio = new Servicio("Baño", "Baño");
-
-        Establecimiento establecimiento = new Establecimiento("Facultad", provincia);
-
-        PrestacionDeServicio prestacionDeServicio = new PrestacionDeServicio(servicio, establecimiento);
-
-        Comunidad comunidad = new Comunidad();
-
-        Incidente incidente = new Incidente(prestacionDeServicio, new Usuario("pepe", null, null, null), LocalDateTime.now(), comunidad);
-
-        Usuario usuario = new Usuario("Pepita", null, null, null);
-        usuario.modificarLocalizacion(provincia);
+        Assertions.assertFalse(ubicacion1.estasCercaDe(ubicacion2));
     }
 }
+
+
+
+
+
 
 
 

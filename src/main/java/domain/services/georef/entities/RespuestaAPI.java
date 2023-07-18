@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Departamento{
-    public int id;
-    public String nombre;
+public class RespuestaAPI {
+    private Parametros parametros;
+    private Ubicacion ubicacion;
 }

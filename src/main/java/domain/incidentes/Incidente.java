@@ -84,7 +84,7 @@ public class Incidente {
 
     public String getLocalizacion() {
 
-        return this.servicioAfectado.getEstablecimiento().getUbicacionGeografica().nombre;
+        return this.servicioAfectado.getEstablecimiento().getUbicacionGeografica().getMunicipio().getNombre();
     }
 
     public Entidad obtenerEntidad(){

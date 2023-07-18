@@ -1,13 +1,11 @@
 package domain.entidades;
 
-import domain.Localizacion.Localizacion;
-import domain.services.georef.entities.Provincia;
-import domain.servicios.PrestacionDeServicio;
+
+import domain.services.georef.entities.Ubicacion;
 import domain.servicios.Servicio;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -58,7 +56,7 @@ public class Entidad {
         return establecimientosAsociados.stream().flatMap(Establecimiento::obtenerServiciosIncidentados);
     }
 
-    public ArrayList<Localizacion> dondeOpera() {
+    public ArrayList<Ubicacion> dondeOpera() {
         return establecimientosAsociados.stream().map(establecimiento -> establecimiento.getUbicacionGeografica()).collect(Collectors.toCollection(ArrayList::new));
     }
 

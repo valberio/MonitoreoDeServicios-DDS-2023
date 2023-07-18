@@ -1,25 +1,13 @@
 package domain.services.georef;
 
-import domain.services.georef.entities.ListadoDeMunicipios;
-import domain.services.georef.entities.ListadoDeProvincias;
-import domain.services.georef.entities.ListadoDeDepartamentos;
+import domain.services.georef.entities.RespuestaAPI;
+import domain.services.georef.entities.Ubicacion;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 public interface GeorefService {
 
-    @GET("provincias")
-    Call<ListadoDeProvincias> provincias();
-    @GET("provincias")
-    Call<ListadoDeProvincias> provincias(@Query("campos") int campos);
-
-    @GET("municipios")
-    Call<ListadoDeMunicipios> municipios(@Query("provincia") int idProvincia);
-
-    @GET("departamentos")
-    Call<ListadoDeDepartamentos> departamentos(@Query("campos") int idDepartamento);
-
-
-
+    @GET("ubicacion")
+    Call<RespuestaAPI> obtenerUbicacion(@Query("lat") double latitud, @Query("lon") double longitud);
 }

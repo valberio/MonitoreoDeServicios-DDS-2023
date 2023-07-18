@@ -1,6 +1,7 @@
 package domain.entidades;
 
-import domain.Localizacion.Localizacion;
+
+import domain.services.georef.entities.Ubicacion;
 import domain.servicios.PrestacionDeServicio;
 import domain.servicios.Servicio;
 import lombok.Getter;
@@ -15,11 +16,11 @@ import java.util.stream.Stream;
 public class Establecimiento {
 
     private String nombre;
-    private Localizacion ubicacionGeografica;
+    private Ubicacion ubicacionGeografica;
     private ArrayList<PrestacionDeServicio> serviciosBrindados = new ArrayList<>();
     private Entidad entidad;
 
-    public Establecimiento(String nombre, Localizacion ubicacionGeografica)
+    public Establecimiento(String nombre, Ubicacion ubicacionGeografica)
     {
         this.nombre = nombre;
         this.ubicacionGeografica = ubicacionGeografica;

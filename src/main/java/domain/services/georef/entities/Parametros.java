@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Departamento{
-    public int id;
-    public String nombre;
+public class Parametros{
+    public double lat;
+    public double lon;
 }

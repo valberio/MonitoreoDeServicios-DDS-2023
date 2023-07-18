@@ -43,8 +43,8 @@ public class rankingPromedio {
         PrestacionDeServicio prestacion = new PrestacionDeServicio(baños, sedeLugano);
         PrestacionDeServicio prestacion2 = new PrestacionDeServicio(baños, sedeMedrano);
 
-        Incidente incidente1 = new Incidente(prestacion, null, LocalDateTime.of(2023, 10, 7, 7, 0), null);
-        Incidente incidente2 = new Incidente(prestacion2, null, LocalDateTime.of(2023, 10, 7, 8, 0), null);
+        Incidente incidente1 = new Incidente(prestacion, null, LocalDateTime.of(2023, 10, 7, 7, 0), null, null);
+        Incidente incidente2 = new Incidente(prestacion2, null, LocalDateTime.of(2023, 10, 7, 8, 0), null, null);
 
         incidente1.cerrarse();
         incidente2.cerrarse();
@@ -55,7 +55,7 @@ public class rankingPromedio {
         facultadIng.setEntidad(UBA);
 
         PrestacionDeServicio prestacion3 = new PrestacionDeServicio(baños, facultadIng);
-        Incidente incidente3 = new Incidente(prestacion3, null, LocalDateTime.of(2022, 10, 7, 7, 0),null);
+        Incidente incidente3 = new Incidente(prestacion3, null, LocalDateTime.of(2022, 10, 7, 7, 0),null, null);
         incidente3.cerrarse();
         System.out.println(incidente3.obtenerEntidad().getNombre());
         ArrayList<Entidad> resultadoRanking = ranking.generarPorPromedioDeCierre();

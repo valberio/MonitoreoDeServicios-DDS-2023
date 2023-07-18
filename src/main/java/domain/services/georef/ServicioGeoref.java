@@ -1,9 +1,7 @@
 package domain.services.georef;
 
 import domain.config.Config;
-import domain.services.georef.entities.ListadoDeMunicipios;
-import domain.services.georef.entities.ListadoDeProvincias;
-import domain.services.georef.entities.ListadoDeDepartamentos;
+import domain.services.georef.entities.*;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
@@ -29,40 +27,20 @@ public class ServicioGeoref {
         return instancia;
     }
 
-    public ListadoDeProvincias listadoDeProvincias(int id) throws IOException {
+    public Ubicacion obtenerDetallesUbicacion(double lat, double lon) throws IOException {
 
         GeorefService georefService = this.retrofit.create(GeorefService.class);
-        Call<ListadoDeProvincias> requestProvinciasArg = georefService.provincias(id);
-        Response<ListadoDeProvincias> responseProvinciasArgs = requestProvinciasArg.execute(); //aca llamo a la api
-        return responseProvinciasArgs.body(); //aca la matcheo con mi clase molde
+        Call<RespuestaAPI> peticion = georefService.obtenerUbicacion(lat, lon);
+        Response<RespuestaAPI> respuesta = peticion.execute();
 
-    }
-
-    public ListadoDeProvincias listadoDeProvincias() throws IOException {
-
-        GeorefService georefService = this.retrofit.create(GeorefService.class);
-        Call<ListadoDeProvincias> requestProvinciasArg = georefService.provincias();
-        Response<ListadoDeProvincias> responseProvinciasArgs = requestProvinciasArg.execute(); //aca llamo a la api
-        return responseProvinciasArgs.body(); //aca la matcheo con mi clase molde
-
-    }
-
-    public ListadoDeMunicipios listadoDeMunicipios(int id) throws IOException {
-
-        GeorefService georefService = this.retrofit.create(GeorefService.class);
-        Call<ListadoDeMunicipios> requestMunicipiosDeProvincia = georefService.municipios(id); //hago uso del primer metodo q hice para municipios
-        Response<ListadoDeMunicipios> responseMunicipiosDeProvincia = requestMunicipiosDeProvincia.execute(); //aca llamo a la api
-        return responseMunicipiosDeProvincia.body(); //aca la matcheo con mi clase molde
-
-    }
-
-
-    public ListadoDeDepartamentos listadoDeDepartamentos(int id) throws IOException {
-
-        GeorefService georefService = this.retrofit.create(GeorefService.class);
-        Call<ListadoDeDepartamentos> requestDepartamentos = georefService.departamentos(id); //hago uso del primer metodo q hice para deptos
-        Response<ListadoDeDepartamentos> responseDepartamentos = requestDepartamentos.execute(); //aca llamo a la api
-        return responseDepartamentos.body(); //aca la matcheo con mi clase molde
+        if (respuesta.isSuccessful()) {
+            Ubicacion ubicacion = respuesta.body().getUbicacion();
+            return ubicacion;
+        } else {
+            // Manejar el error si la respuesta no es exitosa
+            System.out.println("Error en la respuesta: " + respuesta.message());
+            return null;
+        }
 
     }
 }
