@@ -21,6 +21,7 @@ import domain.servicios.Servicio;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class NotificacionesTest {
@@ -62,6 +63,8 @@ public class NotificacionesTest {
         PreferenciaEnvioNotificacion pref = new PreferenciaEnvioNotificacion(new Mail(), new Recepcion(ModoRecepcion.ASINCRONICA));
 
         usuarioJuan.setPreferencias(pref);
+
+        usuarioJuan.configurarHorariosDisponibles(LocalTime.of(23,59));
 
         Comunidad comunidadAfectada = new Comunidad();
 
