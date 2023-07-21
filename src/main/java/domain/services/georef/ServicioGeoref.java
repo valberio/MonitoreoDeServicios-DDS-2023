@@ -38,8 +38,7 @@ public class ServicioGeoref {
             return ubicacion;
         } else {
             // Manejar el error si la respuesta no es exitosa
-            System.out.println("Error en la respuesta: " + respuesta.message());
-            return null;
+            throw new IOException("Error en la respuesta: " + respuesta.message());
         }
 
     }

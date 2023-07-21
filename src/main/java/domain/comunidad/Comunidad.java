@@ -32,4 +32,5 @@ public class Comunidad {
         this.incidentesReportados.add(unIncidente);
     }
 
+    public void agregarUsuario(Usuario usuario) { usuarios.add(usuario); }
 }

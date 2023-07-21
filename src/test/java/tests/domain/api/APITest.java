@@ -22,8 +22,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class APITest {
     public APITest() throws IOException {
     }
-
-    @Test
     public void probarLlamadasAPI() throws IOException {
         ServicioGeoref servicioGeoref = ServicioGeoref.getInstancia();
         Ubicacion ubicacion = servicioGeoref.obtenerDetallesUbicacion(-34.75, -58.4);
@@ -42,7 +40,6 @@ public class APITest {
         Ubicacion ubicacion1 = servicioGeoref.obtenerDetallesUbicacion(-34.75, -58.4);
         Ubicacion ubicacion2 = servicioGeoref.obtenerDetallesUbicacion(-34.756, -58.5);
 
-        System.out.println(ubicacion1.getDepartamento().getNombre() + " está cerca de " + ubicacion2.getDepartamento().getNombre());
 
 
         Assertions.assertTrue(ubicacion1.estasCercaDe(ubicacion2));
@@ -54,8 +51,6 @@ public class APITest {
 
         Ubicacion ubicacion1 = servicioGeoref.obtenerDetallesUbicacion(-34.6, -58.4);
         Ubicacion ubicacion2 = servicioGeoref.obtenerDetallesUbicacion(-34.75, -58.4);
-
-        System.out.println(ubicacion1.getDepartamento().getNombre() + " no está cerca de " + ubicacion2.getDepartamento().getNombre());
 
         Assertions.assertFalse(ubicacion1.estasCercaDe(ubicacion2));
     }

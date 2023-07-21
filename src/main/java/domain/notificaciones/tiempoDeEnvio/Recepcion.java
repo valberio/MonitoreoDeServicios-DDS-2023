@@ -4,12 +4,15 @@ import domain.notificaciones.Notificacion;
 import domain.notificaciones.Notificador;
 import domain.notificaciones.creacion.Creacion;
 import domain.registro.Usuario;
+import lombok.Getter;
 import lombok.SneakyThrows;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
 import java.util.ArrayList;
+
+@Getter
 
 public class Recepcion implements Job {
 

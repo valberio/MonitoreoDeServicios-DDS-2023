@@ -24,4 +24,8 @@ public class Rol {
 
     }
 
+    public Rol(String nombre, Comunidad comunidad) {
+        this.nombre = nombre;
+        this.comunidad = comunidad;
+    }
 }
