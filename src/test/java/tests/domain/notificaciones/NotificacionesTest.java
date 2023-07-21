@@ -5,6 +5,7 @@ import domain.entidades.Establecimiento;
 import domain.incidentes.EstadoIncidente;
 import domain.incidentes.Incidente;
 import domain.incidentes.ReportadorDeIncidentes;
+import domain.notificaciones.Notificador;
 import domain.notificaciones.medioEnvio.Mail;
 import domain.notificaciones.medioEnvio.WhatsApp;
 import domain.notificaciones.tiempoDeEnvio.ModoRecepcion;
@@ -64,19 +65,11 @@ public class NotificacionesTest {
 
         Comunidad comunidadAfectada = new Comunidad();
 
-        Rol rolDeJuan = new Rol("Miembro",comunidadAfectada);
-
-        ArrayList<Rol> roles = new ArrayList<>();
-
-        roles.add(rolDeJuan);
-
-        usuarioJuan.setRoles(roles);
+        comunidadAfectada.agregarUsuario(usuarioReportador, usuarioJuan);
 
         Incidente unIncidente = reportadorDeIncidentes.crearIncidente(servicioAfectado, usuarioReportador,comunidadAfectada, "");
 
         Incidente otroIncidente = reportadorDeIncidentes.crearIncidente(servicioAfectado,usuarioReportador, comunidadAfectada, "El mismo pero por otro usuario");
-
-        System.out.println(usuarioJuan.estasEn(comunidadAfectada));
 
         Assertions.assertEquals(2, usuarioJuan.getModoRecepcion().getNotificacionesSinEnviar().size());
 

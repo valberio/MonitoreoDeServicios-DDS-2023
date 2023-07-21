@@ -78,7 +78,7 @@ public class Notificador {
         
         int i;
         if(!usuarios.isEmpty()) {
-            for(i=0; i<=usuarios.size(); i++){
+            for(i=0; i<usuarios.size(); i++){
 
                 Usuario usuario = usuarios.get(i);
 

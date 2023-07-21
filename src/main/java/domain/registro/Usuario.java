@@ -2,6 +2,7 @@ package domain.registro;
 
 
 import domain.comunidad.Comunidad;
+import domain.incidentes.Incidente;
 import domain.notificaciones.Notificador;
 import domain.notificaciones.medioEnvio.MedioNotificacion;
 import domain.notificaciones.tiempoDeEnvio.PreferenciaEnvioNotificacion;
@@ -73,6 +74,11 @@ public class Usuario {
     public boolean teInteresa(PrestacionDeServicio servicioAfectado) {
 
         return this.serviciosDeInteres().stream().anyMatch(servicio -> servicioAfectado.getServicio().equals(servicio));
+    }
+
+    public boolean teInteresa(Incidente incidente) {
+
+        return this.teInteresa(incidente.getServicioAfectado()) || this.estasEn(incidente.getComunidadDondeSeReporta());
     }
 
     public boolean estasEn(Comunidad comunidad) {

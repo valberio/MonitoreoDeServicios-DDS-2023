@@ -14,8 +14,6 @@ public class EnviarNotificacion {
     private Notificacion notificacion;
 
     private Notificador notificador = Notificador.getInstancia();
-
-
     
     public void ejecutar() {
 

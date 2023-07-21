@@ -6,9 +6,13 @@ import domain.notificaciones.Notificador;
 import domain.registro.Usuario;
 import domain.servicios.PrestacionDeServicio;
 import domain.servicios.Servicio;
+import lombok.Getter;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
+@Getter
 public class Comunidad {
     private String nombre;
     private ArrayList<Usuario> usuarios = new ArrayList<>();
@@ -32,5 +36,8 @@ public class Comunidad {
         this.incidentesReportados.add(unIncidente);
     }
 
-    public void agregarUsuario(Usuario usuario) { usuarios.add(usuario); }
+    public void agregarUsuario(Usuario ... usuario) {  this.usuarios.addAll(List.of(usuario));
+    }
+
+
 }
