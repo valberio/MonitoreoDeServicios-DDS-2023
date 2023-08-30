@@ -25,7 +25,7 @@ public class NotificacionAsincronicaScheduler {
 
             for (LocalTime horario : horarios) {
 
-                JobDetail job = JobBuilder.newJob(Recepcion.class)
+                JobDetail job = JobBuilder.newJob(EnviarNotificacionAsincronica.class)
                         .withIdentity("recepcionJob_" + i + "_" + horario.hashCode(), "group1") // Identificador único para cada tarea
                         .build();
 

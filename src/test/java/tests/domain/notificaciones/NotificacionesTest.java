@@ -9,7 +9,7 @@ import domain.notificaciones.medioEnvio.Mail;
 import domain.notificaciones.medioEnvio.WhatsApp;
 import domain.notificaciones.tiempoDeEnvio.ModoRecepcion;
 import domain.notificaciones.tiempoDeEnvio.PreferenciaEnvioNotificacion;
-//import domain.notificaciones.tiempoDeEnvio.Recepcion;
+//import domain.notificaciones.tiempoDeEnvio.EnviarNotificacionAsincronica;
 import domain.registro.Contrasenia;
 import domain.registro.Registro;
 import domain.registro.Usuario;
@@ -55,7 +55,7 @@ public class NotificacionesTest {
 
     public void encolarCorrectamenteTest() {
 
-        Usuario usuarioReportador = new Usuario("anotherUsuario", contrasenia,"prueba", new PreferenciaEnvioNotificacion(new Mail(), new Recepcion(ModoRecepcion.ASINCRONICA)));
+        Usuario usuarioReportador = new Usuario("anotherUsuario", contrasenia,"prueba", new PreferenciaEnvioNotificacion(new Mail(), new EnviarNotificacionAsincronica(ModoRecepcion.ASINCRONICA)));
 
         Registro.getInstancia().registrarUsuario(usuarioJuan);
         Registro.getInstancia().registrarUsuario(usuarioReportador);

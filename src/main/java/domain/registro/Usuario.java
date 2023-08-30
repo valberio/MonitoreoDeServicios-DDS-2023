@@ -7,7 +7,6 @@ import domain.notificaciones.Notificador;
 import domain.notificaciones.medioEnvio.MedioNotificacion;
 import domain.notificaciones.tiempoDeEnvio.ModoRecepcion;
 import domain.notificaciones.tiempoDeEnvio.PreferenciaEnvioNotificacion;
-import domain.notificaciones.tiempoDeEnvio.Recepcion;
 import domain.roles.Rol;
 import domain.services.georef.entities.Ubicacion;
 import domain.servicios.PrestacionDeServicio;

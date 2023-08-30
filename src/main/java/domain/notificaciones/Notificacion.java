@@ -1,7 +1,7 @@
 package domain.notificaciones;
 
 import domain.notificaciones.creacion.ContextoDeIncidente;
-import domain.notificaciones.tiempoDeEnvio.Recepcion;
+import domain.notificaciones.tiempoDeEnvio.EnviarNotificacionAsincronica;
 import domain.registro.Usuario;
 import lombok.Getter;
 import lombok.Setter;
@@ -34,8 +34,8 @@ public class Notificacion {
             case ASINCRONICA:
                 if(contextoIncidente == ContextoDeIncidente.CREACION) {
 
-                    Recepcion recepcion = new Recepcion(usuario);
-                    recepcion.agregarNotificacionSinEnviar(this);
+                    EnviarNotificacionAsincronica enviarNotificacionAsincronica = new EnviarNotificacionAsincronica(usuario);
+                    enviarNotificacionAsincronica.agregarNotificacionSinEnviar(this);
                 }
         }
     }

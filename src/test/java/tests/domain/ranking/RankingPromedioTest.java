@@ -8,7 +8,6 @@ import domain.incidentes.rankings.Ranking;
 import domain.notificaciones.medioEnvio.WhatsApp;
 import domain.notificaciones.tiempoDeEnvio.ModoRecepcion;
 import domain.notificaciones.tiempoDeEnvio.PreferenciaEnvioNotificacion;
-import domain.notificaciones.tiempoDeEnvio.Recepcion;
 import domain.registro.Usuario;
 import domain.servicios.PrestacionDeServicio;
 import domain.servicios.Servicio;
