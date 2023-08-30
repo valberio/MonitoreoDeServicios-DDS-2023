@@ -10,6 +10,7 @@ import domain.servicios.PrestacionDeServicio;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.mail.MessagingException;
 import java.lang.reflect.Array;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -95,8 +96,7 @@ public class Incidente {
 
     }
 
-    public void cerrarse()
-    {
+    public void cerrarse() throws MessagingException {
         this.fechaResolucion = LocalDateTime.now();
         this.setEstado(EstadoIncidente.RESUELTO);
         notificador.cerreUnIncidente(this);

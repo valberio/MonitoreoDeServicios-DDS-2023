@@ -12,7 +12,7 @@ public class Mail implements  MedioNotificacion{
     private static final String SMTP_HOST = "smtp.gmail.com";
     private static final String SMTP_PORT = "587";
 
-    public void enviarNotificacionA(Usuario usuario, Notificacion notificacion) throws MessagingException {
+    public void enviarNotificacionA(Usuario usuario, String texto) throws MessagingException {
         Properties properties = new Properties();
         properties.put("mail.smtp.host", SMTP_HOST);
         properties.put("mail.smtp.port", SMTP_PORT);
@@ -31,7 +31,7 @@ public class Mail implements  MedioNotificacion{
         message.setFrom(new InternetAddress(usuario.getEmail()));
         message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(usuario.getEmail()));
         message.setSubject("Tenes notificaciones de incidentes que requieren tu atencion");
-        message.setText(notificacion.getTexto());
+        message.setText(texto);
 
         Transport.send(message);
     }

@@ -20,9 +20,16 @@ public class NotificacionBuilder {
 
     }
 
-    public void construirTexto(Incidente incidente, ContextoIncidente contexto) {
+    public void construirTexto(Incidente incidente, ContextoDeIncidente contexto) {
 
-        this.texto =  contexto.obtenerTexto(incidente);
+        switch(contexto) {
+
+            case CREACION -> this.texto ="Un usuario reporto que no funciona el  " + incidente.getServicioAfectado().obtenerTextoRelevante();
+
+            case SUGERENCIA_DE_REVISION -> this.texto = "¡Hola! Por favor, te solicitamos revisar el funcionamiento del servicio " + incidente.getServicioAfectado() + " en " + incidente.getLocalizacion();
+
+            case CIERRE -> this.texto = "¡Funciona nuevamente el incidente en " + incidente.getServicioAfectado().obtenerTextoRelevante() + "!";
+        }
 
     }
 

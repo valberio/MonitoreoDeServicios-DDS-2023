@@ -2,17 +2,15 @@ package domain.notificaciones;
 
 import datos.RepositorioIncidentes;
 
-import domain.notificaciones.creacion.Cierre;
-import domain.notificaciones.creacion.Creacion;
-import domain.notificaciones.creacion.NotificacionBuilder;
-import domain.notificaciones.creacion.Revision;
-import domain.notificaciones.tiempoDeEnvio.EnviarNotificacion;
+import domain.notificaciones.creacion.*;
+import domain.notificaciones.tiempoDeEnvio.ValidadorNotificacionAsincronica;
 import domain.registro.Usuario;
 import domain.incidentes.Incidente;
 import domain.services.georef.entities.Ubicacion;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.mail.MessagingException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +23,6 @@ public class Notificador {
     private static Notificador instancia = null;
     private static NotificacionBuilder builder;
 
-
     public static Notificador getInstancia(){
         if(instancia==null) {
             instancia = new Notificador();
@@ -35,22 +32,25 @@ public class Notificador {
         return instancia;
     }
 
-    public void creeUnIncidente(Incidente incidente){
-        builder.construirTexto(incidente, new Creacion());
-        notificar(incidente);
+    public void creeUnIncidente(Incidente incidente) throws MessagingException {
+
+        builder.construirTexto(incidente, ContextoDeIncidente.CREACION);
+        this.notificar(incidente);
     }
 
-    public void cerreUnIncidente(Incidente incidente){
-        builder.construirTexto(incidente,new Cierre());
-        notificar(incidente);
+    public void cerreUnIncidente(Incidente incidente) throws MessagingException {
+
+        builder.construirTexto(incidente,ContextoDeIncidente.CIERRE);
+        this.notificar(incidente);
     }
 
-    public void pedidoDeRevisionDeIncidente(Incidente incidente){
-        builder.construirTexto(incidente, new Revision());
-        notificar(incidente);
+    public void pedidoDeRevisionDeIncidente(Incidente incidente) throws MessagingException {
+
+        builder.construirTexto(incidente, ContextoDeIncidente.SUGERENCIA_DE_REVISION);
+        this.notificar(incidente);
     }
 
-    public void enviarSugerenciasRevisionA(Usuario usuario){
+    public void enviarSugerenciasRevisionA(Usuario usuario) throws MessagingException {
 
         Ubicacion localizacionUsuario = usuario.getLocalizacion();
         List<Incidente> incidentesCercanos;
@@ -63,18 +63,14 @@ public class Notificador {
             this.pedidoDeRevisionDeIncidente(incidenteCercano);
         }
     }
-    public static Notificacion construirNotificacion() {
 
-        return builder.construirNotificacion(LocalDateTime.now());
-    }
-
-    public static void notificar(Incidente incidente) {
+    public void notificar(Incidente incidente) throws MessagingException {
 
         ArrayList<Usuario> usuariosInteresados = incidente.obtenerUsuariosInteresados();
-        notificarUsuarios(usuariosInteresados, construirNotificacion());
+        this.notificarUsuarios(usuariosInteresados, builder.construirNotificacion(LocalDateTime.now()));
     }
 
-    public static void notificarUsuarios(ArrayList<Usuario> usuarios, Notificacion notificacion){
+    public void notificarUsuarios(ArrayList<Usuario> usuarios, Notificacion notificacion) throws MessagingException {
         
         int i;
         if(!usuarios.isEmpty()) {
@@ -82,51 +78,32 @@ public class Notificador {
 
                 Usuario usuario = usuarios.get(i);
 
-                notificar(usuario, notificacion);
+                notificacion.enviarseA(usuario);
             }
         }
 
     }
 
-    public static void agruparTextoNotificacion(String nuevoTexto) {
+    public void notificar(Usuario usuario) throws MessagingException {
 
-        builder.editarTexto(nuevoTexto);
+        Notificacion notificacion = builder.construirNotificacion(LocalDateTime.now());
+        notificacion.enviarseA(usuario);
+
     }
 
-
-    public static void inicioTextoResumen() {
+    public void enviarNotificacionResumenA(Usuario usuario, ArrayList<Notificacion> notificacionesSinEnviar) throws MessagingException {
 
         builder.construirTexto("Estos son todos los incidentes que ocurrieron mientras no estabas: \n");
-    }
 
-    public static void notificar(Usuario usuario) {
+        for (Notificacion notificacion : notificacionesSinEnviar) {
 
-        Notificacion notificacion = construirNotificacion();
-
-        usuario.getModoRecepcion().enviarNotificacionA(usuario, notificacion);
-
-    }
-
-    public static void notificar(Usuario usuario, Notificacion notificacion) {
-
-        usuario.getModoRecepcion().enviarNotificacionA(usuario, notificacion);
-
-    }
-
-    public static void enviarNotificacionResumen(ArrayList<EnviarNotificacion> notificacionesSinEnviar) {
-
-        inicioTextoResumen();
-        Usuario usuarioInteresado = null;
-
-
-        for (EnviarNotificacion comando : notificacionesSinEnviar) {
-
-            usuarioInteresado = comando.getUsuario();
-            comando.ejecutar();
+            if (ValidadorNotificacionAsincronica.cumpleCondiciones(notificacion)){
+                builder.editarTexto(notificacion.getTexto());
+            }
 
         }
 
-        notificar(usuarioInteresado);
+       this.notificar(usuario);
     }
 }
 

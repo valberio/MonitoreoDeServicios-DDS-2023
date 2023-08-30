@@ -2,52 +2,43 @@ package domain.notificaciones.tiempoDeEnvio;
 
 import domain.notificaciones.Notificacion;
 import domain.notificaciones.Notificador;
-import domain.notificaciones.creacion.Creacion;
+import domain.notificaciones.creacion.ContextoDeIncidente;
 import domain.registro.Usuario;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
 
+import javax.mail.MessagingException;
 import java.util.ArrayList;
 
 @Getter
 
 public class Recepcion implements Job {
+    private ArrayList<Notificacion> notificacionesSinEnviar;
+    private Usuario usuario;
 
-    private ModoRecepcion modo;
-    private ArrayList<EnviarNotificacion> notificacionesSinEnviar;
+    public Recepcion(Usuario usuario) {
 
-    private Notificador notificador = Notificador.getInstancia();
-
-    public Recepcion(ModoRecepcion modo) {
-        this.modo = modo;
         notificacionesSinEnviar = new ArrayList<>();
+
+        this.usuario = usuario;
     }
 
-    @SneakyThrows
-    public void enviarNotificacionA(Usuario usuario, Notificacion notificacion) {
+    public void agregarNotificacionSinEnviar(Notificacion notificacion) {
 
-        switch(this.modo) {
-            case SINCRONICA:
-                usuario.getMedioPreferido().enviarNotificacionA(usuario, notificacion);
-                break;
-
-            case ASINCRONICA:
-                // Para tomar unicamente las notificaciones que corresponden a la apertura de un incidente
-                if(notificacion.getContextoIncidente() instanceof Creacion) {
-                    notificacionesSinEnviar.add(new EnviarNotificacion(usuario,notificacion));
-                }
-
-
-                break;
-        }
-
+        notificacionesSinEnviar.add(notificacion);
     }
 
     @Override
-    public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
-        Notificador.enviarNotificacionResumen(this.notificacionesSinEnviar);
+    public void execute(JobExecutionContext jobExecutionContext) {
+
+        Notificador notificador = Notificador.getInstancia();
+
+        try {
+            notificador.enviarNotificacionResumenA(usuario, this.notificacionesSinEnviar);
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

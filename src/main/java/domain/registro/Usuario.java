@@ -5,6 +5,7 @@ import domain.comunidad.Comunidad;
 import domain.incidentes.Incidente;
 import domain.notificaciones.Notificador;
 import domain.notificaciones.medioEnvio.MedioNotificacion;
+import domain.notificaciones.tiempoDeEnvio.ModoRecepcion;
 import domain.notificaciones.tiempoDeEnvio.PreferenciaEnvioNotificacion;
 import domain.notificaciones.tiempoDeEnvio.Recepcion;
 import domain.roles.Rol;
@@ -15,6 +16,7 @@ import domain.entidades.Entidad;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.mail.MessagingException;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +34,7 @@ public class Usuario {
     private Boolean bloqueado;
     private Ubicacion localizacion;
     private MedioNotificacion medioPreferido; // Email o Wpp
-    private Recepcion modoRecepcion; // Sincronico o asincronico
+    private ModoRecepcion modoRecepcion; // Sincronico o asincronico
     private ArrayList<LocalTime> horariosDisponibles;
     ArrayList<Rol> roles = new ArrayList<>();
     ArrayList<Entidad> entidadesDeInteres = new ArrayList<>();
@@ -56,7 +58,7 @@ public class Usuario {
     public void setPreferencias(PreferenciaEnvioNotificacion preferencia) {
 
         medioPreferido = preferencia.getMedioNotificacion();
-        modoRecepcion = preferencia.getRecepcionNotificacion();
+        modoRecepcion = preferencia.getModoRecepcion();
 
     }
 
@@ -86,7 +88,7 @@ public class Usuario {
         return roles.stream().anyMatch(rol -> rol.getComunidad().equals(comunidad));
     }
 
-    public void modificarLocalizacion(Ubicacion nuevaLocalizacion) {
+    public void modificarLocalizacion(Ubicacion nuevaLocalizacion) throws MessagingException {
         this.localizacion = nuevaLocalizacion;
         Notificador notificadorRevisiones = new Notificador();
         notificadorRevisiones.enviarSugerenciasRevisionA(this);

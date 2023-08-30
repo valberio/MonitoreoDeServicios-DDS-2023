@@ -9,6 +9,7 @@ import domain.servicios.PrestacionDeServicio;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.mail.MessagingException;
 import java.time.LocalDateTime;
 @Getter
 @Setter
@@ -23,7 +24,7 @@ public class ReportadorDeIncidentes {
 
     Notificador notificador = Notificador.getInstancia();
 
-    public Incidente crearIncidente(PrestacionDeServicio prestacionDeServicio, Usuario usuario, Comunidad comunidad, String observacion) {
+    public Incidente crearIncidente(PrestacionDeServicio prestacionDeServicio, Usuario usuario, Comunidad comunidad, String observacion) throws MessagingException {
 
         Incidente nuevoIncidente = new Incidente(prestacionDeServicio,usuario, LocalDateTime.now(), comunidad, observacion);
 

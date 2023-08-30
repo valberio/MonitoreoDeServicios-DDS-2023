@@ -5,6 +5,6 @@ import domain.registro.Usuario;
 
 public interface AdapterWhatsapp  {
 
-    public void enviarNotificacionA(Usuario usuario, Notificacion notificacion);
+    public void enviarNotificacionA(Usuario usuario, String texto);
 
 }

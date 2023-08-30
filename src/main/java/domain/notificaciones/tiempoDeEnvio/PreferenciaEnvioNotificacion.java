@@ -10,10 +10,10 @@ public class PreferenciaEnvioNotificacion {
 
     MedioNotificacion medioNotificacion;
 
-    Recepcion recepcionNotificacion;
+    ModoRecepcion modoRecepcion;
 
-    public PreferenciaEnvioNotificacion(MedioNotificacion medioNotificacion, Recepcion recepcionNotificacion) {
+    public PreferenciaEnvioNotificacion(MedioNotificacion medioNotificacion, ModoRecepcion recepcionNotificacion) {
         this.medioNotificacion = medioNotificacion;
-        this.recepcionNotificacion = recepcionNotificacion;
+        this.modoRecepcion = recepcionNotificacion;
     }
 }

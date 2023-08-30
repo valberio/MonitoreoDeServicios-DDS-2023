@@ -8,5 +8,5 @@ import javax.mail.MessagingException;
 public interface MedioNotificacion {
 
 
-    public void enviarNotificacionA(Usuario usuario, Notificacion notificacion) throws MessagingException;
+    public void enviarNotificacionA(Usuario usuario, String texto) throws MessagingException;
 }

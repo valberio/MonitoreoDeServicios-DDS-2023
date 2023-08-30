@@ -20,7 +20,7 @@ import java.util.ArrayList;
 public class serviciosDeInteresTest {
 
     private Contrasenia unUsuarioContra = new Contrasenia(("buenasTardes2"));
-    private PreferenciaEnvioNotificacion preferencia = new PreferenciaEnvioNotificacion(new WhatsApp(), new Recepcion(ModoRecepcion.SINCRONICA));
+    private PreferenciaEnvioNotificacion preferencia = new PreferenciaEnvioNotificacion(new WhatsApp(), ModoRecepcion.SINCRONICA);
     private Usuario unUsuario = new Usuario("marsoteras", unUsuarioContra, "marsoteras@gmail.com", preferencia);
 
     private Entidad lineaMitre = new Entidad("Linea Mitre");

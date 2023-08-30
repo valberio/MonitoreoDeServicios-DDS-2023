@@ -15,7 +15,7 @@ public class AdapterTwillio implements AdapterWhatsapp {
 
 
     @Override
-    public void enviarNotificacionA(Usuario usuario, Notificacion notificacion) {
+    public void enviarNotificacionA(Usuario usuario, String texto) {
 
         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
 
@@ -26,7 +26,7 @@ public class AdapterTwillio implements AdapterWhatsapp {
         Message message = Message.creator(
                         new PhoneNumber(telefonoRecepcion),
                         new PhoneNumber(telefonoDeEnvio),
-                        notificacion.getTexto())
+                        texto)
                 .create();
     }
 

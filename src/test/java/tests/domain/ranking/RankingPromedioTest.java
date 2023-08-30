@@ -14,6 +14,7 @@ import domain.servicios.PrestacionDeServicio;
 import domain.servicios.Servicio;
 import org.junit.jupiter.api.Test;
 
+import javax.mail.MessagingException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,11 +23,11 @@ import java.util.Map;
 public class RankingPromedioTest {
 
     @Test
-    public void testRankingPorPromedioDeCierre(){
+    public void testRankingPorPromedioDeCierre() throws MessagingException {
 
         Ranking ranking = new Ranking();
 
-        PreferenciaEnvioNotificacion pref = new PreferenciaEnvioNotificacion(new WhatsApp(), new Recepcion(ModoRecepcion.SINCRONICA));
+        PreferenciaEnvioNotificacion pref = new PreferenciaEnvioNotificacion(new WhatsApp(), ModoRecepcion.SINCRONICA);
         Usuario usuario = new Usuario("Pepita", null, null, pref);
         RepositorioUsuarios.agregarUnUsuario(usuario);
 
