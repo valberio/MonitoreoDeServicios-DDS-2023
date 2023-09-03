@@ -47,7 +47,4 @@ public class Establecimiento extends Persistente {
         return serviciosBrindados.stream().filter(prestacion->!prestacion.getEstaHabilitado()).map(prestacion->prestacion.getServicio());
 
     }
-
-
-
 }
