@@ -49,8 +49,55 @@ public class Usuario {
         horariosDisponibles = new ArrayList<>();
     }
 
-    public void configurarHorariosDisponibles(LocalTime... horario) {
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
 
+    public void setNumeroTelefono(String numeroTelefono) {
+        this.numeroTelefono = numeroTelefono;
+    }
+
+    public void setContrasenia(Contrasenia contrasenia) {
+        this.contrasenia = contrasenia;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setLocalizacion(Ubicacion localizacion) {
+        this.localizacion = localizacion;
+    }
+
+    public void setMedioPreferido(MedioNotificacion medioPreferido) {
+        this.medioPreferido = medioPreferido;
+    }
+
+    public void setRoles(List<Rol> roles) {
+        this.roles = roles;
+    }
+
+    public void setModoRecepcion(ModoRecepcion modoRecepcion) {
+        this.modoRecepcion = modoRecepcion;
+    }
+
+    public void setHorariosDisponibles(List<LocalTime> horariosDisponibles) {
+        this.horariosDisponibles = horariosDisponibles;
+    }
+
+    public void setImpactosDePrestaciones(Map<PrestacionDeServicio, Identificador> impactosDePrestaciones) {
+        this.impactosDePrestaciones = impactosDePrestaciones;
+    }
+
+    public void setEntidadesDeInteres(List<Entidad> entidadesDeInteres) {
+        this.entidadesDeInteres = entidadesDeInteres;
+    }
+
+    public void setBloqueado(Boolean bloqueado) {
+        this.bloqueado = bloqueado;
+    }
+
+    public void configurarHorariosDisponibles(LocalTime... horario) {
         horariosDisponibles.addAll(List.of(horario));
     }
 
