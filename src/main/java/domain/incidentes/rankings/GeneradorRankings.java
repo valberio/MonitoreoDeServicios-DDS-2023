@@ -8,7 +8,7 @@ public class GeneradorRankings {
     public static void main(String[] args) throws SchedulerException {
             Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
 
-            JobDetail jobDetail = JobBuilder.newJob(Ranking.class)
+            JobDetail jobDetail = JobBuilder.newJob(Ranking1.class)
                     .withIdentity("Generar Ranking de Entidades", "Rankings")
                     .build();
 
