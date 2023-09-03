@@ -1,11 +1,13 @@
 package domain.entidades;
 
 
+import domain.Persistente;
 import domain.services.georef.entities.Ubicacion;
 import domain.servicios.Servicio;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -13,15 +15,23 @@ import java.util.List;
 
 @Getter
 @Setter
-public class Entidad {
+@Entity
+@Table(name="entidad")
+public class Entidad extends Persistente {
+
+    @Column(name="nombre")
     private String nombre;
-
+    @Column(name="cantidad_reportes")
     private Integer cantidadReportes;
+    @Column(name = "promedio_de_cierre")
     private Double promedioCierre;
-    private ArrayList<Establecimiento> establecimientosAsociados = new ArrayList<>();
+    @OneToMany(mappedBy="entidad_id")
+    private List<Establecimiento> establecimientosAsociados;
+    @ManyToOne
+    private PrestadoraDeServicio prestadora;
 
-    public Entidad(String nombre) {
-        this.nombre = nombre;
+    public Entidad() {
+        establecimientosAsociados = new ArrayList<>();
     }
 
     public static String[] obtenerEncabezadosCSV(String opcion) {

@@ -24,7 +24,11 @@ public class Registro {
     }
     public void registrarUsuario(String usuario, Contrasenia contrasenia, String email, PreferenciaEnvioNotificacion preferenciaEnvioNotificacion) throws IOException {
         if (this.noEstaRegistrado(usuario) && contrasenia.esValida()) {
-            Usuario nuevoUsuario = new Usuario(usuario, contrasenia, email, preferenciaEnvioNotificacion);
+            Usuario nuevoUsuario = new Usuario();
+            nuevoUsuario.setUsuario(usuario);
+            nuevoUsuario.setContrasenia(contrasenia);
+            nuevoUsuario.setEmail(email);
+            nuevoUsuario.setPreferencias(preferenciaEnvioNotificacion);
             RepositorioUsuarios.agregarUnUsuario(nuevoUsuario);
             contrasenia.mostrarFuerza();
         }

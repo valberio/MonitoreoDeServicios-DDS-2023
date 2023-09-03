@@ -6,6 +6,7 @@ import domain.registro.condicionesContra.medidorFuerza.MedidorDeFuerza;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Transient;
 import java.util.*;
 import java.lang.*;
 
@@ -15,9 +16,14 @@ import java.lang.*;
 public class Contrasenia {
 
     private String contrasenia;
+
+    @Transient
     private Usuario usuario;
 
+    @Transient
     private Validador validador = new Validador();
+
+    @Transient
     private MedidorDeFuerza fuerza;
 
     public Contrasenia(String contrasenia) {

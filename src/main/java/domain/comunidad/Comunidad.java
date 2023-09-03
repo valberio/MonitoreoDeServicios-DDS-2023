@@ -1,5 +1,6 @@
 package domain.comunidad;
 
+import domain.Persistente;
 import domain.incidentes.Incidente;
 import domain.notificaciones.Notificacion;
 import domain.notificaciones.Notificador;
@@ -7,26 +8,35 @@ import domain.registro.Usuario;
 import domain.servicios.PrestacionDeServicio;
 import domain.servicios.Servicio;
 import lombok.Getter;
+import lombok.Setter;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 @Getter
-public class Comunidad {
+@Setter
+@Entity
+@Table(name="comunidad")
+public class Comunidad extends Persistente {
+
+    @Column(name="nombre")
     private String nombre;
-    private ArrayList<Usuario> usuarios = new ArrayList<>();
-    private ArrayList<Servicio> serviciosDeInteres = new ArrayList<>();
+    @ManyToMany
+    private List<Usuario> usuarios;
+    @ManyToMany
+    private List<Servicio> serviciosDeInteres;
+    @OneToMany
+    private List<Incidente> incidentesReportados;
 
-    private ArrayList<Incidente> incidentesReportados = new ArrayList<>();
-
-    public void definirServicio(String tipoDeServicio, String descripcion){
-        Servicio servicioAAgregar = new Servicio(tipoDeServicio, descripcion);
+    public Comunidad() {
+       usuarios = new ArrayList<>();
+       serviciosDeInteres = new ArrayList<>();
+       incidentesReportados = new ArrayList<>();
     }
 
-    public void modificarDescripcion(Servicio servicio, String nuevaDescripcion){
-        servicio.modificarDescripcion(nuevaDescripcion);
-    }
+    public void agregarServiciosDeInteres(Servicio ... servicio) { this.serviciosDeInteres.addAll(List.of(servicio));}
 
     public void darDeBaja(Servicio servicio){
         serviciosDeInteres.remove(servicio);
@@ -36,8 +46,6 @@ public class Comunidad {
         this.incidentesReportados.add(unIncidente);
     }
 
-    public void agregarUsuario(Usuario ... usuario) {  this.usuarios.addAll(List.of(usuario));
+    public void agregarUsuarios(Usuario ... usuario) {  this.usuarios.addAll(List.of(usuario));
     }
-
-
 }

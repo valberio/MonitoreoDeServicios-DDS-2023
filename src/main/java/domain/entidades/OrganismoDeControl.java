@@ -1,21 +1,33 @@
 package domain.entidades;
 
+import domain.Persistente;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
-public class OrganismoDeControl {
-    private String nombre;
-    private String CUIT;
-    private ArrayList<PrestadoraDeServicio> EntidadesPrestadorasControladas = new ArrayList<PrestadoraDeServicio>();
+@Entity
+@Table(name="organismo_de_control")
+public class OrganismoDeControl extends Persistente {
 
-    public OrganismoDeControl(String nombre ) {
-        this.nombre = nombre;
+    @Column(name="nombre")
+    private String nombre;
+    @Column(name="cuit")
+    private String CUIT;
+    @OneToMany(mappedBy = "organismo_control_id")
+    private List<PrestadoraDeServicio> entidadesPrestadorasControladas;
+
+    public OrganismoDeControl() {
+        this.entidadesPrestadorasControladas = new ArrayList<>();
     }
 
-    public void AnadirPrestadoraControlada(PrestadoraDeServicio prestadora) {EntidadesPrestadorasControladas.add(prestadora);}
+    public void aniadirPrestadoraControlada(PrestadoraDeServicio prestadora) {this.entidadesPrestadorasControladas.add(prestadora);}
 
 }

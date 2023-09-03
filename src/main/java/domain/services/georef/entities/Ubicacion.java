@@ -3,14 +3,20 @@ package domain.services.georef.entities;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Transient;
+
 @Getter
 @Setter
 public class Ubicacion {
 
     private double lat;
     private double lon;
+
+    @Transient
     private Departamento departamento;
+    @Transient
     private Municipio municipio;
+    @Transient
     private Provincia provincia;
 
     public Ubicacion(double lat, double lon) {

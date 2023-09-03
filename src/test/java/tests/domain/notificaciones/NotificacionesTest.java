@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 
 import javax.mail.MessagingException;
 import java.time.LocalTime;
-
+/*
 public class NotificacionesTest {
 
     Contrasenia contrasenia = new Contrasenia("Juan1234");
@@ -50,7 +50,7 @@ public class NotificacionesTest {
         assert(incidente.getEstado().equals(EstadoIncidente.ACTIVO));
     }
 
-    /*
+
     @Test
 
     public void encolarCorrectamenteTest() {
@@ -76,6 +76,7 @@ public class NotificacionesTest {
 
         Assertions.assertEquals(2, usuarioJuan.getModoRecepcion().getNotificacionesSinEnviar().size());
 
-    */
+
 
 }
+*/

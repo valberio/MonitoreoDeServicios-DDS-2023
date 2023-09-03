@@ -1,29 +1,35 @@
 package domain.entidades;
 
 
+import domain.Persistente;
 import domain.services.georef.entities.Ubicacion;
 import domain.servicios.PrestacionDeServicio;
 import domain.servicios.Servicio;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
 @Getter
 @Setter
-public class Establecimiento {
-
+@Entity
+@Table(name="establecimiento")
+public class Establecimiento extends Persistente {
+    @Column(name="nombre")
     private String nombre;
+    @Embedded
     private Ubicacion ubicacionGeografica;
-    private ArrayList<PrestacionDeServicio> serviciosBrindados = new ArrayList<>();
+    @OneToMany
+    private List<PrestacionDeServicio> serviciosBrindados;
+    @ManyToOne
     private Entidad entidad;
 
-    public Establecimiento(String nombre, Ubicacion ubicacionGeografica)
+    public Establecimiento()
     {
-        this.nombre = nombre;
-        this.ubicacionGeografica = ubicacionGeografica;
+        serviciosBrindados=new ArrayList<>();
     }
 
     public void brindarServicios(PrestacionDeServicio ... servicio) {

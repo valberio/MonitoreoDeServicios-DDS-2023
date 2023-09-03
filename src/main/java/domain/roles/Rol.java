@@ -1,22 +1,29 @@
 package domain.roles;
 
+import domain.Persistente;
 import domain.comunidad.Comunidad;
 import domain.incidentes.Incidente;
 import domain.notificaciones.Notificador;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
-public class Rol {
+@Entity
+@Table(name = "rol")
+public class Rol extends Persistente {
+    @Column(name="nombre")
+    private String nombre;
 
-    String nombre;
+    @OneToOne
+    private Comunidad comunidad;
 
-    Comunidad comunidad;
-
-    ArrayList<Permiso> permisos = new ArrayList<>();
+    @ManyToMany
+    private List<Permiso> permisos;
 
     boolean tenesPermiso(Permiso unPermiso) {
 
@@ -24,8 +31,8 @@ public class Rol {
 
     }
 
-    public Rol(String nombre, Comunidad comunidad) {
-        this.nombre = nombre;
-        this.comunidad = comunidad;
+    public Rol() {
+
+        permisos = new ArrayList<>();
     }
 }

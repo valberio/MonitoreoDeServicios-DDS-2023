@@ -21,7 +21,7 @@ public class NotificacionAsincronicaScheduler {
 
         for (Usuario usuario : usuarios) {
 
-            ArrayList<LocalTime> horarios = usuario.getHorariosDisponibles();
+            List<LocalTime> horarios = usuario.getHorariosDisponibles();
 
             for (LocalTime horario : horarios) {
 

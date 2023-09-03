@@ -11,6 +11,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.mail.MessagingException;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.lang.reflect.Array;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -21,6 +23,8 @@ import java.util.stream.Collectors;
 
 @Getter
 @Setter
+@Entity
+@Table(name="incidente")
 public class Incidente {
 
     public PrestacionDeServicio servicioAfectado;
@@ -32,12 +36,7 @@ public class Incidente {
     Notificador notificador = Notificador.getInstancia();
     String descripcion;
 
-    public Incidente(PrestacionDeServicio prestacionDeServicio, Usuario usuarioReportador, LocalDateTime fechaReporte, Comunidad comunidad, String observacion) {
-        this.servicioAfectado = prestacionDeServicio;
-        this.usuarioReportador = usuarioReportador;
-        this.fechaReporte = fechaReporte;
-        this.comunidadDondeSeReporta = comunidad;
-        this.descripcion = observacion;
+    public Incidente() {
 
         RepositorioIncidentes archivo = RepositorioIncidentes.getInstance();
         archivo.guardarIncidente(this);

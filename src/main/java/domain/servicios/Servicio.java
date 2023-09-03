@@ -1,13 +1,17 @@
 package domain.servicios;
-
-
+import domain.Persistente;
 import lombok.Getter;
+import lombok.Setter;
 
-import java.util.Collection;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Getter
-public class Servicio {
-
+@Setter
+@Entity
+@Table(name="servicio")
+public class Servicio extends Persistente {
+        
         private String tipoDeServicio;
         public String descripcion;
 

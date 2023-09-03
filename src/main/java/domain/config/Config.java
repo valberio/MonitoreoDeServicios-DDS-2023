@@ -8,7 +8,6 @@ public class Config {
 
     public static final String URL_API = "https://apis.datos.gob.ar/georef/api/";
 
-
     public static final String RUTA_CSV = "src/main/java/datos/entidades.csv";
 
 }

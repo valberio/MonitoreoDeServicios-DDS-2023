@@ -26,7 +26,15 @@ public class ReportadorDeIncidentes {
 
     public Incidente crearIncidente(PrestacionDeServicio prestacionDeServicio, Usuario usuario, Comunidad comunidad, String observacion) throws MessagingException {
 
-        Incidente nuevoIncidente = new Incidente(prestacionDeServicio,usuario, LocalDateTime.now(), comunidad, observacion);
+        Incidente nuevoIncidente = new Incidente();
+
+        nuevoIncidente.setServicioAfectado(prestacionDeServicio);
+
+        nuevoIncidente.setUsuarioReportador(usuario);
+
+        nuevoIncidente.setComunidadDondeSeReporta(comunidad);
+
+        nuevoIncidente.setDescripcion(observacion);
 
         notificador.creeUnIncidente(nuevoIncidente);
 

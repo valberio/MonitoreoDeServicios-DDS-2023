@@ -1,6 +1,7 @@
 package domain.registro;
 
 
+import domain.Persistente;
 import domain.comunidad.Comunidad;
 import domain.incidentes.Incidente;
 import domain.notificaciones.Notificador;
@@ -16,6 +17,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.mail.MessagingException;
+import javax.persistence.*;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,29 +26,42 @@ import java.util.stream.Collectors;
 
 @Getter
 @Setter
+@Entity
+@Table(name="usuario")
+public class Usuario extends Persistente {
 
-public class Usuario {
+    @Column(name="usuario")
     private String usuario;
+    @Column(name="usuario")
     private String email;
+    @Embedded
     private Contrasenia contrasenia;
+    @Column(name="telefono")
     private String numeroTelefono;
+    @Column(name="bloqueado")
     private Boolean bloqueado;
+    @Transient
     private Ubicacion localizacion;
+    @Enumerated(EnumType.STRING)
     private MedioNotificacion medioPreferido; // Email o Wpp
+    @Enumerated(EnumType.STRING)
     private ModoRecepcion modoRecepcion; // Sincronico o asincronico
-    private ArrayList<LocalTime> horariosDisponibles;
-    ArrayList<Rol> roles = new ArrayList<>();
-    ArrayList<Entidad> entidadesDeInteres = new ArrayList<>();
+
+    @ElementCollection
+    @CollectionTable(name = "usuario_horario_disponible", joinColumns = @JoinColumn(name="usuario_id"))
+    private List<LocalTime> horariosDisponibles;
+
+    @OneToMany
+    private List<Rol> roles;
+    @ManyToMany
+    private List<Entidad> entidadesDeInteres;
 
     private Map<PrestacionDeServicio, Identificador> impactosDePrestaciones;
 
-    public Usuario(String usuario, Contrasenia contrasenia, String email, PreferenciaEnvioNotificacion preferenciaNotificaciones) {
-        this.usuario = usuario;
-        this.contrasenia = contrasenia;
-        this.email = email;
-        this.bloqueado = false;
-        this.setPreferencias(preferenciaNotificaciones);
+    public Usuario() {
         horariosDisponibles = new ArrayList<>();
+        roles = new ArrayList<>();
+        entidadesDeInteres = new ArrayList<>();
     }
 
     public void setUsuario(String usuario) {
@@ -102,7 +117,6 @@ public class Usuario {
     }
 
     public void setPreferencias(PreferenciaEnvioNotificacion preferencia) {
-
         medioPreferido = preferencia.getMedioNotificacion();
         modoRecepcion = preferencia.getModoRecepcion();
 
@@ -139,6 +153,8 @@ public class Usuario {
         Notificador notificadorRevisiones = new Notificador();
         notificadorRevisiones.enviarSugerenciasRevisionA(this);
     }
+
+    
 
 }
 

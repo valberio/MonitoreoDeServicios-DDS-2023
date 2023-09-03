@@ -34,16 +34,18 @@ public class cargaEntidadesyOrgDeControl {
                             .filter(organismo -> organismo.getCUIT().equals(cuit))
                             .findFirst();
 
-                    organismoEncontrado.get().AnadirPrestadoraControlada(new PrestadoraDeServicio(linea[2]));
+                    organismoEncontrado.get().aniadirPrestadoraControlada(new PrestadoraDeServicio());
 
                 }
                 else {
-                    OrganismoDeControl organismo = new OrganismoDeControl(linea[0]);
+                    OrganismoDeControl organismo = new OrganismoDeControl();
+                    organismo.setNombre(linea[0]);
                     organismo.setCUIT(linea[1]);
                     organismosRegistrados.add(organismo);
 
-                    PrestadoraDeServicio prestadora = new PrestadoraDeServicio(linea[2]);
-                    organismo.AnadirPrestadoraControlada(prestadora);
+                    PrestadoraDeServicio prestadora = new PrestadoraDeServicio();
+                    prestadora.setNombre(linea[2]);
+                    organismo.aniadirPrestadoraControlada(prestadora);
 
                     repositorio.guardarOrganismoDeControl(organismo);
                     repositorio.guardarPrestadoraDeServicio(prestadora);
