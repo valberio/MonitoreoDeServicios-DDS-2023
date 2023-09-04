@@ -29,20 +29,37 @@ public class Incidente {
 
     public PrestacionDeServicio servicioAfectado;
     public Usuario usuarioReportador;
+    //Debatible
     public LocalDateTime fechaReporte;
     public LocalDateTime fechaResolucion;
-    public EstadoIncidente estado = EstadoIncidente.ACTIVO;
+    //Las fechas de reporte y resolucion estan en los estadoIncidente, dejarlos acá sería
+    //repetir datos y no cumplir las reglas de la normalización. Peero a nivel objeto, los
+    //incidentes no tienen una lista de estados, tienen sólo el estado actual. Para pensar gente...
+
+    public EstadoIncidente estado = new EstadoIncidente();
     public Comunidad comunidadDondeSeReporta;
     Notificador notificador = Notificador.getInstancia();
     String descripcion;
 
-    public Incidente() {
+    //No le vemos mucho sentido a tener el constructor vacio (? lo dejamos prudentemente comentado
+    /*public Incidente() {
 
         RepositorioIncidentes archivo = RepositorioIncidentes.getInstance();
         archivo.guardarIncidente(this);
 
         this.servicioAfectado.setEstaHabilitado(false);
 
+    }*/
+
+    public void abrirIncidente(PrestacionDeServicio servicioAfectado, Usuario usuarioReportador, Comunidad comunidadDondeSeReporta, String descripcion){
+        this.setUsuarioReportador(usuarioReportador);
+        this.setServicioAfectado(servicioAfectado);
+        this.setComunidadDondeSeReporta(comunidadDondeSeReporta);
+        this.setFechaReporte(LocalDateTime.now());
+        this.setDescripcion(descripcion);
+        this.servicioAfectado.setEstaHabilitado(false);
+        RepositorioIncidentes archivo = RepositorioIncidentes.getInstance();
+        archivo.guardarIncidente(this);
     }
 
     public ArrayList<Usuario> obtenerUsuariosInteresados() {
@@ -56,7 +73,6 @@ public class Incidente {
         }
 
         return this.obtenerUsuariosInteresadosSinRepetir(usuariosInteresados);
-
     }
 
     public ArrayList<Usuario> obtenerUsuariosInteresadosSinRepetir(ArrayList<Usuario> usuarios) {
