@@ -40,8 +40,6 @@ public class APITest {
         Ubicacion ubicacion1 = servicioGeoref.obtenerDetallesUbicacion(-34.75, -58.4);
         Ubicacion ubicacion2 = servicioGeoref.obtenerDetallesUbicacion(-34.756, -58.5);
 
-
-
         Assertions.assertTrue(ubicacion1.estasCercaDe(ubicacion2));
     }
 
