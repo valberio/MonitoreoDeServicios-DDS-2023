@@ -1,5 +1,6 @@
 package domain.incidentes;
 
+import com.twilio.rest.api.v2010.account.incomingphonenumber.Local;
 import datos.RepositorioIncidentes;
 import datos.RepositorioUsuarios;
 import domain.comunidad.Comunidad;
@@ -111,10 +112,15 @@ public class Incidente {
 
     }
 
-    public void cerrarse() throws MessagingException {
+    public void cerrarse(Usuario usuarioResponsable) throws MessagingException {
         this.fechaResolucion = LocalDateTime.now();
-        this.setEstado(EstadoIncidente.RESUELTO);
+        EstadoIncidente estadoResuelto = new EstadoIncidente();
+        estadoResuelto.setUsuarioResponsable(usuarioResponsable);
+        estadoResuelto.setFechaModificacion(LocalDateTime.now());
+        estadoResuelto.setEstado(Estado.RESUELTO);
+        this.setEstado(estadoResuelto);
         notificador.cerreUnIncidente(this);
+        this.servicioAfectado.setEstaHabilitado(true);
     }
 
 }
