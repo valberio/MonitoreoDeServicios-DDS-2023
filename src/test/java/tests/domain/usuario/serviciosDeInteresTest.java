@@ -11,6 +11,7 @@ import domain.services.georef.entities.Ubicacion;
 import domain.servicios.PrestacionDeServicio;
 import domain.servicios.Servicio;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -20,11 +21,11 @@ public class serviciosDeInteresTest {
 
     private Contrasenia unUsuarioContra = new Contrasenia(("buenasTardes2"));
     private PreferenciaEnvioNotificacion preferencia = new PreferenciaEnvioNotificacion(new WhatsApp(), ModoRecepcion.SINCRONICA);
-    private Usuario unUsuario = new Usuario("marsoteras", unUsuarioContra, "marsoteras@gmail.com", preferencia);
+    private Usuario unUsuario = new Usuario();
 
-    private Entidad lineaMitre = new Entidad("Linea Mitre");
-    private Establecimiento Retiro = new Establecimiento("Estacion Retiro", new Ubicacion( -34.5833300, 58.3833300));
-    private Establecimiento Tigre = new Establecimiento("Fin del recorrido linea Mitre", new Ubicacion(-34.4237,-58.5794));
+    private Entidad lineaMitre = new Entidad();
+    private Establecimiento Retiro = new Establecimiento();
+    private Establecimiento Tigre = new Establecimiento();
 
     private Servicio escaleraMecanica = new Servicio("medio elevación", "lo usas para subir");
     private Servicio banioMujeres = new Servicio("banio", "banio para mujeres");
@@ -38,9 +39,19 @@ public class serviciosDeInteresTest {
 
     public void instanciarUsuarioYEntidades() {
 
+        unUsuario.setUsuario("marsoteras");
+        unUsuario.setContrasenia(unUsuarioContra);
+        unUsuario.setEmail("marsoteras@gmail.com");
+
+        lineaMitre.setNombre("Linea Mitre");
+
         unUsuario.agregarEntidadesDeInteres(lineaMitre);
         lineaMitre.agregarEstablecimientos(Retiro, Tigre);
 
+        Retiro.setNombre("Estacion Retiro");
+        Retiro.setUbicacionGeografica(new Ubicacion( -34.5833300, 58.3833300));
+        Tigre.setNombre("Estacion Tigre - Fin del recorrido linea Mitre");
+        Tigre.setUbicacionGeografica(new Ubicacion(-34.4237,-58.5794));
         Retiro.brindarServicios(brindarEscalera, brindarBanio);
         Tigre.brindarServicios(brindarBanioTigre);
 

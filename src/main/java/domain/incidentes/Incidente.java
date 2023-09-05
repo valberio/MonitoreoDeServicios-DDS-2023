@@ -3,6 +3,7 @@ package domain.incidentes;
 import com.twilio.rest.api.v2010.account.incomingphonenumber.Local;
 import datos.RepositorioIncidentes;
 import datos.RepositorioUsuarios;
+import domain.Persistente;
 import domain.comunidad.Comunidad;
 import domain.entidades.Entidad;
 import domain.notificaciones.Notificador;
@@ -12,8 +13,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.mail.MessagingException;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.lang.reflect.Array;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -26,21 +26,34 @@ import java.util.stream.Collectors;
 @Setter
 @Entity
 @Table(name="incidente")
-public class Incidente {
+public class Incidente extends Persistente {
 
-    public PrestacionDeServicio servicioAfectado;
-    public Usuario usuarioReportador;
+    @ManyToOne
+    private PrestacionDeServicio servicioAfectado;
+
+    @ManyToOne
+    private Usuario usuarioReportador;
     //Debatible
-    public LocalDateTime fechaReporte;
-    public LocalDateTime fechaResolucion;
+
+    @Column(name="fecha_reporte")
+    private LocalDateTime fechaReporte;
+
+    @Column(name="fecha_reporte")
+    private LocalDateTime fechaResolucion;
     //Las fechas de reporte y resolucion estan en los estadoIncidente, dejarlos acá sería
     //repetir datos y no cumplir las reglas de la normalización. Peero a nivel objeto, los
     //incidentes no tienen una lista de estados, tienen sólo el estado actual. Para pensar gente...
 
-    public EstadoIncidente estado = new EstadoIncidente();
-    public Comunidad comunidadDondeSeReporta;
-    Notificador notificador = Notificador.getInstancia();
-    String descripcion;
+    @OneToOne
+    private EstadoIncidente estado = new EstadoIncidente();
+    @ManyToOne
+    private Comunidad comunidadDondeSeReporta;
+
+    @Transient
+    private Notificador notificador = Notificador.getInstancia();
+
+    @Column
+    private String descripcion;
 
     //No le vemos mucho sentido a tener el constructor vacio (? lo dejamos prudentemente comentado
     /*public Incidente() {

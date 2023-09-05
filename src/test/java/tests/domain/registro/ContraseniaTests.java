@@ -5,6 +5,7 @@ import domain.registro.Contrasenia;
 import domain.registro.Usuario;
 import domain.registro.Validador;
 import domain.registro.condicionesContra.*;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 
@@ -39,7 +40,15 @@ public class ContraseniaTests {
     private void instanciarCondiciones() {
         this.validador.agregarCondiciones(longitud, repeticiones, usoDeCredenciales, usoReiterado);
     }
-    private Usuario usuarioValido = new Usuario("Pepito", contraseniaValida, "pepito@gmail.com", preferencia );
+    private Usuario usuarioValido = new Usuario();
+
+    @BeforeAll
+    public void inicializar() {
+        usuarioValido.setUsuario("Pepito");
+        usuarioValido.setContrasenia(contraseniaValida);
+        usuarioValido.setEmail("pepito@gmail.com");
+        usuarioValido.setPreferencias(preferencia);
+    }
 
     @Test
     public void testReducirEspaciosCuandoSeaNecesario()

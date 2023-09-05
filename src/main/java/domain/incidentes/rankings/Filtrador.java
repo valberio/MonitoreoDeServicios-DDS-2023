@@ -2,6 +2,7 @@ package domain.incidentes.rankings;
 
 import datos.RepositorioIncidentes;
 import domain.entidades.Entidad;
+import domain.incidentes.Estado;
 import domain.incidentes.EstadoIncidente;
 import domain.incidentes.Incidente;
 
@@ -75,7 +76,7 @@ public class Filtrador {
     public ArrayList<Incidente> filtrarOcurridosUltimaSemana(ArrayList<Incidente> incidentes){
         LocalDateTime inicioUltimaSemana = LocalDateTime.now().minusWeeks(1);
 
-        return  incidentes.stream().filter(incidente -> incidente.fechaReporte.isAfter(inicioUltimaSemana)).collect(Collectors.toCollection(ArrayList::new));
+        return  incidentes.stream().filter(incidente -> incidente.getFechaReporte().isAfter(inicioUltimaSemana)).collect(Collectors.toCollection(ArrayList::new));
     }
 
     public ArrayList<Incidente> filtrarRepetidosEn24hs(ArrayList<Incidente> incidentesSemanales){
@@ -86,7 +87,7 @@ public class Filtrador {
 
             for(ArrayList<Incidente> incidentesMismoDia: incidentesPorDia){
 
-                incidentesMismoDia.stream().filter(incidente -> incidente.getEstado() == EstadoIncidente.RESUELTO || filtrarActivos(incidente));
+                incidentesMismoDia.stream().filter(incidente -> incidente.getEstado().getEstado() == Estado.RESUELTO || filtrarActivos(incidente));
             }
 
             incidentesMismaPrestacion = incidentesPorDia.stream()
@@ -105,7 +106,7 @@ public class Filtrador {
 
     private static boolean primerActivo = false;
     private static boolean filtrarActivos(Incidente incidente){
-        if (incidente.getEstado() == EstadoIncidente.ACTIVO) {
+        if (incidente.getEstado().getEstado() == Estado.ACTIVO) {
             if (!primerActivo) {
                 primerActivo = true;
                 return true;
