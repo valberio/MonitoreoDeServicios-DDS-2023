@@ -7,19 +7,23 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
 @Entity
 @Table(name="prestadora_de_servicio")
 public class PrestadoraDeServicio extends Persistente {
-
     @Column(name="nombre")
     private String nombre;
-    @OneToMany(mappedBy="prestadora_id")
-    private ArrayList<Entidad> entidades;
+    @OneToMany(mappedBy="prestadora")
+    private List<Entidad> entidades;
     @OneToOne
     private Usuario usuarioDesignado;
+
+    @ManyToOne
+    @JoinColumn(name="organismoDeControl_id", referencedColumnName = "id")
+    private OrganismoDeControl organismoDeControl;
 
     public PrestadoraDeServicio(){ this.entidades = new ArrayList<>(); }
 

@@ -25,9 +25,10 @@ public class Entidad extends Persistente {
     private Integer cantidadReportes;
     @Column(name = "promedio_de_cierre")
     private Double promedioCierre;
-    @OneToMany(mappedBy="entidad_id")
+    @OneToMany(mappedBy="entidad")
     private List<Establecimiento> establecimientosAsociados;
     @ManyToOne
+    @JoinColumn(name="prestadora_de_servicio_id", referencedColumnName = "id")
     private PrestadoraDeServicio prestadora;
 
     public Entidad() {

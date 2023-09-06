@@ -25,6 +25,7 @@ public class Establecimiento extends Persistente {
     @OneToMany
     private List<PrestacionDeServicio> serviciosBrindados;
     @ManyToOne
+    @JoinColumn(name="entidad_id", referencedColumnName = "id")
     private Entidad entidad;
 
     public Establecimiento()

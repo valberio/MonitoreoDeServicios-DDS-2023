@@ -31,6 +31,8 @@ public class Contrasenia {
         this.fuerza = new Debil();
     }
 
+    public Contrasenia() {}
+
 
     //
     public boolean esValida() {

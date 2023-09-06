@@ -3,6 +3,7 @@ import domain.Persistente;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -11,16 +12,21 @@ import javax.persistence.Table;
 @Entity
 @Table(name="servicio")
 public class Servicio extends Persistente {
-        
-        private String tipoDeServicio;
-        public String descripcion;
 
+        @Column(name="tipoDeServicio")
+        private String tipoDeServicio;
+
+        @Column(name="descripcion")
+        public String descripcion;
 
         public Servicio(String tipoDeServicio, String descripcion) {
                 this.tipoDeServicio = tipoDeServicio;
                 this.descripcion = descripcion;
         }
 
+        public Servicio() {
+
+        }
         public void modificarDescripcion(String nuevaDescripcion){
                 this.descripcion = nuevaDescripcion;
         }

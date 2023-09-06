@@ -1,6 +1,7 @@
 package domain.registro;
 
 
+import converters.MedioNotificacionAttributeConverter;
 import domain.Persistente;
 import domain.comunidad.Comunidad;
 import domain.incidentes.Incidente;
@@ -32,7 +33,7 @@ public class Usuario extends Persistente {
 
     @Column(name="usuario")
     private String usuario;
-    @Column(name="usuario")
+    @Column(name="email")
     private String email;
     @Embedded
     private Contrasenia contrasenia;
@@ -42,11 +43,12 @@ public class Usuario extends Persistente {
     private Boolean bloqueado;
     @Transient
     private Ubicacion localizacion;
-    @Enumerated(EnumType.STRING)
+
+    @Convert(converter = MedioNotificacionAttributeConverter.class)
+    @Column(name = "medioNotificacion")
     private MedioNotificacion medioPreferido; // Email o Wpp
     @Enumerated(EnumType.STRING)
     private ModoRecepcion modoRecepcion; // Sincronico o asincronico
-
     @ElementCollection
     @CollectionTable(name = "usuario_horario_disponible", joinColumns = @JoinColumn(name="usuario_id"))
     private List<LocalTime> horariosDisponibles;
@@ -56,6 +58,7 @@ public class Usuario extends Persistente {
     @ManyToMany
     private List<Entidad> entidadesDeInteres;
 
+    @Transient
     private Map<PrestacionDeServicio, Identificador> impactosDePrestaciones;
 
     public Usuario() {

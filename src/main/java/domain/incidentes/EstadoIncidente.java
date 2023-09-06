@@ -5,8 +5,7 @@ import domain.registro.Usuario;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 @Getter
 @Setter
@@ -14,9 +13,15 @@ import java.time.LocalDateTime;
 @Entity
 //Esto se tiene que persistir para tener trazabilidad en los estados de los incidentes
 public class EstadoIncidente extends Persistente {
+    @OneToOne
     Usuario usuarioResponsable;
     LocalDateTime fechaModificacion;
+    @Enumerated(EnumType.STRING)
     Estado estado;
+
+
+    @ManyToOne
+    @JoinColumn(name="incidente_id", referencedColumnName = "id")
     Incidente incidente;
 
 }

@@ -24,6 +24,8 @@ public class Ubicacion {
         this.lon = lon;
     }
 
+    public Ubicacion() {}
+
     public Boolean estasCercaDe(Ubicacion ubi){
 
         double RADIO_TIERRA_KM = 6371.0;

@@ -20,7 +20,12 @@ public class PrestacionDeServicio extends Persistente {
     @Column(name="estaHabilitado")
     private Boolean estaHabilitado;
     @ManyToOne
+    @JoinColumn(name="prestacionDeServicio_id", referencedColumnName = "id")
     private Establecimiento establecimiento;
+
+    public PrestacionDeServicio() {
+    }
+
     public void habilitar(){ estaHabilitado = true;}
 
     public void deshabilitar(){ estaHabilitado = false; }

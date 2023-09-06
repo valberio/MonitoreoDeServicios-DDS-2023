@@ -21,7 +21,7 @@ public class OrganismoDeControl extends Persistente {
     private String nombre;
     @Column(name="cuit")
     private String CUIT;
-    @OneToMany(mappedBy = "organismo_control_id")
+    @OneToMany(mappedBy = "organismoDeControl")
     private List<PrestadoraDeServicio> entidadesPrestadorasControladas;
 
     public OrganismoDeControl() {

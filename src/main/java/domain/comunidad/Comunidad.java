@@ -27,7 +27,7 @@ public class Comunidad extends Persistente {
     private List<Usuario> usuarios;
     @ManyToMany
     private List<Servicio> serviciosDeInteres;
-    @OneToMany
+    @OneToMany(mappedBy = "comunidadDondeSeReporta")
     private List<Incidente> incidentesReportados;
 
     public Comunidad() {

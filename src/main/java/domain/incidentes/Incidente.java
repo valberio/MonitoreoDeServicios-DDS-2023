@@ -30,50 +30,49 @@ public class Incidente extends Persistente {
 
     @ManyToOne
     private PrestacionDeServicio servicioAfectado;
-
     @ManyToOne
     private Usuario usuarioReportador;
     //Debatible
-
     @Column(name="fecha_reporte")
     private LocalDateTime fechaReporte;
-
-    @Column(name="fecha_reporte")
+    @Column(name="fecha_resolucion")
     private LocalDateTime fechaResolucion;
     //Las fechas de reporte y resolucion estan en los estadoIncidente, dejarlos acá sería
     //repetir datos y no cumplir las reglas de la normalización. Peero a nivel objeto, los
     //incidentes no tienen una lista de estados, tienen sólo el estado actual. Para pensar gente...
-
     @OneToOne
-    private EstadoIncidente estado = new EstadoIncidente();
+    private EstadoIncidente estado;
+    @OneToMany(mappedBy = "incidente")
+    private List<EstadoIncidente> incidentes;
     @ManyToOne
+    @JoinColumn(name = "incidente_id", referencedColumnName = "id")
     private Comunidad comunidadDondeSeReporta;
-
     @Transient
     private Notificador notificador = Notificador.getInstancia();
-
     @Column
     private String descripcion;
 
-    //No le vemos mucho sentido a tener el constructor vacio (? lo dejamos prudentemente comentado
-    /*public Incidente() {
-
-        RepositorioIncidentes archivo = RepositorioIncidentes.getInstance();
-        archivo.guardarIncidente(this);
-
-        this.servicioAfectado.setEstaHabilitado(false);
-
-    }*/
-
-    public void abrirIncidente(PrestacionDeServicio servicioAfectado, Usuario usuarioReportador, Comunidad comunidadDondeSeReporta, String descripcion){
+    public Incidente(PrestacionDeServicio servicioAfectado, Usuario usuarioReportador, Comunidad comunidadDondeSeReporta, String descripcion) {
         this.setUsuarioReportador(usuarioReportador);
         this.setServicioAfectado(servicioAfectado);
         this.setComunidadDondeSeReporta(comunidadDondeSeReporta);
         this.setFechaReporte(LocalDateTime.now());
         this.setDescripcion(descripcion);
         this.servicioAfectado.setEstaHabilitado(false);
+
         RepositorioIncidentes archivo = RepositorioIncidentes.getInstance();
         archivo.guardarIncidente(this);
+
+        this.servicioAfectado.setEstaHabilitado(false);
+
+        this.estado = new EstadoIncidente();
+
+        this.incidentes = new ArrayList<>();
+
+    }
+
+    public Incidente() {
+
     }
 
     public ArrayList<Usuario> obtenerUsuariosInteresados() {
