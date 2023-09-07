@@ -48,4 +48,6 @@ public class Comunidad extends Persistente {
 
     public void agregarUsuarios(Usuario ... usuario) {  this.usuarios.addAll(List.of(usuario));
     }
+
+
 }

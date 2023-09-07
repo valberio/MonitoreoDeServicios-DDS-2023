@@ -1,7 +1,7 @@
 package domain.entidades;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
-import datos.RepositorioEntidadesyOrganismos;
+import datos.RepositorioOrganismosDeControl;
 import domain.config.Config;
 import lombok.Getter;
 import java.io.FileReader;
@@ -16,7 +16,7 @@ public class cargaEntidadesyOrgDeControl {
 
     public void cargarEntidadesYOrgDeControl() throws CsvValidationException {
 
-        RepositorioEntidadesyOrganismos repositorio = RepositorioEntidadesyOrganismos.getInstance();
+        RepositorioOrganismosDeControl repositorio = RepositorioOrganismosDeControl.getInstance();
         String archivo = Config.RUTA_CSV;
 
         try (CSVReader reader = new CSVReader(new FileReader(archivo))) {

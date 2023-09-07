@@ -14,11 +14,10 @@ import java.time.LocalDateTime;
 //Esto se tiene que persistir para tener trazabilidad en los estados de los incidentes
 public class EstadoIncidente extends Persistente {
     @OneToOne
-    Usuario usuarioResponsable;
-    LocalDateTime fechaModificacion;
+    private Usuario usuarioResponsable;
+    private LocalDateTime fechaModificacion;
     @Enumerated(EnumType.STRING)
-    Estado estado;
-
+    private Estado estado;
 
     @ManyToOne
     @JoinColumn(name="incidente_id", referencedColumnName = "id")

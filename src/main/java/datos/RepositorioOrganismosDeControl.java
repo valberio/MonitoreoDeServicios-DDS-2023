@@ -5,18 +5,17 @@ import domain.entidades.OrganismoDeControl;
 import domain.entidades.PrestadoraDeServicio;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class RepositorioEntidadesyOrganismos {
+public class RepositorioOrganismosDeControl {
 
     public ArrayList<OrganismoDeControl> organismosDeControl = new ArrayList<OrganismoDeControl>();
     public ArrayList<PrestadoraDeServicio> prestadorasDeServicio = new ArrayList<PrestadoraDeServicio>();
     public ArrayList<Entidad> entidades = new ArrayList<Entidad>();
 
-    private static RepositorioEntidadesyOrganismos instancia = null;
+    private static RepositorioOrganismosDeControl instancia = null;
 
-    public static RepositorioEntidadesyOrganismos getInstance(){
-        if (instancia == null) {instancia = new RepositorioEntidadesyOrganismos();}
+    public static RepositorioOrganismosDeControl getInstance(){
+        if (instancia == null) {instancia = new RepositorioOrganismosDeControl();}
         return instancia;
     }
 

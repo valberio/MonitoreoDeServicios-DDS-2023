@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public class EnviarNotificacionAsincronica implements Job {
     private ArrayList<Notificacion> notificacionesSinEnviar;
-    private Usuario usuario;
+    private final Usuario usuario;
 
     public EnviarNotificacionAsincronica(Usuario usuario) {
 
