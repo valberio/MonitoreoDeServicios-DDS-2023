@@ -2,9 +2,9 @@ package domain.servicios;
 
 import domain.registro.Identificador;
 
-public class ImpactoDePrestacionDeServicio {
+public class RolFrenteAPrestacion {
 
     private PrestacionDeServicio prestacionDeServicioInvolucrada;
 
-    private Identificador identificador;
+    private Identificador rol;
 }

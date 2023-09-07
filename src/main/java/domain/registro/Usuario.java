@@ -12,6 +12,7 @@ import domain.notificaciones.tiempoDeEnvio.PreferenciaEnvioNotificacion;
 import domain.roles.Rol;
 import domain.services.georef.entities.Ubicacion;
 import domain.servicios.PrestacionDeServicio;
+import domain.servicios.RolFrenteAPrestacion;
 import domain.servicios.Servicio;
 import domain.entidades.Entidad;
 import lombok.Getter;
@@ -58,7 +59,7 @@ public class Usuario extends Persistente {
     private List<Entidad> entidadesDeInteres;
 
     @Transient
-    private Map<PrestacionDeServicio, Identificador> impactosDePrestaciones;
+    private List<RolFrenteAPrestacion> rolFrenteAPrestaciones;
 
     public Usuario() {
         horariosDisponibles = new ArrayList<>();
