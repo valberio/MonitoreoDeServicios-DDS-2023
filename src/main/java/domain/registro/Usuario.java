@@ -58,19 +58,26 @@ public class Usuario extends Persistente {
     @ManyToMany
     private List<Entidad> entidadesDeInteres;
 
-    @Transient
+    @OneToMany(mappedBy="usuario")
     private List<RolFrenteAPrestacion> rolFrenteAPrestaciones;
 
     public Usuario() {
         horariosDisponibles = new ArrayList<>();
         roles = new ArrayList<>();
         entidadesDeInteres = new ArrayList<>();
+        rolFrenteAPrestaciones = new ArrayList<>();
     }
 
     public Usuario(String usuario, String email, Contrasenia contrasenia) {
         this.usuario = usuario;
         this.email = email;
         this.contrasenia = contrasenia;
+
+        horariosDisponibles = new ArrayList<>();
+        roles = new ArrayList<>();
+        entidadesDeInteres = new ArrayList<>();
+        rolFrenteAPrestaciones = new ArrayList<>();
+
     }
 
     public void configurarHorariosDisponibles(LocalTime... horario) {
@@ -113,6 +120,11 @@ public class Usuario extends Persistente {
         this.localizacion = nuevaLocalizacion;
         Notificador notificadorRevisiones = new Notificador();
         notificadorRevisiones.enviarSugerenciasRevisionA(this);
+    }
+
+    public void aniadirRol(Rol rol) {
+
+        roles.add(rol);
     }
 
     

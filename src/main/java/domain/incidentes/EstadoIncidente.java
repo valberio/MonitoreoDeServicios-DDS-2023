@@ -21,6 +21,6 @@ public class EstadoIncidente extends Persistente {
 
     @ManyToOne
     @JoinColumn(name="incidente_id", referencedColumnName = "id")
-    Incidente incidente;
+    private Incidente incidente;
 
 }

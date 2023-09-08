@@ -26,7 +26,7 @@ public class Comunidad extends Persistente {
     @ManyToMany
     private List<Usuario> usuarios;
     @ManyToMany
-    private List<Servicio> serviciosDeInteres;
+    private List<PrestacionDeServicio> serviciosDeInteres;
     @OneToMany(mappedBy = "comunidadDondeSeReporta")
     private List<Incidente> incidentesReportados;
 
@@ -36,7 +36,7 @@ public class Comunidad extends Persistente {
        incidentesReportados = new ArrayList<>();
     }
 
-    public void agregarServiciosDeInteres(Servicio ... servicio) { this.serviciosDeInteres.addAll(List.of(servicio));}
+    public void agregarServiciosDeInteres(PrestacionDeServicio ... servicios) { this.serviciosDeInteres.addAll(List.of(servicios));}
 
     public void darDeBaja(Servicio servicio){
         serviciosDeInteres.remove(servicio);

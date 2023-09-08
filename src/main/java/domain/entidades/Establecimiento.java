@@ -36,11 +36,17 @@ public class Establecimiento extends Persistente {
     public Establecimiento(String nombre, Ubicacion ubicacion) {
         this.nombre = nombre;
         this.ubicacionGeografica= ubicacion;
+        serviciosBrindados=new ArrayList<>();
     }
 
     public void brindarServicios(PrestacionDeServicio ... servicio) {
 
         serviciosBrindados.addAll(List.of(servicio));
+
+        for(PrestacionDeServicio unServicio:servicio) {
+
+            unServicio.setEstablecimiento(this);
+        }
     }
 
     public void quitarPrestacionDeServicio(PrestacionDeServicio servicio) {

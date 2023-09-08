@@ -1,6 +1,5 @@
 package domain.incidentes;
 
-import com.twilio.rest.api.v2010.account.incomingphonenumber.Local;
 import datos.RepositorioIncidentes;
 import datos.RepositorioUsuarios;
 import domain.Persistente;
@@ -14,7 +13,6 @@ import lombok.Setter;
 
 import javax.mail.MessagingException;
 import javax.persistence.*;
-import java.lang.reflect.Array;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -43,7 +41,7 @@ public class Incidente extends Persistente {
     @OneToOne
     private EstadoIncidente estado;
     @OneToMany(mappedBy = "incidente")
-    private List<EstadoIncidente> incidentes;
+    private List<EstadoIncidente> estadosDeIncidentes;
     @ManyToOne
     @JoinColumn(name = "incidente_id", referencedColumnName = "id")
     private Comunidad comunidadDondeSeReporta;
@@ -67,7 +65,7 @@ public class Incidente extends Persistente {
 
         this.estado = new EstadoIncidente();
 
-        this.incidentes = new ArrayList<>();
+        this.estadosDeIncidentes = new ArrayList<>();
 
     }
 
@@ -126,10 +124,12 @@ public class Incidente extends Persistente {
 
     public void cerrarse(Usuario usuarioResponsable) throws MessagingException {
         this.fechaResolucion = LocalDateTime.now();
+        estadosDeIncidentes.add(this.estado); //guardo el anterior antes de actualizarlo
         EstadoIncidente estadoResuelto = new EstadoIncidente();
         estadoResuelto.setUsuarioResponsable(usuarioResponsable);
         estadoResuelto.setFechaModificacion(LocalDateTime.now());
         estadoResuelto.setEstado(Estado.RESUELTO);
+        estadoResuelto.setIncidente(this);
         this.setEstado(estadoResuelto);
         notificador.cerreUnIncidente(this);
         this.servicioAfectado.setEstaHabilitado(true);

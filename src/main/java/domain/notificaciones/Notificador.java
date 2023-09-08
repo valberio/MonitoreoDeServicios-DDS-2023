@@ -2,6 +2,7 @@ package domain.notificaciones;
 
 import datos.RepositorioIncidentes;
 
+import domain.notificaciones.creacion.ContextoDeIncidente;
 import domain.notificaciones.creacion.*;
 import domain.notificaciones.tiempoDeEnvio.ValidadorNotificacionAsincronica;
 import domain.registro.Usuario;

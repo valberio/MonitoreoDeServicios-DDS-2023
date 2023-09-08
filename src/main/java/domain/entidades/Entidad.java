@@ -60,8 +60,16 @@ public class Entidad extends Persistente {
     }
 
     public void agregarEstablecimientos(Establecimiento... unEstablecimiento) {
+
         establecimientosAsociados.addAll(List.of(unEstablecimiento));
+
+        for(Establecimiento establecimiento: unEstablecimiento) {
+
+            establecimiento.setEntidad(this);
+        }
     }
+
+
 
     public Stream<Servicio> serviciosConIncidente() {
         return establecimientosAsociados.stream().flatMap(Establecimiento::obtenerServiciosIncidentados);

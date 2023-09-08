@@ -20,7 +20,6 @@ public class PrestadoraDeServicio extends Persistente {
     private List<Entidad> entidades;
     @OneToOne
     private Usuario usuarioDesignado;
-
     @ManyToOne
     @JoinColumn(name="organismoDeControl_id", referencedColumnName = "id")
     private OrganismoDeControl organismoDeControl;
@@ -29,5 +28,15 @@ public class PrestadoraDeServicio extends Persistente {
 
     public void aniadirEntidad(Entidad entidad){
         entidades.add(entidad);
-        entidad.setPrestadora(this);}
+        entidad.setPrestadora(this);
     }
+
+    public void asignarUsuario(Usuario usuario) {
+
+        this.usuarioDesignado = usuario;
+
+        //todo
+    }
+
+
+}

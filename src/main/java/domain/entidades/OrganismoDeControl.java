@@ -28,6 +28,8 @@ public class OrganismoDeControl extends Persistente {
         this.entidadesPrestadorasControladas = new ArrayList<>();
     }
 
-    public void aniadirPrestadoraControlada(PrestadoraDeServicio prestadora) {this.entidadesPrestadorasControladas.add(prestadora);}
+    public void aniadirPrestadoraControlada(PrestadoraDeServicio prestadora) {this.entidadesPrestadorasControladas.add(prestadora);
+        prestadora.setOrganismoDeControl(this);
+    }
 
 }
