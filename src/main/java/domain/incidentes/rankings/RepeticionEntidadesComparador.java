@@ -17,6 +17,6 @@ class RepeticionEntidadesComparador implements Comparator<Entidad> {
         double rep1 = conteoEntidades.get(entidad1);
         double rep2 = conteoEntidades.get(entidad2);
 
-        return Double.compare(rep1, rep2);
+        return Double.compare(rep2, rep1);
     }
 }

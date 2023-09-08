@@ -18,7 +18,10 @@ import java.util.List;
 @Entity
 @Table(name="entidad")
 public class Entidad extends Persistente {
-
+    @Override
+    public String toString() {
+        return "Entidad nombre=" + nombre ;
+    }
     @Column(name="nombre")
     private String nombre;
     @Column(name="cantidad_reportes")

@@ -15,6 +15,7 @@ import javax.mail.MessagingException;
 import javax.persistence.*;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -111,15 +112,16 @@ public class Incidente extends Persistente {
         return this.servicioAfectado.getEstablecimiento().getEntidad();
     }
 
-    public Long obtenerTiempoDeCierre(){
+    public Long   obtenerTiempoDeCierre(){
         Duration duracion = Duration.between(this.getFechaReporte(), this.getFechaResolucion());
-        return (duracion.toHours() % 24);
+        return (duracion.toMinutes());
+       // return (Long) ChronoUnit.MICROS.between(this.getFechaResolucion(), this.getFechaReporte());
     }
 
     public Long obtenerDiferenciaDeRegistroEntre(Incidente incidente2){
         Duration duracion = Duration.between(this.getFechaReporte(), incidente2.getFechaReporte());
-        return (duracion.toHours() % 24);
-
+        return (duracion.toMinutes());
+        //return (Long) ChronoUnit.MICROS.between(this.getFechaReporte(), incidente2.getFechaReporte());
     }
 
     public void cerrarse(Usuario usuarioResponsable) throws MessagingException {

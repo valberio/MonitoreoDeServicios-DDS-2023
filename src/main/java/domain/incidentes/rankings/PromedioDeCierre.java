@@ -27,12 +27,19 @@ public class PromedioDeCierre extends Ranking{
         for (Map.Entry<Entidad, List<Incidente>> entry : incidentesPorEntidad.entrySet()) {
             Entidad entidad = entry.getKey();
             List<Incidente> incidentes = entry.getValue();
-            long sumaTiempoDeCierre = incidentes.stream()
-                    .mapToLong(Incidente::obtenerTiempoDeCierre)
-                    .sum();
-            int cantIncidentes = incidentes.size();
-            promedioCierrePorEntidad.put(entidad, (double) (sumaTiempoDeCierre / cantIncidentes));
-            entidad.setPromedioCierre(promedioCierrePorEntidad.get(entidad));
+
+            if (!incidentes.isEmpty()) {
+                long sumaTiempoDeCierre = incidentes.stream()
+                        .mapToLong(Incidente::obtenerTiempoDeCierre)
+                        .sum();
+                int cantIncidentes = incidentes.size();
+
+                // Validación para evitar la división por cero
+                if (cantIncidentes != 0) {
+                    promedioCierrePorEntidad.put(entidad, (double) sumaTiempoDeCierre / cantIncidentes);
+                    entidad.setPromedioCierre(promedioCierrePorEntidad.get(entidad));
+                }
+            }
         }
         return promedioCierrePorEntidad;
     }
