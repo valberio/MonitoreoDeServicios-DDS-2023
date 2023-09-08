@@ -1,13 +1,14 @@
 package datos;
 
 import domain.comunidad.Comunidad;
+import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 
 import java.util.List;
 
-public class RepositorioComunidades {
+public class RepositorioComunidades implements WithSimplePersistenceUnit {
 
     public void agregarComunidad(Comunidad comunidad) {
-        //TODO
+        entityManager().persist(comunidad);
     }
 
     public void actualizarComunidad(String idAModificar) {
@@ -15,19 +16,14 @@ public class RepositorioComunidades {
         //TODO
     }
 
-    public void eliminarPorID(String id) {
-
-        //TODO
+    public void eliminarComunidad(Comunidad comunidad) {
+        entityManager().remove(comunidad);
     }
 
-    public Comunidad obtenerComunidad(String id) { //TODO
-        return null;
+    public Comunidad obtenerComunidad(Long id) { //TODO
+        return find(Comunidad.class, id);
     }
 
-    public List<Comunidad> buscarPorCondicion() {
-        //todo
-        return null;
-    }
 
 
 }
