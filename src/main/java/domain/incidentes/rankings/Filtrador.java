@@ -17,7 +17,9 @@ public class Filtrador {
 
     public ArrayList<Incidente> filtrarIncidentesUltimaSemana(){
         RepositorioIncidentes repositorioIncidentes = RepositorioIncidentes.getInstance();
-
+        if (repositorioIncidentes.incidentes.isEmpty()){
+            throw new IllegalStateException("NO hay nada en el repo xdddd");
+        }
         return filtrarOcurridosUltimaSemana(repositorioIncidentes.incidentes);
     }
 
@@ -75,13 +77,19 @@ public class Filtrador {
 
     public ArrayList<Incidente> filtrarOcurridosUltimaSemana(ArrayList<Incidente> incidentes){
         LocalDateTime inicioUltimaSemana = LocalDateTime.now().minusWeeks(1);
+        ArrayList<Incidente> incidentes1 = incidentes.stream().filter(incidente -> incidente.getFechaReporte().isAfter(inicioUltimaSemana)).collect(Collectors.toCollection(ArrayList::new));
+        if (incidentes1.isEmpty()) {
+            throw new IllegalStateException("AAAAAAAAAAAAAAA."); // Lanzar una excepción
+            }
+        return incidentes1;
 
-        return  incidentes.stream().filter(incidente -> incidente.getFechaReporte().isAfter(inicioUltimaSemana)).collect(Collectors.toCollection(ArrayList::new));
     }
 
     public ArrayList<Incidente> filtrarRepetidosEn24hs(ArrayList<Incidente> incidentesSemanales){
         ArrayList<ArrayList<Incidente>> incidentesPorPrestacion = this.obtenerIncidentesPorPrestacion(incidentesSemanales);
-
+        if (incidentesSemanales.isEmpty()) {
+            throw new IllegalStateException("No hay incidentes en la última semana."); // Lanzar una excepción
+        }
         for(ArrayList<Incidente> incidentesMismaPrestacion: incidentesPorPrestacion) {
             ArrayList<ArrayList<Incidente>> incidentesPorDia = this.obtenerIncidentesPorDia(incidentesMismaPrestacion);
 

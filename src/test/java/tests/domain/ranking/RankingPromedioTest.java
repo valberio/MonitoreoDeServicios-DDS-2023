@@ -1,11 +1,13 @@
 package tests.domain.ranking;
 
+import datos.RepositorioIncidentes;
 import datos.RepositorioUsuarios;
 import domain.entidades.Entidad;
 import domain.entidades.Establecimiento;
 import domain.incidentes.Estado;
 import domain.incidentes.EstadoIncidente;
 import domain.incidentes.Incidente;
+import domain.incidentes.rankings.CantidadDeIncidentes;
 import domain.incidentes.rankings.PromedioDeCierre;
 import domain.incidentes.rankings.Ranking;
 import domain.notificaciones.medioEnvio.WhatsApp;
@@ -14,6 +16,7 @@ import domain.notificaciones.tiempoDeEnvio.PreferenciaEnvioNotificacion;
 import domain.registro.Usuario;
 import domain.servicios.PrestacionDeServicio;
 import domain.servicios.Servicio;
+import net.bytebuddy.asm.Advice;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -88,7 +91,78 @@ public class RankingPromedioTest {
         ranking.forEach(resultado -> {System.out.println("Promedio en minutos:" + resultado.getPromedioCierre() + " Entidad:" + resultado.getNombre());});
 
         Assertions.assertEquals(entidadConMuyMalPromedio, ranking.get(0));
+    }
 
+    @Test
+    public void testRankingPorMayorCantidadDeIncidentes() throws MessagingException{
+        CantidadDeIncidentes rankingCantidadDeIncidentes = new CantidadDeIncidentes();
+
+        Usuario usuario = new Usuario("Pepita", null, null);
+        PreferenciaEnvioNotificacion pref = new PreferenciaEnvioNotificacion(new WhatsApp(), ModoRecepcion.SINCRONICA);
+        usuario.setPreferencias(pref);
+        RepositorioUsuarios.agregarUnUsuario(usuario);
+
+        LocalDateTime inicioUltimaSemana = LocalDateTime.now().minusWeeks(1);
+
+        //todos los incidentes se reportan en la misma fecha
+        LocalDateTime fechaDeReporte = inicioUltimaSemana.plusDays(2);
+
+        Servicio baños = new Servicio("Baños", "Baños de hombres y mujeres");
+
+        Establecimiento sedeLugano = new Establecimiento("Sede Lugano", null);
+        Establecimiento sedeMedrano = new Establecimiento("Sede Medrano", null);
+
+        Entidad UTN = new Entidad();
+        UTN.setNombre("UTN");
+        UTN.agregarEstablecimientos(sedeLugano, sedeMedrano);
+        sedeLugano.setEntidad(UTN);
+        sedeMedrano.setEntidad(UTN);
+        usuario.agregarEntidadesDeInteres(UTN);
+        PrestacionDeServicio prestacion = new PrestacionDeServicio(baños, sedeLugano);
+        PrestacionDeServicio prestacion2 = new PrestacionDeServicio(baños, sedeMedrano);
+
+        Establecimiento facultadIng = new Establecimiento("Facultad de Ingeniería", null);
+        Entidad entidadConMuyMalPromedio = new Entidad();
+        entidadConMuyMalPromedio.setNombre("UBA");
+        entidadConMuyMalPromedio.agregarEstablecimientos(facultadIng);
+        facultadIng.setEntidad(entidadConMuyMalPromedio);
+        usuario.agregarEntidadesDeInteres(entidadConMuyMalPromedio);
+        PrestacionDeServicio prestacion3 = new PrestacionDeServicio(baños, facultadIng);
+
+
+        Incidente incidente1 = new Incidente(prestacion, null,  null, null);
+        LocalDateTime tiempoAntes = LocalDateTime.of(2023, 9, 7, 0, 0);
+        incidente1.setFechaReporte(fechaDeReporte);
+
+        RepositorioIncidentes repositorioIncidentes = new RepositorioIncidentes();
+        repositorioIncidentes.guardarIncidente(incidente1);
+
+        Incidente incidente2 = new Incidente(prestacion2, null, null, null);
+        LocalDateTime tiempoDespues = LocalDateTime.of(2023, 9, 7, 8, 0);
+        incidente2.setFechaReporte(fechaDeReporte);
+
+        repositorioIncidentes.guardarIncidente(incidente2);
+
+        Incidente incidente3 = new Incidente(prestacion3, null,null, null);
+        incidente3.setFechaReporte(fechaDeReporte);
+        LocalDateTime tiempoMuchoDespues =  LocalDateTime.of(2023, 10, 7, 7, 0);
+
+        repositorioIncidentes.guardarIncidente(incidente3);
+
+        incidente1.cerrarse(usuario);
+        incidente1.setFechaResolucion(tiempoAntes);
+        incidente2.cerrarse(usuario);
+        incidente2.setFechaResolucion(tiempoDespues);
+        incidente3.cerrarse(usuario);
+        incidente3.setFechaResolucion(tiempoMuchoDespues);
+
+        repositorioIncidentes.incidentes.forEach(i-> {System.out.println(i.getFechaReporte());});
+
+
+        ArrayList<Entidad> ranking = rankingCantidadDeIncidentes.generarRanking();
+        System.out.println(ranking.get(0).getNombre());
+        ranking.forEach(resultado -> {System.out.println( "Entidad:" + resultado.getNombre());});
+        //Assertions.assertEquals(entidadConMuyMalPromedio, ranking.get(0));
     }
 }
 
