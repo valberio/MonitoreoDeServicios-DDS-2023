@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.persistence.criteria.Fetch;
 import java.time.LocalDateTime;
 @Getter
 @Setter
@@ -13,13 +14,13 @@ import java.time.LocalDateTime;
 @Entity
 //Esto se tiene que persistir para tener trazabilidad en los estados de los incidentes
 public class EstadoIncidente extends Persistente {
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     private Usuario usuarioResponsable;
+    @Column(name="fecha_modificacion")
     private LocalDateTime fechaModificacion;
     @Enumerated(EnumType.STRING)
     private Estado estado;
-
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="incidente_id", referencedColumnName = "id")
     private Incidente incidente;
 

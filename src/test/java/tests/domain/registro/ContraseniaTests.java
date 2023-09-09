@@ -44,7 +44,7 @@ public class ContraseniaTests {
 
     @BeforeAll
     public void inicializar() {
-        usuarioValido.setUsuario("Pepito");
+        usuarioValido.setNombreDeUsuario("Pepito");
         usuarioValido.setContrasenia(contraseniaValida);
         usuarioValido.setEmail("pepito@gmail.com");
         usuarioValido.setPreferencias(preferencia);

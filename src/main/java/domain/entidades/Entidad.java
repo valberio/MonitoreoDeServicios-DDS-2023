@@ -28,9 +28,9 @@ public class Entidad extends Persistente {
     private Integer cantidadReportes;
     @Column(name = "promedio_de_cierre")
     private Double promedioCierre;
-    @OneToMany(mappedBy="entidad")
+    @OneToMany(mappedBy="entidad", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     private List<Establecimiento> establecimientosAsociados;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="prestadora_de_servicio_id", referencedColumnName = "id")
     private PrestadoraDeServicio prestadora;
 
@@ -71,7 +71,6 @@ public class Entidad extends Persistente {
             establecimiento.setEntidad(this);
         }
     }
-
 
 
     public Stream<Servicio> serviciosConIncidente() {

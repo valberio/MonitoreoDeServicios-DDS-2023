@@ -31,8 +31,8 @@ import java.util.stream.Collectors;
 @Entity
 @Table(name="usuario")
 public class Usuario extends Persistente {
-    @Column(name="usuario")
-    private String usuario;
+    @Column(name="nombreDeUsuario")
+    private String nombreDeUsuario;
     @Column(name="email")
     private String email;
     @Embedded
@@ -43,7 +43,6 @@ public class Usuario extends Persistente {
     private Boolean bloqueado;
     @Transient
     private Ubicacion localizacion;
-
     @Convert(converter = MedioNotificacionAttributeConverter.class)
     @Column(name = "medioNotificacion")
     private MedioNotificacion medioPreferido; // Email o Wpp
@@ -53,12 +52,12 @@ public class Usuario extends Persistente {
     @CollectionTable(name = "usuario_horario_disponible", joinColumns = @JoinColumn(name="usuario_id"))
     private List<LocalTime> horariosDisponibles;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY)
     private List<Rol> roles;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     private List<Entidad> entidadesDeInteres;
 
-    @OneToMany(mappedBy="usuario")
+    @OneToMany(mappedBy="usuario", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, fetch = FetchType.LAZY)
     private List<RolFrenteAPrestacion> rolFrenteAPrestaciones;
 
     public Usuario() {
@@ -69,7 +68,7 @@ public class Usuario extends Persistente {
     }
 
     public Usuario(String usuario, String email, Contrasenia contrasenia) {
-        this.usuario = usuario;
+        this.nombreDeUsuario = usuario;
         this.email = email;
         this.contrasenia = contrasenia;
 

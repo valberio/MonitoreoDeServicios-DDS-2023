@@ -39,7 +39,7 @@ public class serviciosDeInteresTest {
 
     public void instanciarUsuarioYEntidades() {
 
-        unUsuario.setUsuario("marsoteras");
+        unUsuario.setNombreDeUsuario("marsoteras");
         unUsuario.setContrasenia(unUsuarioContra);
         unUsuario.setEmail("marsoteras@gmail.com");
 

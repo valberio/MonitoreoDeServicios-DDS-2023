@@ -15,11 +15,11 @@ import java.nio.file.attribute.FileStoreAttributeView;
 @Table(name="prestacion_de_servicio")
 public class PrestacionDeServicio extends Persistente {
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Servicio servicio;
     @Column(name="estaHabilitado")
     private Boolean estaHabilitado;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="prestacionDeServicio_id", referencedColumnName = "id")
     private Establecimiento establecimiento;
 

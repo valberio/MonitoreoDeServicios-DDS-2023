@@ -2,6 +2,7 @@ package domain.entidades;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
 import datos.RepositorioOrganismosDeControl;
+import datos.RepositorioPrestadorasDeServicio;
 import domain.config.Config;
 import lombok.Getter;
 import java.io.FileReader;
@@ -16,7 +17,10 @@ public class cargaEntidadesyOrgDeControl {
 
     public void cargarEntidadesYOrgDeControl() throws CsvValidationException {
 
-        RepositorioOrganismosDeControl repositorio = RepositorioOrganismosDeControl.getInstance();
+        RepositorioOrganismosDeControl repositorioOrganismosDeControl = RepositorioOrganismosDeControl.getInstance();
+
+        RepositorioPrestadorasDeServicio repositorioPrestadoras = RepositorioPrestadorasDeServicio.getInstance();
+
         String archivo = Config.RUTA_CSV;
 
         try (CSVReader reader = new CSVReader(new FileReader(archivo))) {
@@ -26,7 +30,7 @@ public class cargaEntidadesyOrgDeControl {
                 //Formato CSV:
                 //Organismo de Control, CUIT, Entidad Prestad ora
 
-                if(organismoYaRegistrado(linea[1]))
+                if(repositorioOrganismosDeControl.estaRegistrado(linea[1]))
                 {
                     final String cuit = linea[1];
 
@@ -34,7 +38,12 @@ public class cargaEntidadesyOrgDeControl {
                             .filter(organismo -> organismo.getCUIT().equals(cuit))
                             .findFirst();
 
-                    organismoEncontrado.get().aniadirPrestadoraControlada(new PrestadoraDeServicio());
+                    if(organismoEncontrado.isPresent()) {
+                        PrestadoraDeServicio prestadora = new PrestadoraDeServicio(linea[2]);
+                        organismoEncontrado.get().aniadirPrestadoraControlada(prestadora);
+                        repositorioPrestadoras.agregarPrestadoraDeServicio(prestadora);
+                    }
+
 
                 }
                 else {
@@ -47,8 +56,8 @@ public class cargaEntidadesyOrgDeControl {
                     prestadora.setNombre(linea[2]);
                     organismo.aniadirPrestadoraControlada(prestadora);
 
-                    repositorio.guardarOrganismoDeControl(organismo);
-                    repositorio.guardarPrestadoraDeServicio(prestadora);
+                    repositorioOrganismosDeControl.agregarOrganismoDeControl(organismo);
+                    repositorioPrestadoras.agregarPrestadoraDeServicio(prestadora);
                 }
             }
         } catch (IOException e) {

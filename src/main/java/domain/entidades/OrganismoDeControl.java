@@ -4,10 +4,7 @@ import domain.Persistente;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,14 +18,15 @@ public class OrganismoDeControl extends Persistente {
     private String nombre;
     @Column(name="cuit")
     private String CUIT;
-    @OneToMany(mappedBy = "organismoDeControl")
+    @OneToMany(mappedBy = "organismoDeControl", cascade = {CascadeType.PERSIST}, fetch = FetchType.LAZY)
     private List<PrestadoraDeServicio> entidadesPrestadorasControladas;
 
     public OrganismoDeControl() {
         this.entidadesPrestadorasControladas = new ArrayList<>();
     }
 
-    public void aniadirPrestadoraControlada(PrestadoraDeServicio prestadora) {this.entidadesPrestadorasControladas.add(prestadora);
+    public void aniadirPrestadoraControlada(PrestadoraDeServicio prestadora) {
+        this.entidadesPrestadorasControladas.add(prestadora);
         prestadora.setOrganismoDeControl(this);
     }
 

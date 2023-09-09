@@ -22,9 +22,9 @@ public class Establecimiento extends Persistente {
     private String nombre;
     @Embedded
     private Ubicacion ubicacionGeografica;
-    @OneToMany
+    @OneToMany(mappedBy ="establecimiento", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, fetch = FetchType.LAZY)
     private List<PrestacionDeServicio> serviciosBrindados;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="entidad_id", referencedColumnName = "id")
     private Entidad entidad;
 

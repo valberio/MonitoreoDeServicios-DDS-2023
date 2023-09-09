@@ -7,6 +7,7 @@ import domain.comunidad.Comunidad;
 import domain.entidades.Entidad;
 import domain.notificaciones.Notificador;
 import domain.registro.Usuario;
+import domain.services.georef.entities.Ubicacion;
 import domain.servicios.PrestacionDeServicio;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,11 +26,11 @@ import java.util.stream.Collectors;
 @Setter
 @Entity
 @Table(name="incidente")
-public class Incidente extends Persistente {
 
-    @ManyToOne
+public class Incidente extends Persistente {
+    @ManyToOne(fetch = FetchType.LAZY)
     private PrestacionDeServicio servicioAfectado;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Usuario usuarioReportador;
     //Debatible
     @Column(name="fecha_reporte")
@@ -39,33 +40,30 @@ public class Incidente extends Persistente {
     //Las fechas de reporte y resolucion estan en los estadoIncidente, dejarlos acá sería
     //repetir datos y no cumplir las reglas de la normalización. Peero a nivel objeto, los
     //incidentes no tienen una lista de estados, tienen sólo el estado actual. Para pensar gente...
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     private EstadoIncidente estado;
-    @OneToMany(mappedBy = "incidente")
+    @OneToMany(mappedBy = "incidente", cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE}, fetch = FetchType.LAZY)
     private List<EstadoIncidente> estadosDeIncidentes;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "incidente_id", referencedColumnName = "id")
     private Comunidad comunidadDondeSeReporta;
     @Transient
     private Notificador notificador = Notificador.getInstancia();
-    @Column
+    @Column(name="descripcion")
     private String descripcion;
 
     public Incidente(PrestacionDeServicio servicioAfectado, Usuario usuarioReportador, Comunidad comunidadDondeSeReporta, String descripcion) {
+
         this.setUsuarioReportador(usuarioReportador);
         this.setServicioAfectado(servicioAfectado);
         this.setComunidadDondeSeReporta(comunidadDondeSeReporta);
         this.setFechaReporte(LocalDateTime.now());
         this.setDescripcion(descripcion);
         this.servicioAfectado.setEstaHabilitado(false);
-
         RepositorioIncidentes archivo = RepositorioIncidentes.getInstance();
-        archivo.guardarIncidente(this);
-
+        archivo.agregarIncidente(this);
         this.servicioAfectado.setEstaHabilitado(false);
-
         this.estado = new EstadoIncidente();
-
         this.estadosDeIncidentes = new ArrayList<>();
 
     }
@@ -74,9 +72,12 @@ public class Incidente extends Persistente {
 
     }
 
+    public Ubicacion getUbicacion() {
+        return this.servicioAfectado.getEstablecimiento().getUbicacionGeografica();
+    }
     public ArrayList<Usuario> obtenerUsuariosInteresados() {
 
-        ArrayList<Usuario> usuariosRegistrados = RepositorioUsuarios.getUsuariosRegistrados();
+        List<Usuario> usuariosRegistrados = (ArrayList<Usuario>) RepositorioUsuarios.getUsuariosRegistrados();
 
         ArrayList<Usuario> usuariosInteresados = (ArrayList<Usuario>) usuariosRegistrados.stream().filter(usuario->usuario.teInteresa(this)).collect(Collectors.toList());
 

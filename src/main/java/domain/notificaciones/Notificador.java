@@ -55,10 +55,7 @@ public class Notificador {
 
         Ubicacion localizacionUsuario = usuario.getLocalizacion();
         List<Incidente> incidentesCercanos;
-        incidentesCercanos = RepositorioIncidentes.getInstance().incidentes.stream()
-                .filter(incidente -> incidente.getServicioAfectado().getEstablecimiento().getUbicacionGeografica().
-                        estasCercaDe(localizacionUsuario)).
-                        collect(Collectors.toList());
+        incidentesCercanos = (List<Incidente>) RepositorioIncidentes.getInstance().filtrarPorUbicacionCercana(usuario.getLocalizacion());
 
         for (Incidente incidenteCercano : incidentesCercanos) {
             this.pedidoDeRevisionDeIncidente(incidenteCercano);

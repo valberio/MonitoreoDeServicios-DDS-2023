@@ -3,14 +3,13 @@ package datos;
 import domain.entidades.Entidad;
 import domain.entidades.OrganismoDeControl;
 import domain.entidades.PrestadoraDeServicio;
+import domain.registro.Usuario;
+import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class RepositorioOrganismosDeControl {
-
-    public ArrayList<OrganismoDeControl> organismosDeControl = new ArrayList<OrganismoDeControl>();
-    public ArrayList<PrestadoraDeServicio> prestadorasDeServicio = new ArrayList<PrestadoraDeServicio>();
-    public ArrayList<Entidad> entidades = new ArrayList<Entidad>();
+public class RepositorioOrganismosDeControl implements WithSimplePersistenceUnit {
 
     private static RepositorioOrganismosDeControl instancia = null;
 
@@ -19,14 +18,16 @@ public class RepositorioOrganismosDeControl {
         return instancia;
     }
 
-    public void guardarOrganismoDeControl(OrganismoDeControl org){
-        organismosDeControl.add(org);
+    public void agregarOrganismoDeControl(OrganismoDeControl org){
+        entityManager().persist(org);
     }
-    public void guardarPrestadoraDeServicio(PrestadoraDeServicio prestadora){
-        prestadorasDeServicio.add(prestadora);
-    }
-    public void guardarEntidad(Entidad entidad){
-        entidades.add(entidad);
+
+    public boolean estaRegistrado(String cuit) {
+
+        List<OrganismoDeControl> organismosDeControl = entityManager().createQuery("from OrganismoDeControl where CUIT = :c")
+                .setParameter("c", cuit).getResultList();
+
+        return !organismosDeControl.isEmpty();
     }
 
 }

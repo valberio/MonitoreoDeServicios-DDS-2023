@@ -23,11 +23,11 @@ public class Comunidad extends Persistente {
 
     @Column(name="nombre")
     private String nombre;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     private List<Usuario> usuarios;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     private List<PrestacionDeServicio> serviciosDeInteres;
-    @OneToMany(mappedBy = "comunidadDondeSeReporta")
+    @OneToMany(mappedBy = "comunidadDondeSeReporta", cascade = { CascadeType.PERSIST}, fetch = FetchType.LAZY)
     private List<Incidente> incidentesReportados;
 
     public Comunidad() {

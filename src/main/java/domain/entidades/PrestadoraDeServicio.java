@@ -16,16 +16,21 @@ import java.util.List;
 public class PrestadoraDeServicio extends Persistente {
     @Column(name="nombre")
     private String nombre;
-    @OneToMany(mappedBy="prestadora")
+    @OneToMany(mappedBy="prestadora", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.LAZY)
     private List<Entidad> entidades;
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     private Usuario usuarioDesignado;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="organismoDeControl_id", referencedColumnName = "id")
     private OrganismoDeControl organismoDeControl;
 
     public PrestadoraDeServicio(){ this.entidades = new ArrayList<>(); }
 
+    public PrestadoraDeServicio(String nombre) {
+
+        this.entidades = new ArrayList<>();
+        this.setNombre(nombre);
+    }
     public void aniadirEntidad(Entidad entidad){
         entidades.add(entidad);
         entidad.setPrestadora(this);

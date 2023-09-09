@@ -17,7 +17,7 @@ public class UsoDeCredenciales implements Condicion {
     }
 
     public boolean utilizaCredencialesPorDefecto(Contrasenia contrasenia) {
-        return Objects.equals(contrasenia.getUsuario().getUsuario(), contrasenia.getContrasenia());
+        return Objects.equals(contrasenia.getUsuario().getNombreDeUsuario(), contrasenia.getContrasenia());
     }
 
 }

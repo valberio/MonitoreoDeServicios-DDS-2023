@@ -39,7 +39,6 @@ public class RankingPromedioTest {
         usuario.setPreferencias(pref);
         RepositorioUsuarios.agregarUnUsuario(usuario);
 
-
         //todos los incidentes se reportan en la misma fecha
         LocalDateTime fechaDeReporte = LocalDateTime.of(2023, 10, 7, 0, 0);
 
@@ -65,7 +64,6 @@ public class RankingPromedioTest {
         usuario.agregarEntidadesDeInteres(entidadConMuyMalPromedio);
         PrestacionDeServicio prestacion3 = new PrestacionDeServicio(baños, facultadIng);
 
-
         Incidente incidente1 = new Incidente(prestacion, null,  null, null);
         LocalDateTime tiempoAntes = LocalDateTime.of(2023, 10, 7, 0, 0);
         incidente1.setFechaReporte(fechaDeReporte);
@@ -77,7 +75,6 @@ public class RankingPromedioTest {
         Incidente incidente3 = new Incidente(prestacion3, null,null, null);
         incidente3.setFechaReporte(fechaDeReporte);
         LocalDateTime tiempoMuchoDespues =  LocalDateTime.of(2023, 12, 7, 7, 0);
-
 
         incidente1.cerrarse(usuario);
         incidente1.setFechaResolucion(tiempoAntes);
@@ -156,7 +153,7 @@ public class RankingPromedioTest {
         incidente3.cerrarse(usuario);
         incidente3.setFechaResolucion(tiempoMuchoDespues);
 
-        repositorioIncidentes.incidentes.forEach(i-> {System.out.println(i.getFechaReporte());});
+        repositorioIncidentes.getIncidentesForTest().forEach(i-> {System.out.println(i.getFechaReporte());});
 
 
         ArrayList<Entidad> ranking = rankingCantidadDeIncidentes.generarRanking();
@@ -165,4 +162,3 @@ public class RankingPromedioTest {
         //Assertions.assertEquals(entidadConMuyMalPromedio, ranking.get(0));
     }
 }
-
