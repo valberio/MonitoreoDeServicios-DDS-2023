@@ -29,8 +29,6 @@ public class RepositorioIncidentes implements WithSimplePersistenceUnit {
 
     private List<Incidente> incidentesForTest = new ArrayList<>();
 
-    private SessionFactory sessionFactory;
-
     public static RepositorioIncidentes getInstance(){
         if (instancia == null){
             instancia = new RepositorioIncidentes();

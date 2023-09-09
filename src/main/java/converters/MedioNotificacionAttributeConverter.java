@@ -13,17 +13,17 @@ public class MedioNotificacionAttributeConverter implements AttributeConverter<M
     @Override
     public String convertToDatabaseColumn(MedioNotificacion medioNotificacion) {
 
-        String s;
+        String s = "";
 
-        switch(medioNotificacion.getClass().getName()) {
+        String name = medioNotificacion.getClass().getName();
+
+        switch(name) {
             case "WhatsApp":
-                s="Whatsapp";
+                s="WhatsApp";
                 break;
             case "Mail":
                 s="Mail";
                 break;
-            default:
-                s=null;
         }
         return s;
     }

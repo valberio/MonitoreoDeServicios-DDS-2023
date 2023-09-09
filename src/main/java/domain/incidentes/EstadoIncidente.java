@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Entity
 //Esto se tiene que persistir para tener trazabilidad en los estados de los incidentes
 public class EstadoIncidente extends Persistente {
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(cascade = {CascadeType.PERSIST}, fetch = FetchType.LAZY)
     private Usuario usuarioResponsable;
     @Column(name="fecha_modificacion")
     private LocalDateTime fechaModificacion;

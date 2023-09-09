@@ -33,15 +33,20 @@ public class RepositorioUsuarios implements WithSimplePersistenceUnit {
     public static List<Usuario> getUsuariosRegistrados() { return usuariosRegistrados; }
     public void agregarUsuario(Usuario usuario ) {
         withTransaction( () -> {
-            entityManager().persist(usuario); });
+            if(!estaRegistrado(usuario.getNombreDeUsuario())) {
+                entityManager().persist(usuario);
+            }
+
+        });
     }
 
     public boolean estaRegistrado(String nombreUsuario) {
 
-        Usuario usuario = entityManager().find(Usuario.class, nombreUsuario);
+       List usuarios = entityManager().createQuery("from Usuario where nombreDeUsuario = :nombre")
+                .setParameter("nombre", nombreUsuario).getResultList();
 
-        return usuario!=null;
-    };
+        return !usuarios.isEmpty();
+    }
 
 
 }

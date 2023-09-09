@@ -14,10 +14,12 @@ import domain.notificaciones.medioEnvio.WhatsApp;
 import domain.notificaciones.tiempoDeEnvio.ModoRecepcion;
 import domain.notificaciones.tiempoDeEnvio.PreferenciaEnvioNotificacion;
 import domain.registro.Usuario;
+import domain.services.georef.entities.Ubicacion;
 import domain.servicios.PrestacionDeServicio;
 import domain.servicios.Servicio;
 import net.bytebuddy.asm.Advice;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import javax.mail.MessagingException;
@@ -30,39 +32,53 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class RankingPromedioTest {
 
-    @Test
-    public void testRankingPorPromedioDeCierre() throws MessagingException {
-        PromedioDeCierre rankingpromedioDeCierre = new PromedioDeCierre();
+    Usuario usuario = new Usuario("Pepita", null, null);
 
-        Usuario usuario = new Usuario("Pepita", null, null);
-        PreferenciaEnvioNotificacion pref = new PreferenciaEnvioNotificacion(new WhatsApp(), ModoRecepcion.SINCRONICA);
+    PreferenciaEnvioNotificacion pref = new PreferenciaEnvioNotificacion(new WhatsApp(), ModoRecepcion.SINCRONICA);
+
+    Servicio banios = new Servicio("Baños", "Baños de hombres y mujeres");
+
+    Establecimiento sedeLugano = new Establecimiento("Sede Lugano", new Ubicacion(2,2));
+    Establecimiento sedeMedrano = new Establecimiento("Sede Medrano", new Ubicacion(23,23));
+
+    Establecimiento facultadIng = new Establecimiento("Facultad de Ingeniería", new Ubicacion(20,20));
+
+
+    PrestacionDeServicio prestacion = new PrestacionDeServicio(banios, sedeLugano);
+    PrestacionDeServicio prestacion2 = new PrestacionDeServicio(banios, sedeMedrano);
+
+    PrestacionDeServicio prestacion3 = new PrestacionDeServicio(banios, facultadIng);
+
+    Entidad UTN = new Entidad();
+
+    Entidad entidadConMuyMalPromedio = new Entidad();
+
+    @BeforeEach
+    void inicializar() {
+
         usuario.setPreferencias(pref);
         RepositorioUsuarios.agregarUnUsuario(usuario);
 
-        //todos los incidentes se reportan en la misma fecha
-        LocalDateTime fechaDeReporte = LocalDateTime.of(2023, 10, 7, 0, 0);
-
-        Servicio baños = new Servicio("Baños", "Baños de hombres y mujeres");
-
-        Establecimiento sedeLugano = new Establecimiento("Sede Lugano", null);
-        Establecimiento sedeMedrano = new Establecimiento("Sede Medrano", null);
-
-        Entidad UTN = new Entidad();
         UTN.setNombre("UTN");
         UTN.agregarEstablecimientos(sedeLugano, sedeMedrano);
         sedeLugano.setEntidad(UTN);
         sedeMedrano.setEntidad(UTN);
         usuario.agregarEntidadesDeInteres(UTN);
-        PrestacionDeServicio prestacion = new PrestacionDeServicio(baños, sedeLugano);
-        PrestacionDeServicio prestacion2 = new PrestacionDeServicio(baños, sedeMedrano);
 
-        Establecimiento facultadIng = new Establecimiento("Facultad de Ingeniería", null);
-        Entidad entidadConMuyMalPromedio = new Entidad();
         entidadConMuyMalPromedio.setNombre("UBA");
         entidadConMuyMalPromedio.agregarEstablecimientos(facultadIng);
         facultadIng.setEntidad(entidadConMuyMalPromedio);
         usuario.agregarEntidadesDeInteres(entidadConMuyMalPromedio);
-        PrestacionDeServicio prestacion3 = new PrestacionDeServicio(baños, facultadIng);
+
+
+    }
+
+    @Test
+    public void testRankingPorPromedioDeCierre() throws MessagingException {
+        PromedioDeCierre rankingpromedioDeCierre = new PromedioDeCierre();
+
+        //todos los incidentes se reportan en la misma fecha
+        LocalDateTime fechaDeReporte = LocalDateTime.of(2023, 10, 7, 0, 0);
 
         Incidente incidente1 = new Incidente(prestacion, null,  null, null);
         LocalDateTime tiempoAntes = LocalDateTime.of(2023, 10, 7, 0, 0);
@@ -94,57 +110,22 @@ public class RankingPromedioTest {
     public void testRankingPorMayorCantidadDeIncidentes() throws MessagingException{
         CantidadDeIncidentes rankingCantidadDeIncidentes = new CantidadDeIncidentes();
 
-        Usuario usuario = new Usuario("Pepita", null, null);
-        PreferenciaEnvioNotificacion pref = new PreferenciaEnvioNotificacion(new WhatsApp(), ModoRecepcion.SINCRONICA);
-        usuario.setPreferencias(pref);
-        RepositorioUsuarios.agregarUnUsuario(usuario);
-
         LocalDateTime inicioUltimaSemana = LocalDateTime.now().minusWeeks(1);
 
         //todos los incidentes se reportan en la misma fecha
         LocalDateTime fechaDeReporte = inicioUltimaSemana.plusDays(2);
 
-        Servicio baños = new Servicio("Baños", "Baños de hombres y mujeres");
-
-        Establecimiento sedeLugano = new Establecimiento("Sede Lugano", null);
-        Establecimiento sedeMedrano = new Establecimiento("Sede Medrano", null);
-
-        Entidad UTN = new Entidad();
-        UTN.setNombre("UTN");
-        UTN.agregarEstablecimientos(sedeLugano, sedeMedrano);
-        sedeLugano.setEntidad(UTN);
-        sedeMedrano.setEntidad(UTN);
-        usuario.agregarEntidadesDeInteres(UTN);
-        PrestacionDeServicio prestacion = new PrestacionDeServicio(baños, sedeLugano);
-        PrestacionDeServicio prestacion2 = new PrestacionDeServicio(baños, sedeMedrano);
-
-        Establecimiento facultadIng = new Establecimiento("Facultad de Ingeniería", null);
-        Entidad entidadConMuyMalPromedio = new Entidad();
-        entidadConMuyMalPromedio.setNombre("UBA");
-        entidadConMuyMalPromedio.agregarEstablecimientos(facultadIng);
-        facultadIng.setEntidad(entidadConMuyMalPromedio);
-        usuario.agregarEntidadesDeInteres(entidadConMuyMalPromedio);
-        PrestacionDeServicio prestacion3 = new PrestacionDeServicio(baños, facultadIng);
-
-
-        Incidente incidente1 = new Incidente(prestacion, null,  null, null);
+        Incidente incidente1 = new Incidente(prestacion, usuario,  null, "");
         LocalDateTime tiempoAntes = LocalDateTime.of(2023, 9, 7, 0, 0);
         incidente1.setFechaReporte(fechaDeReporte);
 
-        RepositorioIncidentes repositorioIncidentes = new RepositorioIncidentes();
-        repositorioIncidentes.guardarIncidente(incidente1);
-
-        Incidente incidente2 = new Incidente(prestacion2, null, null, null);
+        Incidente incidente2 = new Incidente(prestacion2, usuario, null, "");
         LocalDateTime tiempoDespues = LocalDateTime.of(2023, 9, 7, 8, 0);
         incidente2.setFechaReporte(fechaDeReporte);
 
-        repositorioIncidentes.guardarIncidente(incidente2);
-
-        Incidente incidente3 = new Incidente(prestacion3, null,null, null);
+        Incidente incidente3 = new Incidente(prestacion3, usuario,null, "");
         incidente3.setFechaReporte(fechaDeReporte);
         LocalDateTime tiempoMuchoDespues =  LocalDateTime.of(2023, 10, 7, 7, 0);
-
-        repositorioIncidentes.guardarIncidente(incidente3);
 
         incidente1.cerrarse(usuario);
         incidente1.setFechaResolucion(tiempoAntes);
@@ -153,8 +134,7 @@ public class RankingPromedioTest {
         incidente3.cerrarse(usuario);
         incidente3.setFechaResolucion(tiempoMuchoDespues);
 
-        repositorioIncidentes.getIncidentesForTest().forEach(i-> {System.out.println(i.getFechaReporte());});
-
+        RepositorioIncidentes.getInstance().getIncidentesForTest().forEach(i-> {System.out.println(i.getFechaReporte());});
 
         ArrayList<Entidad> ranking = rankingCantidadDeIncidentes.generarRanking();
         System.out.println(ranking.get(0).getNombre());

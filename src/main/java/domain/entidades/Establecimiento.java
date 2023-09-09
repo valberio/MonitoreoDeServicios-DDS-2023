@@ -8,6 +8,7 @@ import domain.servicios.Servicio;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.annotation.Nullable;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +25,7 @@ public class Establecimiento extends Persistente {
     private Ubicacion ubicacionGeografica;
     @OneToMany(mappedBy ="establecimiento", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, fetch = FetchType.LAZY)
     private List<PrestacionDeServicio> serviciosBrindados;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = {CascadeType.PERSIST} , fetch = FetchType.LAZY)
     @JoinColumn(name="entidad_id", referencedColumnName = "id")
     private Entidad entidad;
 

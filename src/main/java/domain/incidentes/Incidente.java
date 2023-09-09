@@ -28,9 +28,9 @@ import java.util.stream.Collectors;
 @Table(name="incidente")
 
 public class Incidente extends Persistente {
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = {CascadeType.PERSIST}, fetch = FetchType.EAGER)
     private PrestacionDeServicio servicioAfectado;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = {CascadeType.PERSIST}, fetch = FetchType.LAZY)
     private Usuario usuarioReportador;
     //Debatible
     @Column(name="fecha_reporte")
@@ -40,7 +40,7 @@ public class Incidente extends Persistente {
     //Las fechas de reporte y resolucion estan en los estadoIncidente, dejarlos acá sería
     //repetir datos y no cumplir las reglas de la normalización. Peero a nivel objeto, los
     //incidentes no tienen una lista de estados, tienen sólo el estado actual. Para pensar gente...
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(cascade = {CascadeType.PERSIST}, fetch = FetchType.LAZY)
     private EstadoIncidente estado;
     @OneToMany(mappedBy = "incidente", cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE}, fetch = FetchType.LAZY)
     private List<EstadoIncidente> estadosDeIncidentes;
