@@ -43,7 +43,7 @@ public class Incidente extends Persistente {
     @OneToOne(cascade = {CascadeType.PERSIST}, fetch = FetchType.LAZY)
     private EstadoIncidente estado;
     @OneToMany(mappedBy = "incidente", cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE}, fetch = FetchType.LAZY)
-    private List<EstadoIncidente> estadosDeIncidentes;
+    private List<EstadoIncidente> estadosDeIncidente;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "incidente_id", referencedColumnName = "id")
     private Comunidad comunidadDondeSeReporta;
@@ -64,7 +64,7 @@ public class Incidente extends Persistente {
         archivo.agregarIncidente(this);
         this.servicioAfectado.setEstaHabilitado(false);
         this.estado = new EstadoIncidente();
-        this.estadosDeIncidentes = new ArrayList<>();
+        this.estadosDeIncidente = new ArrayList<>();
 
     }
 
@@ -127,7 +127,7 @@ public class Incidente extends Persistente {
 
     public void cerrarse(Usuario usuarioResponsable) throws MessagingException {
         this.fechaResolucion = LocalDateTime.now();
-        estadosDeIncidentes.add(this.estado); //guardo el anterior antes de actualizarlo
+        estadosDeIncidente.add(this.estado); //guardo el anterior antes de actualizarlo
         EstadoIncidente estadoResuelto = new EstadoIncidente();
         estadoResuelto.setUsuarioResponsable(usuarioResponsable);
         estadoResuelto.setFechaModificacion(LocalDateTime.now());
