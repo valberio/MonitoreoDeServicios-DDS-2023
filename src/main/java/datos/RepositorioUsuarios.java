@@ -1,5 +1,6 @@
 package datos;
 
+import domain.notificaciones.tiempoDeEnvio.ModoRecepcion;
 import domain.registro.Usuario;
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 import lombok.Getter;
@@ -46,6 +47,13 @@ public class RepositorioUsuarios implements WithSimplePersistenceUnit {
                 .setParameter("nombre", nombreUsuario).getResultList();
 
         return !usuarios.isEmpty();
+    }
+
+    public List usuariosConNotificacionesAsincronicas() {
+
+       return entityManager().createQuery("from Usuario where modoRecepcion = :asincronica").
+                setParameter("asincronica", ModoRecepcion.ASINCRONICA).getResultList();
+
     }
 
 

@@ -10,4 +10,11 @@ public class Config {
 
     public static final String RUTA_CSV = "src/main/java/datos/entidades.csv";
 
+    public static final String ASUNTO_MAIL = "Tenes notificaciones de incidentes que requieren tu atencion";
+
+    public static final double  DISTANCIA_PERMITIDA_PARA_INCIDENTES=10;
+
+    public static final double RADIO_TIERRA_KM = 6371.0;
+
+
 }

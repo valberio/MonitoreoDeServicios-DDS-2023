@@ -2,6 +2,7 @@ package domain.notificaciones;
 
 import datos.RepositorioIncidentes;
 
+import domain.config.Config;
 import domain.notificaciones.creacion.ContextoDeIncidente;
 import domain.notificaciones.creacion.*;
 import domain.notificaciones.tiempoDeEnvio.ValidadorNotificacionAsincronica;
@@ -10,8 +11,11 @@ import domain.incidentes.Incidente;
 import domain.services.georef.entities.Ubicacion;
 import lombok.Getter;
 import lombok.Setter;
+import org.json.JSONObject;
 
 import javax.mail.MessagingException;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,8 +28,8 @@ public class Notificador {
     private static Notificador instancia = null;
     private static NotificacionBuilder builder;
 
-    public static Notificador getInstancia(){
-        if(instancia==null) {
+    public static Notificador getInstancia() {
+        if (instancia == null) {
             instancia = new Notificador();
             builder = new NotificacionBuilder();
         }
@@ -41,7 +45,7 @@ public class Notificador {
 
     public void cerreUnIncidente(Incidente incidente) throws MessagingException {
 
-        builder.construirTexto(incidente,ContextoDeIncidente.CIERRE);
+        builder.construirTexto(incidente, ContextoDeIncidente.CIERRE);
         this.notificar(incidente);
     }
 
@@ -69,10 +73,10 @@ public class Notificador {
     }
 
     public void notificarUsuarios(ArrayList<Usuario> usuarios, Notificacion notificacion) throws MessagingException {
-        
+
         int i;
-        if(!usuarios.isEmpty()) {
-            for(i=0; i<usuarios.size(); i++){
+        if (!usuarios.isEmpty()) {
+            for (i = 0; i < usuarios.size(); i++) {
 
                 Usuario usuario = usuarios.get(i);
 
@@ -91,17 +95,27 @@ public class Notificador {
 
     public void enviarNotificacionResumenA(Usuario usuario, ArrayList<Notificacion> notificacionesSinEnviar) throws MessagingException {
 
-        builder.construirTexto("Estos son todos los incidentes que ocurrieron mientras no estabas: \n");
+        String rutaArchivo = Config.RUTA_ARCHIVOS + "textos_incidente.json";
 
-        for (Notificacion notificacion : notificacionesSinEnviar) {
+        try {
+            FileReader archivo = new FileReader(rutaArchivo);
 
-            if (ValidadorNotificacionAsincronica.cumpleCondiciones(notificacion)){
-                builder.editarTexto(notificacion.getTexto());
+            JSONObject json = new JSONObject(archivo);
+
+            builder.construirTexto(json.getString("ResumenDeIncidentes"));
+
+            for (Notificacion notificacion : notificacionesSinEnviar) {
+
+                if (ValidadorNotificacionAsincronica.cumpleCondiciones(notificacion)) {
+                    builder.editarTexto(notificacion.getTexto());
+                }
+
+                this.notificar(usuario);
+
             }
-
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
         }
-
-       this.notificar(usuario);
     }
 }
 

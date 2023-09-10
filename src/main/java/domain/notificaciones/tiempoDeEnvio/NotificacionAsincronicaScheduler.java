@@ -13,7 +13,7 @@ public class NotificacionAsincronicaScheduler {
 
     public static void main(String[] args) throws SchedulerException {
 
-        List<Usuario> usuarios = RepositorioUsuarios.getUsuariosRegistrados();
+        List<Usuario> usuarios = RepositorioUsuarios.getInstance().usuariosConNotificacionesAsincronicas();
 
         Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
 

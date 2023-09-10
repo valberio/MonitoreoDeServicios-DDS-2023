@@ -1,5 +1,6 @@
 package domain.services.georef.entities;
 
+import domain.config.Config;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -28,7 +29,7 @@ public class Ubicacion {
 
     public Boolean estasCercaDe(Ubicacion ubi){
 
-        double RADIO_TIERRA_KM = 6371.0;
+        double RADIO_TIERRA_KM = Config.RADIO_TIERRA_KM;
         // Convertir las coordenadas a radianes
         double lat1Rad = Math.toRadians(this.getLat());
         double lon1Rad = Math.toRadians(this.getLon());
@@ -48,6 +49,7 @@ public class Ubicacion {
         // Calcular la distancia en kilómetros
         double distanciaKm = RADIO_TIERRA_KM * c;
 
-        return distanciaKm < 10;
+        return distanciaKm < Config.DISTANCIA_PERMITIDA_PARA_INCIDENTES;
+
     }
 }

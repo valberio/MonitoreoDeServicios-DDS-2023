@@ -1,5 +1,6 @@
 package domain.notificaciones.medioEnvio;
 
+import domain.config.Config;
 import domain.notificaciones.Notificacion;
 import domain.registro.Usuario;
 import javax.mail.*;
@@ -30,7 +31,7 @@ public class Mail implements  MedioNotificacion{
         Message message = new MimeMessage(session);
         message.setFrom(new InternetAddress(usuario.getEmail()));
         message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(usuario.getEmail()));
-        message.setSubject("Tenes notificaciones de incidentes que requieren tu atencion");
+        message.setSubject(Config.ASUNTO_MAIL);
         message.setText(texto);
 
         Transport.send(message);

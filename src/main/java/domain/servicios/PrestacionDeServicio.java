@@ -44,7 +44,4 @@ public class PrestacionDeServicio extends Persistente {
         return "servicio: " + this.servicio.getDescripcion() + "en establecimiento: " + this.establecimiento.getNombre();
     }
 
-    public Entidad obtenerEntidadAfectada(){
-        return establecimiento.getEntidad();
-    }
 }
