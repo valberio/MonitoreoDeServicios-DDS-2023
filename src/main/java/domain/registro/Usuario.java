@@ -18,6 +18,7 @@ import domain.entidades.Entidad;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.annotation.Nullable;
 import javax.mail.MessagingException;
 import javax.persistence.*;
 import java.time.LocalTime;
@@ -45,6 +46,7 @@ public class Usuario extends Persistente {
     private Ubicacion localizacion;
     @Convert(converter = MedioNotificacionAttributeConverter.class)
     @Column(name = "medioNotificacion")
+    @Nullable
     private MedioNotificacion medioPreferido; // Email o Wpp
     @Enumerated(EnumType.STRING)
     private ModoRecepcion modoRecepcion; // Sincronico o asincronico

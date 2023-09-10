@@ -45,7 +45,7 @@ public class Registro {
     }*/
 
     public boolean noEstaRegistrado(String usuario) {
-        return !this.repositorioUsuarios.estaRegistrado(usuario);
+        return this.repositorioUsuarios.noEstaRegistrado(usuario);
     }
 
 

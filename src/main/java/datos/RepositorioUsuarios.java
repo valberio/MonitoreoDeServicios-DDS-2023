@@ -34,19 +34,19 @@ public class RepositorioUsuarios implements WithSimplePersistenceUnit {
     public static List<Usuario> getUsuariosRegistrados() { return usuariosRegistrados; }
     public void agregarUsuario(Usuario usuario ) {
         withTransaction( () -> {
-            if(!estaRegistrado(usuario.getNombreDeUsuario())) {
+            if(noEstaRegistrado(usuario.getNombreDeUsuario())) {
                 entityManager().persist(usuario);
             }
+
 
         });
     }
 
-    public boolean estaRegistrado(String nombreUsuario) {
+    public boolean noEstaRegistrado(String nombreUsuario) {
 
-       List usuarios = entityManager().createQuery("from Usuario where nombreDeUsuario = :nombre")
-                .setParameter("nombre", nombreUsuario).getResultList();
+       List usuarios = this.filtrarPorNombre(nombreUsuario);
 
-        return !usuarios.isEmpty();
+        return usuarios.isEmpty();
     }
 
     public List usuariosConNotificacionesAsincronicas() {
@@ -56,5 +56,16 @@ public class RepositorioUsuarios implements WithSimplePersistenceUnit {
 
     }
 
+    public List filtrarPorNombre(String nombreUsuario) {
+        List usuarios = entityManager().createQuery("from Usuario where nombreDeUsuario = :nombre")
+                .setParameter("nombre", nombreUsuario).getResultList();
+
+        return usuarios;
+    }
+
+    public List getUsuariosPersistentes() {
+
+        return entityManager().createQuery("from Usuario").getResultList();
+    }
 
 }

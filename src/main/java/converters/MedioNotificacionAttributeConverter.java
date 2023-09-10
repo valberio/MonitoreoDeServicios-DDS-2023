@@ -17,19 +17,16 @@ public class MedioNotificacionAttributeConverter implements AttributeConverter<M
 
         String name = medioNotificacion.getClass().getName();
 
-        switch(name) {
-            case "WhatsApp":
-                s="WhatsApp";
-                break;
-            case "Mail":
-                s="Mail";
-                break;
+        switch (name) {
+            case "WhatsApp" -> s = "WhatsApp";
+            case "Mail" -> s = "Mail";
         }
         return s;
     }
 
     @Override
     public MedioNotificacion convertToEntityAttribute(String s) {
+
         MedioNotificacion medio;
 
        switch(s) {
