@@ -48,5 +48,4 @@ public class RepositorioUsuariosTest implements SimplePersistenceTest {
         Assertions.assertEquals(1, repo.filtrarPorNombre("marsoteras").size());
 
     }
-
 }

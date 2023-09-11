@@ -45,7 +45,7 @@ public class Incidente extends Persistente {
     @OneToMany(mappedBy = "incidente", cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE}, fetch = FetchType.LAZY)
     private List<EstadoIncidente> estadosDeIncidente;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "incidente_id", referencedColumnName = "id")
+    @JoinColumn(name = "comunidad_id", referencedColumnName = "id")
     private Comunidad comunidadDondeSeReporta;
     @Transient
     private Notificador notificador = Notificador.getInstancia();

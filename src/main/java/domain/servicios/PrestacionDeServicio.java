@@ -22,7 +22,7 @@ public class PrestacionDeServicio extends Persistente {
     @Column(name="estaHabilitado")
     private Boolean estaHabilitado;
     @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-    @JoinColumn(name="prestacionDeServicio_id", referencedColumnName = "id")
+    @JoinColumn(name="establecimiento_id", referencedColumnName = "id")
     private Establecimiento establecimiento;
 
     public PrestacionDeServicio() {
