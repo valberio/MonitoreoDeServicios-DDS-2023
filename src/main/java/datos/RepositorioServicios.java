@@ -10,4 +10,8 @@ public class RepositorioServicios implements WithSimplePersistenceUnit {
         withTransaction( () -> {
             entityManager().persist(servicio); });
     }
+
+    public void eliminarServicio(Servicio servicio) {
+        entityManager().remove(servicio);
+    }
 }

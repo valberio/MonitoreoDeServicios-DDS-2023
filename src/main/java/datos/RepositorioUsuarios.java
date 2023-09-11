@@ -68,4 +68,7 @@ public class RepositorioUsuarios implements WithSimplePersistenceUnit {
         return entityManager().createQuery("from Usuario").getResultList();
     }
 
+    public void eliminarUsuario(Usuario usuario) {
+        entityManager().remove(usuario);
+    }
 }

@@ -15,4 +15,8 @@ public class RepositorioPrestadorasDeServicio implements WithSimplePersistenceUn
     public void agregarPrestadoraDeServicio(PrestadoraDeServicio prestadora) {
         entityManager().persist(prestadora);
     }
+
+    public void eliminarPrestadora(PrestadoraDeServicio prestadora) {
+        entityManager().remove(prestadora);
+    }
 }

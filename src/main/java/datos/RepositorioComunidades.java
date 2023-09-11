@@ -23,7 +23,4 @@ public class RepositorioComunidades implements WithSimplePersistenceUnit {
     public Comunidad obtenerComunidad(Long id) { //TODO
         return find(Comunidad.class, id);
     }
-
-
-
 }

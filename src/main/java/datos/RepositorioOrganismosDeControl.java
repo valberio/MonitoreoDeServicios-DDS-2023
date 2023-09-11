@@ -30,4 +30,12 @@ public class RepositorioOrganismosDeControl implements WithSimplePersistenceUnit
         return !organismosDeControl.isEmpty();
     }
 
+    public void eliminarOrganismoDeControl(OrganismoDeControl organismosDeControl) {
+            entityManager().remove(organismosDeControl);
+        }
+
+        public OrganismoDeControl obtenerOrganismoDeControl(OrganismoDeControl organismoDeControl) {
+            return find(OrganismoDeControl.class, id);
+        }
+
 }

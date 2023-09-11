@@ -93,6 +93,9 @@ public class RepositorioIncidentes implements WithSimplePersistenceUnit {
        return entityManager().createQuery("from Incidente").getResultList();
     }
 
+    public void eliminarIncidente(Incidente incidnete) {
+        entityManager().remove(incidente);
+    }
 
 
 }
