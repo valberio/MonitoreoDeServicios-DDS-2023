@@ -1,7 +1,9 @@
 package tests.domain.ranking;
 
+import datos.RepositorioComunidades;
 import datos.RepositorioIncidentes;
 import datos.RepositorioUsuarios;
+import domain.comunidad.Comunidad;
 import domain.entidades.Entidad;
 import domain.entidades.Establecimiento;
 import domain.incidentes.Estado;
@@ -33,6 +35,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class RankingPromedioTest {
 
     Usuario usuario = new Usuario("Pepita", null, null);
+
+    Comunidad comunidad = new Comunidad();
+    RepositorioComunidades repoComunidades = new RepositorioComunidades();
+
 
     PreferenciaEnvioNotificacion pref = new PreferenciaEnvioNotificacion(new WhatsApp(), ModoRecepcion.SINCRONICA);
 
@@ -70,6 +76,7 @@ public class RankingPromedioTest {
         facultadIng.setEntidad(entidadConMuyMalPromedio);
         usuario.agregarEntidadesDeInteres(entidadConMuyMalPromedio);
 
+        repoComunidades.agregarComunidad(comunidad);
 
     }
 
@@ -80,15 +87,15 @@ public class RankingPromedioTest {
         //todos los incidentes se reportan en la misma fecha
         LocalDateTime fechaDeReporte = LocalDateTime.of(2023, 10, 7, 0, 0);
 
-        Incidente incidente1 = new Incidente(prestacion, null,  null, null);
+        Incidente incidente1 = new Incidente(prestacion, usuario, comunidad, "Incidente 1");
         LocalDateTime tiempoAntes = LocalDateTime.of(2023, 10, 7, 0, 0);
         incidente1.setFechaReporte(fechaDeReporte);
 
-        Incidente incidente2 = new Incidente(prestacion2, null, null, null);
+        Incidente incidente2 = new Incidente(prestacion2, usuario, comunidad, "Incidente 2");
         LocalDateTime tiempoDespues = LocalDateTime.of(2023, 10, 7, 8, 0);
         incidente2.setFechaReporte(fechaDeReporte);
 
-        Incidente incidente3 = new Incidente(prestacion3, null,null, null);
+        Incidente incidente3 = new Incidente(prestacion3, usuario, comunidad, "Incidente 3");
         incidente3.setFechaReporte(fechaDeReporte);
         LocalDateTime tiempoMuchoDespues =  LocalDateTime.of(2023, 12, 7, 7, 0);
 

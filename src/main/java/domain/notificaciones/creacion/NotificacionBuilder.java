@@ -1,6 +1,7 @@
 package domain.notificaciones.creacion;
 
 import domain.config.Config;
+import domain.config.ConfigTextoNotificacion;
 import domain.incidentes.Incidente;
 import domain.notificaciones.Notificacion;
 import org.json.JSONObject;
@@ -24,29 +25,19 @@ public class NotificacionBuilder {
 
     }
 
-    public void construirTexto(Incidente incidente, ContextoDeIncidente contexto){
+    public void construirTexto(Incidente incidente, ContextoDeIncidente contexto) {
 
         String rutaArchivo = Config.RUTA_ARCHIVOS + "textos_incidente.json";
 
-        try {
-            FileReader archivo = new FileReader(rutaArchivo);
 
-            JSONObject json = new JSONObject(archivo);
+        switch (contexto) {
 
-            switch(contexto) {
+            case CREACION -> this.texto = ConfigTextoNotificacion.CREACION + incidente.getServicioAfectado().obtenerTextoRelevante();
 
-                case CREACION -> this.texto = json.getString("CreacionDeIncidente") + incidente.getServicioAfectado().obtenerTextoRelevante();
+            case SUGERENCIA_DE_REVISION -> this.texto = ConfigTextoNotificacion.SUGERENCIA + incidente.getServicioAfectado() + " en " + incidente.getLocalizacion();
 
-                case SUGERENCIA_DE_REVISION -> this.texto = json.getString("SugerenciaDeRevision") + incidente.getServicioAfectado() + " en " + incidente.getLocalizacion();
-
-                case CIERRE -> this.texto = json.getString("CierreDeIncidente") + incidente.getServicioAfectado().obtenerTextoRelevante() + "!";
-            }
-
-
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+            case CIERRE -> this.texto = this.texto = ConfigTextoNotificacion.CIERRE + incidente.getServicioAfectado().obtenerTextoRelevante() + "!";
         }
-
 
     }
 
