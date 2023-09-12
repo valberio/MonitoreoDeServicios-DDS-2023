@@ -86,9 +86,9 @@ public class Filtrador {
 
     public ArrayList<Incidente> filtrarRepetidosEn24hs(ArrayList<Incidente> incidentesSemanales){
         ArrayList<ArrayList<Incidente>> incidentesPorPrestacion = this.obtenerIncidentesPorPrestacion(incidentesSemanales);
-        if (incidentesSemanales.isEmpty()) {
-            throw new IllegalStateException("No hay incidentes en la última semana."); // Lanzar una excepción
-        }
+        /*if (incidentesPorPrestacion.isEmpty()) {
+            throw new IllegalStateException("."); // Lanzar una excepción
+        }*/
         for(ArrayList<Incidente> incidentesMismaPrestacion: incidentesPorPrestacion) {
             ArrayList<ArrayList<Incidente>> incidentesPorDia = this.obtenerIncidentesPorDia(incidentesMismaPrestacion);
 

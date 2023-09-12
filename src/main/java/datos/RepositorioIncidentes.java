@@ -1,5 +1,6 @@
 package datos;
 
+import com.twilio.rest.api.v2010.account.incomingphonenumber.Local;
 import domain.entidades.OrganismoDeControl;
 import domain.incidentes.Incidente;
 import domain.services.georef.entities.Ubicacion;
@@ -12,15 +13,26 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistryBuilder;
 
-
+import javax.persistence.Query;
+import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.time.LocalDateTime;
+import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 
 @Getter
 public class RepositorioIncidentes implements WithSimplePersistenceUnit {
@@ -49,23 +61,18 @@ public class RepositorioIncidentes implements WithSimplePersistenceUnit {
         tx.commit();
     }
 
-    public List filtrarUltimaSemana() {
-        List incidentes = null; // Inicializamos la lista
+    public List<Incidente> filtrarUltimaSemana() {
+            EntityManager entityManager; // Asegúrate de inicializar este EntityManager en algún lugar
 
-        CriteriaBuilder cb = entityManager().getCriteriaBuilder();
-        CriteriaQuery<Incidente> criteriaQuery = cb.createQuery(Incidente.class);
-        Root<Incidente> root = criteriaQuery.from(Incidente.class);
+            String jpql = "SELECT i FROM Incidente i WHERE i.fechaReporte > :fecha";
+            Query query = entityManager().createQuery(jpql);
+            LocalDateTime fecha = LocalDateTime.now().minusWeeks(1);
+            query.setParameter("fecha", fecha);
 
-        LocalDateTime hoy = LocalDateTime.now();
-        LocalDateTime unaSemanaAntes = hoy.minusWeeks(1);
+            List<Incidente> incidentes = query.getResultList();
+            return incidentes;
+        }
 
-        criteriaQuery.select(root)
-                .where(cb.between(root.get("fechaResolucion"), unaSemanaAntes, hoy));
-
-        incidentes = entityManager().createQuery(criteriaQuery).getResultList();
-
-     return incidentes; // Devolvemos la lista de incidentes
-    }
 
     public List filtrarPorUbicacionCercana(Ubicacion ubicacion) {
 
@@ -93,7 +100,7 @@ public class RepositorioIncidentes implements WithSimplePersistenceUnit {
        return entityManager().createQuery("from Incidente").getResultList();
     }
 
-    public void eliminarIncidente(Incidente incidnete) {
+    public void eliminarIncidente(Incidente incidente) {
         entityManager().remove(incidente);
     }
 

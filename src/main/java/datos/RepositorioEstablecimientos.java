@@ -11,7 +11,7 @@ public class RepositorioEstablecimientos implements WithSimplePersistenceUnit {
     public void agregarEstablecimiento(Establecimiento establecimiento) {
        EntityTransaction tx = entityManager().getTransaction();
         tx.begin();
-        entityManager().persist(comunidad);
+        entityManager().persist(establecimiento);
         tx.commit();
     }
 

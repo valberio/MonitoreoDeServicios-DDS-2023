@@ -26,6 +26,7 @@ import org.junit.jupiter.api.Test;
 
 import javax.mail.MessagingException;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -38,7 +39,6 @@ public class RankingPromedioTest {
 
     Comunidad comunidad = new Comunidad();
     RepositorioComunidades repoComunidades = new RepositorioComunidades();
-
 
     PreferenciaEnvioNotificacion pref = new PreferenciaEnvioNotificacion(new WhatsApp(), ModoRecepcion.SINCRONICA);
 
@@ -81,11 +81,37 @@ public class RankingPromedioTest {
     }
 
     @Test
+    public void testIncidentesGuardados() {
+        LocalDateTime fechaDeReporte = LocalDateTime.of(2023, 10, 7, 0, 0);
+        Incidente incidente1 = new Incidente(prestacion, usuario, comunidad, "Incidente 1636732768");
+        incidente1.setFechaReporte(fechaDeReporte);
+
+        RepositorioIncidentes repo = RepositorioIncidentes.getInstance();
+        System.out.println(repo.getIncidentes().size());
+
+        Incidente incidente = repo.getIncidentes().get(0);
+        System.out.println(incidente.getDescripcion());
+    }
+    @Test
+    public void testIncidentesSemanales() {
+        LocalDateTime fechaDeReporte = LocalDateTime.of(2023, 9, 5, 0, 0);
+        Incidente incidente1 = new Incidente(prestacion, usuario, comunidad, "Incidente 1636732768");
+        incidente1.setFechaReporte(fechaDeReporte);
+
+        RepositorioIncidentes repo = RepositorioIncidentes.getInstance();
+        System.out.println(repo.getIncidentes().size());
+
+        List<Incidente> incidente = repo.filtrarUltimaSemana();
+        System.out.println(incidente.get(0).getDescripcion());
+
+    }
+
+    @Test
     public void testRankingPorPromedioDeCierre() throws MessagingException {
         PromedioDeCierre rankingpromedioDeCierre = new PromedioDeCierre();
 
         //todos los incidentes se reportan en la misma fecha
-        LocalDateTime fechaDeReporte = LocalDateTime.of(2023, 10, 7, 0, 0);
+        LocalDateTime fechaDeReporte = LocalDateTime.of(2023, 9, 5, 0, 0);
 
         Incidente incidente1 = new Incidente(prestacion, usuario, comunidad, "Incidente 1");
         LocalDateTime tiempoAntes = LocalDateTime.of(2023, 10, 7, 0, 0);
@@ -117,13 +143,11 @@ public class RankingPromedioTest {
     public void testRankingPorMayorCantidadDeIncidentes() throws MessagingException{
         CantidadDeIncidentes rankingCantidadDeIncidentes = new CantidadDeIncidentes();
 
-        LocalDateTime inicioUltimaSemana = LocalDateTime.now().minusWeeks(1);
-
+        LocalDateTime fechaDeReporte = LocalDateTime.of(2023, 9, 5, 0, 0);
         //todos los incidentes se reportan en la misma fecha
-        LocalDateTime fechaDeReporte = inicioUltimaSemana.plusDays(2);
 
         Incidente incidente1 = new Incidente(prestacion, usuario,  null, "");
-        LocalDateTime tiempoAntes = LocalDateTime.of(2023, 9, 7, 0, 0);
+        LocalDateTime tiempoAntes = LocalDateTime.of(2023, 9, 5, 0, 0);
         incidente1.setFechaReporte(fechaDeReporte);
 
         Incidente incidente2 = new Incidente(prestacion2, usuario, null, "");
@@ -132,7 +156,10 @@ public class RankingPromedioTest {
 
         Incidente incidente3 = new Incidente(prestacion3, usuario,null, "");
         incidente3.setFechaReporte(fechaDeReporte);
-        LocalDateTime tiempoMuchoDespues =  LocalDateTime.of(2023, 10, 7, 7, 0);
+        LocalDateTime tiempoMuchoDespues =  LocalDateTime.of(2023, 9, 7, 7, 0);
+
+        Incidente ueReBaqueteadaLaPrestacion1 = new Incidente(prestacion, usuario,null, "");
+        ueReBaqueteadaLaPrestacion1.setFechaReporte(fechaDeReporte);
 
         incidente1.cerrarse(usuario);
         incidente1.setFechaResolucion(tiempoAntes);

@@ -35,7 +35,7 @@ public class RepositorioOrganismosDeControl implements WithSimplePersistenceUnit
         }
 
         public OrganismoDeControl obtenerOrganismoDeControl(OrganismoDeControl organismoDeControl) {
-            return find(OrganismoDeControl.class, id);
+            return find(OrganismoDeControl.class, organismoDeControl.getId());
         }
 
 }

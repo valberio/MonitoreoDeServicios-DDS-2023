@@ -15,9 +15,9 @@ public class CantidadDeIncidentes extends Ranking {
         Map<Entidad, Double> conteoEntidades = new HashMap<>();
 
         ArrayList<Entidad> entidades = filtradorDeIncidentes.filtrarRepetidosEn24hs(incidentesSemanales).stream().map(incidente -> incidente.obtenerEntidad()).collect(Collectors.toCollection(ArrayList::new));
-        /*if (incidentesSemanales.isEmpty()) {
+        if (incidentesSemanales.isEmpty()) {
             throw new IllegalStateException("No hay incidentes en la última semana."); // Lanzar una excepción
-        }*/
+        }
         for (Entidad entidad : entidades) {
         conteoEntidades.put(entidad, conteoEntidades.getOrDefault(entidad, 0.0) + 1);
 
