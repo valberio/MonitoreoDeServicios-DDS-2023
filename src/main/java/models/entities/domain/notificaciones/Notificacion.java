@@ -5,7 +5,7 @@ import models.entities.domain.notificaciones.tiempoDeEnvio.EnviarNotificacionAsi
 import models.entities.domain.registro.Usuario;
 import lombok.Getter;
 import lombok.Setter;
-import models.entities.domain.notificaciones.tiempoDeEnvio.ModoRecepcion;
+
 
 import javax.mail.MessagingException;
 import java.time.LocalDateTime;
@@ -29,10 +29,10 @@ public class Notificacion {
 
         switch(usuario.getModoRecepcion())  {
 
-            case ModoRecepcion.SINCRONICA:
+            case SINCRONICA:
                 usuario.getMedioPreferido().enviarNotificacionA(usuario,this.texto);
 
-            case ModoRecepcion.ASINCRONICA:
+            case ASINCRONICA:
                 if(contextoIncidente == ContextoDeIncidente.CREACION) {
 
                     EnviarNotificacionAsincronica enviarNotificacionAsincronica = new EnviarNotificacionAsincronica(usuario);

@@ -1,6 +1,6 @@
 package models.entities.domain.registro;
 
-import domain.registro.condicionesContra.*;
+import models.entities.domain.registro.condicionesContra.*;
 import models.entities.domain.registro.condicionesContra.medidorFuerza.Debil;
 import models.entities.domain.registro.condicionesContra.medidorFuerza.MedidorDeFuerza;
 import lombok.Getter;

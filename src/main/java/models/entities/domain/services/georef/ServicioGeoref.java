@@ -1,7 +1,7 @@
 package models.entities.domain.services.georef;
 
 import models.entities.domain.config.Config;
-import domain.services.georef.entities.*;
+import models.entities.domain.services.georef.entities.*;
 import models.entities.domain.services.georef.entities.RespuestaAPI;
 import models.entities.domain.services.georef.entities.Ubicacion;
 import retrofit2.Call;

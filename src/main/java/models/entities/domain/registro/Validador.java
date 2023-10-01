@@ -1,6 +1,5 @@
 package models.entities.domain.registro;
 
-import domain.registro.condicionesContra.*;
 import models.entities.domain.registro.condicionesContra.*;
 
 import java.util.ArrayList;
