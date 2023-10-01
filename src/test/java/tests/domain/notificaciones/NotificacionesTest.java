@@ -1,27 +1,23 @@
 package tests.domain.notificaciones;
 
-import domain.comunidad.Comunidad;
-import domain.entidades.Establecimiento;
-import domain.incidentes.Estado;
-import domain.incidentes.EstadoIncidente;
-import domain.incidentes.Incidente;
-import domain.incidentes.ReportadorDeIncidentes;
-import domain.notificaciones.medioEnvio.Mail;
-import domain.notificaciones.medioEnvio.WhatsApp;
-import domain.notificaciones.tiempoDeEnvio.ModoRecepcion;
-import domain.notificaciones.tiempoDeEnvio.PreferenciaEnvioNotificacion;
+import models.entities.domain.comunidad.Comunidad;
+import models.entities.domain.entidades.Establecimiento;
+import models.entities.domain.incidentes.Estado;
+import models.entities.domain.incidentes.Incidente;
+import models.entities.domain.incidentes.ReportadorDeIncidentes;
+import models.entities.domain.notificaciones.medioEnvio.WhatsApp;
+import models.entities.domain.notificaciones.tiempoDeEnvio.ModoRecepcion;
+import models.entities.domain.notificaciones.tiempoDeEnvio.PreferenciaEnvioNotificacion;
 //import domain.notificaciones.tiempoDeEnvio.EnviarNotificacionAsincronica;
-import domain.registro.Contrasenia;
-import domain.registro.Registro;
-import domain.registro.Usuario;
-import domain.services.georef.entities.Ubicacion;
-import domain.servicios.PrestacionDeServicio;
-import domain.servicios.Servicio;
-import org.junit.jupiter.api.Assertions;
+import models.entities.domain.registro.Contrasenia;
+import models.entities.domain.registro.Registro;
+import models.entities.domain.registro.Usuario;
+import models.entities.domain.services.georef.entities.Ubicacion;
+import models.entities.domain.servicios.PrestacionDeServicio;
+import models.entities.domain.servicios.Servicio;
 import org.junit.jupiter.api.Test;
 
 import javax.mail.MessagingException;
-import java.time.LocalTime;
 
 public class NotificacionesTest {
 

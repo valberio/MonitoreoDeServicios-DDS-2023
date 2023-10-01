@@ -1,17 +1,16 @@
 package tests.domain.usuario;
 
-import domain.entidades.Entidad;
-import domain.entidades.Establecimiento;
-import domain.notificaciones.medioEnvio.WhatsApp;
-import domain.notificaciones.tiempoDeEnvio.ModoRecepcion;
-import domain.notificaciones.tiempoDeEnvio.PreferenciaEnvioNotificacion;
-import domain.registro.Contrasenia;
-import domain.registro.Usuario;
-import domain.services.georef.entities.Ubicacion;
-import domain.servicios.PrestacionDeServicio;
-import domain.servicios.Servicio;
+import models.entities.domain.entidades.Entidad;
+import models.entities.domain.entidades.Establecimiento;
+import models.entities.domain.notificaciones.medioEnvio.WhatsApp;
+import models.entities.domain.notificaciones.tiempoDeEnvio.ModoRecepcion;
+import models.entities.domain.notificaciones.tiempoDeEnvio.PreferenciaEnvioNotificacion;
+import models.entities.domain.registro.Contrasenia;
+import models.entities.domain.registro.Usuario;
+import models.entities.domain.services.georef.entities.Ubicacion;
+import models.entities.domain.servicios.PrestacionDeServicio;
+import models.entities.domain.servicios.Servicio;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

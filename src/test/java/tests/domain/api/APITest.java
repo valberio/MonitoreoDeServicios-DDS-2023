@@ -1,18 +1,11 @@
 package tests.domain.api;
 
-import domain.comunidad.Comunidad;
-import domain.entidades.Establecimiento;
-import domain.incidentes.Incidente;
-import domain.registro.Usuario;
-import domain.services.georef.ServicioGeoref;
-import domain.services.georef.entities.*;
-import domain.servicios.PrestacionDeServicio;
-import domain.servicios.Servicio;
+import models.entities.domain.services.georef.ServicioGeoref;
+import models.entities.domain.services.georef.entities.Ubicacion;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;

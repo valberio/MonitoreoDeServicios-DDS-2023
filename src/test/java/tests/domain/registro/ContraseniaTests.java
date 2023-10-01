@@ -1,10 +1,10 @@
 package tests.domain.registro;
 
-import domain.notificaciones.tiempoDeEnvio.PreferenciaEnvioNotificacion;
-import domain.registro.Contrasenia;
-import domain.registro.Usuario;
-import domain.registro.Validador;
-import domain.registro.condicionesContra.*;
+import models.entities.domain.notificaciones.tiempoDeEnvio.PreferenciaEnvioNotificacion;
+import models.entities.domain.registro.Contrasenia;
+import models.entities.domain.registro.Usuario;
+import models.entities.domain.registro.Validador;
+import models.entities.domain.registro.condicionesContra.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;

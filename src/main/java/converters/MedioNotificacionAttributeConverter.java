@@ -1,12 +1,11 @@
 package converters;
 
-import domain.notificaciones.medioEnvio.Mail;
-import domain.notificaciones.medioEnvio.MedioNotificacion;
-import domain.notificaciones.medioEnvio.WhatsApp;
+import models.entities.domain.notificaciones.medioEnvio.Mail;
+import models.entities.domain.notificaciones.medioEnvio.MedioNotificacion;
+import models.entities.domain.notificaciones.medioEnvio.WhatsApp;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
-import javax.print.attribute.Attribute;
 
 @Converter(autoApply = true)
 public class MedioNotificacionAttributeConverter implements AttributeConverter<MedioNotificacion,String> {

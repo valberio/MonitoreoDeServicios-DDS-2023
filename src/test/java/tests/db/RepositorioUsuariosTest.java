@@ -1,15 +1,10 @@
 package tests.db;
 
-import datos.RepositorioUsuarios;
-import domain.notificaciones.medioEnvio.WhatsApp;
-import domain.notificaciones.tiempoDeEnvio.ModoRecepcion;
-import domain.notificaciones.tiempoDeEnvio.PreferenciaEnvioNotificacion;
-import domain.registro.Contrasenia;
-import domain.registro.Usuario;
-import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
+import models.repositories.datos.RepositorioUsuarios;
+import models.entities.domain.registro.Contrasenia;
+import models.entities.domain.registro.Usuario;
 import io.github.flbulgarelli.jpa.extras.test.SimplePersistenceTest;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class RepositorioUsuariosTest implements SimplePersistenceTest {

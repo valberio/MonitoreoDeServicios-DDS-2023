@@ -1,35 +1,29 @@
 package tests.domain.ranking;
 
-import datos.RepositorioComunidades;
-import datos.RepositorioIncidentes;
-import datos.RepositorioUsuarios;
-import domain.comunidad.Comunidad;
-import domain.entidades.Entidad;
-import domain.entidades.Establecimiento;
-import domain.incidentes.Estado;
-import domain.incidentes.EstadoIncidente;
-import domain.incidentes.Incidente;
-import domain.incidentes.rankings.CantidadDeIncidentes;
-import domain.incidentes.rankings.PromedioDeCierre;
-import domain.incidentes.rankings.Ranking;
-import domain.notificaciones.medioEnvio.WhatsApp;
-import domain.notificaciones.tiempoDeEnvio.ModoRecepcion;
-import domain.notificaciones.tiempoDeEnvio.PreferenciaEnvioNotificacion;
-import domain.registro.Usuario;
-import domain.services.georef.entities.Ubicacion;
-import domain.servicios.PrestacionDeServicio;
-import domain.servicios.Servicio;
-import net.bytebuddy.asm.Advice;
+import models.repositories.datos.RepositorioComunidades;
+import models.repositories.datos.RepositorioIncidentes;
+import models.repositories.datos.RepositorioUsuarios;
+import models.entities.domain.comunidad.Comunidad;
+import models.entities.domain.entidades.Entidad;
+import models.entities.domain.entidades.Establecimiento;
+import models.entities.domain.incidentes.Incidente;
+import models.entities.domain.incidentes.rankings.CantidadDeIncidentes;
+import models.entities.domain.incidentes.rankings.PromedioDeCierre;
+import models.entities.domain.notificaciones.medioEnvio.WhatsApp;
+import models.entities.domain.notificaciones.tiempoDeEnvio.ModoRecepcion;
+import models.entities.domain.notificaciones.tiempoDeEnvio.PreferenciaEnvioNotificacion;
+import models.entities.domain.registro.Usuario;
+import models.entities.domain.services.georef.entities.Ubicacion;
+import models.entities.domain.servicios.PrestacionDeServicio;
+import models.entities.domain.servicios.Servicio;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import javax.mail.MessagingException;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

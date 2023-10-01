@@ -1,8 +1,7 @@
 package tests.domain.csv;
 
 import com.opencsv.exceptions.CsvValidationException;
-import domain.entidades.OrganismoDeControl;
-import domain.entidades.cargaEntidadesyOrgDeControl;
+import models.entities.domain.entidades.cargaEntidadesyOrgDeControl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
