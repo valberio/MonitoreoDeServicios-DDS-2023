@@ -1,5 +1,7 @@
 package tests.domain.registro;
 
+import models.entities.domain.notificaciones.medioEnvio.WhatsApp;
+import models.entities.domain.notificaciones.tiempoDeEnvio.ModoRecepcion;
 import models.entities.domain.notificaciones.tiempoDeEnvio.PreferenciaEnvioNotificacion;
 import models.entities.domain.registro.Contrasenia;
 import models.entities.domain.registro.Usuario;
@@ -24,7 +26,7 @@ public class ContraseniaTests {
     private Contrasenia contraseniaConRepes = new Contrasenia("1111234678");
     private Contrasenia contraseniaSinRepes = new Contrasenia("12345678");
     private Contrasenia contraseniaEspecial = new Contrasenia("123#");
-    private Contrasenia contraseniaValida = new Contrasenia("Abcd12345_");
+    private static Contrasenia contraseniaValida = new Contrasenia("Abcd12345_");
 
     private Validador validador = new Validador();
     private Longitud longitud = new Longitud();
@@ -32,7 +34,7 @@ public class ContraseniaTests {
     private UsoDeCredenciales usoDeCredenciales = new UsoDeCredenciales();
     private UsoReiterado usoReiterado = new UsoReiterado();
 
-    private PreferenciaEnvioNotificacion preferencia;
+    private static PreferenciaEnvioNotificacion preferencia = new PreferenciaEnvioNotificacion(new WhatsApp(), ModoRecepcion.ASINCRONICA);
 
     public ContraseniaTests() throws IOException {
     }
@@ -40,10 +42,10 @@ public class ContraseniaTests {
     private void instanciarCondiciones() {
         this.validador.agregarCondiciones(longitud, repeticiones, usoDeCredenciales, usoReiterado);
     }
-    private Usuario usuarioValido = new Usuario();
+    private static Usuario usuarioValido = new Usuario();
 
     @BeforeAll
-    public void inicializar() {
+    public static void inicializar() {
         usuarioValido.setNombreDeUsuario("Pepito");
         usuarioValido.setContrasenia(contraseniaValida);
         usuarioValido.setEmail("pepito@gmail.com");

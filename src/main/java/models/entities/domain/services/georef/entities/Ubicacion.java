@@ -4,13 +4,15 @@ import models.entities.domain.config.Config;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import javax.persistence.Transient;
 
 @Getter
 @Setter
 public class Ubicacion {
-
+    @Column
     private double lat;
+    @Column
     private double lon;
 
     @Transient

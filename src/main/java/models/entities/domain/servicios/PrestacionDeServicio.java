@@ -32,7 +32,7 @@ public class PrestacionDeServicio extends Persistente {
     public PrestacionDeServicio(Servicio servicio, Establecimiento establecimiento) {
         this.servicio = servicio;
         this.establecimiento = establecimiento;
-        estaHabilitado = true;
+        this. estaHabilitado = true;
         new RepositorioPrestacionesDeServicio().agregarPrestacion(this);
     }
 

@@ -4,6 +4,7 @@ package models.entities.domain.registro;
 import converters.MedioNotificacionAttributeConverter;
 import models.entities.domain.Persistente;
 import models.entities.domain.comunidad.Comunidad;
+import models.entities.domain.entidades.Establecimiento;
 import models.entities.domain.incidentes.Incidente;
 import models.entities.domain.notificaciones.Notificador;
 import models.entities.domain.notificaciones.medioEnvio.MedioNotificacion;
@@ -95,15 +96,23 @@ public class Usuario extends Persistente {
         entidadesDeInteres.addAll(List.of(entidad));
     }
 
-    public ArrayList<Servicio> serviciosDeInteres() {
+    public ArrayList<PrestacionDeServicio> prestacionDeServiciosDeInteres() {
 
-        return entidadesDeInteres.stream().flatMap(entidad -> entidad.serviciosConIncidente()).collect(Collectors.toCollection(ArrayList::new));
+        ArrayList<PrestacionDeServicio> serviciosDeInteres = new ArrayList<>();
+
+        for(Entidad entidad: entidadesDeInteres) {
+
+            serviciosDeInteres.addAll(entidad.serviciosConIncidente());
+
+        }
+
+        return serviciosDeInteres;
     }
 
 
     public boolean teInteresa(PrestacionDeServicio servicioAfectado) {
 
-        return this.serviciosDeInteres().stream().anyMatch(servicio -> servicioAfectado.getServicio().equals(servicio));
+        return this.prestacionDeServiciosDeInteres().contains(servicioAfectado);
     }
 
     public boolean teInteresa(Incidente incidente) {

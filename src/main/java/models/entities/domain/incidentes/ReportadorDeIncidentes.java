@@ -26,6 +26,8 @@ public class ReportadorDeIncidentes {
 
         Incidente nuevoIncidente = new Incidente();
 
+        nuevoIncidente.setEstado(new EstadoIncidente());
+
         nuevoIncidente.setServicioAfectado(prestacionDeServicio);
 
         nuevoIncidente.setUsuarioReportador(usuario);

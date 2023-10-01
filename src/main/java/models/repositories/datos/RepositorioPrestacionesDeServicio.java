@@ -10,8 +10,14 @@ public class RepositorioPrestacionesDeServicio implements WithSimplePersistenceU
             entityManager().persist(prestacion); });
     }
 
+    public void actualizarPrestacion(PrestacionDeServicio prestacion) {
+
+        withTransaction(() -> { entityManager().merge(prestacion); });
+    }
+
     public void eliminarPrestacion(PrestacionDeServicio prestacion) {
-        entityManager().remove(prestacion);
+        withTransaction( () -> {
+            entityManager().remove(prestacion); });
     }
 
 }

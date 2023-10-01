@@ -3,6 +3,7 @@ package models.entities.domain.entidades;
 
 import models.entities.domain.Persistente;
 import models.entities.domain.services.georef.entities.Ubicacion;
+import models.entities.domain.servicios.PrestacionDeServicio;
 import models.entities.domain.servicios.Servicio;
 import lombok.Getter;
 import lombok.Setter;
@@ -73,8 +74,8 @@ public class Entidad extends Persistente {
     }
 
 
-    public Stream<Servicio> serviciosConIncidente() {
-        return establecimientosAsociados.stream().flatMap(Establecimiento::obtenerServiciosIncidentados);
+    public List<PrestacionDeServicio> serviciosConIncidente() {
+        return establecimientosAsociados.stream().flatMap(establecimiento -> establecimiento.obtenerServiciosIncidentados()).toList();
     }
 
     public ArrayList<Ubicacion> dondeOpera() {

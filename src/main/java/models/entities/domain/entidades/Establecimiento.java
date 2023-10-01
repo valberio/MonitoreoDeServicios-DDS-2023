@@ -22,7 +22,7 @@ public class Establecimiento extends Persistente {
     private String nombre;
     @Embedded
     private Ubicacion ubicacionGeografica;
-    @OneToMany(mappedBy ="establecimiento", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy ="establecimiento", fetch = FetchType.LAZY)
     private List<PrestacionDeServicio> serviciosBrindados;
     @ManyToOne(cascade = {CascadeType.PERSIST} , fetch = FetchType.LAZY)
     @JoinColumn(name="entidad_id", referencedColumnName = "id")
@@ -54,9 +54,9 @@ public class Establecimiento extends Persistente {
         serviciosBrindados.remove(servicio);
     }
 
-    public Stream<Servicio> obtenerServiciosIncidentados() {
+    public Stream<PrestacionDeServicio> obtenerServiciosIncidentados() {
 
-        return serviciosBrindados.stream().filter(prestacion->!prestacion.getEstaHabilitado()).map(prestacion->prestacion.getServicio());
+        return serviciosBrindados.stream().filter(prestacion->!prestacion.getEstaHabilitado());
 
     }
 }

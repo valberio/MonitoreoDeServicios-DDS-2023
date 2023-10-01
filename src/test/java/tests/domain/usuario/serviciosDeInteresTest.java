@@ -10,6 +10,7 @@ import models.entities.domain.registro.Usuario;
 import models.entities.domain.services.georef.entities.Ubicacion;
 import models.entities.domain.servicios.PrestacionDeServicio;
 import models.entities.domain.servicios.Servicio;
+import models.repositories.datos.RepositorioPrestacionesDeServicio;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -29,10 +30,10 @@ public class serviciosDeInteresTest {
     private Servicio escaleraMecanica = new Servicio("medio elevación", "lo usas para subir");
     private Servicio banioMujeres = new Servicio("banio", "banio para mujeres");
 
-    PrestacionDeServicio brindarEscalera = new PrestacionDeServicio(escaleraMecanica, Retiro);
-    PrestacionDeServicio brindarBanio = new PrestacionDeServicio(banioMujeres, Retiro);
+    private PrestacionDeServicio brindarEscalera = new PrestacionDeServicio();
+    private PrestacionDeServicio brindarBanio = new PrestacionDeServicio();
 
-    PrestacionDeServicio brindarBanioTigre = new PrestacionDeServicio(banioMujeres, Tigre);
+    private PrestacionDeServicio brindarBanioTigre = new PrestacionDeServicio();
 
     @BeforeEach
 
@@ -44,8 +45,15 @@ public class serviciosDeInteresTest {
 
         lineaMitre.setNombre("Linea Mitre");
 
-        unUsuario.agregarEntidadesDeInteres(lineaMitre);
-        lineaMitre.agregarEstablecimientos(Retiro, Tigre);
+        brindarEscalera.setServicio(escaleraMecanica);
+        brindarEscalera.setEstablecimiento(Retiro);
+
+        brindarEscalera.setServicio(banioMujeres);
+        brindarEscalera.setEstablecimiento(Retiro);
+
+        brindarBanioTigre.setServicio(banioMujeres);
+        brindarEscalera.setEstablecimiento(Tigre);
+
 
         Retiro.setNombre("Estacion Retiro");
         Retiro.setUbicacionGeografica(new Ubicacion( -34.5833300, 58.3833300));
@@ -54,25 +62,31 @@ public class serviciosDeInteresTest {
         Retiro.brindarServicios(brindarEscalera, brindarBanio);
         Tigre.brindarServicios(brindarBanioTigre);
 
+        lineaMitre.agregarEstablecimientos(Retiro, Tigre);
+        unUsuario.agregarEntidadesDeInteres(lineaMitre);
+
     }
 
     private void deshabilitarPrestaciones() {
-
+        brindarBanio.deshabilitar();
         brindarBanioTigre.deshabilitar();
         brindarEscalera.deshabilitar();
+
+        new RepositorioPrestacionesDeServicio().actualizarPrestacion(brindarBanioTigre);
+        new RepositorioPrestacionesDeServicio().actualizarPrestacion(brindarEscalera);
 
     }
     @Test
     public void testObtenerServiciosDeInteresIncidentados(){
 
         this.deshabilitarPrestaciones();
-        ArrayList<Servicio> listaEsperada = new ArrayList<Servicio>();
+        ArrayList<PrestacionDeServicio> listaEsperada = new ArrayList<>();
 
-        listaEsperada.add(escaleraMecanica);
-        listaEsperada.add(banioMujeres);
+        listaEsperada.add(brindarEscalera);
+        listaEsperada.add(brindarBanio);
+        listaEsperada.add(brindarBanioTigre);
 
-
-        Assertions.assertEquals(unUsuario.serviciosDeInteres(), listaEsperada);
+        Assertions.assertEquals(unUsuario.prestacionDeServiciosDeInteres(), listaEsperada);
 
 
     }

@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Entity
 //Esto se tiene que persistir para tener trazabilidad en los estados de los incidentes
 public class EstadoIncidente extends Persistente {
-    @OneToOne(cascade = {CascadeType.PERSIST}, fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     private Usuario usuarioResponsable;
     @Column(name="fecha_modificacion")
     private LocalDateTime fechaModificacion;
@@ -22,5 +22,10 @@ public class EstadoIncidente extends Persistente {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="incidente_id", referencedColumnName = "id")
     private Incidente incidente;
+
+    public EstadoIncidente() {
+
+        this.estado = Estado.ACTIVO;
+    }
 
 }
