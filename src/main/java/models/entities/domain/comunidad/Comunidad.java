@@ -1,6 +1,7 @@
 package models.entities.domain.comunidad;
 
 import models.entities.domain.Persistente;
+import models.entities.domain.entidades.Establecimiento;
 import models.entities.domain.incidentes.Incidente;
 import models.entities.domain.registro.Usuario;
 import models.entities.domain.servicios.PrestacionDeServicio;
@@ -38,15 +39,27 @@ public class Comunidad extends Persistente {
 
     public void agregarServiciosDeInteres(PrestacionDeServicio ... servicios) { this.serviciosDeInteres.addAll(List.of(servicios));}
 
-    public void darDeBaja(Servicio servicio){
+    public void darDeBaja(PrestacionDeServicio servicio){
         serviciosDeInteres.remove(servicio);
     }
 
     public void seInformoUnIncidente(Incidente unIncidente){
-        this.incidentesReportados.add(unIncidente);
+        if(unIncidente!=null) incidentesReportados.add(unIncidente);
     }
 
     public void agregarUsuarios(Usuario ... usuario) {  this.usuarios.addAll(List.of(usuario));
+    }
+
+    public List<Establecimiento> getEstablecimientosObservados() {
+
+        List<Establecimiento> establecimientosObservados = new ArrayList<>();
+
+        for(PrestacionDeServicio servicio:serviciosDeInteres) {
+
+            establecimientosObservados.add(servicio.getEstablecimiento());
+        }
+
+        return establecimientosObservados;
     }
 
 
