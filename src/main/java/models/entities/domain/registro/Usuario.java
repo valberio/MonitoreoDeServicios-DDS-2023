@@ -4,7 +4,6 @@ package models.entities.domain.registro;
 import converters.MedioNotificacionAttributeConverter;
 import models.entities.domain.Persistente;
 import models.entities.domain.comunidad.Comunidad;
-import models.entities.domain.entidades.Establecimiento;
 import models.entities.domain.incidentes.Incidente;
 import models.entities.domain.notificaciones.Notificador;
 import models.entities.domain.notificaciones.medioEnvio.MedioNotificacion;
@@ -14,7 +13,6 @@ import models.entities.domain.roles.Rol;
 import models.entities.domain.services.georef.entities.Ubicacion;
 import models.entities.domain.servicios.PrestacionDeServicio;
 import models.entities.domain.servicios.RolFrenteAPrestacion;
-import models.entities.domain.servicios.Servicio;
 import models.entities.domain.entidades.Entidad;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,7 +23,6 @@ import javax.persistence.*;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Getter
 @Setter

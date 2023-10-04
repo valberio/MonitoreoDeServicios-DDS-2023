@@ -4,14 +4,12 @@ package models.entities.domain.entidades;
 import models.entities.domain.Persistente;
 import models.entities.domain.services.georef.entities.Ubicacion;
 import models.entities.domain.servicios.PrestacionDeServicio;
-import models.entities.domain.servicios.Servicio;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import java.util.List;
 
 @Getter

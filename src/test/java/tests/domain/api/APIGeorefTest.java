@@ -12,8 +12,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
-public class APITest {
-    public APITest() throws IOException {
+public class APIGeorefTest {
+    public APIGeorefTest() throws IOException {
     }
     @Test
     public void estasCercaDeDevuelveVerdadero() throws IOException {
