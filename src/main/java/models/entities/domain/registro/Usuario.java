@@ -6,7 +6,9 @@ import models.entities.domain.Persistente;
 import models.entities.domain.comunidad.Comunidad;
 import models.entities.domain.incidentes.Incidente;
 import models.entities.domain.notificaciones.Notificador;
+import models.entities.domain.notificaciones.medioEnvio.Mail;
 import models.entities.domain.notificaciones.medioEnvio.MedioNotificacion;
+import models.entities.domain.notificaciones.medioEnvio.WhatsApp;
 import models.entities.domain.notificaciones.tiempoDeEnvio.ModoRecepcion;
 import models.entities.domain.notificaciones.tiempoDeEnvio.PreferenciaEnvioNotificacion;
 import models.entities.domain.roles.Rol;
@@ -39,6 +41,9 @@ public class Usuario extends Persistente {
     private String numeroTelefono;
     @Column(name="bloqueado")
     private Boolean bloqueado;
+
+    @Column(name="esta_activo")
+    private Boolean estaActivo;
     @Transient
     private Ubicacion localizacion;
     @Convert(converter = MedioNotificacionAttributeConverter.class)
@@ -88,6 +93,24 @@ public class Usuario extends Persistente {
 
     }
 
+    public void setMedioDeNotificacion(String medio){
+
+        switch(medio) {
+            case "WhatsApp": this.medioPreferido = new WhatsApp(); break;
+            case "Mail": this.medioPreferido = new Mail(); break;
+            default: this.medioPreferido = new Mail();
+        }
+    }
+
+    public void setModo(String modo) {
+
+        switch(modo) {
+            case "Asincronico": this.modoRecepcion = ModoRecepcion.ASINCRONICA; break;
+            case "Sincronico": this.modoRecepcion = ModoRecepcion.SINCRONICA; break;
+            default: this.modoRecepcion = ModoRecepcion.SINCRONICA; break;
+        }
+    }
+
     public void agregarEntidadesDeInteres(Entidad... entidad) {
 
         entidadesDeInteres.addAll(List.of(entidad));
@@ -132,6 +155,12 @@ public class Usuario extends Persistente {
 
         roles.add(rol);
     }
+
+    public void setContra(String contrasenia) {
+
+        this.setContrasenia(new Contrasenia(contrasenia));
+    }
+
 
     
 

@@ -1,9 +1,11 @@
 package models.repositories.datos;
 
+import models.entities.domain.comunidad.Comunidad;
 import models.entities.domain.notificaciones.tiempoDeEnvio.ModoRecepcion;
 import models.entities.domain.registro.Usuario;
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 import lombok.Getter;
+import models.entities.domain.servicios.PrestacionDeServicio;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +63,14 @@ public class RepositorioUsuarios implements WithSimplePersistenceUnit {
                 .setParameter("nombre", nombreUsuario).getResultList();
 
         return usuarios;
+    }
+
+    public Usuario buscar(Long id) { //TODO
+        return find(Usuario.class, id);
+    }
+
+    public void actualizar(Usuario usuario) {
+        withTransaction(() -> { entityManager().merge(usuario); });
     }
 
     public List getUsuariosPersistentes() {

@@ -1,6 +1,8 @@
 package models.repositories.datos;
 
+import models.entities.domain.comunidad.Comunidad;
 import models.entities.domain.incidentes.Incidente;
+import models.entities.domain.registro.Usuario;
 import models.entities.domain.services.georef.entities.Ubicacion;
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 import lombok.Getter;
@@ -87,4 +89,26 @@ public class RepositorioIncidentes implements WithSimplePersistenceUnit {
     }
 
 
+    public List<Incidente> buscarIncidentesDeInteresPara(Long idUsuario) {
+
+        Usuario usuario = new RepositorioUsuarios().buscar(idUsuario);
+
+        List incidentesDeInteres = null; // Inicializamos la lista
+
+        CriteriaBuilder cb = entityManager().getCriteriaBuilder();
+        CriteriaQuery<Incidente> criteriaQuery = cb.createQuery(Incidente.class);
+        Root<Incidente> root = criteriaQuery.from(Incidente.class);
+
+        criteriaQuery.select(root).where(root.get("fechaResolucion").isNull());
+
+        List<Incidente> incidentesSinResolver = entityManager().createQuery(criteriaQuery).getResultList();
+
+        incidentesDeInteres = incidentesSinResolver.stream().filter(incidente -> usuario.teInteresa(incidente)).
+                collect(Collectors.toList());
+
+
+        return incidentesDeInteres; // Devolvemos la lista de incidentes
+
+
+    }
 }
