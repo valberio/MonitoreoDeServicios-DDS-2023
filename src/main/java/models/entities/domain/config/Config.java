@@ -20,5 +20,7 @@ public class Config {
 
     public static final float GRADO_DE_CONFIANZA_INICIAL = 5f;
 
+    public static final String URL_API_SUGERIR_FUSION_COMUNIDADES = "localhost:8080/comunidad/sugerirFusiones";
+
 
 }
