@@ -18,5 +18,7 @@ public class Config {
 
     public static final double RADIO_TIERRA_KM = 6371.0;
 
+    public static final float GRADO_DE_CONFIANZA_INICIAL = 5f;
+
 
 }

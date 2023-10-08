@@ -31,6 +31,7 @@ public class Comunidad extends Persistente {
     @OneToMany(mappedBy = "comunidadDondeSeReporta", cascade = { CascadeType.PERSIST}, fetch = FetchType.LAZY)
     private List<Incidente> incidentesReportados;
 
+
     public Comunidad() {
        usuarios = new ArrayList<>();
        serviciosDeInteres = new ArrayList<>();
@@ -60,6 +61,11 @@ public class Comunidad extends Persistente {
         }
 
         return establecimientosObservados;
+    }
+
+    public void gradoDeConfianzaActual() {
+        //TODO
+        //punto de conexion con la API grado de confianza
     }
 
 

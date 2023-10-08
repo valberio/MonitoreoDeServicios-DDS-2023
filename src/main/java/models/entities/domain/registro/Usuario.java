@@ -4,6 +4,7 @@ package models.entities.domain.registro;
 import converters.MedioNotificacionAttributeConverter;
 import models.entities.domain.Persistente;
 import models.entities.domain.comunidad.Comunidad;
+import models.entities.domain.config.Config;
 import models.entities.domain.incidentes.Incidente;
 import models.entities.domain.notificaciones.Notificador;
 import models.entities.domain.notificaciones.medioEnvio.Mail;
@@ -64,11 +65,15 @@ public class Usuario extends Persistente {
     @OneToMany(mappedBy="usuario", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, fetch = FetchType.LAZY)
     private List<RolFrenteAPrestacion> rolFrenteAPrestaciones;
 
+    @Transient
+    private Float gradoDeConfianza;
+
     public Usuario() {
         horariosDisponibles = new ArrayList<>();
         roles = new ArrayList<>();
         entidadesDeInteres = new ArrayList<>();
         rolFrenteAPrestaciones = new ArrayList<>();
+        gradoDeConfianza = Config.GRADO_DE_CONFIANZA_INICIAL;
     }
 
     public Usuario(String usuario, String email, Contrasenia contrasenia) {
