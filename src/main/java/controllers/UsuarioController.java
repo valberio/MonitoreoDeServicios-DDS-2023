@@ -1,5 +1,6 @@
 package controllers;
 
+import io.javalin.http.HttpStatus;
 import models.repositories.datos.RepositorioUsuarios;
 import server.utils.ICrudViewsHandler;
 import models.entities.domain.registro.Usuario;
@@ -14,8 +15,8 @@ import java.util.Objects;
 public class UsuarioController extends Controller implements ICrudViewsHandler {
      private RepositorioUsuarios repositorioUsuarios;
 
-     public UsuarioController(RepositorioUsuarios repositorioDeServicios) {
-          this.repositorioUsuarios = repositorioDeServicios;
+     public UsuarioController(RepositorioUsuarios repositorioDeUsuarios) {
+          this.repositorioUsuarios = repositorioDeUsuarios;
      }
 
      @Override
@@ -33,12 +34,21 @@ public class UsuarioController extends Controller implements ICrudViewsHandler {
 
      @Override
      public void create(Context context) {
+          context.render("index/registro.hbs");
 
      }
 
      @Override
      public void save(Context context) {
 
+          Usuario usuario= new Usuario();
+          //sacar datos del form del context
+          this.asignarParametros(usuario, context);
+          // TODO: ELegir que hacer con la localizacion usuario.setLocalizacion(context.formParam("localizacion"));
+
+          repositorioUsuarios.agregarUsuario(usuario);
+          context.status(HttpStatus.CREATED);
+          context.redirect("/home");
      }
 
      @Override
@@ -66,12 +76,16 @@ public class UsuarioController extends Controller implements ICrudViewsHandler {
           context.redirect("/");
      }
 
+     public void addServices(Context context) {
+
+     }
+
      private void asignarParametros(Usuario usuario, Context context) {
           if(!Objects.equals(context.formParam("nombre"), "")) {
                usuario.setNombreDeUsuario(context.formParam("nombre"));
           }
-          if(!Objects.equals(context.formParam("contraseña"), "")) {
-               usuario.setContra(context.formParam("contraseña"));
+          if(!Objects.equals(context.formParam("contrasena"), "")) {
+               usuario.setContra(context.formParam("contrasena"));
           }
           if(!Objects.equals(context.formParam("email"), "")) {
                usuario.setNombreDeUsuario(context.formParam("email"));

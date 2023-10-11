@@ -1,14 +1,14 @@
 package controllers;
 
 import io.javalin.http.Context;
-import models.repositories.datos.RepositorioOrganismosDeControl;
+import models.repositories.datos.RepositorioPrestacionesDeServicio;
 import server.utils.ICrudViewsHandler;
 
-public class OrganismoDeControlController implements ICrudViewsHandler {
-    private RepositorioOrganismosDeControl repositorioOrganismosDeControl;
+public class PrestacionDeServicioController implements ICrudViewsHandler {
+    RepositorioPrestacionesDeServicio repositorioPrestacionesDeServicio;
 
-    public OrganismoDeControlController(RepositorioOrganismosDeControl repositorioDeOrganismosDeControl) {
-        this.repositorioOrganismosDeControl = repositorioDeOrganismosDeControl;
+    public PrestacionDeServicioController(RepositorioPrestacionesDeServicio repositorioDePrestacionesDeServicio) {
+        this.repositorioPrestacionesDeServicio = repositorioDePrestacionesDeServicio;
     }
 
     @Override
@@ -45,4 +45,6 @@ public class OrganismoDeControlController implements ICrudViewsHandler {
     public void delete(Context context) {
 
     }
+
+
 }

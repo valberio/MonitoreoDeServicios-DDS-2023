@@ -1,16 +1,9 @@
 package controllers;
 
 import io.javalin.http.Context;
-import models.repositories.datos.RepositorioOrganismosDeControl;
 import server.utils.ICrudViewsHandler;
 
-public class OrganismoDeControlController implements ICrudViewsHandler {
-    private RepositorioOrganismosDeControl repositorioOrganismosDeControl;
-
-    public OrganismoDeControlController(RepositorioOrganismosDeControl repositorioDeOrganismosDeControl) {
-        this.repositorioOrganismosDeControl = repositorioDeOrganismosDeControl;
-    }
-
+public class ServicioController implements ICrudViewsHandler {
     @Override
     public void index(Context context) {
 

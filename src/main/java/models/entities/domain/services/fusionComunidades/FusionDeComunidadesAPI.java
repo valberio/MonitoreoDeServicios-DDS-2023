@@ -44,22 +44,3 @@ public class FusionDeComunidadesAPI {
     }
 }
 
-    /*public GradoDeConfianzaComunidad obtenerDetallesUbicacion(double lat, double lon) throws IOException {
-
-        CalculadorGradoDeConfianzaService calculadorService = this.retrofit.create(CalculadorGradoDeConfianzaService.class);
-        Call<RespuestaAPI> peticion = calculadorService.obtenerUbicacion(lat, lon);
-        Response<RespuestaAPI> respuesta = peticion.execute();
-
-        if (respuesta.isSuccessful()) {
-            Ubicacion ubicacion = respuesta.body().getUbicacion();
-            return ubicacion;
-        } else {
-            // Manejar el error si la respuesta no es exitosa
-            throw new IOException("Error en la respuesta: " + respuesta.message());
-        }
-
-    }
-
-    public GradoDeConfianzaDeUsuario*/
-    //esta es equivalente a GradoDeCOnfianzaAPi, es donde metes el retrofit
-

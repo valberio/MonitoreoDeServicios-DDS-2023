@@ -1,5 +1,6 @@
 package controllers;
 
+import models.entities.domain.servicios.PrestacionDeServicio;
 import models.repositories.datos.RepositorioOrganismosDeControl;
 import models.repositories.datos.RepositorioEntidades;
 import models.repositories.datos.RepositorioComunidades;
@@ -16,6 +17,7 @@ public class FactoryController {
             case "Incidente": controller = new IncidenteController(new RepositorioIncidentes()); break;
             case "Usuario": controller = new UsuarioController(new RepositorioUsuarios()); break;
             case "OrganismoDeControl": controller = (new RepositorioOrganismosDeControl()); break;
+            case "PrestacionDeServicio" : controller = (new PrestacionDeServicio()); break;
 
         }
         return controller;

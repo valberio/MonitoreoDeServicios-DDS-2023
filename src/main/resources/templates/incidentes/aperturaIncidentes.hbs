@@ -47,37 +47,42 @@
                 <h2 class="text-center">Apertura de incidente</h2>
             </div>
             <div class="row borde redondeado p-4">
-                <div class="col-md-5 ms-4 me-5">
-                    <div class="row borde redondeado">
-                        <h5 class="text-center">¿En qué comunidad querés reportar el incidente?</h5>
-                    </div>
-                    <div class="row mt-2">
-                        <input placeholder="Comunidad">
-                    </div>
-                    <div class="row borde redondeado mt-2">
-                        <h5 class="text-center">¿Cuál es  el servicio afectado?</h5>
-                    </div>
-                    <div class="row mt-2">
-                        <input placeholder="Servicio">
-                    </div>
-                    <div class="row mt-2">
-                        <input placeholder="Ubicación">
-                    </div>
-                </div>
-                <div class="col-md-5">
-                    <div class="row borde redondeado p-2">
-                        <h5 class="text-center">Observaciones</h5>
-                    </div>
-                    <div class="row mt-2">
-                        <input placeholder="Observaciones...">
-                    </div>
-                    <div class="row mt-5 d-flex align-items-center justify-content-center">
-                        <div class="col-md-4">
-                            <button><a href="menuPrincipal.html">Reportar</a></button>
+                <form method="post">
+                    <div class="col-md-5 ms-4 me-5">
+                        <div class="row borde redondeado">
+                            <h5 class="text-center">¿En qué comunidad queres reportar el incidente?</h5>
                         </div>
-
+                        <div class="row mt-2">
+                            <label for="comunidad">Comunidad:</label>
+                            <input type="text" id="comunidad" name="comunidad" placeholder="Comunidad" required>
+                        </div>
+                        <div class="row borde redondeado mt-2">
+                            <h5 class="text-center">¿Cuál es el servicio afectado?</h5>
+                        </div>
+                        <div class="row mt-2">
+                            <label for="servicio">Servicio afectado:</label>
+                            <input type="text" id="servicio" name="servicio" placeholder="Servicio" required>
+                        </div>
+                        <div class="row mt-2">
+                            <label for="ubicacion">Ubicación:</label>
+                            <input type="text" id="ubicacion" name="ubicacion" placeholder="Ubicación" required>
+                        </div>
                     </div>
-                </div>
+                    <div class="col-md-5">
+                        <div class="row borde redondeado p-2">
+                            <h5 class="text-center">Observaciones</h5>
+                        </div>
+                        <div class="row mt-2">
+                            <label for="observaciones">Observaciones:</label>
+                            <input type="text" id="observaciones" name="observaciones" placeholder="Observaciones..." required>
+                        </div>
+                        <div class="row mt-5 d-flex align-items-center justify-content-center">
+                            <div class="col-md-4">
+                                <button type="submit">Reportar</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

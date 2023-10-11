@@ -72,45 +72,32 @@
                     <div class="tall-container incidentes">
                         <div class="row borde redondeado m-3 p-2 ">
                             <div class="col-md-4 d-flex align-items-center justify-content-center borde redondeado me-3 ms-2 p-3">
-                                <h5 class="text-center">Establecimiento</h5>
-                            </div>
-                            <div class="col-md-3 me-3 d-flex align-items-center justify-content-center borde redondeado">
-                                <h5 class=" text-center">Servicio</h5>
-                            </div>
-                            <div class="col-md-2  me-2 d-flex align-items-center justify-content-center borde redondeado">
-                                <h5 class="text-center">Ubicación</h5>
-                            </div>
-                            <div class="col-md-2  me-2 d-flex align-items-center justify-content-center borde redondeado">
-                                <h5 class="text-center">Estado</h5>
-                            </div>
-                        </div>
-                        <div class="row borde redondeado m-3 p-2 ">
-                            <div class="col-md-4 d-flex align-items-center justify-content-center borde redondeado me-3 ms-2 p-3">
-                                <h5 class="text-center">Establecimiento</h5>
-                            </div>
-                            <div class="col-md-3 me-3 d-flex align-items-center justify-content-center borde redondeado">
-                                <h5 class=" text-center">Servicio</h5>
-                            </div>
-                            <div class="col-md-2  me-2 d-flex align-items-center justify-content-center borde redondeado">
-                                <h5 class="text-center">Ubicación</h5>
-                            </div>
-                            <div class="col-md-2  me-2 d-flex align-items-center justify-content-center borde redondeado">
-                                <h5 class="text-center">Estado</h5>
-                            </div>
-                        </div>
-                        <div class="row borde redondeado m-3 p-2 ">
-                            <div class="col-md-4 d-flex align-items-center justify-content-center borde redondeado me-3 ms-2 p-3">
-                                <h5 class="text-center">Establecimiento</h5>
-                            </div>
-                            <div class="col-md-3 me-3 d-flex align-items-center justify-content-center borde redondeado">
-                                <h5 class=" text-center">Servicio</h5>
-                            </div>
-                            <div class="col-md-2  me-2 d-flex align-items-center justify-content-center borde redondeado">
-                                <h5 class="text-center">Ubicación</h5>
-                            </div>
-                            <div class="col-md-2  me-2 d-flex align-items-center justify-content-center borde redondeado">
-                                <h5 class="text-center">Estado</h5>
-                            </div>
+                                {{#each incidentes}}
+                                    <div class="row borde redondeado m-2">
+                                        <div class="col-md-4">
+                                            <div class="p-4 mt-2 mb-2 borde d-flex align-items-center justify-content-center redondeado">
+                                                <h4>{{this.servicioAfectado.establecimiento.nombre}}</h4>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="p-4 mt-2 mb-2 borde d-flex align-items-center justify-content-center redondeado">
+                                                <h4>{{this.servicioAfectado.descripcion}}</h4>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-2">
+                                            <div class="p-4 mt-2 mb-2 borde d-flex align-items-center justify-content-center redondeado">
+                                                <h5>{{this.estado.estado}}</h5>
+                                            </div>
+                                        </div>
+                                        <div class="col-2">
+                                            <div class="p-4 mt-2 mb-2 borde d-flex align-items-center justify-content-center redondeado">
+                                                <h5>Ubicación</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {{/each}}
                         </div>
                     </div>
                 </div>
