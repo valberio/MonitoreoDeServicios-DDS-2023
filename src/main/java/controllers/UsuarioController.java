@@ -43,9 +43,12 @@ public class UsuarioController extends Controller implements ICrudViewsHandler {
 
           Usuario usuario= new Usuario();
           //sacar datos del form del context
-          this.asignarParametros(usuario, context);
-          // TODO: ELegir que hacer con la localizacion usuario.setLocalizacion(context.formParam("localizacion"));
+          usuario.setNombreDeUsuario("esto es asi");
 
+          this.asignarParametros(usuario, context);
+
+          context.result(usuario.getNombreDeUsuario());
+          // TODO: ELegir que hacer con la localizacion usuario.setLocalizacion(context.formParam("localizacion"));
           repositorioUsuarios.agregarUsuario(usuario);
           context.status(HttpStatus.CREATED);
           context.redirect("/home");
@@ -84,21 +87,24 @@ public class UsuarioController extends Controller implements ICrudViewsHandler {
           if(!Objects.equals(context.formParam("nombre"), "")) {
                usuario.setNombreDeUsuario(context.formParam("nombre"));
           }
-          if(!Objects.equals(context.formParam("contrasena"), "")) {
-               usuario.setContra(context.formParam("contrasena"));
+          if(!Objects.equals(context.formParam("contrasenia"), "")) {
+               usuario.setContra(context.formParam("contrasenia"));
           }
           if(!Objects.equals(context.formParam("email"), "")) {
-               usuario.setNombreDeUsuario(context.formParam("email"));
+               usuario.setEmail(context.formParam("email"));
           }
           if(!Objects.equals(context.formParam("telefono"), "")) {
-               usuario.setNombreDeUsuario(context.formParam("telefono"));
+               usuario.setNumeroTelefono(context.formParam("telefono"));
           }
-          if(!Objects.equals(context.formParam("medio"), "")) {
-               usuario.setMedioDeNotificacion(context.formParam("medio"));
+          if(!Objects.equals(context.formParam("localizacion"), "")) {
+               //todo;
           }
-          if(!Objects.equals(context.formParam("modo"), "")) {
-               usuario.setModo(context.formParam("modo"));
-          }
+         // if(!Objects.equals(context.formParam("medio"), "")) {
+              // usuario.setMedioDeNotificacion(context.formParam("medio"));
+         // }
+          //if(!Objects.equals(context.formParam("modo"), "")) {
+              // usuario.setModo(context.formParam("modo"));
+         // } //TODO
      }
 
 

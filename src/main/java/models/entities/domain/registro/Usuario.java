@@ -42,7 +42,6 @@ public class Usuario extends Persistente {
     private String numeroTelefono;
     @Column(name="bloqueado")
     private Boolean bloqueado;
-
     @Column(name="esta_activo")
     private Boolean estaActivo;
     @Transient
@@ -74,6 +73,8 @@ public class Usuario extends Persistente {
         entidadesDeInteres = new ArrayList<>();
         rolFrenteAPrestaciones = new ArrayList<>();
         gradoDeConfianza = Config.GRADO_DE_CONFIANZA_INICIAL;
+        this.estaActivo = true;
+        this.bloqueado = false;
     }
 
     public Usuario(String usuario, String email, Contrasenia contrasenia) {

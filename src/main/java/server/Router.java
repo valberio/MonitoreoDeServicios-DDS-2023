@@ -30,7 +30,6 @@ public class Router {
             get("signup", ((UsuarioController) FactoryController.controller("Usuario"))::create);
             post("signup", ((UsuarioController) FactoryController.controller("Usuario"))::save);
 
-            //ctx->ctx.render("index/registro.hbs"));
             get("signup/servicios", ((UsuarioController) FactoryController.controller("Usuario"))::addServices);
                     //ctx->ctx.render("index/registroSvDeInteres.hbs"));
         });
