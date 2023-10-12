@@ -1,5 +1,8 @@
 package tests.db;
 
+import models.entities.domain.notificaciones.medioEnvio.WhatsApp;
+import models.entities.domain.notificaciones.tiempoDeEnvio.ModoRecepcion;
+import models.entities.domain.notificaciones.tiempoDeEnvio.PreferenciaEnvioNotificacion;
 import models.repositories.datos.RepositorioUsuarios;
 import models.entities.domain.registro.Contrasenia;
 import models.entities.domain.registro.Usuario;
@@ -18,6 +21,9 @@ public class RepositorioUsuariosTest implements SimplePersistenceTest {
     @Test
     public void deberiaEncontrarUnUsuarioDeNombreMica() {
 
+        persistente.setPreferencias(new PreferenciaEnvioNotificacion(new WhatsApp(), ModoRecepcion.SINCRONICA));
+        noPersistente.setPreferencias(new PreferenciaEnvioNotificacion(new WhatsApp(), ModoRecepcion.SINCRONICA));
+
         withTransaction(() -> {
             entityManager().persist(persistente);
         });
@@ -27,6 +33,9 @@ public class RepositorioUsuariosTest implements SimplePersistenceTest {
 
     @Test
     public void noDeberiaEncontrarUnUsuarioSiNoExiste() {
+        persistente.setPreferencias(new PreferenciaEnvioNotificacion(new WhatsApp(), ModoRecepcion.SINCRONICA));
+        noPersistente.setPreferencias(new PreferenciaEnvioNotificacion(new WhatsApp(), ModoRecepcion.SINCRONICA));
+
 
         Assertions.assertEquals(0, repo.filtrarPorNombre("lourdesl").size());
 
@@ -34,6 +43,10 @@ public class RepositorioUsuariosTest implements SimplePersistenceTest {
 
     @Test
     public void noPersisteUsuariosConNombreYaRegistrados() {
+
+        persistente.setPreferencias(new PreferenciaEnvioNotificacion(new WhatsApp(), ModoRecepcion.SINCRONICA));
+        noPersistente.setPreferencias(new PreferenciaEnvioNotificacion(new WhatsApp(), ModoRecepcion.SINCRONICA));
+
         persistente.setNombreDeUsuario("marsoteras");
         repo.agregarUsuario(persistente);
 

@@ -52,15 +52,22 @@ public class Usuario extends Persistente {
     private MedioNotificacion medioPreferido; // Email o Wpp
     @Enumerated(EnumType.STRING)
     private ModoRecepcion modoRecepcion; // Sincronico o asincronico
+
+    @Nullable
     @ElementCollection
     @CollectionTable(name = "usuario_horario_disponible", joinColumns = @JoinColumn(name="usuario_id"))
     private List<LocalTime> horariosDisponibles;
 
+    @Nullable
     @OneToMany(fetch = FetchType.LAZY)
     private List<Rol> roles;
+
+    @Nullable
     @ManyToMany(fetch = FetchType.LAZY)
     private List<Entidad> entidadesDeInteres;
 
+
+    @Nullable
     @OneToMany(mappedBy="usuario", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, fetch = FetchType.LAZY)
     private List<RolFrenteAPrestacion> rolFrenteAPrestaciones;
 

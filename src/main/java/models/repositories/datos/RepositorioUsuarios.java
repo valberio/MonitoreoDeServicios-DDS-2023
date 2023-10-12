@@ -46,14 +46,14 @@ public class RepositorioUsuarios implements WithSimplePersistenceUnit {
 
     public boolean noEstaRegistrado(String nombreUsuario) {
 
-       List usuarios = this.filtrarPorNombre(nombreUsuario);
+        List usuarios = this.filtrarPorNombre(nombreUsuario);
 
         return usuarios.isEmpty();
     }
 
     public List usuariosConNotificacionesAsincronicas() {
 
-       return entityManager().createQuery("from Usuario where modoRecepcion = :asincronica").
+        return entityManager().createQuery("from Usuario where modoRecepcion = :asincronica").
                 setParameter("asincronica", ModoRecepcion.ASINCRONICA).getResultList();
 
     }

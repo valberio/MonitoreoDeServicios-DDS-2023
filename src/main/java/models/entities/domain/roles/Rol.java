@@ -14,8 +14,13 @@ import java.util.List;
 @Entity
 @Table(name = "rol")
 public class Rol extends Persistente {
+
     @Column(name="nombre")
     private String nombre;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "tipo")
+    private TipoRol tipo;
 
     @OneToOne
     private Comunidad comunidad;
@@ -28,7 +33,6 @@ public class Rol extends Persistente {
         return permisos.contains(unPermiso);
 
     }
-
     public Rol() {
 
         permisos = new ArrayList<>();

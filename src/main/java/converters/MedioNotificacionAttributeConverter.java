@@ -11,6 +11,7 @@ import javax.persistence.Converter;
 public class MedioNotificacionAttributeConverter implements AttributeConverter<MedioNotificacion,String> {
     @Override
     public String convertToDatabaseColumn(MedioNotificacion medioNotificacion) {
+        if(medioNotificacion == null) return null;
 
         String s = "";
 
@@ -26,18 +27,19 @@ public class MedioNotificacionAttributeConverter implements AttributeConverter<M
     @Override
     public MedioNotificacion convertToEntityAttribute(String s) {
 
+        if(s==null) return null;
         MedioNotificacion medio;
 
-       switch(s) {
-           case "WhatsApp":
-               medio = new WhatsApp();
-               break;
-           case "Mail":
-               medio = new Mail();
-               break;
-           default:
-               medio = null;
-       }
-       return medio;
+        switch(s) {
+            case "WhatsApp":
+                medio = new WhatsApp();
+                break;
+            case "Mail":
+                medio = new Mail();
+                break;
+            default:
+                medio = null;
+        }
+        return medio;
     }
 }

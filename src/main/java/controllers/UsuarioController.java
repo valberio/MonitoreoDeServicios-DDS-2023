@@ -42,12 +42,10 @@ public class UsuarioController extends Controller implements ICrudViewsHandler {
      public void save(Context context) {
 
           Usuario usuario= new Usuario();
-          //sacar datos del form del context
-          usuario.setNombreDeUsuario("esto es asi");
+          //sacar datos del form del contexto
 
           this.asignarParametros(usuario, context);
 
-          context.result(usuario.getNombreDeUsuario());
           // TODO: ELegir que hacer con la localizacion usuario.setLocalizacion(context.formParam("localizacion"));
           repositorioUsuarios.agregarUsuario(usuario);
           context.status(HttpStatus.CREATED);
@@ -56,7 +54,8 @@ public class UsuarioController extends Controller implements ICrudViewsHandler {
 
      @Override
      public void edit(Context context) {
-          Usuario usuario = (Usuario) this.repositorioUsuarios.buscar(Long.parseLong(context.pathParam("id")));
+          String id = Objects.requireNonNull(context.sessionAttribute("id")).toString();
+          Usuario usuario = (Usuario) this.repositorioUsuarios.buscar(Long.parseLong(id));
           Map<String, Object> model = new HashMap<>();
           model.put("usuario", usuario);
           context.render("presentacion/editarPerfil.hbs", model);
@@ -83,6 +82,21 @@ public class UsuarioController extends Controller implements ICrudViewsHandler {
 
      }
 
+     public Long retornarIdSiExiste(String username){
+
+          List<Usuario> usuarios = repositorioUsuarios.filtrarPorNombre(username);
+
+          if(!usuarios.isEmpty()) {
+               return usuarios.get(0).getId();
+          }
+
+          else
+               return null;
+
+     }
+
+
+
      private void asignarParametros(Usuario usuario, Context context) {
           if(!Objects.equals(context.formParam("nombre"), "")) {
                usuario.setNombreDeUsuario(context.formParam("nombre"));
@@ -108,4 +122,10 @@ public class UsuarioController extends Controller implements ICrudViewsHandler {
      }
 
 
+     public boolean esCorrecta(String username, String password) {
+
+          List<Usuario> usuarios = repositorioUsuarios.filtrarPorNombre(username);
+
+          return usuarios.get(0).getContrasenia().getContrasenia().equals(password);
+     }
 }
