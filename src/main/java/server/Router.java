@@ -6,7 +6,10 @@ import controllers.FactoryController;
 import controllers.IncidenteController;
 import controllers.UsuarioController;
 import models.repositories.datos.RepositorioUsuarios;
-
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import static io.javalin.apibuilder.ApiBuilder.*;
 
 public class Router {
@@ -17,19 +20,24 @@ public class Router {
             get("/", ctx -> ctx.render("index/inicioSesion.hbs"));
             post("/", ctx -> {
 
-                // Lógica de autenticación, por ejemplo, verificar el usuario y contraseña
-                String username = ctx.formParam("usuario");
-                String password = ctx.formParam("contrasenia");
+                // Comprueba si se ha enviado una solicitud POST de inicio de sesión
+                if (ctx.req().getMethod().equalsIgnoreCase("POST")) {
+                    // Lógica de autenticación, por ejemplo, verificar el usuario y contraseña
+                    String username = ctx.formParam("usuario");
+                    String password = ctx.formParam("contrasenia");
 
-                Long id = retornarIDSiCredencialesSonCorrectas(username, password);
-                // Si las credenciales son válidas, establece una sesión para el usuario
-                if (id !=null) {
-                    ctx.sessionAttribute("authenticated", true);
-                    ctx.sessionAttribute("id", id);
-                    ctx.redirect("/home");// Redirige al usuario a la página de inicio
-                }
-                else{
-                    ctx.result("Credenciales incorrectas"); // Manejar credenciales incorrectas
+                    Long id = retornarIDSiCredencialesSonCorrectas(username, password);
+                    // Si las credenciales son válidas, establece una sesión para el usuario
+                    if (id != null) {
+                        ctx.sessionAttribute("authenticated", true);
+                        ctx.sessionAttribute("id", id);
+                        ctx.redirect("/home");// Redirige al usuario a la página de inicio
+                    } else {
+                        String error = "Credenciales incorrectas";
+                        Map<String, Object> model = new HashMap<>();
+                        model.put("error", error);
+                        ctx.render("index/inicioSesion.hbs", model);
+                    }
                 }
             });
             get("signup", ((UsuarioController) FactoryController.controller("Usuario"))::create);

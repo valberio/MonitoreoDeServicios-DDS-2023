@@ -26,6 +26,13 @@
                         <button action="/home/{id}" type="submit" class="btn btn-primary">Entrar</button>
                     </form>
                     <a href="/signup">Registrarse</a>
+
+                    {{#if error}}
+                        <div class="row alert">
+                            <h5>Sus credenciales son incorrectas. Intente nuevamente.</h5>
+                        </div>
+                        {{/if}}
+
                     </div>
                 </div>
             </div>
