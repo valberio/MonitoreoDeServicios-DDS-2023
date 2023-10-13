@@ -3,6 +3,10 @@ package controllers;
 
 import io.javalin.http.Context;
 import io.javalin.http.HttpStatus;
+import models.entities.domain.comunidad.Comunidad;
+import models.entities.domain.registro.Usuario;
+import models.entities.domain.servicios.PrestacionDeServicio;
+import models.repositories.datos.RepositorioComunidades;
 import models.repositories.datos.RepositorioIncidentes;
 import models.repositories.datos.RepositorioPrestacionesDeServicio;
 import server.utils.ICrudViewsHandler;
@@ -12,9 +16,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
 
-public class IncidenteController implements ICrudViewsHandler {
+public class IncidenteController extends Controller implements ICrudViewsHandler {
     private RepositorioIncidentes repositorioIncidentes;
     private RepositorioPrestacionesDeServicio repositorioPrestacionesDeServicio;
+    private RepositorioComunidades repositorioComunidades;
     public IncidenteController(RepositorioIncidentes repositorioDeIncidentes) {
         this.repositorioIncidentes = repositorioDeIncidentes;
     }
@@ -36,20 +41,38 @@ public class IncidenteController implements ICrudViewsHandler {
 
     @Override
     public void create(Context context) {
-       // context.result("Hola");
+
         context.render("incidentes/aperturaIncidentes.hbs");
 
     }
 
     @Override
     public void save(Context context) {
-        Incidente incidente = new Incidente();
-        this.asignarParametros(incidente, context);
+        Usuario usuarioLogueado =  super.usuarioLogueado(context);
+        PrestacionDeServicio servicioAfectado = null;
+        Comunidad comunidad = null;
+        String descripcion = null;
+
+        if (context.formParam("servicio") != null) {
+            Long servicioAfectadoId = (Long) this.repositorioPrestacionesDeServicio.obtenerIdDelServicioPorNombre(context.formParam("servicio"));
+            servicioAfectado = this.repositorioPrestacionesDeServicio.obtenerPrestacion(servicioAfectadoId);
+        }
+
+        if (context.formParam("comunidad") != null) {
+            Long comunidadId = (Long) this.repositorioComunidades.obtenerIdDeComunidadPorNombre(context.formParam("comunidad"));
+            comunidad = this.repositorioComunidades.obtenerComunidad(comunidadId);
+        }
+
+        if (context.formParam("observaciones") != null) {
+            descripcion = context.formParam("observaciones");
+        }
+
+        Incidente incidente = new Incidente(servicioAfectado, usuarioLogueado, comunidad, descripcion);
+        //this.asignarParametros(incidente, context); lo vole porque el contructor de incidente tenia mas complejidad kjj
         this.repositorioIncidentes.agregarIncidente(incidente);
         context.status(HttpStatus.CREATED);
         context.redirect("incidentes/aperturaIncidentes");
     }
-
     @Override
     public void edit(Context context) {
 
@@ -65,31 +88,5 @@ public class IncidenteController implements ICrudViewsHandler {
 
     }
 
-    //DATOS PARA CREAR INCIDENTES
 
-    /*
-    PrestacionDeServicio servicioAfectado (nombre, establecimiento),
-    Usuario usuarioReportador,
-    Comunidad comunidadDondeSeReporta,
-    String descripcion
-    */
-
-
-    private void asignarParametros(Incidente incidente, Context context) {
-       /*
-       if(context.formParam("servicio") != null )
-            PrestacionDeServicio servicioAfectado = (PrestacionDeServicio) this.repositorioDePrestacionesDeServicio.buscar(context.formParam("servicio"));
-            servicio.setServicioAfectado(servicioAfectado);
-
-        if(context.formParam("comunidad") != null)
-            Comunidad comunidad = (Comunidad) this.repositorioDeComunidad.buscar(context.formParam("comunidad"));
-            servicio.setComunidad(comunidad);
-        if(context.formParam("ubicacion") != null)
-            servicio.setUbicacion(context.formParam("ubicacion"));
-
-
-        if(context.formParam("observaciones") != null)
-            servicio.setDescripcion(context.formParam("observaciones"));
-        */
-    }
 }
