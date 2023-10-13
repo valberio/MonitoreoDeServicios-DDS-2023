@@ -41,6 +41,13 @@ public class IncidenteController extends Controller implements ICrudViewsHandler
 
     @Override
     public void create(Context context) {
+
+        context.render("incidentes/aperturaIncidentes.hbs");
+
+    }
+
+    @Override
+    public void save(Context context) {
         Usuario usuarioLogueado =  super.usuarioLogueado(context);
         PrestacionDeServicio servicioAfectado = null;
         Comunidad comunidad = null;
@@ -64,13 +71,6 @@ public class IncidenteController extends Controller implements ICrudViewsHandler
         //this.asignarParametros(incidente, context); lo vole porque el contructor de incidente tenia mas complejidad kjj
         this.repositorioIncidentes.agregarIncidente(incidente);
         context.status(HttpStatus.CREATED);
-        context.render("incidentes/aperturaIncidentes.hbs");
-
-    }
-
-    @Override
-    public void save(Context context) {
-
         context.redirect("incidentes/aperturaIncidentes");
     }
     @Override
