@@ -2,8 +2,10 @@ package models.repositories.datos;
 
 import models.entities.domain.comunidad.Comunidad;
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
+import models.entities.domain.servicios.PrestacionDeServicio;
 
 import javax.persistence.EntityTransaction;
+import javax.persistence.TypedQuery;
 
 public class RepositorioComunidades implements WithSimplePersistenceUnit {
 
@@ -21,5 +23,21 @@ public class RepositorioComunidades implements WithSimplePersistenceUnit {
 
     public Comunidad obtenerComunidad(Long id) { //TODO
         return find(Comunidad.class, id);
+    }
+
+    public Long obtenerIdDeComunidadPorNombre(String nombreComunidad) {
+        return withTransaction(() -> {
+            TypedQuery<Comunidad> query = entityManager().createQuery(
+                    "SELECT s FROM Servicio s WHERE s.nombre = :nombre", Comunidad.class);
+            query.setParameter("nombre", nombreComunidad);
+
+            Comunidad comunidad = query.getSingleResult();
+
+            if (comunidad != null) {
+                return comunidad.getId();
+            } else {
+                return null;
+            }
+        });
     }
 }
