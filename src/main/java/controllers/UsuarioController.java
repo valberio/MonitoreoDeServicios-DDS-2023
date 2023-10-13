@@ -49,7 +49,7 @@ public class UsuarioController extends Controller implements ICrudViewsHandler {
           // TODO: ELegir que hacer con la localizacion usuario.setLocalizacion(context.formParam("localizacion"));
           repositorioUsuarios.agregarUsuario(usuario);
           context.status(HttpStatus.CREATED);
-          context.redirect("/home");
+          context.redirect("/");
      }
 
      @Override

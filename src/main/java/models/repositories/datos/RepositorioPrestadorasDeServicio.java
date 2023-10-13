@@ -2,6 +2,7 @@ package models.repositories.datos;
 
 import models.entities.domain.entidades.PrestadoraDeServicio;
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
+import models.entities.domain.registro.Usuario;
 
 public class RepositorioPrestadorasDeServicio implements WithSimplePersistenceUnit {
 
@@ -18,5 +19,9 @@ public class RepositorioPrestadorasDeServicio implements WithSimplePersistenceUn
 
     public void eliminarPrestadora(PrestadoraDeServicio prestadora) {
         entityManager().remove(prestadora);
+    }
+
+    public void actualizar(PrestadoraDeServicio prestadora) {
+        withTransaction(() -> { entityManager().merge(prestadora); });
     }
 }

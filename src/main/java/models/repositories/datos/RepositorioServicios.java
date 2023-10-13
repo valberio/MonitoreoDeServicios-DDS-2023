@@ -1,5 +1,6 @@
 package models.repositories.datos;
 
+import models.entities.domain.registro.Usuario;
 import models.entities.domain.servicios.Servicio;
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 
@@ -12,5 +13,9 @@ public class RepositorioServicios implements WithSimplePersistenceUnit {
 
     public void eliminarServicio(Servicio servicio) {
         entityManager().remove(servicio);
+    }
+
+    public void actualizar(Servicio servicio) {
+        withTransaction(() -> { entityManager().merge(servicio); });
     }
 }

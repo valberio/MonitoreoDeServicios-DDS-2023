@@ -2,6 +2,7 @@ package models.repositories.datos;
 
 import models.entities.domain.entidades.OrganismoDeControl;
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
+import models.entities.domain.registro.Usuario;
 
 import java.util.List;
 
@@ -34,4 +35,7 @@ public class RepositorioOrganismosDeControl implements WithSimplePersistenceUnit
             return find(OrganismoDeControl.class, organismoDeControl.getId());
         }
 
+    public void actualizar(OrganismoDeControl organismo) {
+        withTransaction(() -> { entityManager().merge(organismo); });
+    }
 }

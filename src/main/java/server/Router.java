@@ -2,6 +2,7 @@ package server;
 
 
 
+import controllers.EntidadController;
 import controllers.FactoryController;
 import controllers.IncidenteController;
 import controllers.UsuarioController;
@@ -43,8 +44,9 @@ public class Router {
             get("signup", ((UsuarioController) FactoryController.controller("Usuario"))::create);
             post("signup", ((UsuarioController) FactoryController.controller("Usuario"))::save);
 
-            get("signup/servicios", ((UsuarioController) FactoryController.controller("Usuario"))::addServices);
-            //ctx->ctx.render("index/registroSvDeInteres.hbs"));
+            get("/entidades", ((EntidadController) FactoryController.controller("Entidad"))::show);
+            post("/entidades", ((UsuarioController) FactoryController.controller("Usuario"))::update);
+            //ctx->ctx.render("index/registroEntidadesDeInteres.hbs"));
         });
 
         Server.app().routes(() -> {

@@ -4,14 +4,18 @@ package controllers;
 import io.javalin.http.Context;
 import io.javalin.http.HttpStatus;
 import models.entities.domain.comunidad.Comunidad;
+import models.entities.domain.incidentes.Estado;
+import models.entities.domain.incidentes.EstadoIncidente;
 import models.entities.domain.registro.Usuario;
 import models.entities.domain.servicios.PrestacionDeServicio;
 import models.repositories.datos.RepositorioComunidades;
 import models.repositories.datos.RepositorioIncidentes;
 import models.repositories.datos.RepositorioPrestacionesDeServicio;
+import models.repositories.datos.RepositorioUsuarios;
 import server.utils.ICrudViewsHandler;
 import models.entities.domain.incidentes.Incidente;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
@@ -20,6 +24,8 @@ public class IncidenteController extends Controller implements ICrudViewsHandler
     private RepositorioIncidentes repositorioIncidentes;
     private RepositorioPrestacionesDeServicio repositorioPrestacionesDeServicio;
     private RepositorioComunidades repositorioComunidades;
+
+    private RepositorioUsuarios repositorioUsuarios;
     public IncidenteController(RepositorioIncidentes repositorioDeIncidentes) {
         this.repositorioIncidentes = repositorioDeIncidentes;
     }
@@ -76,10 +82,26 @@ public class IncidenteController extends Controller implements ICrudViewsHandler
     @Override
     public void edit(Context context) {
 
+        Incidente incidente  = (Incidente) this.repositorioIncidentes.buscar(Long.parseLong(context.pathParam("id")));
+        Map<String, Object> model = new HashMap<>();
+        model.put("incidente", incidente);
+        context.render("incidentes/cierreIncidentes.hbs", model);
+
     }
 
     @Override
     public void update(Context context) {
+
+        Incidente incidente  = (Incidente) this.repositorioIncidentes.buscar(Long.parseLong(context.pathParam("id")));
+
+        Usuario usuario = (Usuario) this.repositorioUsuarios.buscar(Long.parseLong(context.sessionAttribute("id")));
+
+
+        EstadoIncidente nuevoEstado = new EstadoIncidente(usuario, LocalDateTime.now(), incidente);
+
+        nuevoEstado.setEstado(Estado.RESUELTO);
+
+        repositorioIncidentes.actualizar(incidente);
 
     }
 

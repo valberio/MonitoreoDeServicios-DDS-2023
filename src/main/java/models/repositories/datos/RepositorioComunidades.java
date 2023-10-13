@@ -2,6 +2,7 @@ package models.repositories.datos;
 
 import models.entities.domain.comunidad.Comunidad;
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
+import models.entities.domain.registro.Usuario;
 import models.entities.domain.servicios.PrestacionDeServicio;
 
 import javax.persistence.EntityTransaction;
@@ -39,5 +40,9 @@ public class RepositorioComunidades implements WithSimplePersistenceUnit {
                 return null;
             }
         });
+    }
+
+    public void actualizar(Comunidad comunidad) {
+        withTransaction(() -> { entityManager().merge(comunidad); });
     }
 }

@@ -33,6 +33,7 @@ public class RepositorioIncidentes implements WithSimplePersistenceUnit {
         return instancia;
     }
 
+
     public void guardarIncidente(Incidente incidente) {
         incidentesForTest.add(incidente);
     }
@@ -111,4 +112,13 @@ public class RepositorioIncidentes implements WithSimplePersistenceUnit {
 
 
     }
+
+    public Incidente buscar(Long id) { //TODO
+        return find(Incidente.class, id);
+    }
+
+    public void actualizar(Incidente incidente) {
+        withTransaction(() -> { entityManager().merge(incidente); });
+    }
+
 }

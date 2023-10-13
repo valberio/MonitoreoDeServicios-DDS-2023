@@ -2,6 +2,7 @@ package models.repositories.datos;
 
 import models.entities.domain.entidades.Establecimiento;
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
+import models.entities.domain.registro.Usuario;
 
 import javax.persistence.EntityTransaction;
 
@@ -18,4 +19,7 @@ public class RepositorioEstablecimientos implements WithSimplePersistenceUnit {
         entityManager().remove(establecimiento);
     }
 
+    public void actualizar(Establecimiento establecimiento) {
+        withTransaction(() -> { entityManager().merge(establecimiento); });
+    }
 }

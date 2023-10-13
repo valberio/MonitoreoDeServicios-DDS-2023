@@ -2,6 +2,7 @@ package models.repositories.datos;
 
 import models.entities.domain.entidades.Entidad;
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
+import models.entities.domain.registro.Usuario;
 
 import javax.persistence.EntityTransaction;
 
@@ -22,6 +23,10 @@ public class RepositorioEntidades implements WithSimplePersistenceUnit {
         public Entidad obtenerEntidad(Long id) {
             return find(Entidad.class, id);
         }
+
+    public void actualizar(Entidad entidad) {
+        withTransaction(() -> { entityManager().merge(entidad); });
+    }
 }
 
 

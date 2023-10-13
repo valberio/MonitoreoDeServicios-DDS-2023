@@ -1,6 +1,7 @@
 package models.repositories.datos;
 
 import models.entities.domain.comunidad.Comunidad;
+import models.entities.domain.registro.Usuario;
 import models.entities.domain.servicios.PrestacionDeServicio;
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 
@@ -43,4 +44,7 @@ public class RepositorioPrestacionesDeServicio implements WithSimplePersistenceU
         });
     }
 
+    public void actualizar(PrestacionDeServicio prestacion) {
+        withTransaction(() -> { entityManager().merge(prestacion); });
+    }
 }

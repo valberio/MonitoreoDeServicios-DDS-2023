@@ -14,9 +14,6 @@
                 <h5><a href="incidentes/crear">Reportar incidente</a></h5>
             </div>
             <div class="row borde redondeado m-2 p-1">
-                <h5><a href="../incidentes/cierreIncidentes.hbs">Actualizar estado de un incidente</a></h5>
-            </div>
-            <div class="row borde redondeado m-2 p-1">
                 <h5><a href="/comunidades">Tus comunidades</a></h5>
             </div>
             <div class="row borde redondeado m-2 p-1">
@@ -62,8 +59,9 @@
                     <div class="col-2">
                         <div class="p-4 mt-2 mb-2 borde d-flex align-items-center justify-content-center redondeado">
                             <h5>Ubicación</h5>
+                            <a href="incidentes/{{this.id}}/editar">Editar</a>
                         </div>
-                    </div>
+
                 </div>
                     {{/each}}
 
