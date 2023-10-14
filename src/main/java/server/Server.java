@@ -6,6 +6,7 @@ import io.javalin.Javalin;
 import io.javalin.config.JavalinConfig;
 import io.javalin.http.HttpStatus;
 import io.javalin.rendering.JavalinRenderer;
+import server.utils.Initializer;
 
 import java.io.IOException;
 import java.util.function.Consumer;
@@ -27,6 +28,7 @@ public class Server {
             app = Javalin.create(config()).start(port);
             initTemplateEngine();
             Router.init();
+            //Initializer.init();
         }
     }
 

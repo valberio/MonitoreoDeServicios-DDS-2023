@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Getter
@@ -33,6 +34,15 @@ public class Rol extends Persistente {
         return permisos.contains(unPermiso);
 
     }
+
+    public void agregarPermisos(Permiso ... permisos) {
+        Collections.addAll(this.permisos, permisos);
+    }
+
+    public boolean tenesPermiso(String nombreInterno) {
+        return this.permisos.stream().anyMatch(p -> p.coincideConNombreInterno(nombreInterno));
+    }
+
     public Rol() {
 
         permisos = new ArrayList<>();

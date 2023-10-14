@@ -13,6 +13,16 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "permiso")
 public class Permiso extends Persistente {
+
+    @Column(name = "nombre")
+    private String nombre;
+
+    @Column(name = "nombreInterno")
+    private String nombreInterno;
+
+    public boolean coincideConNombreInterno(String nombre) {
+        return this.nombreInterno.equals(nombre);
+    }
     @Column(name="descripcion")
     String descripcion;
 
