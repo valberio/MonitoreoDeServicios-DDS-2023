@@ -2,11 +2,11 @@ package server;
 
 
 
-import controllers.EntidadController;
-import controllers.FactoryController;
-import controllers.IncidenteController;
-import controllers.UsuarioController;
+import controllers.*;
 import models.repositories.datos.RepositorioUsuarios;
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -50,6 +50,10 @@ public class Router {
 
         Server.app().routes(() -> {
             get("rankings", ctx -> ctx.render("presentacion/rankings.hbs"));
+            get("rankings/:tipoRanking", ctx -> {
+                String tipoRanking = ctx.queryParam("tipoRanking");
+                Path pathAlArchivo = Paths.get("../models/repositories.datos/" + tipoRanking);
+                ctx.result();});
         });
 
         Server.app().routes(() -> {
@@ -69,6 +73,11 @@ public class Router {
             post("incidentes/crear", ((IncidenteController) FactoryController.controller("Incidente"))::save);
             get("incidentes/{id}/editar", ((IncidenteController) FactoryController.controller("Incidente"))::edit);
             post("incidentes/{id}/editar", ((IncidenteController) FactoryController.controller("Incidente"))::update);
+        });
+
+        Server.app().routes(() -> {
+            get("cargadatos/", ((CargaOrganismosYEntidadesController) FactoryController.controller("CargaOrganismosYEntidadesController"))::index);
+            post("cargadatos/", ((CargaOrganismosYEntidadesController) FactoryController.controller("CargaOrganismosYEntidadesController"))::save);
         });
         // presentacion
 

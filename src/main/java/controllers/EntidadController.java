@@ -1,6 +1,7 @@
 package controllers;
 
 import io.javalin.http.Context;
+import io.javalin.http.HttpStatus;
 import models.entities.domain.entidades.Entidad;
 import models.entities.domain.incidentes.Incidente;
 import models.repositories.datos.RepositorioEntidades;
@@ -38,7 +39,11 @@ public class EntidadController implements ICrudViewsHandler {
 
     @Override
     public void save(Context context) {
-
+        Entidad entidad = new Entidad();
+        String nombre = "";
+        entidad.setNombre(nombre);
+        repositorioEntidades.agregarEntidad(entidad);
+        context.status(HttpStatus.CREATED);
     }
 
     @Override

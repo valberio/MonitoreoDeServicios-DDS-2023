@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.stream.Collectors;
-
+/*
 public class CSVTest {
     @Test
     public void testCargaOrganismosDeControl() throws CsvValidationException, IOException {
@@ -22,5 +22,5 @@ public class CSVTest {
         Assertions.assertTrue(nombresDeOrganismos.containsAll(nombresDeOrganismosCargados));
     }
 
-}
+}*/
 

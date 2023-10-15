@@ -9,19 +9,19 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Optional;
-
+import java.io.File;
 @Getter
 public class cargaEntidadesyOrgDeControl {
 
     protected ArrayList<OrganismoDeControl> organismosRegistrados = new ArrayList<>();
 
-    public void cargarEntidadesYOrgDeControl() throws CsvValidationException {
+    public void cargarEntidadesYOrgDeControl(String archivo) throws CsvValidationException {
 
         RepositorioOrganismosDeControl repositorioOrganismosDeControl = RepositorioOrganismosDeControl.getInstance();
 
         RepositorioPrestadorasDeServicio repositorioPrestadoras = RepositorioPrestadorasDeServicio.getInstance();
 
-        String archivo = Config.RUTA_CSV;
+        //String archivo = Config.RUTA_CSV;
 
         try (CSVReader reader = new CSVReader(new FileReader(archivo))) {
             String[] linea;
