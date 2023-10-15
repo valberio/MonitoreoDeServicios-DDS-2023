@@ -25,10 +25,8 @@ public class UsuarioController extends Controller implements ICrudViewsHandler {
 
      @Override
      public void index(Context context) {
-
          IncidenteController incidenteController = (IncidenteController) FactoryController.controller("Incidente");
          incidenteController.index(context);
-         context.render("presentacion/menuPrincipal.hbs");
      }
 
      @Override

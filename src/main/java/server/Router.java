@@ -3,17 +3,14 @@ package server;
 
 
 import controllers.*;
-import models.repositories.datos.RepositorioUsuarios;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import server.exceptions.AccessDeniedException;
 
-import java.nio.file.Path;
+
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import static io.javalin.apibuilder.ApiBuilder.*;
 
 public class Router {
@@ -33,8 +30,6 @@ public class Router {
             get("/", ctx -> ctx.render("index/inicioSesion.hbs"));
             post("/", ctx -> {
 
-                // Comprueba si se ha enviado una solicitud POST de inicio de sesión
-                if (ctx.req().getMethod().equalsIgnoreCase("POST")) {
                     // Lógica de autenticación, por ejemplo, verificar el usuario y contraseña
                     String username = ctx.formParam("usuario");
                     String password = ctx.formParam("contrasenia");
@@ -51,7 +46,7 @@ public class Router {
                         model.put("error", error);
                         ctx.render("index/inicioSesion.hbs", model);
                     }
-                }
+
             });
             get("signup", ((UsuarioController) FactoryController.controller("Usuario"))::create);
             post("signup", ((UsuarioController) FactoryController.controller("Usuario"))::save);
@@ -62,10 +57,10 @@ public class Router {
 
         Server.app().routes(() -> {
             get("rankings", ctx -> ctx.render("presentacion/rankings.hbs"));
-            get("rankings/:rankingArchivo", ctx -> {
-                String rankingReportesPath = "../models/repositories.datos/rankingR";
-                });
-            get("rankings/:tipoRanking", ctx -> {
+           // get("rankings/{rankingArchivo}", ctx -> {
+                //String rankingReportesPath = "../models/repositories.datos/rankingR";
+               // });
+            get("rankings", ctx -> {
                 String tipoRanking = ctx.queryParam("tipoRanking");
                 Path pathAlArchivo = Paths.get("../models/repositories.datos/" + tipoRanking);
                 ctx.result();});
