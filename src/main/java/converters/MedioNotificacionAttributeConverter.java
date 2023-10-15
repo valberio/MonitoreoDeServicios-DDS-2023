@@ -15,11 +15,11 @@ public class MedioNotificacionAttributeConverter implements AttributeConverter<M
 
         String s = "";
 
-        String name = medioNotificacion.getClass().getName();
-
-        switch (name) {
-            case "WhatsApp" -> s = "WhatsApp";
-            case "Mail" -> s = "Mail";
+        if (medioNotificacion instanceof Mail){
+            s = "Mail";
+        }
+        if (medioNotificacion instanceof WhatsApp){
+            s = "WhatsApp";
         }
         return s;
     }
