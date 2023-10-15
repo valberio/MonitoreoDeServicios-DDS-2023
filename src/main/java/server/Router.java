@@ -2,10 +2,7 @@ package server;
 
 
 
-import controllers.EntidadController;
-import controllers.FactoryController;
-import controllers.IncidenteController;
-import controllers.UsuarioController;
+import controllers.*;
 import models.repositories.datos.RepositorioUsuarios;
 
 import java.nio.file.Path;
