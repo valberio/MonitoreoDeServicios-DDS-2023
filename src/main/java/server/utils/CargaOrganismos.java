@@ -1,20 +1,18 @@
 package server.utils;
 
+import models.entities.domain.comunidad.Comunidad;
 import models.entities.domain.entidades.Entidad;
 import models.entities.domain.entidades.Establecimiento;
 import models.entities.domain.entidades.OrganismoDeControl;
 import models.entities.domain.entidades.PrestadoraDeServicio;
 import models.entities.domain.services.georef.entities.Ubicacion;
-import models.repositories.datos.RepositorioEntidades;
-import models.repositories.datos.RepositorioEstablecimientos;
-import models.repositories.datos.RepositorioOrganismosDeControl;
-import models.repositories.datos.RepositorioPrestadorasDeServicio;
+import models.repositories.datos.*;
 import server.Server;
 
 public class CargaOrganismos {
     public static void main(String[] args){
 
-        RepositorioOrganismosDeControl repoOrganismos = new  RepositorioOrganismosDeControl();
+        /*RepositorioOrganismosDeControl repoOrganismos = new  RepositorioOrganismosDeControl();
         RepositorioPrestadorasDeServicio repoPrestadoras = new RepositorioPrestadorasDeServicio();
         RepositorioEntidades repositorioEntidades =new RepositorioEntidades();
         RepositorioEstablecimientos repositorioEstablecimientos = new RepositorioEstablecimientos();
@@ -72,8 +70,15 @@ public class CargaOrganismos {
         prestadora.aniadirEntidad(entidad1);
         prestadora.aniadirEntidad(entidad2);
 
-        repoPrestadoras.actualizar(prestadora);
+        repoPrestadoras.actualizar(prestadora);*/
 
+        Comunidad comunidad = new Comunidad();
+
+        comunidad.setNombre("UTNIANOS");
+
+        comunidad.setDescripcion("Interesados en ver los servicios alrededor de nuestra querida universidad");
+
+        new RepositorioComunidades().guardar(comunidad);
 
     }
 

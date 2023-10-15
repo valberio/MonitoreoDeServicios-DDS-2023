@@ -1,8 +1,12 @@
 package controllers;
 
 import io.javalin.http.HttpStatus;
+import models.entities.domain.comunidad.Comunidad;
 import models.entities.domain.entidades.Entidad;
 import models.entities.domain.notificaciones.tiempoDeEnvio.ModoRecepcion;
+import models.entities.domain.roles.Rol;
+import models.repositories.datos.RepositorioComunidades;
+import models.repositories.datos.RepositorioDeRoles;
 import models.repositories.datos.RepositorioEntidades;
 import models.repositories.datos.RepositorioUsuarios;
 import server.utils.ICrudViewsHandler;
@@ -111,6 +115,31 @@ public class UsuarioController extends Controller implements ICrudViewsHandler {
      }
 
      public void  joinCommunity(Context context){
+
+          String id = Objects.requireNonNull(context.sessionAttribute("id")).toString();
+          Usuario usuario = (Usuario) this.repositorioUsuarios.buscar(Long.parseLong(id));
+
+          String opcionComunidad = context.formParam("comunidades");
+
+          Comunidad aUnirse = (Comunidad) new RepositorioComunidades().filtrarPorNombre(opcionComunidad).get(0);
+
+          RolPermisoController controller = (RolPermisoController)FactoryController.controller("RolPermiso");
+
+          Rol nuevoRol = controller.asignarPermisosComoMiembroDeComunidad(aUnirse);
+
+          new RepositorioDeRoles().guardar(nuevoRol);
+
+          usuario.aniadirRol(nuevoRol);
+
+          repositorioUsuarios.actualizar(usuario);
+
+          aUnirse.agregarUsuarios(usuario);
+
+          new RepositorioComunidades().actualizar(aUnirse);
+
+          context.status(HttpStatus.OK);
+
+          context.redirect("/comunidades");
 
      }
 

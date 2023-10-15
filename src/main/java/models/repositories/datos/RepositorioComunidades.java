@@ -4,7 +4,10 @@ import models.entities.domain.comunidad.Comunidad;
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 
 import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 
 public class RepositorioComunidades implements WithSimplePersistenceUnit, ICrudRepository{
@@ -58,17 +61,33 @@ public class RepositorioComunidades implements WithSimplePersistenceUnit, ICrudR
         return entityManager().find(Comunidad.class, id);
     }
 
-    public List<Comunidad> buscarComunidadesDe(long idUsuario) {
-        TypedQuery<Comunidad> query = entityManager().createQuery(
-                "SELECT r.comunidad FROM Rol r " +
-                        "WHERE r.usuario.id = :userId", Comunidad.class);
+    public List<Long> buscarComunidadesDe(long idUsuario) {
 
-        query.setParameter("userId", idUsuario);
+        // Define la consulta JPQL con un parámetro
+        String sql = "SELECT comunidad_id FROM comunidad_usuario WHERE usuarios_id = :usuarioId";
 
-        return query.getResultList();
+        // Crea una instancia de Query y asigna el parámetro
+        Query query = entityManager().createNativeQuery(sql);
+        query.setParameter("usuarioId", idUsuario);
+
+        List<BigInteger> result = query.getResultList();
+
+        // Convierte los valores de BigInteger a Long
+        List<Long> comunidadIds = new ArrayList<>();
+        for (BigInteger value : result) {
+            comunidadIds.add(value.longValue());
+        }
+
+        return comunidadIds;
+
     }
 
+    public List filtrarPorNombre(String nombreComunidad) {
+        List comunidades = entityManager().createQuery("from Comunidad where nombre = :nombre")
+                .setParameter("nombre", nombreComunidad).getResultList();
 
+        return comunidades;
+    }
 
 
 }

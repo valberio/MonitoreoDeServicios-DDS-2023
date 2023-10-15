@@ -3,6 +3,7 @@ import models.entities.domain.Persistente;
 import models.entities.domain.registro.Usuario;
 import lombok.Getter;
 import lombok.Setter;
+import models.repositories.datos.RepositorioDePermisos;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -39,7 +40,7 @@ public class PrestadoraDeServicio extends Persistente {
 
         this.usuarioDesignado = usuario;
 
-        //todo
+        usuarioDesignado.setPermisoEspecialDeDesignado(new RepositorioDePermisos().buscarPermisoPorNombre("ver_rankings_entidades"));
     }
 
 

@@ -190,6 +190,10 @@ public class Usuario extends Persistente {
 
         return this.permisoEspecialDeDesignado.coincideConNombreInterno(nombreInternoDePermiso);
     }
+
+    public boolean tiene(Rol rol) {
+        return this.roles.contains(rol);
+    }
 }
 
 

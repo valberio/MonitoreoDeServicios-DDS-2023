@@ -3,14 +3,11 @@ package models.entities.domain.comunidad;
 import models.entities.domain.Persistente;
 import models.entities.domain.entidades.Establecimiento;
 import models.entities.domain.incidentes.Incidente;
-import models.entities.domain.incidentes.ReportadorDeIncidentes;
 import models.entities.domain.registro.Usuario;
-import models.entities.domain.services.gradoDeConfianza.CalculadorGradoDeConfianzaService;
 import models.entities.domain.services.gradoDeConfianza.GradoDeConfianzaAPI;
 import models.entities.domain.services.gradoDeConfianza.entities.GradoDeConfianzaComunidad;
 import models.entities.domain.services.gradoDeConfianza.entities.requests.ComunidadRequest;
 import models.entities.domain.servicios.PrestacionDeServicio;
-import models.entities.domain.servicios.Servicio;
 import lombok.Getter;
 import lombok.Setter;
 import models.repositories.datos.RepositorioIncidentes;
@@ -33,7 +30,9 @@ public class Comunidad extends Persistente {
     private String descripcion;
     @Nullable
     @ManyToMany(fetch = FetchType.LAZY)
-    private List<Usuario> usuarios;
+    private List<Usuario> miembros;
+
+    @Nullable
     @ManyToMany(fetch = FetchType.LAZY)
     private List<PrestacionDeServicio> serviciosDeInteres;
     @Nullable
@@ -42,7 +41,7 @@ public class Comunidad extends Persistente {
 
 
     public Comunidad() {
-       usuarios = new ArrayList<>();
+       miembros = new ArrayList<>();
        serviciosDeInteres = new ArrayList<>();
        incidentesReportados = new ArrayList<>();
 
@@ -58,7 +57,7 @@ public class Comunidad extends Persistente {
         if(unIncidente!=null) incidentesReportados.add(unIncidente);
     }
 
-    public void agregarUsuarios(Usuario ... usuario) {  this.usuarios.addAll(List.of(usuario));
+    public void agregarUsuarios(Usuario ... usuario) {  this.miembros.addAll(List.of(usuario));
     }
 
     public List<Establecimiento> getEstablecimientosObservados() {

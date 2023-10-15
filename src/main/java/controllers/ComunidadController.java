@@ -3,10 +3,14 @@ package controllers;
 import io.javalin.http.Context;
 import io.javalin.http.HttpStatus;
 import models.entities.domain.comunidad.Comunidad;
+import models.entities.domain.registro.Usuario;
+import models.entities.domain.roles.Rol;
 import models.entities.domain.servicios.PrestacionDeServicio;
 import models.repositories.datos.RepositorioComunidades;
+import models.repositories.datos.RepositorioDeRoles;
 import models.repositories.datos.RepositorioPrestacionesDeServicio;
 import models.repositories.datos.RepositorioUsuarios;
+import server.exceptions.AccessDeniedException;
 import server.utils.ICrudViewsHandler;
 
 import javax.swing.*;
@@ -27,18 +31,35 @@ public class ComunidadController extends Controller implements ICrudViewsHandler
     public void index(Context context) {
         Map<String, Object> model = new HashMap<>();
         String id = context.sessionAttribute("id").toString();
-        List<Comunidad> comunidades = this.repositorioComunidades.buscarComunidadesDe(Long.parseLong(id));
+        List<Long> idComunidades = this.repositorioComunidades.buscarComunidadesDe(Long.parseLong(id));
+
+        List<Comunidad> comunidades = new ArrayList<>();
+
+        for(Long idComunidad: idComunidades) {
+
+            comunidades.add(this.repositorioComunidades.obtenerComunidad(idComunidad));
+        }
+
         model.put("comunidades", comunidades);
         context.render("comunidades/comunidades.hbs", model);
     }
 
     @Override
     public void show(Context context) {
+        Map<String, Object> model = new HashMap<>();
+        List<Comunidad> comunidades = this.repositorioComunidades.buscarTodos();
+        model.put("comunidades", comunidades);
+        context.render("comunidades/unirseAComunidad.hbs", model);
 
     }
 
     @Override
     public void create(Context context) {
+        //Valido unicamente para SuperAdmin de la plataforma
+        Map<String, Object> model = new HashMap<>();
+        String id = context.sessionAttribute("id").toString();
+
+            context.render("comunidades/crearComunidades.hbs");
 
     }
 
@@ -49,7 +70,7 @@ public class ComunidadController extends Controller implements ICrudViewsHandler
         this.asignarParametros(comunidad, context);
         this.repositorioComunidades.guardar(comunidad);
         context.status(HttpStatus.CREATED);
-        context.redirect("comunidades/crearComunidades");
+        context.redirect("home");
     }
 
     @Override

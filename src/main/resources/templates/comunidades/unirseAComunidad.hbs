@@ -9,6 +9,7 @@
                     </div>
                 </div>
 
+                <form method="POST" action="/comunidades/unirse" class="form-control">
                 {{#each comunidades}}
                     <div class="row borde redondeado m-2">
                         <div class="col-md-4">
@@ -23,12 +24,16 @@
                         </div>
                         <div class="row d-flex align-items-center justify-content-center">
                             <div class="col-md-3 borde redondeado d-flex justify-content-center mt-3">
-                                <a href="/comunidades/unirse" class="btn">Unirse</a>
+                                <label for="comunidad{{@index}}">{{this}}</label>
+                                <input type="radio" id="comunidad{{@index}}" name="comunidades" value="{{this.nombre}}">
                             </div>
                         </div>
                     </div>
                 {{/each}}
                 <!-- DEBERÍA ANDAR CON ALGO EN LA BASE DE DATOS -->
+                <button type="submit">Unirse</button>
+                </form>
+            </div>
             </div>
         </div>
     </div>

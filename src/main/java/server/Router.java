@@ -6,6 +6,8 @@ import controllers.*;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
+import models.entities.domain.roles.TipoRol;
 import server.exceptions.AccessDeniedException;
 
 
@@ -70,8 +72,10 @@ public class Router {
 
         Server.app().routes(() -> {
             get("/comunidades", ((ComunidadController) FactoryController.controller("Comunidad"))::index);
-            get("/comunidades/unirse", ((UsuarioController) FactoryController.controller("Usuario"))::joinCommunity);
-            get("/comunidades/crear", ((ComunidadController) FactoryController.controller("Comunidad"))::create);
+            get("/comunidades/unirse", ((ComunidadController) FactoryController.controller("Comunidad"))::show);
+            post("/comunidades/unirse", ((UsuarioController) FactoryController.controller("Usuario"))::joinCommunity);
+            get("/comunidades/crear", ((ComunidadController) FactoryController.controller("Comunidad"))::create, TipoRol.SUPERADMINISTRADOR);
+            post("/comunidades/crear", ((ComunidadController) FactoryController.controller("Comunidad"))::save, TipoRol.SUPERADMINISTRADOR);
         });
 
         Server.app().routes(() -> {
@@ -89,7 +93,7 @@ public class Router {
 
         Server.app().routes(() -> {
             get("cargadatos/", ((CargaOrganismosYEntidadesController) FactoryController.controller("CargaOrganismosYEntidadesController"))::index);
-            post("cargadatos/", ((CargaOrganismosYEntidadesController) FactoryController.controller("CargaOrganismosYEntidadesController"))::save);
+            post("cargadatos/", ((CargaOrganismosYEntidadesController) FactoryController.controller("CargaOrganismosYEntidadesController"))::save, TipoRol.SUPERADMINISTRADOR);
         });
         // presentacion
 
@@ -113,7 +117,6 @@ public class Router {
         }
        else  {
             return null;
-            //todo handle exception de flaco tirame bien la contra
         }
 
     }
