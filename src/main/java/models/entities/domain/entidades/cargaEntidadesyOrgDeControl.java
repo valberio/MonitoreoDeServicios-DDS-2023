@@ -41,7 +41,7 @@ public class cargaEntidadesyOrgDeControl {
                     if(organismoEncontrado.isPresent()) {
                         PrestadoraDeServicio prestadora = new PrestadoraDeServicio(linea[2]);
                         organismoEncontrado.get().aniadirPrestadoraControlada(prestadora);
-                        repositorioPrestadoras.agregarPrestadoraDeServicio(prestadora);
+                        repositorioPrestadoras.guardar(prestadora);
                     }
 
 
@@ -56,8 +56,8 @@ public class cargaEntidadesyOrgDeControl {
                     prestadora.setNombre(linea[2]);
                     organismo.aniadirPrestadoraControlada(prestadora);
 
-                    repositorioOrganismosDeControl.agregarOrganismoDeControl(organismo);
-                    repositorioPrestadoras.agregarPrestadoraDeServicio(prestadora);
+                    repositorioOrganismosDeControl.guardar(organismo);
+                    repositorioPrestadoras.guardar(prestadora);
                 }
             }
         } catch (IOException e) {

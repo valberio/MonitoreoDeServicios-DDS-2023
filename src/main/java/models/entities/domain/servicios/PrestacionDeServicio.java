@@ -33,7 +33,7 @@ public class PrestacionDeServicio extends Persistente {
         this.servicio = servicio;
         this.establecimiento = establecimiento;
         this. estaHabilitado = true;
-        new RepositorioPrestacionesDeServicio().agregarPrestacion(this);
+        new RepositorioPrestacionesDeServicio().guardar(this);
     }
 
     public String obtenerTextoRelevante() {

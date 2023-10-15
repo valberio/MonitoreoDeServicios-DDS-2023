@@ -60,7 +60,7 @@ public class Incidente extends Persistente {
         this.setDescripcion(descripcion);
         this.servicioAfectado.setEstaHabilitado(false);
         RepositorioIncidentes archivo = RepositorioIncidentes.getInstance();
-        archivo.agregarIncidente(this);
+        archivo.guardar(this);
         this.servicioAfectado.setEstaHabilitado(false);
         this.estado = new EstadoIncidente();
         this.estadosDeIncidente = new ArrayList<>();
