@@ -36,11 +36,11 @@ public class IncidenteController extends Controller implements ICrudViewsHandler
     @Override
     public void index(Context context) {
         Map<String, Object> model = new HashMap<>();
-        String id = context.sessionAttribute("id");
+        String id = context.sessionAttribute("id").toString();
         List<Incidente> incidentes = this.repositorioIncidentes.buscarIncidentesDeInteresPara(Long.parseLong(id));
         model.put("incidentes", incidentes);
-        context.result("Hola");
-        //context.render("presentacion/menuPrincipal.hbs", model);
+        //context.result("Hola");
+        context.render("presentacion/menuPrincipal.hbs", model);
     }
 
     //el show no lo implementamos pq ya con el index mostramos los detalles del incidente.

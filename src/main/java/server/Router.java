@@ -17,35 +17,35 @@ public class Router {
 
     public static void init() {
         // index
-        Server.app().before("/entidades", ctx-> {
+        Server.app().before("/entidades", ctx -> {
 
             boolean usuarioRegistrado = ctx.sessionAttribute("id") != null;
 
-            if(!usuarioRegistrado) {
+            if (!usuarioRegistrado) {
                 throw new AccessDeniedException();
             }
-                });
+        });
 
         Server.app().routes(() -> {
             get("/", ctx -> ctx.render("index/inicioSesion.hbs"));
             post("/", ctx -> {
 
-                    // Lógica de autenticación, por ejemplo, verificar el usuario y contraseña
-                    String username = ctx.formParam("usuario");
-                    String password = ctx.formParam("contrasenia");
+                // Lógica de autenticación, por ejemplo, verificar el usuario y contraseña
+                String username = ctx.formParam("usuario");
+                String password = ctx.formParam("contrasenia");
 
-                    Long id = retornarIDSiCredencialesSonCorrectas(username, password);
-                    // Si las credenciales son válidas, establece una sesión para el usuario
-                    if (id != null) {
-                        ctx.sessionAttribute("authenticated", true);
-                        ctx.sessionAttribute("id", id);
-                        ctx.redirect("/home");// Redirige al usuario a la página de inicio
-                    } else {
-                        String error = "Credenciales incorrectas";
-                        Map<String, Object> model = new HashMap<>();
-                        model.put("error", error);
-                        ctx.render("index/inicioSesion.hbs", model);
-                    }
+                Long id = retornarIDSiCredencialesSonCorrectas(username, password);
+                // Si las credenciales son válidas, establece una sesión para el usuario
+                if (id != null) {
+                    ctx.sessionAttribute("authenticated", true);
+                    ctx.sessionAttribute("id", id);
+                    ctx.redirect("/home");// Redirige al usuario a la página de inicio
+                } else {
+                    String error = "Credenciales incorrectas";
+                    Map<String, Object> model = new HashMap<>();
+                    model.put("error", error);
+                    ctx.render("index/inicioSesion.hbs", model);
+                }
 
             });
             get("signup", ((UsuarioController) FactoryController.controller("Usuario"))::create);
@@ -57,13 +57,15 @@ public class Router {
 
         Server.app().routes(() -> {
             get("rankings", ctx -> ctx.render("presentacion/rankings.hbs"));
-           // get("rankings/{rankingArchivo}", ctx -> {
-                //String rankingReportesPath = "../models/repositories.datos/rankingR";
-               // });
-            get("rankings", ctx -> {
+            // get("rankings/{rankingArchivo}", ctx -> {
+            //String rankingReportesPath = "../models/repositories.datos/rankingR";
+            // });
+          /*  get("rankings", ctx -> {
                 String tipoRanking = ctx.queryParam("tipoRanking");
                 Path pathAlArchivo = Paths.get("../models/repositories.datos/" + tipoRanking);
-                ctx.result();});
+                ctx.result();}); /*
+
+           */
         });
 
         Server.app().routes(() -> {
@@ -98,7 +100,6 @@ public class Router {
             ((EntidadController) FactoryController.controller("Entidad"))
             ((OrganismoDeController) FactoryController.controller("OrganismoDeControl"))
          */
-
     }
 
     private static Long retornarIDSiCredencialesSonCorrectas(String username, String password) {

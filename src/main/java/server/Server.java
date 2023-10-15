@@ -31,7 +31,7 @@ public class Server {
             initTemplateEngine();
             AppHandlers.applyHandlers(app);
             Router.init();
-            Initializer.init();
+            //Initializer.init();
         }
     }
 

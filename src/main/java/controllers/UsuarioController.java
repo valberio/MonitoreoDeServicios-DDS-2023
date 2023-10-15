@@ -80,7 +80,7 @@ public class UsuarioController extends Controller implements ICrudViewsHandler {
 
      @Override
      public void update(Context context) {
-          Usuario usuario = (Usuario) this.repositorioUsuarios.buscar(Long.parseLong(context.pathParam("id")));
+          Usuario usuario = (Usuario) this.repositorioUsuarios.buscar(Long.parseLong(context.sessionAttribute("id").toString()));
           this.asignarParametros(usuario, context);
           this.repositorioUsuarios.actualizar(usuario);
           context.redirect("/home");
