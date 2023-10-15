@@ -47,12 +47,14 @@
                                 <input type = "telefono" name="telefono" class="form-control mr-sm-2" placeholder="Teléfono" required></input>
                             </div>
                         </div>
+                        <!--
                         <div class="row">
                             <div class="col-md-12">
                                 <label for="localizacion">Localización:</label>
                                 <input name="localizacion" class="form-control mr-sm-2" placeholder="Localización"></input>
                             </div>
                         </div>
+                        -->
                         <div class="col-md-2">
                         </div>
                             <div>
@@ -77,19 +79,17 @@
                         </div>
                         <div class="row">
                                 <div class="form-group">
-                                    <label for="medioSelect">Medio</label>
-                                    <select class="form-control" id="medioSelect">
-                                        <option value="1">WhatsApp</option>
-                                        <option value="2">Mail</option>
-                                    </select>
+                                    {{#each medios}}
+                                        <label for="medio{{@index}}">{{this}}</label>
+                                        <input type="radio" id="medio{{@index}}" name="medios" value="{{this}}" placeholder="Medio para recibir Notificaciones">
+                                    {{/each}}
                                 </div>
                         </div>
                             <div class="form-group">
-                                <label for="medioSelect">Modo:</label>
-                                <select class="form-control" id="modoSelect">
-                                    <option value="1">Sincrónico</option>
-                                    <option value="2">Asincrónico</option>
-                                </select>
+                                {{#each modos}}
+                                    <label for="modo{{@index}}">{{this}}</label>
+                                    <input type="radio" id="modo{{@index}}" name="modos" value="{{this}}" placeholder="Modo de Recepción">
+                                {{/each}}
                             </div>
                     </div>
                 </div>
@@ -99,11 +99,12 @@
 </div>
 </form>
 
-<div class="row">
+<!--<div class="row">
     <div class="col-12 d-flex justify-content-center align-items-center">
 
         <button><a href="/entidades">SELECCIONAR ENTIDADES DE INTERES</a>  </button>
     </div>
-</div>
+</div> -->
+
 {{/partial}}
 {{> templates/base }}

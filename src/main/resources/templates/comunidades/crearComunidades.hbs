@@ -1,0 +1,38 @@
+{{#partial "contenido" }}
+
+    <div class="container mt-15">
+        <div class="row justify-content-center">
+            <div class="col-md-12 borde redondeado p-4">
+                <div class="row p-4">
+                    <div class="borde redondeado d-flex justify-content-center p-2">
+                        <h1>Crear comunidad</h1>
+                    </div>
+                </div>
+                <form method="POST" action="signup">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="nombre">Nombre nueva comunidad:</label>
+                        <input name = "nombre" class="form-control mr-sm-2" placeholder="Nombre de nueva comunidad" required></input>
+                        <hr>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="descripcion">Descripción nueva comunidad:</label>
+                        <input name = "descripcion" class="form-control mr-sm-2" placeholder="Descripcion nueva comunidad" required></input>
+                        <hr>
+                    </div>
+                </div>
+                </form>
+                <div class="row d-flex align-items-center justify-content-center">
+                    <div class="col-md-5 borde redondeado d-flex justify-content-center mt-3">
+                        <a href="/home" class="btn">Crear</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{{/partial}}
+{{> templates/baseConNavegador }}

@@ -100,6 +100,8 @@ public class Usuario extends Persistente {
         horariosDisponibles.addAll(List.of(horario));
     }
 
+
+
     public void setPreferencias(PreferenciaEnvioNotificacion preferencia) {
         medioPreferido = preferencia.getMedioNotificacion();
         modoRecepcion = preferencia.getModoRecepcion();
@@ -110,7 +112,6 @@ public class Usuario extends Persistente {
 
         switch(medio) {
             case "WhatsApp": this.medioPreferido = new WhatsApp(); break;
-            case "Mail": this.medioPreferido = new Mail(); break;
             default: this.medioPreferido = new Mail();
         }
     }
@@ -172,6 +173,11 @@ public class Usuario extends Persistente {
     public void setContra(String contrasenia) {
 
         this.setContrasenia(new Contrasenia(contrasenia));
+    }
+
+    public void agregarEntidadesDeInteres(List<Entidad> entidades) {
+
+        this.entidadesDeInteres.addAll(entidades);
     }
 
 

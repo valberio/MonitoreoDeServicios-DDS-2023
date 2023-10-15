@@ -1,11 +1,7 @@
 package controllers;
 
 import models.entities.domain.servicios.PrestacionDeServicio;
-import models.repositories.datos.RepositorioOrganismosDeControl;
-import models.repositories.datos.RepositorioEntidades;
-import models.repositories.datos.RepositorioComunidades;
-import models.repositories.datos.RepositorioIncidentes;
-import models.repositories.datos.RepositorioUsuarios;
+import models.repositories.datos.*;
 
 public class FactoryController {
 
@@ -14,8 +10,8 @@ public class FactoryController {
         switch (nombre) {
             case "Entidad": controller = new EntidadController(new RepositorioEntidades()); break;
             case "Comunidad": controller = new ComunidadController(new RepositorioComunidades()); break;
-            case "Incidente": controller = new IncidenteController(new RepositorioIncidentes()); break;
-            case "Usuario": controller = new UsuarioController(new RepositorioUsuarios()); break;
+            case "Incidente": controller = new IncidenteController(new RepositorioIncidentes(), new RepositorioPrestacionesDeServicio(), new RepositorioComunidades(), new RepositorioUsuarios()); break;
+            case "Usuario": controller = new UsuarioController(new RepositorioUsuarios(), new RepositorioEntidades()); break;
             case "OrganismoDeControl": controller = (new RepositorioOrganismosDeControl()); break;
             case "PrestacionDeServicio" : controller = (new PrestacionDeServicio()); break;
 

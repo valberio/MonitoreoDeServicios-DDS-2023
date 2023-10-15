@@ -1,22 +1,26 @@
 package controllers;
 
 import io.javalin.http.HttpStatus;
+import models.entities.domain.entidades.Entidad;
+import models.entities.domain.notificaciones.tiempoDeEnvio.ModoRecepcion;
+import models.repositories.datos.RepositorioEntidades;
 import models.repositories.datos.RepositorioUsuarios;
 import server.utils.ICrudViewsHandler;
 import models.entities.domain.registro.Usuario;
 import io.javalin.http.Context;
+import server.utils.Initializer;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.lang.reflect.Array;
+import java.util.*;
 
 
 public class UsuarioController extends Controller implements ICrudViewsHandler {
      private RepositorioUsuarios repositorioUsuarios;
+     private RepositorioEntidades repositorioEntidades;
 
-     public UsuarioController(RepositorioUsuarios repositorioDeUsuarios) {
+     public UsuarioController(RepositorioUsuarios repositorioDeUsuarios, RepositorioEntidades repositorioEntidades) {
           this.repositorioUsuarios = repositorioDeUsuarios;
+          this.repositorioEntidades = repositorioEntidades;
      }
 
      @Override
@@ -34,7 +38,14 @@ public class UsuarioController extends Controller implements ICrudViewsHandler {
 
      @Override
      public void create(Context context) {
-          context.render("index/registro.hbs");
+          ArrayList<String> medios = (ArrayList<String>) Initializer.obtenerMedioDeNotificacionValidos();
+          ArrayList<String> modos = (ArrayList<String>) Initializer.obtenerModosDeRecepcionValidos();
+
+          Map<String, Object> model = new HashMap<>();
+          model.put("medios", medios);
+          model.put("modos", modos);
+
+          context.render("index/registro.hbs", model);
 
      }
 
@@ -45,11 +56,11 @@ public class UsuarioController extends Controller implements ICrudViewsHandler {
           //sacar datos del form del contexto
 
           this.asignarParametros(usuario, context);
-
-          // TODO: ELegir que hacer con la localizacion usuario.setLocalizacion(context.formParam("localizacion"));
           repositorioUsuarios.agregarUsuario(usuario);
           context.status(HttpStatus.CREATED);
-          context.redirect("/");
+          context.sessionAttribute("authenticated", true);
+          context.sessionAttribute("id", retornarIdSiExiste(usuario.getNombreDeUsuario()));
+          context.redirect("/entidades"); // para que cargue sus entidades de interes
      }
 
      @Override
@@ -67,15 +78,31 @@ public class UsuarioController extends Controller implements ICrudViewsHandler {
           Usuario usuario = (Usuario) this.repositorioUsuarios.buscar(Long.parseLong(context.pathParam("id")));
           this.asignarParametros(usuario, context);
           this.repositorioUsuarios.actualizar(usuario);
-          context.redirect("/index");
+          context.redirect("/home");
+     }
+
+     public void updateEntities(Context context) {
+          String id = Objects.requireNonNull(context.sessionAttribute("id")).toString();
+          Usuario usuario = (Usuario) this.repositorioUsuarios.buscar(Long.parseLong(id));
+
+          List<String> entidades = context.formParams("entidades");
+
+          for(String nombre:entidades) {
+
+              usuario.agregarEntidadesDeInteres(this.repositorioEntidades.filtrarPorNombre(nombre));
+
+          }
+          this.repositorioUsuarios.actualizar(usuario); 
+          context.redirect("/home");
+
      }
 
      @Override
      public void delete(Context context) {
          Usuario usuario = (Usuario) this.repositorioUsuarios.buscar(Long.parseLong(context.pathParam("id")));
-          usuario.setEstaActivo(false);
-          this.repositorioUsuarios.actualizar(usuario);
-          context.redirect("/");
+         usuario.setEstaActivo(false);
+         this.repositorioUsuarios.actualizar(usuario);
+         context.redirect("/");
      }
 
      public void addServices(Context context) {
@@ -110,15 +137,19 @@ public class UsuarioController extends Controller implements ICrudViewsHandler {
           if(!Objects.equals(context.formParam("telefono"), "")) {
                usuario.setNumeroTelefono(context.formParam("telefono"));
           }
-          if(!Objects.equals(context.formParam("localizacion"), "")) {
-               //todo;
+
+          String medio = context.formParam("medios");
+
+          if(medio!=null) {
+
+               usuario.setMedioDeNotificacion(medio);
           }
-         // if(!Objects.equals(context.formParam("medio"), "")) {
-              // usuario.setMedioDeNotificacion(context.formParam("medio"));
-         // }
-          //if(!Objects.equals(context.formParam("modo"), "")) {
-              // usuario.setModo(context.formParam("modo"));
-         // } //TODO
+
+          String modo = context.formParam("modos");
+
+          if(modo!=null) {
+               usuario.setModoRecepcion(ModoRecepcion.valueOf(modo.toUpperCase()));
+          }
      }
 
 

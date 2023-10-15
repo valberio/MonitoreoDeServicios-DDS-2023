@@ -8,10 +8,7 @@ import models.entities.domain.incidentes.Estado;
 import models.entities.domain.incidentes.EstadoIncidente;
 import models.entities.domain.registro.Usuario;
 import models.entities.domain.servicios.PrestacionDeServicio;
-import models.repositories.datos.RepositorioComunidades;
-import models.repositories.datos.RepositorioIncidentes;
-import models.repositories.datos.RepositorioPrestacionesDeServicio;
-import models.repositories.datos.RepositorioUsuarios;
+import models.repositories.datos.*;
 import server.utils.ICrudViewsHandler;
 import models.entities.domain.incidentes.Incidente;
 
@@ -26,8 +23,12 @@ public class IncidenteController extends Controller implements ICrudViewsHandler
     private RepositorioComunidades repositorioComunidades;
 
     private RepositorioUsuarios repositorioUsuarios;
-    public IncidenteController(RepositorioIncidentes repositorioDeIncidentes) {
+    public IncidenteController(RepositorioIncidentes repositorioDeIncidentes, RepositorioPrestacionesDeServicio repositorioPrestacionesDeServicio, RepositorioComunidades repositorioComunidades, RepositorioUsuarios repositorioUsuarios) {
         this.repositorioIncidentes = repositorioDeIncidentes;
+        this.repositorioPrestacionesDeServicio = repositorioPrestacionesDeServicio;
+        this.repositorioComunidades = repositorioComunidades;
+        this.repositorioUsuarios = repositorioUsuarios;
+
     }
 
 
@@ -40,6 +41,7 @@ public class IncidenteController extends Controller implements ICrudViewsHandler
         context.render("presentacion/menuPrincipal.hbs", model);
     }
 
+    //el show no lo implementamos pq ya con el index mostramos los detalles del incidente.
     @Override
     public void show(Context context) {
 

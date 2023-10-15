@@ -44,9 +44,8 @@ public class Router {
             get("signup", ((UsuarioController) FactoryController.controller("Usuario"))::create);
             post("signup", ((UsuarioController) FactoryController.controller("Usuario"))::save);
 
-            get("/entidades", ((EntidadController) FactoryController.controller("Entidad"))::show);
-            post("/entidades", ((UsuarioController) FactoryController.controller("Usuario"))::update);
-            //ctx->ctx.render("index/registroEntidadesDeInteres.hbs"));
+            get("/entidades", ((EntidadController) FactoryController.controller("Entidad"))::index);
+            post("/entidades", ((UsuarioController) FactoryController.controller("Usuario"))::updateEntities);
         });
 
         Server.app().routes(() -> {
@@ -54,14 +53,15 @@ public class Router {
         });
 
         Server.app().routes(() -> {
-            get("comunidades", ctx -> ctx.render("comunidades/comunidades.hbs"));
+            get("/comunidades", ctx -> ctx.render("comunidades/comunidades.hbs"));
+            get("/comunidades/unirse", ctx -> ctx.render("comunidades/unirseAComunidad.hbs"));
+            get("/comunidades/crear", ctx -> ctx.render("comunidades/crearComunidades.hbs"));
         });
 
         Server.app().routes(() -> {
             get("home", ((UsuarioController) FactoryController.controller("Usuario"))::index);
             get("editar", ((UsuarioController) FactoryController.controller("Usuario"))::edit);
             post("editar", ((UsuarioController) FactoryController.controller("Usuario"))::update);
-
         });
 
         Server.app().routes(() -> {
@@ -100,6 +100,14 @@ public class Router {
             return null;
             //todo handle exception de flaco tirame bien la contra
         }
+
+    }
+
+    private static Long retornarIDPostRegistro(String username) {
+
+        UsuarioController controller = (UsuarioController) FactoryController.controller("Usuario");
+
+        return controller.retornarIdSiExiste(username);
 
     }
 }

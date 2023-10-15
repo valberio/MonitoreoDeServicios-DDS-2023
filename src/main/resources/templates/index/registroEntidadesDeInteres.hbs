@@ -10,18 +10,27 @@
             </div>
             <div class="row ps-4 pe-4">
                 <div class="borde redondeado mt-5">
-                    <select class="form-control">
-                        <option>Baños</option>
-                        <option>Escaleras mecánicas</option>
-                        <option>Ascensor</option>
-                    </select>
+                    <form method="POST" action="/entidades" class="form-control">
+                        {{#each entidades}}
+                            <label for="entidad{{@index}}">{{this}}</label>
+                            <input type="checkbox" id="entidad{{@index}}" name="entidades" value="{{this}}">
+                        {{/each}}
+                        <div class="row d-flex align-items-center justify-content-center">
+                            <div class="col-md-3 borde redondeado d-flex justify-content-center mt-3">
+                        <button type="submit">Seleccionar</button>
+                            </div>
+                        </div>
+                    </form>
+
                 </div>
             </div>
+            <!--
             <div class="row d-flex align-items-center justify-content-center">
                 <div class="col-md-3 borde redondeado d-flex justify-content-center mt-3">
-                    <a href="/index" class="btn">Registrarse</a>
+                    <a href="/" class="btn">Registrarse</a>
                 </div>
             </div>
+            -->
         </div>
     </div>
 

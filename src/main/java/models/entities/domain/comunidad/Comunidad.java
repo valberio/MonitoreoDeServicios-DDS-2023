@@ -22,6 +22,8 @@ public class Comunidad extends Persistente {
 
     @Column(name="nombre")
     private String nombre;
+    @Column(name="descripcion")
+    private String descripcion;
     @Nullable
     @ManyToMany(fetch = FetchType.LAZY)
     private List<Usuario> usuarios;

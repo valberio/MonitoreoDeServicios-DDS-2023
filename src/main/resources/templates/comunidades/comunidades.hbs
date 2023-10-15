@@ -1,82 +1,42 @@
 {{#partial "contenido" }}
 
-<body>
-<div class="container-fluid">
-    <div class="container-fluid">
-        <div class="row">
-        <!--Barra lateral de comunidades-->
-            <div class="col-md-4 borde">
-                <div class="row">
-                    <div class="col text-center">
-                        <div class="comunidad ">
-                            <div class="row borde redondeado m-3">
-                                <div class="col-md-3 p-3 d-flex align-items-center">
-                                    <h6 class="borde redondeado text-center p-4">Imagen</h6>
-                                </div>
-                                <div class="col-md-8 ms-3 mt-2 p-3">
-                                    <h6 class="text-start">Nombre de la comunidad</h6>
-                                    <h6 class="text-start">Descripcion...</h6>
-                                </div>
-                            </div>
+    <div class="container mt-15">
+        <div class="row justify-content-center">
+            <div class="col-md-12 borde redondeado p-4">
+                <div class="row p-4">
+                    <div class="borde redondeado d-flex justify-content-center p-2">
+                        <h1>Mis Comunidades</h1>
+                    </div>
+                </div>
+
+                {{#each comunidades}}
+                <div class="row borde redondeado m-2">
+                    <div class="col-md-4">
+                        <div class="p-4 mt-2 mb-2 borde d-flex align-items-center justify-content-center redondeado">
+                            <h4>{{this.nombre}}</h4>
                         </div>
-                        <div class="comunidad ">
-                            <div class="row borde redondeado m-3">
-                                <div class="col-md-3 p-3 d-flex align-items-center">
-                                    <h6 class="borde redondeado text-center p-4">Imagen</h6>
-                                </div>
-                                <div class="col-md-8 ms-3 mt-2 p-3">
-                                    <h6 class="text-start">Nombre de la comunidad</h6>
-                                    <h6 class="text-start">Descripcion...</h6>
-                                </div>
-                            </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="p-4 mt-2 mb-2 borde d-flex align-items-center justify-content-center redondeado">
+                            <h4>{{this.descripcion}}</h4>
                         </div>
+                    </div>
+                {{/each}}
+                <!-- DEBERÍA ANDAR CON ALGO EN LA BASE DE DATOS -->
+                <!-- si no anda dejo la carrera nos vemos en civil -->
+
+                <div class="row d-flex align-items-center justify-content-center">
+                    <div class="col-md-5 borde redondeado d-flex justify-content-center mt-3">
+                        <a href="/comunidades/unirse" class="btn">Unirte</a>
+                        <a href="/comunidades/crear" class="btn">Crear</a>
                     </div>
                 </div>
             </div>
-
-        <!--Incidentes de las comunidades-->
-            <div class="col-md-7 borde">
-                <div class="row">
-                    <div class="col m-3">
-                        <h2>Incidentes reportados de la Comunidad</h2>
-                    </div>
-
-                </div>
-                <div class="row">
-                    <div class="tall-container incidentes">
-                        <div class="row borde redondeado m-3 p-2 ">
-                            <div class="col-md-4 d-flex align-items-center justify-content-center borde redondeado me-3 ms-2 p-3">
-                                {{#each incidentes}}
-                                    <div class="row borde redondeado m-2">
-                                        <div class="col-md-4">
-                                            <div class="p-4 mt-2 mb-2 borde d-flex align-items-center justify-content-center redondeado">
-                                                <h4>{{this.servicioAfectado.establecimiento.nombre}}</h4>
-                                            </div>
-
-                                        </div>
-                                        <div class="col-4">
-                                            <div class="p-4 mt-2 mb-2 borde d-flex align-items-center justify-content-center redondeado">
-                                                <h4>{{this.servicioAfectado.descripcion}}</h4>
-                                            </div>
-
-                                        </div>
-                                        <div class="col-2">
-                                            <div class="p-4 mt-2 mb-2 borde d-flex align-items-center justify-content-center redondeado">
-                                                <h5>{{this.estado.estado}}</h5>
-                                            </div>
-                                        </div>
-                                        <div class="col-2">
-                                            <div class="p-4 mt-2 mb-2 borde d-flex align-items-center justify-content-center redondeado">
-                                                <h5>Ubicación</h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                {{/each}}
-                        </div>
-                    </div>
-                </div>
             </div>
+
+
         </div>
     </div>
+
 {{/partial}}
 {{> templates/baseConNavegador }}

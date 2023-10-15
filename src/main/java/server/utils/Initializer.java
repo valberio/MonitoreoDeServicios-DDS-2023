@@ -2,9 +2,13 @@ package server.utils;
 
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 import lombok.With;
+import models.entities.domain.notificaciones.tiempoDeEnvio.ModoRecepcion;
 import models.entities.domain.roles.Permiso;
 import models.entities.domain.roles.Rol;
 import models.entities.domain.roles.TipoRol;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Initializer implements WithSimplePersistenceUnit {
 
@@ -81,5 +85,29 @@ public class Initializer implements WithSimplePersistenceUnit {
         entityManager().persist(prestador);*/
 
         return this;
+    }
+
+    public static List<String> obtenerMedioDeNotificacionValidos() {
+
+       ArrayList<String> medios = new ArrayList<>();
+
+       medios.add("WhatsApp"); 
+       
+       medios.add("Mail"); 
+        
+       return medios; 
+
+    }
+    
+    public static List<String> obtenerModosDeRecepcionValidos() {
+
+        ArrayList<String> modos = new ArrayList<>();
+
+        modos.add("Sincronica");
+
+        modos.add("Asincronica");
+
+        return modos;
+
     }
 }
