@@ -2,25 +2,12 @@ package models.repositories.datos;
 
 import models.entities.domain.comunidad.Comunidad;
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
-import models.entities.domain.registro.Usuario;
-import models.entities.domain.servicios.PrestacionDeServicio;
 
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
+import java.util.List;
 
-public class RepositorioComunidades implements WithSimplePersistenceUnit {
-
-    public void agregarComunidad(Comunidad comunidad) {
-
-        EntityTransaction tx = entityManager().getTransaction();
-        tx.begin();
-        entityManager().persist(comunidad);
-        tx.commit();
-    }
-
-    public void eliminarComunidad(Comunidad comunidad) {
-        entityManager().remove(comunidad);
-    }
+public class RepositorioComunidades implements WithSimplePersistenceUnit, ICrudRepository{
 
     public Comunidad obtenerComunidad(Long id) { //TODO
         return find(Comunidad.class, id);
@@ -42,7 +29,46 @@ public class RepositorioComunidades implements WithSimplePersistenceUnit {
         });
     }
 
-    public void actualizar(Comunidad comunidad) {
-        withTransaction(() -> { entityManager().merge(comunidad); });
+    @Override
+    public void guardar(Object o) {
+
+        EntityTransaction tx = entityManager().getTransaction();
+        tx.begin();
+        entityManager().persist(o);
+        tx.commit();
     }
+
+    @Override
+    public void eliminar(Object o) {
+        entityManager().remove(o);
+    }
+
+    @Override
+    public void actualizar(Object o) {
+        withTransaction(() -> { entityManager().merge(o);});
+    }
+
+    @Override
+    public List buscarTodos() {
+        return entityManager().createQuery("from " + Comunidad.class.getName()).getResultList();
+    }
+
+    @Override
+    public Object buscar(Long id) {
+        return entityManager().find(Comunidad.class, id);
+    }
+
+    public List<Comunidad> buscarComunidadesDe(long idUsuario) {
+        TypedQuery<Comunidad> query = entityManager().createQuery(
+                "SELECT r.comunidad FROM Rol r " +
+                        "WHERE r.usuario.id = :userId", Comunidad.class);
+
+        query.setParameter("userId", idUsuario);
+
+        return query.getResultList();
+    }
+
+
+
+
 }

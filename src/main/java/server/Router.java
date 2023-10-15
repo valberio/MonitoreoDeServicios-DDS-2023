@@ -2,11 +2,17 @@ package server;
 
 
 
-import controllers.*;
+import controllers.EntidadController;
+import controllers.FactoryController;
+import controllers.IncidenteController;
+import controllers.UsuarioController;
 import models.repositories.datos.RepositorioUsuarios;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import server.exceptions.AccessDeniedException;
+
+import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +23,15 @@ public class Router {
 
     public static void init() {
         // index
+        Server.app().before("/entidades", ctx-> {
+
+            boolean usuarioRegistrado = ctx.sessionAttribute("id") != null;
+
+            if(!usuarioRegistrado) {
+                throw new AccessDeniedException();
+            }
+                });
+
         Server.app().routes(() -> {
             get("/", ctx -> ctx.render("index/inicioSesion.hbs"));
             post("/", ctx -> {
@@ -50,6 +65,9 @@ public class Router {
 
         Server.app().routes(() -> {
             get("rankings", ctx -> ctx.render("presentacion/rankings.hbs"));
+            get("rankings/:rankingArchivo", ctx -> {
+                String rankingReportesPath = "../models/repositories.datos/rankingR";
+                });
             get("rankings/:tipoRanking", ctx -> {
                 String tipoRanking = ctx.queryParam("tipoRanking");
                 Path pathAlArchivo = Paths.get("../models/repositories.datos/" + tipoRanking);
@@ -57,9 +75,9 @@ public class Router {
         });
 
         Server.app().routes(() -> {
-            get("/comunidades", ctx -> ctx.render("comunidades/comunidades.hbs"));
-            get("/comunidades/unirse", ctx -> ctx.render("comunidades/unirseAComunidad.hbs"));
-            get("/comunidades/crear", ctx -> ctx.render("comunidades/crearComunidades.hbs"));
+            get("/comunidades", ((ComunidadController) FactoryController.controller("Comunidad"))::index);
+            get("/comunidades/unirse", ((UsuarioController) FactoryController.controller("Usuario"))::joinCommunity);
+            get("/comunidades/crear", ((ComunidadController) FactoryController.controller("Comunidad"))::create);
         });
 
         Server.app().routes(() -> {
@@ -97,12 +115,7 @@ public class Router {
 
         Long id = controller.retornarIdSiExiste(username);
 
-        if(id==null) {
-            //todo handle excepcion de flaco vos no existis
-            return null;
-        }
-        
-        else if(controller.esCorrecta(username, password)) {
+        if(controller.esCorrecta(username, password)) {
             return id; 
         }
        else  {

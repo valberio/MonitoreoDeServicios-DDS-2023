@@ -3,14 +3,21 @@ package models.entities.domain.comunidad;
 import models.entities.domain.Persistente;
 import models.entities.domain.entidades.Establecimiento;
 import models.entities.domain.incidentes.Incidente;
+import models.entities.domain.incidentes.ReportadorDeIncidentes;
 import models.entities.domain.registro.Usuario;
+import models.entities.domain.services.gradoDeConfianza.CalculadorGradoDeConfianzaService;
+import models.entities.domain.services.gradoDeConfianza.GradoDeConfianzaAPI;
+import models.entities.domain.services.gradoDeConfianza.entities.GradoDeConfianzaComunidad;
+import models.entities.domain.services.gradoDeConfianza.entities.requests.ComunidadRequest;
 import models.entities.domain.servicios.PrestacionDeServicio;
 import models.entities.domain.servicios.Servicio;
 import lombok.Getter;
 import lombok.Setter;
+import models.repositories.datos.RepositorioIncidentes;
 
 import javax.annotation.Nullable;
 import javax.persistence.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +45,7 @@ public class Comunidad extends Persistente {
        usuarios = new ArrayList<>();
        serviciosDeInteres = new ArrayList<>();
        incidentesReportados = new ArrayList<>();
+
     }
 
     public void agregarServiciosDeInteres(PrestacionDeServicio ... servicios) { this.serviciosDeInteres.addAll(List.of(servicios));}
@@ -65,9 +73,12 @@ public class Comunidad extends Persistente {
         return establecimientosObservados;
     }
 
-    public void gradoDeConfianzaActual() {
-        //TODO
-        //punto de conexion con la API grado de confianza
+    public Float gradoDeConfianzaActual() throws IOException {
+
+       GradoDeConfianzaComunidad gradoDeConfianzaComunidad= new GradoDeConfianzaAPI().obtenerGradoDeConfianzaPara(new ComunidadRequest(this, new RepositorioIncidentes().filtrarUltimaSemana()));
+
+       return gradoDeConfianzaComunidad.nuevoPuntaje;
+
     }
 
 

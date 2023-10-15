@@ -20,7 +20,7 @@ public class GradoDeConfianzaAPI {
     private static final String urlAPI = Config.URL_APIGEOREF;
     private Retrofit retrofit;
 
-    private GradoDeConfianzaAPI() {
+    public GradoDeConfianzaAPI() {
         this.retrofit = new Retrofit.Builder()
                 .baseUrl(urlAPI)
                 .addConverterFactory(GsonConverterFactory.create())

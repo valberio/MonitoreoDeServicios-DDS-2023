@@ -1,6 +1,5 @@
 package models.repositories.datos;
 
-import models.entities.domain.comunidad.Comunidad;
 import models.entities.domain.incidentes.Incidente;
 import models.entities.domain.registro.Usuario;
 import models.entities.domain.services.georef.entities.Ubicacion;
@@ -19,7 +18,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Getter
-public class RepositorioIncidentes implements WithSimplePersistenceUnit {
+public class RepositorioIncidentes implements WithSimplePersistenceUnit, ICrudRepository {
 
     private static RepositorioIncidentes instancia = null;
 
@@ -33,17 +32,33 @@ public class RepositorioIncidentes implements WithSimplePersistenceUnit {
         return instancia;
     }
 
-
-    public void guardarIncidente(Incidente incidente) {
-        incidentesForTest.add(incidente);
+    @Override
+    public List buscarTodos() {
+        return entityManager().createQuery("from " + Incidente.class.getName()).getResultList();
     }
 
-    public void agregarIncidente(Incidente incidente){
+    @Override
+    public Object buscar(Long id) {
+        return entityManager().find(Incidente.class, id);
+    }
+
+    @Override
+    public void guardar(Object o) {
 
         EntityTransaction tx = entityManager().getTransaction();
         tx.begin();
-        entityManager().persist(incidente);
+        entityManager().persist(o);
         tx.commit();
+    }
+
+    @Override
+    public void eliminar(Object o) {
+        entityManager().remove(o);
+    }
+
+    @Override
+    public void actualizar(Object o) {
+        withTransaction(() -> { entityManager().merge(o);});
     }
 
     public List<Incidente> filtrarUltimaSemana() {
@@ -85,16 +100,12 @@ public class RepositorioIncidentes implements WithSimplePersistenceUnit {
        return entityManager().createQuery("from Incidente").getResultList();
     }
 
-    public void eliminarIncidente(Incidente incidente) {
-        entityManager().remove(incidente);
-    }
-
 
     public List<Incidente> buscarIncidentesDeInteresPara(Long idUsuario) {
 
-        Usuario usuario = new RepositorioUsuarios().buscar(idUsuario);
+        Usuario usuario = (Usuario) new RepositorioUsuarios().buscar(idUsuario);
 
-        List incidentesDeInteres = null; // Inicializamos la lista
+        List incidentesDeInteres = null;
 
         CriteriaBuilder cb = entityManager().getCriteriaBuilder();
         CriteriaQuery<Incidente> criteriaQuery = cb.createQuery(Incidente.class);
@@ -108,17 +119,10 @@ public class RepositorioIncidentes implements WithSimplePersistenceUnit {
                 collect(Collectors.toList());
 
 
-        return incidentesDeInteres; // Devolvemos la lista de incidentes
+        return incidentesDeInteres;
 
 
     }
 
-    public Incidente buscar(Long id) { //TODO
-        return find(Incidente.class, id);
-    }
-
-    public void actualizar(Incidente incidente) {
-        withTransaction(() -> { entityManager().merge(incidente); });
-    }
 
 }

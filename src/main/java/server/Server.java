@@ -6,6 +6,8 @@ import io.javalin.Javalin;
 import io.javalin.config.JavalinConfig;
 import io.javalin.http.HttpStatus;
 import io.javalin.rendering.JavalinRenderer;
+import server.handlers.AppHandlers;
+import server.middlewares.AuthMiddleware;
 import server.utils.Initializer;
 
 import java.io.IOException;
@@ -27,6 +29,7 @@ public class Server {
             Integer port = Integer.parseInt(System.getProperty("port","8089"));
             app = Javalin.create(config()).start(port);
             initTemplateEngine();
+            AppHandlers.applyHandlers(app);
             Router.init();
             //Initializer.init();
         }
@@ -38,6 +41,7 @@ public class Server {
                 staticFiles.hostedPath = "/";
                 staticFiles.directory = "/public";
             });
+            AuthMiddleware.apply(config);
         };
     }
 

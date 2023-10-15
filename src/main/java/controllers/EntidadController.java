@@ -28,7 +28,6 @@ public class EntidadController implements ICrudViewsHandler {
 
     @Override
     public void show(Context context) {
-        //TODO encajarle todas las entidades
 
     }
 

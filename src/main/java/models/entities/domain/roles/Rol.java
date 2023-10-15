@@ -4,6 +4,8 @@ import models.entities.domain.Persistente;
 import models.entities.domain.comunidad.Comunidad;
 import lombok.Getter;
 import lombok.Setter;
+import models.entities.domain.entidades.OrganismoDeControl;
+import models.entities.domain.entidades.PrestadoraDeServicio;
 
 import javax.persistence.*;
 import java.util.ArrayList;

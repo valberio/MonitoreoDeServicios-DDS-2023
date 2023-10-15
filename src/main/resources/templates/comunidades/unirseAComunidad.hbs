@@ -1,6 +1,37 @@
 {{#partial "contenido" }}
 
+    <div class="container mt-15">
+        <div class="row justify-content-center">
+            <div class="col-md-12 borde redondeado p-4">
+                <div class="row p-4">
+                    <div class="borde redondeado d-flex justify-content-center p-2">
+                        <h1>Comunidades</h1>
+                    </div>
+                </div>
 
+                {{#each comunidades}}
+                    <div class="row borde redondeado m-2">
+                        <div class="col-md-4">
+                            <div class="p-4 mt-2 mb-2 borde d-flex align-items-center justify-content-center redondeado">
+                                <h4>{{this.nombre}}</h4>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="p-4 mt-2 mb-2 borde d-flex align-items-center justify-content-center redondeado">
+                                <h4>{{this.descripcion}}</h4>
+                            </div>
+                        </div>
+                        <div class="row d-flex align-items-center justify-content-center">
+                            <div class="col-md-3 borde redondeado d-flex justify-content-center mt-3">
+                                <a href="/comunidades/unirse" class="btn">Unirse</a>
+                            </div>
+                        </div>
+                    </div>
+                {{/each}}
+                <!-- DEBERÍA ANDAR CON ALGO EN LA BASE DE DATOS -->
+            </div>
+        </div>
+    </div>
 
 {{/partial}}
 {{> templates/baseConNavegador }}

@@ -69,6 +69,13 @@ public class UsuarioController extends Controller implements ICrudViewsHandler {
           Usuario usuario = (Usuario) this.repositorioUsuarios.buscar(Long.parseLong(id));
           Map<String, Object> model = new HashMap<>();
           model.put("usuario", usuario);
+
+          ArrayList<String> medios = (ArrayList<String>) Initializer.obtenerMedioDeNotificacionValidos();
+          ArrayList<String> modos = (ArrayList<String>) Initializer.obtenerModosDeRecepcionValidos();
+
+          model.put("medios", medios);
+          model.put("modos", modos);
+
           context.render("presentacion/editarPerfil.hbs", model);
 
      }
@@ -103,6 +110,10 @@ public class UsuarioController extends Controller implements ICrudViewsHandler {
          usuario.setEstaActivo(false);
          this.repositorioUsuarios.actualizar(usuario);
          context.redirect("/");
+     }
+
+     public void  joinCommunity(Context context){
+
      }
 
      public void addServices(Context context) {

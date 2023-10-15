@@ -1,18 +1,20 @@
 package models.repositories.datos;
 
-import models.entities.domain.comunidad.Comunidad;
+
+import models.entities.domain.incidentes.Incidente;
 import models.entities.domain.notificaciones.tiempoDeEnvio.ModoRecepcion;
 import models.entities.domain.registro.Usuario;
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 import lombok.Getter;
-import models.entities.domain.servicios.PrestacionDeServicio;
 
+
+import javax.persistence.EntityTransaction;
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
 
-public class RepositorioUsuarios implements WithSimplePersistenceUnit {
+public class RepositorioUsuarios implements WithSimplePersistenceUnit, ICrudRepository {
 
     private static RepositorioUsuarios instancia = null;
 
@@ -28,10 +30,35 @@ public class RepositorioUsuarios implements WithSimplePersistenceUnit {
         return instancia;
     }
 
-    public static void agregarUnUsuario(Usuario usuario) {
-
-        usuariosRegistrados.add(usuario);
+    @Override
+    public List buscarTodos() {
+        return entityManager().createQuery("from " + Usuario.class.getName()).getResultList();
     }
+
+    @Override
+    public Object buscar(Long id) {
+        return entityManager().find(Usuario.class, id);
+    }
+
+    @Override
+    public void guardar(Object o) {
+
+        EntityTransaction tx = entityManager().getTransaction();
+        tx.begin();
+        entityManager().persist(o);
+        tx.commit();
+    }
+
+    @Override
+    public void eliminar(Object o) {
+        entityManager().remove(o);
+    }
+
+    @Override
+    public void actualizar(Object o) {
+        withTransaction(() -> { entityManager().merge(o);});
+    }
+
 
     public static List<Usuario> getUsuariosRegistrados() { return usuariosRegistrados; }
     public void agregarUsuario(Usuario usuario ) {
@@ -65,20 +92,8 @@ public class RepositorioUsuarios implements WithSimplePersistenceUnit {
         return usuarios;
     }
 
-    public Usuario buscar(Long id) { //TODO
-        return find(Usuario.class, id);
-    }
-
-    public void actualizar(Usuario usuario) {
-        withTransaction(() -> { entityManager().merge(usuario); });
-    }
-
     public List getUsuariosPersistentes() {
-
         return entityManager().createQuery("from Usuario").getResultList();
     }
 
-    public void eliminarUsuario(Usuario usuario) {
-        entityManager().remove(usuario);
-    }
 }

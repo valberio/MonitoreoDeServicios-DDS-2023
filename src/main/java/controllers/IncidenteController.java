@@ -9,6 +9,7 @@ import models.entities.domain.incidentes.EstadoIncidente;
 import models.entities.domain.registro.Usuario;
 import models.entities.domain.servicios.PrestacionDeServicio;
 import models.repositories.datos.*;
+import server.exceptions.AccessDeniedException;
 import server.utils.ICrudViewsHandler;
 import models.entities.domain.incidentes.Incidente;
 
@@ -51,7 +52,6 @@ public class IncidenteController extends Controller implements ICrudViewsHandler
     public void create(Context context) {
 
         context.render("incidentes/aperturaIncidentes.hbs");
-
     }
 
     @Override
@@ -61,9 +61,13 @@ public class IncidenteController extends Controller implements ICrudViewsHandler
         Comunidad comunidad = null;
         String descripcion = null;
 
+        if(usuarioLogueado == null || !usuarioLogueado.tenesPermiso("reportar_incidentes")) {
+            throw new AccessDeniedException();
+        }
+
         if (context.formParam("servicio") != null) {
             Long servicioAfectadoId = (Long) this.repositorioPrestacionesDeServicio.obtenerIdDelServicioPorNombre(context.formParam("servicio"));
-            servicioAfectado = this.repositorioPrestacionesDeServicio.obtenerPrestacion(servicioAfectadoId);
+            servicioAfectado = (PrestacionDeServicio) this.repositorioPrestacionesDeServicio.buscar(servicioAfectadoId);
         }
 
         if (context.formParam("comunidad") != null) {
@@ -71,13 +75,13 @@ public class IncidenteController extends Controller implements ICrudViewsHandler
             comunidad = this.repositorioComunidades.obtenerComunidad(comunidadId);
         }
 
-        if (context.formParam("observaciones") != null) {
+        if (context.formParam("observaciones") != null) { // creo que esto por ser na string lo vamos a tener que cambiar, eze lo hizo con un object equals
             descripcion = context.formParam("observaciones");
         }
 
         Incidente incidente = new Incidente(servicioAfectado, usuarioLogueado, comunidad, descripcion);
         //this.asignarParametros(incidente, context); lo vole porque el contructor de incidente tenia mas complejidad kjj
-        this.repositorioIncidentes.agregarIncidente(incidente);
+        this.repositorioIncidentes.guardar(incidente);
         context.status(HttpStatus.CREATED);
         context.redirect("incidentes/aperturaIncidentes");
     }
@@ -95,12 +99,13 @@ public class IncidenteController extends Controller implements ICrudViewsHandler
     public void update(Context context) {
 
         Incidente incidente  = (Incidente) this.repositorioIncidentes.buscar(Long.parseLong(context.pathParam("id")));
+        Usuario usuarioLogueado =  super.usuarioLogueado(context);
 
-        Usuario usuario = (Usuario) this.repositorioUsuarios.buscar(Long.parseLong(context.sessionAttribute("id")));
+        if(usuarioLogueado == null || !usuarioLogueado.tenesPermiso("cerrar_incidentes")) {
+            throw new AccessDeniedException();
+        }
 
-
-        EstadoIncidente nuevoEstado = new EstadoIncidente(usuario, LocalDateTime.now(), incidente);
-
+        EstadoIncidente nuevoEstado = new EstadoIncidente(usuarioLogueado, LocalDateTime.now(), incidente);
         nuevoEstado.setEstado(Estado.RESUELTO);
 
         repositorioIncidentes.actualizar(incidente);
