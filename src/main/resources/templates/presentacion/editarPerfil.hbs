@@ -4,97 +4,101 @@
 <div>
     <div class="row">
         <h1>  </h1> <!-- Este es un espacio -->
-        <h1 class="col-md-12 text-center"> Editar Perfil </h1>
+        <h1 class="col-md-12 text-center"> Edita Tu Perfil </h1>
     </div>
 </div>
 
-<div class = "container-fluid">
-    <div class="row">
-        <!-- Parte de la izquierda -->
-        <div class="col-md-6">
-            <div class="row h-100 align-items-center">
-                <div class="col-md-2">
+<form method="POST" action="editar">
+    <div class = "container-fluid">
+        <div class="row">
+            <!-- Parte de la izquierda -->
+            <div class="col-md-6">
+                <div class="row h-100 align-items-center">
+                    <div class="col-md-2">
 
-                </div>
-                <div class="col-md-8">
-                    <div class="container">
-                        <div class="row justify-text-center">
-                            <div class="col-md-12 text-center">
-                                <h3>USUARIO</h3>
-                            </div>
-                        </div>
-                        <form method="post">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <input class="form-control mr-sm-2" placeholder="Nombre de usuario"></input>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <input class="form-control mr-sm-2" placeholder="Contraseña"></input>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <input class="form-control mr-sm-2" placeholder="Mail"></input>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <input class="form-control mr-sm-2" placeholder="Teléfono"></input>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <input class="form-control mr-sm-2" placeholder="Localización"></input>
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                        </div>
-                        </form>
                     </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Parte de la derecha -->
-        <div class="col-md-6">
-            <div class="row h-100 align-items-center">
-                <div class="col-md-2">
-                </div>
-                <div class="col-md-8">
-                    <div class="container">
-                        <div class="row justify-text-center">
-                            <div class="col-md-12 text-center">
-                                <h3>NOTIFICACIÓN</h3>
-                            </div>
-                        </div>
-                        <form method="post">
-                        <div class="row">
-                                <div class="form-group">
-                                    <label for="medioSelect">Medio</label>
-                                    <select class="form-control" id="medioSelect">
-                                        <option value="1">WhatsApp</option>
-                                        <option value="2">Mail</option>
-                                    </select>
+                    <div class="col-md-8">
+                        <div class="container">
+                            <div class="row justify-text-center">
+                                <div class="col-md-12 text-center">
+                                    <h3>USUARIO</h3>
                                 </div>
-                        </div>
-                        </form>
-                        <form method="post">
-                            <div class="form-group">
-                                <label for="medioSelect">Modo:</label>
-                                <select class="form-control" id="modoSelect">
-                                    <option value="1">Sincrónico</option>
-                                    <option value="2">Asincrónico</option>
-                                </select>
                             </div>
-                        </form>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label for="nombre">Nombre de usuario:</label>
+                                    <input name = "nombre" class="form-control mr-sm-2" placeholder="{{usuario.nombreDeUsuario}}" required</input>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label for="contrasena">Contraseña:</label>
+                                    <input type="password" name="contrasenia" class="form-control mr-sm-2" placeholder={{usuario.contrasenia.contrasenia}} required></input>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label for="email">Email:</label>
+                                    <input type = "email" name = "email" class="form-control mr-sm-2" placeholder={{usuario.email}} required></input>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label for="telefono">Teléfono:</label>
+                                    <input type = "telefono" name="telefono" class="form-control mr-sm-2" placeholder="{{usuario.numeroDeTelefono}}" required></input>
+                                </div>
+                            </div>
+                            <!--
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label for="localizacion">Localización:</label>
+                                    <input name="localizacion" class="form-control mr-sm-2" placeholder="Localización"></input>
+                                </div>
+                            </div>
+                            -->
+                            <div class="col-md-2">
+                            </div>
+                            <div>
+                                <input type="submit" value="Enviar">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Parte de la derecha -->
+            <div class="col-md-6">
+                <div class="row h-100 align-items-center">
+                    <div class="col-md-2">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="container">
+                            <div class="row justify-text-center">
+                                <div class="col-md-12 text-center">
+                                    <h3>NOTIFICACIÓN</h3>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
+                                    {{#each medios}}
+                                        <label for="medio{{@index}}">{{this}}</label>
+                                        <input type="radio" id="medio{{@index}}" name="medios" value="{{this}}" placeholder="Medio para recibir Notificaciones" required>
+                                    {{/each}}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                {{#each modos}}
+                                    <label for="modo{{@index}}">{{this}}</label>
+                                    <input type="radio" id="modo{{@index}}" name="modos" value="{{this}}" placeholder="Modo de Recepción" required>
+                                {{/each}}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</form>
 
 <div class="row">
     <div class="col-12 d-flex justify-content-center align-items-center">

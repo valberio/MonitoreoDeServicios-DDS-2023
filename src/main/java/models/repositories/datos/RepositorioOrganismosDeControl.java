@@ -2,11 +2,11 @@ package models.repositories.datos;
 
 import models.entities.domain.entidades.OrganismoDeControl;
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
-import models.entities.domain.registro.Usuario;
 
+import javax.persistence.EntityTransaction;
 import java.util.List;
 
-public class RepositorioOrganismosDeControl implements WithSimplePersistenceUnit {
+public class RepositorioOrganismosDeControl implements WithSimplePersistenceUnit, ICrudRepository {
 
     private static RepositorioOrganismosDeControl instancia = null;
 
@@ -15,8 +15,33 @@ public class RepositorioOrganismosDeControl implements WithSimplePersistenceUnit
         return instancia;
     }
 
-    public void agregarOrganismoDeControl(OrganismoDeControl org){
-        entityManager().persist(org);
+    @Override
+    public List buscarTodos() {
+        return entityManager().createQuery("from " + OrganismoDeControl.class.getName()).getResultList();
+    }
+
+    @Override
+    public Object buscar(Long id) {
+        return entityManager().find(OrganismoDeControl.class, id);
+    }
+
+    @Override
+    public void guardar(Object o) {
+
+        EntityTransaction tx = entityManager().getTransaction();
+        tx.begin();
+        entityManager().persist(o);
+        tx.commit();
+    }
+
+    @Override
+    public void eliminar(Object o) {
+        entityManager().remove(o);
+    }
+
+    @Override
+    public void actualizar(Object o) {
+        withTransaction(() -> { entityManager().merge(o);});
     }
 
     public boolean estaRegistrado(String cuit) {
@@ -27,15 +52,6 @@ public class RepositorioOrganismosDeControl implements WithSimplePersistenceUnit
         return !organismosDeControl.isEmpty();
     }
 
-    public void eliminarOrganismoDeControl(OrganismoDeControl organismosDeControl) {
-            entityManager().remove(organismosDeControl);
-        }
 
-        public OrganismoDeControl obtenerOrganismoDeControl(OrganismoDeControl organismoDeControl) {
-            return find(OrganismoDeControl.class, organismoDeControl.getId());
-        }
 
-    public void actualizar(OrganismoDeControl organismo) {
-        withTransaction(() -> { entityManager().merge(organismo); });
-    }
 }

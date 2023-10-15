@@ -1,32 +1,44 @@
 package models.repositories.datos;
 
-import models.entities.domain.comunidad.Comunidad;
-import models.entities.domain.registro.Usuario;
+import models.entities.domain.incidentes.Incidente;
 import models.entities.domain.servicios.PrestacionDeServicio;
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 
+import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
+import java.util.List;
 
-public class RepositorioPrestacionesDeServicio implements WithSimplePersistenceUnit {
+public class RepositorioPrestacionesDeServicio implements WithSimplePersistenceUnit, ICrudRepository {
 
-    public void agregarPrestacion(PrestacionDeServicio prestacion) {
-        withTransaction( () -> {
-            entityManager().persist(prestacion); });
+    @Override
+    public List buscarTodos() {
+        return entityManager().createQuery("from " + PrestacionDeServicio.class.getName()).getResultList();
     }
 
-    public void actualizarPrestacion(PrestacionDeServicio prestacion) {
-
-        withTransaction(() -> { entityManager().merge(prestacion); });
+    @Override
+    public Object buscar(Long id) {
+        return entityManager().find(PrestacionDeServicio.class, id);
     }
 
-    public void eliminarPrestacion(PrestacionDeServicio prestacion) {
-        withTransaction( () -> {
-            entityManager().remove(prestacion); });
+    @Override
+    public void guardar(Object o) {
+
+        EntityTransaction tx = entityManager().getTransaction();
+        tx.begin();
+        entityManager().persist(o);
+        tx.commit();
     }
 
-    public PrestacionDeServicio obtenerPrestacion(Long id) {
-        return find(PrestacionDeServicio.class, id);
+    @Override
+    public void eliminar(Object o) {
+        entityManager().remove(o);
     }
+
+    @Override
+    public void actualizar(Object o) {
+        withTransaction(() -> { entityManager().merge(o);});
+    }
+
 
     public Long obtenerIdDelServicioPorNombre(String nombrePrestacion) {
         return withTransaction(() -> {
@@ -42,9 +54,5 @@ public class RepositorioPrestacionesDeServicio implements WithSimplePersistenceU
                 return null;
             }
         });
-    }
-
-    public void actualizar(PrestacionDeServicio prestacion) {
-        withTransaction(() -> { entityManager().merge(prestacion); });
     }
 }

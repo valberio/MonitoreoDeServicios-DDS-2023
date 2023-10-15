@@ -10,4 +10,9 @@ public class ComunidadRequest {
     public Comunidad comunidad;
 
     public List<Incidente> incidentes;
+
+    public ComunidadRequest(Comunidad comunidad, List<Incidente> incidentes) {
+        this.comunidad = comunidad;
+        this.incidentes = incidentes;
+    }
 }

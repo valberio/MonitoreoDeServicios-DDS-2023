@@ -1,27 +1,27 @@
 package models.repositories.datos;
 
-import models.entities.domain.entidades.PrestadoraDeServicio;
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
-
+import models.entities.domain.roles.Permiso;
 import javax.persistence.EntityTransaction;
 import java.util.List;
 
-public class RepositorioPrestadorasDeServicio implements WithSimplePersistenceUnit,ICrudRepository {
+public class RepositorioDePermisos implements WithSimplePersistenceUnit, ICrudRepository {
 
-    private static RepositorioPrestadorasDeServicio instancia = null;
-
-    public static RepositorioPrestadorasDeServicio getInstance(){
-        if (instancia == null) {instancia = new RepositorioPrestadorasDeServicio(); }
-        return instancia;
+    public Permiso buscarPermisoPorNombre(String nombre) {
+        return (Permiso) entityManager()
+                .createQuery("from Permiso where nombreInterno = :nombre")
+                .setParameter("nombre", nombre)
+                .getSingleResult();
     }
+
     @Override
     public List buscarTodos() {
-        return entityManager().createQuery("from " + PrestadoraDeServicio.class.getName()).getResultList();
+        return entityManager().createQuery("from " + Permiso.class.getName()).getResultList();
     }
 
     @Override
     public Object buscar(Long id) {
-        return entityManager().find(PrestadoraDeServicio.class, id);
+        return entityManager().find(Permiso.class, id);
     }
 
     @Override
@@ -42,6 +42,5 @@ public class RepositorioPrestadorasDeServicio implements WithSimplePersistenceUn
     public void actualizar(Object o) {
         withTransaction(() -> { entityManager().merge(o);});
     }
-
 
 }

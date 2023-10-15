@@ -12,6 +12,7 @@ import models.entities.domain.notificaciones.medioEnvio.MedioNotificacion;
 import models.entities.domain.notificaciones.medioEnvio.WhatsApp;
 import models.entities.domain.notificaciones.tiempoDeEnvio.ModoRecepcion;
 import models.entities.domain.notificaciones.tiempoDeEnvio.PreferenciaEnvioNotificacion;
+import models.entities.domain.roles.Permiso;
 import models.entities.domain.roles.Rol;
 import models.entities.domain.services.georef.entities.Ubicacion;
 import models.entities.domain.servicios.PrestacionDeServicio;
@@ -70,6 +71,10 @@ public class Usuario extends Persistente {
     @Nullable
     @OneToMany(mappedBy="usuario", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, fetch = FetchType.LAZY)
     private List<RolFrenteAPrestacion> rolFrenteAPrestaciones;
+
+    @Nullable
+    @OneToOne
+    private Permiso permisoEspecialDeDesignado;
 
     @Transient
     private Float gradoDeConfianza;
@@ -181,8 +186,10 @@ public class Usuario extends Persistente {
     }
 
 
-    
+    public boolean tenesPermiso(String nombreInternoDePermiso) {
 
+        return this.permisoEspecialDeDesignado.coincideConNombreInterno(nombreInternoDePermiso);
+    }
 }
 
 
