@@ -78,6 +78,7 @@ public class Router {
             post("incidentes/crear", ((IncidenteController) FactoryController.controller("Incidente"))::save);
             get("incidentes/{id}/editar", ((IncidenteController) FactoryController.controller("Incidente"))::edit);
             post("incidentes/{id}/editar", ((IncidenteController) FactoryController.controller("Incidente"))::update);
+            get("incidentes/sugerencias", ((IncidenteController) FactoryController.controller("Incidente")) :: suggest);
         });
 
         Server.app().routes(() -> {

@@ -122,7 +122,7 @@ public class IncidenteController extends Controller implements ICrudViewsHandler
         //this.asignarParametros(incidente, context); lo vole porque el contructor de incidente tenia mas complejidad kjj
         this.repositorioIncidentes.guardar(incidente);
         context.status(HttpStatus.CREATED);
-        context.redirect("/");
+        context.redirect("/home");
     }
     @Override
     public void edit(Context context) {
@@ -172,6 +172,31 @@ public class IncidenteController extends Controller implements ICrudViewsHandler
     public void delete(Context context) {
 
     }
+
+    public void suggest(Context context){
+
+        Usuario usuarioLogueado =  super.usuarioLogueado(context);
+
+        if(usuarioLogueado == null || !usuarioLogueado.tenesPermiso("cerrar_incidentes")) {
+            throw new AccessDeniedException();
+        }
+
+        List<Incidente> incidentes;
+        if(usuarioLogueado.getLocalizacion() != null) {
+           incidentes = this.repositorioIncidentes.filtrarPorUbicacionCercana(usuarioLogueado.getLocalizacion());
+        }
+
+        else
+           incidentes = null;
+
+        Map<String, Object> model = new HashMap<>();
+        model.put("incidentes", incidentes);
+
+        context.render("incidentes/sugerencias.hbs", model);
+
+    }
+
+
 
 
 }

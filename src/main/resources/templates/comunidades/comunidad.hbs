@@ -34,8 +34,8 @@
         </div>
         <div class="row">
             <div class="tall-container incidentes">
-                {{#each incidentes}}
                     <div class="row borde redondeado m-3 p-2 ">
+                    {{#each incidentes}}
                     <div class="col-md-4 d-flex align-items-center justify-content-center borde redondeado me-3 ms-2 p-3">
                         <h5 class="text-center">Establecimiento: {{this.servicioAfectado.establecimiento.nombre}} </h5>
                     </div>
@@ -50,8 +50,6 @@
                         <h5 class="text-center">Estado: {{this.estado.estado}}</h5>
                     </div>
                 {{/each}}
-
-
             </div>
         </div>
     </div>
