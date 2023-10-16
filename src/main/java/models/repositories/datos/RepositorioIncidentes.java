@@ -1,5 +1,6 @@
 package models.repositories.datos;
 
+import models.entities.domain.comunidad.Comunidad;
 import models.entities.domain.incidentes.Incidente;
 import models.entities.domain.registro.Usuario;
 import models.entities.domain.services.georef.entities.Ubicacion;
@@ -98,6 +99,14 @@ public class RepositorioIncidentes implements WithSimplePersistenceUnit, ICrudRe
     public List<Incidente> getIncidentes() {
 
        return entityManager().createQuery("from Incidente").getResultList();
+    }
+
+    public List<Incidente> filtrarPorComunidad(Comunidad comunidad) {
+
+        List usuarios = entityManager().createQuery("from Incidente where comunidadDondeSeReporta = :comunidad")
+                .setParameter("comunidad", comunidad).getResultList();
+
+        return usuarios;
     }
 
 

@@ -72,6 +72,7 @@ public class Router {
         Server.app().routes(() -> {
             get("/comunidades", ((ComunidadController) FactoryController.controller("Comunidad"))::index);
             get("/comunidades/unirse", ((ComunidadController) FactoryController.controller("Comunidad"))::show);
+            get("/comunidades/{id}", ((ComunidadController) FactoryController.controller("Comunidad"))::showById);
             post("/comunidades/unirse", ((UsuarioController) FactoryController.controller("Usuario"))::joinCommunity);
             get("/comunidades/crear", ((ComunidadController) FactoryController.controller("Comunidad"))::create, TipoRol.SUPERADMINISTRADOR);
             post("/comunidades/crear", ((ComunidadController) FactoryController.controller("Comunidad"))::save, TipoRol.SUPERADMINISTRADOR);

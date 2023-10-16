@@ -3,11 +3,13 @@ package controllers;
 import io.javalin.http.Context;
 import io.javalin.http.HttpStatus;
 import models.entities.domain.comunidad.Comunidad;
+import models.entities.domain.incidentes.Incidente;
 import models.entities.domain.registro.Usuario;
 import models.entities.domain.roles.Rol;
 import models.entities.domain.servicios.PrestacionDeServicio;
 import models.entities.domain.servicios.Servicio;
 import models.repositories.datos.*;
+import org.jetbrains.annotations.NotNull;
 import server.exceptions.AccessDeniedException;
 import server.utils.ICrudViewsHandler;
 
@@ -110,6 +112,22 @@ public class ComunidadController extends Controller implements ICrudViewsHandler
             }
         }
         comunidad.setServiciosDeInteres(serviciosDeInteres);
+
+    }
+
+    public void showById(Context context) {
+
+        Comunidad comunidad = this.repositorioComunidades.obtenerComunidad(Long.parseLong(context.pathParam("id")));
+
+        Map<String, Object> model = new HashMap<>();
+        List<Incidente> incidentes = RepositorioIncidentes.getInstance().filtrarPorComunidad(comunidad);
+
+        model.put("comunidad", comunidad);
+
+        model.put("incidentes", incidentes);
+
+        context.render("comunidades/comunidad.hbs", model);
+
 
     }
 }

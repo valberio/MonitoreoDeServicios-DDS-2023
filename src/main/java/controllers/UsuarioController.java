@@ -162,9 +162,35 @@ public class UsuarioController extends Controller implements ICrudViewsHandler {
 
      }
 
-
-
      private void asignarParametros(Usuario usuario, Context context) {
+          if(!Objects.equals(context.formParam("nombre"), "")) {
+               usuario.setNombreDeUsuario(context.formParam("nombre"));
+          }
+          if(!Objects.equals(context.formParam("contrasenia"), "")) {
+               usuario.setContra(context.formParam("contrasenia"));
+          }
+          if(!Objects.equals(context.formParam("email"), "")) {
+               usuario.setEmail(context.formParam("email"));
+          }
+          if(!Objects.equals(context.formParam("telefono"), "")) {
+               usuario.setNumeroTelefono(context.formParam("telefono"));
+          }
+
+          String medio = context.formParam("medios");
+
+          if(medio!=null) {
+
+               usuario.setMedioDeNotificacion(medio);
+          }
+
+          String modo = context.formParam("modos");
+
+          if(modo!=null) {
+               usuario.setModoRecepcion(ModoRecepcion.valueOf(modo.toUpperCase()));
+          }
+     }
+
+     /*private void asignarParametros(Usuario usuario, Context context) {
           if(!Objects.equals(context.formParam("nombre"), "")) {
                usuario.setNombreDeUsuario(context.formParam("nombre"));
           }
@@ -198,7 +224,7 @@ public class UsuarioController extends Controller implements ICrudViewsHandler {
           if(modo!=null) {
                usuario.setModoRecepcion(ModoRecepcion.valueOf(modo.toUpperCase()));
           }
-     }
+     }*/
 
 
      public boolean esCorrecta(String username, String password) {
