@@ -14,16 +14,16 @@
                 <div class="tall-container incidentes">
                     <div class="row borde redondeado m-3 p-2 ">
                         <div class="col-md-4 d-flex align-items-center justify-content-center borde redondeado me-3 ms-3 p-3">
-                            <h5 class="text-center">Establecimiento</h5>
+                            <h6 class="text-center">{{establecimiento.nombre}}</h6>
                         </div>
                         <div class="col-md-3 me-3 d-flex align-items-center justify-content-center borde redondeado">
-                            <h5 class=" text-center">Servicio</h5>
+                            <h6 class=" text-center">{{servicioAfectado.nombre}}</h6>
                         </div>
                         <div class="col-md-2  me-2 d-flex align-items-center justify-content-center borde redondeado">
-                            <h5 class="text-center">Ubicación</h5>
+                            <h6 class="text-center">Ubicación</h6>
                         </div>
                         <div class="col-md-2  me-2 d-flex align-items-center justify-content-center borde redondeado">
-                            <h5 class="text-center">Estado</h5>
+                            <h6 class="text-center">{{estado}}</h6>
                         </div>
                     </div>
                 </div>
@@ -42,13 +42,16 @@
                         </div>
                     </div>
 
-                <form method="post">
+                <form method="post" action="/incidentes/{{incidente.id}}/editar">
                     <div class="row d-flex align-items-center justify-content-center mt-1">
                         <div class="col-2 d-flex justify-content-center align-items-center">
-                            <select id="menu" name="menu" class="form-select">
-                                <option value="si" href="menuPrincipal.html" class="btn borde redondeado">Sí</option>
-                                <option value="no" href="menuPrincipal.html" class="btn borde redondeado">No</option>
+                            <select id="resolucion" name="resolucion" class="form-select">
+                                <option value="si" class="btn borde redondeado">Sí</option>
+                                <option value="no" class="btn borde redondeado">No</option>
                             </select>
+                        </div>
+                        <div class="col-md-2 text-center mt-4">
+                            <button type ="submit" >Confirmar</button>
                         </div>
                     </div>
                 </form>

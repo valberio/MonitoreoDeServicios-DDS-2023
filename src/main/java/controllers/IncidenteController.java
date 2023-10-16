@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import io.javalin.http.Context;
 import io.javalin.http.HttpStatus;
 import models.entities.domain.comunidad.Comunidad;
+import models.entities.domain.entidades.Establecimiento;
 import models.entities.domain.incidentes.Estado;
 import models.entities.domain.incidentes.EstadoIncidente;
 import models.entities.domain.registro.Usuario;
@@ -42,6 +43,9 @@ public class IncidenteController extends Controller implements ICrudViewsHandler
         String id = context.sessionAttribute("id").toString();
         List<Incidente> incidentes = this.repositorioIncidentes.buscarIncidentesDeInteresPara(Long.parseLong(id));
         model.put("incidentes", incidentes);
+
+
+
         //context.result("Hola");
         context.render("presentacion/menuPrincipal.hbs", model);
     }
@@ -114,14 +118,20 @@ public class IncidenteController extends Controller implements ICrudViewsHandler
         //this.asignarParametros(incidente, context); lo vole porque el contructor de incidente tenia mas complejidad kjj
         this.repositorioIncidentes.guardar(incidente);
         context.status(HttpStatus.CREATED);
-        context.redirect("incidentes/crear");
+        context.redirect("/");
     }
     @Override
     public void edit(Context context) {
 
         Incidente incidente  = (Incidente) this.repositorioIncidentes.buscar(Long.parseLong(context.pathParam("id")));
         Map<String, Object> model = new HashMap<>();
+        PrestacionDeServicio servicioAfectado = incidente.getServicioAfectado();
+        Establecimiento establecimiento = servicioAfectado.getEstablecimiento();
+        String estado = incidente.getEstado().getEstado().toString();
         model.put("incidente", incidente);
+        model.put("establecimiento", establecimiento);
+        model.put("servicioAfectado", servicioAfectado);
+        model.put("estado", estado);
         context.render("incidentes/cierreIncidentes.hbs", model);
 
     }
@@ -136,10 +146,20 @@ public class IncidenteController extends Controller implements ICrudViewsHandler
             throw new AccessDeniedException();
         }
 
-        EstadoIncidente nuevoEstado = new EstadoIncidente(usuarioLogueado, LocalDateTime.now(), incidente);
-        nuevoEstado.setEstado(Estado.RESUELTO);
+        if(context.formParam("resolucion").toString().equals("si")) {
 
-        repositorioIncidentes.actualizar(incidente);
+            LocalDateTime fechaResolucion = LocalDateTime.now();
+            EstadoIncidente nuevoEstado = new EstadoIncidente(usuarioLogueado, fechaResolucion, incidente);
+            nuevoEstado.setEstado(Estado.RESUELTO);
+
+            incidente.setEstado(nuevoEstado);
+            incidente.setFechaResolucion(fechaResolucion);
+
+            repositorioIncidentes.actualizar(incidente);
+
+        }
+
+        context.redirect("/home");
 
     }
 

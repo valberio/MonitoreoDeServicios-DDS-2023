@@ -37,10 +37,10 @@
                 {{#each incidentes}}
                     <div class="row borde redondeado m-3 p-2 ">
                     <div class="col-md-4 d-flex align-items-center justify-content-center borde redondeado me-3 ms-2 p-3">
-                        <h5 class="text-center">Establecimiento: {{this.servicioAfectado.establecimiento}} </h5>
+                        <h5 class="text-center">Establecimiento: {{this.servicioAfectado.establecimiento.nombre}} </h5>
                     </div>
                     <div class="col-md-3 me-3 d-flex align-items-center justify-content-center borde redondeado">
-                        <h5 class=" text-center">Servicio: {{this.servicioAfectado}} </h5>
+                        <h5 class=" text-center">Servicio: {{this.servicioAfectado.nombre}} </h5>
                     </div>
                    <!--Ver
                     <div class="col-md-2  me-2 d-flex align-items-center justify-content-center borde redondeado">
