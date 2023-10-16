@@ -9,9 +9,11 @@ import models.entities.domain.entidades.cargaEntidadesyOrgDeControl;
 import models.entities.domain.incidentes.Incidente;
 import models.entities.domain.registro.Usuario;
 import models.repositories.datos.RepositorioEntidades;
+import org.apache.commons.io.FileUtils;
 import server.exceptions.AccessDeniedException;
 import server.utils.ICrudViewsHandler;
 
+import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
@@ -21,8 +23,6 @@ import java.util.Map;
 import com.opencsv.CSVReader;
 import java.io.FileReader;
 import java.io.IOException;
-
-
 
 public class CargaOrganismosYEntidadesController extends Controller implements ICrudViewsHandler {
 
@@ -46,38 +46,24 @@ public class CargaOrganismosYEntidadesController extends Controller implements I
     public void save(Context context) {
 
         Usuario usuarioLogueado = super.usuarioLogueado(context);
-
-        UploadedFile file = context.uploadedFile("csvFile");
+        cargaEntidadesyOrgDeControl cargador = new cargaEntidadesyOrgDeControl();
 
         if(usuarioLogueado == null || !usuarioLogueado.tenesPermiso("cargar_csv")) {
             throw new AccessDeniedException();
         }
-        if (file != null) {
-            // Define the destination directory and file name
-            String uploadDirectory = "../../resources/public";
-            String fileName = file.filename();
-
-            // Combine the directory and file name to create the full path
-            Path destinationPath = Path.of(uploadDirectory, fileName);
-
+        context.uploadedFiles("files").forEach(file -> {
             try {
-                // Copy the uploaded file content to the destination path
-                Files.copy(file.content(), destinationPath, StandardCopyOption.REPLACE_EXISTING);
+                File nuevoArchivo = new File("src/main/resources/subidas" + file.filename());
+                FileUtils.copyInputStreamToFile(file.content(), nuevoArchivo);
+                cargador.cargarEntidadesYOrgDeControl(nuevoArchivo.getAbsolutePath());
 
-                cargaEntidadesyOrgDeControl carga = new cargaEntidadesyOrgDeControl();
-                try {
-                    carga.cargarEntidadesYOrgDeControl(String.valueOf(destinationPath));
-                } catch (CsvValidationException e) {
-                    throw new RuntimeException(e);
-                }
 
-                context.result("File uploaded and saved successfully.");
             } catch (IOException e) {
-                context.result("Error saving the file: " + e.getMessage());
+                throw new RuntimeException(e);
+            } catch (CsvValidationException e) {
+                throw new RuntimeException(e);
             }
-        } else {
-            context.result("No file uploaded");
-        }
+        });
 
     }
 
