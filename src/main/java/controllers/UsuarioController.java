@@ -198,7 +198,8 @@ public class UsuarioController extends Controller implements ICrudViewsHandler {
                Contrasenia contrasenia = new Contrasenia(context.formParam("contrasenia"));
                if(contrasenia.esValida()) {
                     usuario.setContra(context.formParam("contrasenia"));
-               }else {
+               }
+               else{
                     String error = "Elija una contraseña más fuerte.";
                     Map<String, Object> model = new HashMap<>();
                     model.put("error", error);
