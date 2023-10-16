@@ -3,6 +3,7 @@ package server;
 
 
 import controllers.*;
+import jakarta.servlet.http.HttpSession;
 import models.entities.domain.roles.TipoRol;
 import server.exceptions.AccessDeniedException;
 import java.util.HashMap;
@@ -49,6 +50,12 @@ public class Router {
 
             get("/entidades", ((EntidadController) FactoryController.controller("Entidad"))::index);
             post("/entidades", ((UsuarioController) FactoryController.controller("Usuario"))::updateEntities);
+
+            get("/logout", ctx -> {
+                ctx.sessionAttribute("authenticated", false);
+                ctx.sessionAttribute("id", "");
+                ctx.redirect("/");
+            });
         });
 
         Server.app().routes(() -> {
