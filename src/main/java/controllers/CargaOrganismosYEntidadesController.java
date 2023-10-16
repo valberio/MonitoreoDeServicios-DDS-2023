@@ -43,7 +43,7 @@ public class CargaOrganismosYEntidadesController implements ICrudViewsHandler {
     @Override
     public void save(Context context) {
 
-        UploadedFile file = context.uploadedFile("csvFile");
+        UploadedFile file = context.uploadedFile("archivo");
 
         if (file != null) {
             // Define the destination directory and file name

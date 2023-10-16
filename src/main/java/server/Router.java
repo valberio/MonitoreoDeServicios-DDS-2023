@@ -5,6 +5,8 @@ package server;
 import controllers.*;
 import models.repositories.datos.RepositorioUsuarios;
 
+import java.io.FileInputStream;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import server.exceptions.AccessDeniedException;
@@ -62,13 +64,16 @@ public class Router {
 
         Server.app().routes(() -> {
             get("rankings", ctx -> ctx.render("presentacion/rankings.hbs"));
-            get("rankings/:rankingArchivo", ctx -> {
-                String rankingReportesPath = "../models/repositories.datos/rankingR";
-                });
-            get("rankings/:tipoRanking", ctx -> {
+            get("rankings/{tipoRanking}", ctx -> {
                 String tipoRanking = ctx.queryParam("tipoRanking");
                 Path pathAlArchivo = Paths.get("../models/repositories.datos/" + tipoRanking);
-                ctx.result();});
+                if (Files.exists(pathAlArchivo) && Files.isRegularFile(pathAlArchivo)) {
+                    ctx.result(new FileInputStream(pathAlArchivo.toFile()));
+                    ctx.header("Content-Disposition", "attachment; filename=" + tipoRanking);
+                    ctx.contentType(Files.probeContentType(pathAlArchivo));
+                } else {
+                    ctx.status(404).result("File not found");
+                }});
         });
 
         Server.app().routes(() -> {

@@ -24,7 +24,7 @@ public class CargaOrganismos {
         organismo.setNombre("CNRT");
         organismo.setCUIT("30715255703");
 
-        repoOrganismos.agregarOrganismoDeControl(organismo);
+        repoOrganismos.guardar(organismo);
 
         PrestadoraDeServicio prestadora = new PrestadoraDeServicio();
 
@@ -32,7 +32,7 @@ public class CargaOrganismos {
 
         prestadora.setOrganismoDeControl(organismo);
 
-        repoPrestadoras.agregarPrestadoraDeServicio(prestadora);
+        repoPrestadoras.guardar(prestadora);
 
         organismo.aniadirPrestadoraControlada(prestadora);
 
@@ -47,21 +47,21 @@ public class CargaOrganismos {
         Entidad entidad2 = new Entidad();
         entidad2.setNombre("Linea Sarmiento");
 
-        repositorioEntidades.agregarEntidad(entidad1);
-        repositorioEntidades.agregarEntidad(entidad2);
+        repositorioEntidades.guardar(entidad1);
+        repositorioEntidades.guardar(entidad2);
 
         Establecimiento retiro = new Establecimiento("Retiro", new Ubicacion(-34.5927,-58.3786));
         Establecimiento tigre = new Establecimiento("Tigre", new Ubicacion(-34.4255,-58.5704));
 
-        repositorioEstablecimientos.agregarEstablecimiento(retiro);
-        repositorioEstablecimientos.agregarEstablecimiento(tigre);
+        repositorioEstablecimientos.guardar(retiro);
+        repositorioEstablecimientos.guardar(tigre);
 
         Establecimiento once = new Establecimiento("Estacion Once", new Ubicacion( -34.6097,-58.4083  ));
 
         Establecimiento liniers = new Establecimiento("Estacion Liniers", new Ubicacion( -34.6432, -58.5199));
 
-        repositorioEstablecimientos.agregarEstablecimiento(once);
-        repositorioEstablecimientos.agregarEstablecimiento(liniers);
+        repositorioEstablecimientos.guardar(once);
+        repositorioEstablecimientos.guardar(liniers);
 
         entidad1.agregarEstablecimientos(retiro,tigre);
         entidad2.agregarEstablecimientos(once, liniers);

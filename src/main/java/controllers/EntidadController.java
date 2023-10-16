@@ -41,7 +41,7 @@ public class EntidadController implements ICrudViewsHandler {
         Entidad entidad = new Entidad();
         String nombre = "";
         entidad.setNombre(nombre);
-        repositorioEntidades.agregarEntidad(entidad);
+        //repositorioEntidades.(entidad);
         context.status(HttpStatus.CREATED);
     }
 
