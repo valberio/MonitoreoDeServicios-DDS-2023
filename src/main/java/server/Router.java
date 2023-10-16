@@ -9,6 +9,8 @@ import java.io.FileInputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
+import models.entities.domain.roles.TipoRol;
 import server.exceptions.AccessDeniedException;
 
 import java.nio.file.Path;
@@ -22,38 +24,36 @@ public class Router {
 
     public static void init() {
         // index
-        Server.app().before("/entidades", ctx-> {
+        Server.app().before("/entidades", ctx -> {
 
             boolean usuarioRegistrado = ctx.sessionAttribute("id") != null;
 
-            if(!usuarioRegistrado) {
+            if (!usuarioRegistrado) {
                 throw new AccessDeniedException();
             }
-                });
+        });
 
         Server.app().routes(() -> {
             get("/", ctx -> ctx.render("index/inicioSesion.hbs"));
             post("/", ctx -> {
 
-                // Comprueba si se ha enviado una solicitud POST de inicio de sesión
-                if (ctx.req().getMethod().equalsIgnoreCase("POST")) {
-                    // Lógica de autenticación, por ejemplo, verificar el usuario y contraseña
-                    String username = ctx.formParam("usuario");
-                    String password = ctx.formParam("contrasenia");
+                // Lógica de autenticación, por ejemplo, verificar el usuario y contraseña
+                String username = ctx.formParam("usuario");
+                String password = ctx.formParam("contrasenia");
 
-                    Long id = retornarIDSiCredencialesSonCorrectas(username, password);
-                    // Si las credenciales son válidas, establece una sesión para el usuario
-                    if (id != null) {
-                        ctx.sessionAttribute("authenticated", true);
-                        ctx.sessionAttribute("id", id);
-                        ctx.redirect("/home");// Redirige al usuario a la página de inicio
-                    } else {
-                        String error = "Credenciales incorrectas";
-                        Map<String, Object> model = new HashMap<>();
-                        model.put("error", error);
-                        ctx.render("index/inicioSesion.hbs", model);
-                    }
+                Long id = retornarIDSiCredencialesSonCorrectas(username, password);
+                // Si las credenciales son válidas, establece una sesión para el usuario
+                if (id != null) {
+                    ctx.sessionAttribute("authenticated", true);
+                    ctx.sessionAttribute("id", id);
+                    ctx.redirect("/home");// Redirige al usuario a la página de inicio
+                } else {
+                    String error = "Credenciales incorrectas";
+                    Map<String, Object> model = new HashMap<>();
+                    model.put("error", error);
+                    ctx.render("index/inicioSesion.hbs", model);
                 }
+
             });
             get("signup", ((UsuarioController) FactoryController.controller("Usuario"))::create);
             post("signup", ((UsuarioController) FactoryController.controller("Usuario"))::save);
@@ -78,8 +78,11 @@ public class Router {
 
         Server.app().routes(() -> {
             get("/comunidades", ((ComunidadController) FactoryController.controller("Comunidad"))::index);
-            get("/comunidades/unirse", ((UsuarioController) FactoryController.controller("Usuario"))::joinCommunity);
-            get("/comunidades/crear", ((ComunidadController) FactoryController.controller("Comunidad"))::create);
+            get("/comunidades/unirse", ((ComunidadController) FactoryController.controller("Comunidad"))::show);
+            get("/comunidades/{id}", ((ComunidadController) FactoryController.controller("Comunidad"))::showById);
+            post("/comunidades/unirse", ((UsuarioController) FactoryController.controller("Usuario"))::joinCommunity);
+            get("/comunidades/crear", ((ComunidadController) FactoryController.controller("Comunidad"))::create, TipoRol.SUPERADMINISTRADOR);
+            post("/comunidades/crear", ((ComunidadController) FactoryController.controller("Comunidad"))::save, TipoRol.SUPERADMINISTRADOR);
         });
 
         Server.app().routes(() -> {
@@ -97,7 +100,7 @@ public class Router {
 
         Server.app().routes(() -> {
             get("cargadatos/", ((CargaOrganismosYEntidadesController) FactoryController.controller("CargaOrganismosYEntidadesController"))::index);
-            post("cargadatos/", ((CargaOrganismosYEntidadesController) FactoryController.controller("CargaOrganismosYEntidadesController"))::save);
+            post("cargadatos/", ((CargaOrganismosYEntidadesController) FactoryController.controller("CargaOrganismosYEntidadesController"))::save, TipoRol.SUPERADMINISTRADOR);
         });
         // presentacion
 

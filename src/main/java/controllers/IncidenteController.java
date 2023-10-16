@@ -39,6 +39,7 @@ public class IncidenteController extends Controller implements ICrudViewsHandler
         String id = context.sessionAttribute("id").toString();
         List<Incidente> incidentes = this.repositorioIncidentes.buscarIncidentesDeInteresPara(Long.parseLong(id));
         model.put("incidentes", incidentes);
+        //context.result("Hola");
         context.render("presentacion/menuPrincipal.hbs", model);
     }
 

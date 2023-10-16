@@ -1,14 +1,12 @@
 package server.utils;
 
+import models.entities.domain.comunidad.Comunidad;
 import models.entities.domain.entidades.Entidad;
 import models.entities.domain.entidades.Establecimiento;
 import models.entities.domain.entidades.OrganismoDeControl;
 import models.entities.domain.entidades.PrestadoraDeServicio;
 import models.entities.domain.services.georef.entities.Ubicacion;
-import models.repositories.datos.RepositorioEntidades;
-import models.repositories.datos.RepositorioEstablecimientos;
-import models.repositories.datos.RepositorioOrganismosDeControl;
-import models.repositories.datos.RepositorioPrestadorasDeServicio;
+import models.repositories.datos.*;
 import server.Server;
 
 public class CargaOrganismos {
@@ -73,6 +71,24 @@ public class CargaOrganismos {
         prestadora.aniadirEntidad(entidad2);
 
         repoPrestadoras.actualizar(prestadora);
+
+        Comunidad comunidad = new Comunidad();
+
+        comunidad.setNombre("UTNIANOS");
+
+        comunidad.setDescripcion("Interesados en ver los servicios alrededor de nuestra querida universidad");
+
+        new RepositorioComunidades().guardar(comunidad);
+
+        Comunidad unaComunidad = new Comunidad();
+
+        unaComunidad.setNombre("Diseñadoras, no graficas");
+
+        unaComunidad.setDescripcion("Aquellas personas a las que nunca les anda Javalin");
+
+        new RepositorioComunidades().guardar(unaComunidad);
+
+
 
 
     }

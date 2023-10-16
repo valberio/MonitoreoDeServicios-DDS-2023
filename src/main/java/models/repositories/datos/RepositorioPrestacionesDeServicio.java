@@ -43,7 +43,7 @@ public class RepositorioPrestacionesDeServicio implements WithSimplePersistenceU
     public Long obtenerIdDelServicioPorNombre(String nombrePrestacion) {
         return withTransaction(() -> {
             TypedQuery<PrestacionDeServicio> query = entityManager().createQuery(
-                    "SELECT s FROM Servicio s WHERE s.nombre = :nombre", PrestacionDeServicio.class);
+                    "SELECT s FROM PrestacionDeServicio s WHERE s.nombre = :nombre", PrestacionDeServicio.class);
             query.setParameter("nombre", nombrePrestacion);
 
             PrestacionDeServicio servicio = query.getSingleResult();

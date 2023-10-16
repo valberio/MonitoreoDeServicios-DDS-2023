@@ -24,6 +24,14 @@
                         <hr>
                     </div>
                 </div>
+                    <div class="row">
+                        <div class="col-md-12>
+                            {{#each servicios}}
+                            <label for="servicio{{@index}}">{{this.tipoServicio}}</label>
+                            <input type="checkbox" id="servicio{{@index}}" name="servicios" value="{{this.tipoServicio}}">
+                            {{/each}}
+                        </div>
+                    </div>
                 </form>
                 <div class="row d-flex align-items-center justify-content-center">
                     <div class="col-md-3 borde redondeado d-flex justify-content-center mt-3">

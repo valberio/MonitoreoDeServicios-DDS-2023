@@ -7,7 +7,9 @@ import io.javalin.http.UploadedFile;
 import models.entities.domain.entidades.Entidad;
 import models.entities.domain.entidades.cargaEntidadesyOrgDeControl;
 import models.entities.domain.incidentes.Incidente;
+import models.entities.domain.registro.Usuario;
 import models.repositories.datos.RepositorioEntidades;
+import server.exceptions.AccessDeniedException;
 import server.utils.ICrudViewsHandler;
 
 import java.nio.file.Files;
@@ -22,7 +24,7 @@ import java.io.IOException;
 
 
 
-public class CargaOrganismosYEntidadesController implements ICrudViewsHandler {
+public class CargaOrganismosYEntidadesController extends Controller implements ICrudViewsHandler {
 
     @Override
     public void index(Context context) {
@@ -43,8 +45,13 @@ public class CargaOrganismosYEntidadesController implements ICrudViewsHandler {
     @Override
     public void save(Context context) {
 
-        UploadedFile file = context.uploadedFile("archivo");
+        Usuario usuarioLogueado = super.usuarioLogueado(context);
 
+        UploadedFile file = context.uploadedFile("csvFile");
+
+        if(usuarioLogueado == null || !usuarioLogueado.tenesPermiso("cargar_csv")) {
+            throw new AccessDeniedException();
+        }
         if (file != null) {
             // Define the destination directory and file name
             String uploadDirectory = "../../resources/public";

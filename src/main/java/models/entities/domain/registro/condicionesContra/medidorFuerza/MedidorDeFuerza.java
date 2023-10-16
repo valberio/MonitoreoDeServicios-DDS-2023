@@ -5,10 +5,10 @@ import models.entities.domain.registro.Contrasenia;
 
 public abstract class MedidorDeFuerza {
 
-    public void fuerza(Contrasenia contrasenia) {
+    public String fuerza(Contrasenia contrasenia) {
 
         String className = this.getClass().getSimpleName();
-        System.out.println("Contrasenia:" + className);
+        return className;
 
     }
 

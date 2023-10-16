@@ -33,6 +33,7 @@ public class RankingPromedioTest {
 
     Comunidad comunidad = new Comunidad();
     RepositorioComunidades repoComunidades = new RepositorioComunidades();
+    RepositorioUsuarios repoUsuarios = new RepositorioUsuarios();
 
     PreferenciaEnvioNotificacion pref = new PreferenciaEnvioNotificacion(new WhatsApp(), ModoRecepcion.SINCRONICA);
 
@@ -57,7 +58,7 @@ public class RankingPromedioTest {
     void inicializar() {
 
         usuario.setPreferencias(pref);
-        RepositorioUsuarios.agregarUnUsuario(usuario);
+        repoUsuarios.guardar(usuario);
 
         UTN.setNombre("UTN");
         UTN.agregarEstablecimientos(sedeLugano, sedeMedrano);
@@ -70,7 +71,7 @@ public class RankingPromedioTest {
         facultadIng.setEntidad(entidadConMuyMalPromedio);
         usuario.agregarEntidadesDeInteres(entidadConMuyMalPromedio);
 
-        repoComunidades.agregarComunidad(comunidad);
+        repoComunidades.guardar(comunidad);
 
     }
 

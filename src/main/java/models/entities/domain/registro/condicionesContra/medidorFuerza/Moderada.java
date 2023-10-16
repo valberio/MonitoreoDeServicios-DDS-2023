@@ -7,12 +7,12 @@ public class Moderada extends MedidorDeFuerza{
     // Para que sea moderada tiene > 10 caracteres, incluye números y letras May y minus
 
     @Override
-    public void fuerza(Contrasenia contrasenia) {
+    public String fuerza(Contrasenia contrasenia) {
 
         if (this.cumpleCondicionesParaFuerte(contrasenia)) {
             contrasenia.setFuerza(new Fuerte());
         }
-        super.fuerza(contrasenia);
+        return super.fuerza(contrasenia);
    }
 
     private boolean cumpleCondicionesParaFuerte(Contrasenia contrasenia) {

@@ -72,8 +72,8 @@ public class serviciosDeInteresTest {
         brindarBanioTigre.deshabilitar();
         brindarEscalera.deshabilitar();
 
-        new RepositorioPrestacionesDeServicio().actualizarPrestacion(brindarBanioTigre);
-        new RepositorioPrestacionesDeServicio().actualizarPrestacion(brindarEscalera);
+        new RepositorioPrestacionesDeServicio().actualizar(brindarBanioTigre);
+        new RepositorioPrestacionesDeServicio().actualizar(brindarEscalera);
 
     }
     @Test

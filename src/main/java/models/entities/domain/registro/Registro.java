@@ -28,7 +28,7 @@ public class Registro {
             nuevoUsuario.setContrasenia(contrasenia);
             nuevoUsuario.setEmail(email);
             nuevoUsuario.setPreferencias(preferenciaEnvioNotificacion);
-            RepositorioUsuarios.getInstance().agregarUsuario(nuevoUsuario);
+            repositorioUsuarios.guardar(nuevoUsuario);
             contrasenia.mostrarFuerza();
         }
     }
