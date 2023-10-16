@@ -132,10 +132,12 @@ public class IncidenteController extends Controller implements ICrudViewsHandler
         PrestacionDeServicio servicioAfectado = incidente.getServicioAfectado();
         Establecimiento establecimiento = servicioAfectado.getEstablecimiento();
         String estado = incidente.getEstado().getEstado().toString();
+        String descripcion =  incidente.getDescripcion();
         model.put("incidente", incidente);
         model.put("establecimiento", establecimiento);
         model.put("servicioAfectado", servicioAfectado);
         model.put("estado", estado);
+        model.put("")
         context.render("incidentes/cierreIncidentes.hbs", model);
 
     }
