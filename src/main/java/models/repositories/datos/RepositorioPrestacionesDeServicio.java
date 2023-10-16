@@ -36,23 +36,17 @@ public class RepositorioPrestacionesDeServicio implements WithSimplePersistenceU
 
     @Override
     public void actualizar(Object o) {
-        withTransaction(() -> { entityManager().merge(o);});
+        withTransaction(() -> {
+            entityManager().merge(o);
+        });
     }
 
 
     public Long obtenerIdDelServicioPorNombre(String nombrePrestacion) {
-        return withTransaction(() -> {
-            TypedQuery<PrestacionDeServicio> query = entityManager().createQuery(
-                    "SELECT s FROM PrestacionDeServicio s WHERE s.nombre = :nombre", PrestacionDeServicio.class);
-            query.setParameter("nombre", nombrePrestacion);
+        List entidades = entityManager().createQuery("from PrestacionDeServicio where nombre = :nombre")
+                .setParameter("nombre", nombrePrestacion).getResultList();
 
-            PrestacionDeServicio servicio = query.getSingleResult();
-
-            if (servicio != null) {
-                return servicio.getId();
-            } else {
-                return null;
-            }
-        });
+        return ((PrestacionDeServicio) entidades.get(0)).getId();
     }
+
 }

@@ -1,6 +1,7 @@
 package controllers;
 
 
+import com.google.gson.Gson;
 import io.javalin.http.Context;
 import io.javalin.http.HttpStatus;
 import models.entities.domain.comunidad.Comunidad;
@@ -57,7 +58,7 @@ public class IncidenteController extends Controller implements ICrudViewsHandler
         String id = context.sessionAttribute("id").toString();
         List<Long> idComunidades = this.repositorioComunidades.buscarComunidadesDe(Long.parseLong(id));
         List<Comunidad> comunidades = new ArrayList<>();
-        List<PrestacionDeServicio> prestacionesDeServicios = new ArrayList<>();
+        List<PrestacionDeServicio> prestacionesDeServicios = new ArrayList();
 
         for(Long idComunidad: idComunidades) {
             comunidades.add(this.repositorioComunidades.obtenerComunidad(idComunidad));
@@ -72,11 +73,10 @@ public class IncidenteController extends Controller implements ICrudViewsHandler
 
             prestacionesDeServicios = comunidad.getServiciosDeInteres();
 
-            if (comunidad!=null) {
+            if (comunidad != null) {
                 model.put("comunidadSeleccionada", comunidad);
                 prestacionesDeServicios = comunidad.getServiciosDeInteres();
             }
-
         }
 
         model.put("comunidades", comunidades);
@@ -97,7 +97,7 @@ public class IncidenteController extends Controller implements ICrudViewsHandler
         }
 
         if (context.formParam("servicio") != null) {
-            Long servicioAfectadoId = (Long) this.repositorioPrestacionesDeServicio.obtenerIdDelServicioPorNombre(context.formParam("servicio"));
+            Long servicioAfectadoId = Long.parseLong(context.formParam("servicio"));
             servicioAfectado = (PrestacionDeServicio) this.repositorioPrestacionesDeServicio.buscar(servicioAfectadoId);
         }
 
@@ -114,7 +114,7 @@ public class IncidenteController extends Controller implements ICrudViewsHandler
         //this.asignarParametros(incidente, context); lo vole porque el contructor de incidente tenia mas complejidad kjj
         this.repositorioIncidentes.guardar(incidente);
         context.status(HttpStatus.CREATED);
-        context.redirect("incidentes/aperturaIncidentes");
+        context.redirect("incidentes/crear");
     }
     @Override
     public void edit(Context context) {

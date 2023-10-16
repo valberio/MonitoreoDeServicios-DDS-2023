@@ -19,7 +19,7 @@ public class RepositorioComunidades implements WithSimplePersistenceUnit, ICrudR
     public Long obtenerIdDeComunidadPorNombre(String nombreComunidad) {
         return withTransaction(() -> {
             TypedQuery<Comunidad> query = entityManager().createQuery(
-                    "SELECT s FROM Servicio s WHERE s.nombre = :nombre", Comunidad.class);
+                    "SELECT c FROM Comunidad c WHERE c.nombre = :nombre", Comunidad.class);
             query.setParameter("nombre", nombreComunidad);
 
             Comunidad comunidad = query.getSingleResult();
