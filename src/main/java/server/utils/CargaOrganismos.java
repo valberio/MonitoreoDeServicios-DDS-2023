@@ -12,7 +12,7 @@ import server.Server;
 public class CargaOrganismos {
     public static void main(String[] args){
 
-        /*RepositorioOrganismosDeControl repoOrganismos = new  RepositorioOrganismosDeControl();
+        RepositorioOrganismosDeControl repoOrganismos = new  RepositorioOrganismosDeControl();
         RepositorioPrestadorasDeServicio repoPrestadoras = new RepositorioPrestadorasDeServicio();
         RepositorioEntidades repositorioEntidades =new RepositorioEntidades();
         RepositorioEstablecimientos repositorioEstablecimientos = new RepositorioEstablecimientos();
@@ -70,7 +70,7 @@ public class CargaOrganismos {
         prestadora.aniadirEntidad(entidad1);
         prestadora.aniadirEntidad(entidad2);
 
-        repoPrestadoras.actualizar(prestadora);*/
+        repoPrestadoras.actualizar(prestadora);
 
         Comunidad comunidad = new Comunidad();
 
@@ -79,6 +79,17 @@ public class CargaOrganismos {
         comunidad.setDescripcion("Interesados en ver los servicios alrededor de nuestra querida universidad");
 
         new RepositorioComunidades().guardar(comunidad);
+
+        Comunidad unaComunidad = new Comunidad();
+
+        unaComunidad.setNombre("Diseñadoras, no graficas");
+
+        unaComunidad.setDescripcion("Aquellas personas a las que nunca les anda Javalin");
+
+        new RepositorioComunidades().guardar(unaComunidad);
+
+
+
 
     }
 

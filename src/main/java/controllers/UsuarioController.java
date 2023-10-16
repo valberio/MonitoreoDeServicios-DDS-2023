@@ -4,6 +4,8 @@ import io.javalin.http.HttpStatus;
 import models.entities.domain.comunidad.Comunidad;
 import models.entities.domain.entidades.Entidad;
 import models.entities.domain.notificaciones.tiempoDeEnvio.ModoRecepcion;
+import models.entities.domain.registro.Contrasenia;
+import models.entities.domain.registro.Validador;
 import models.entities.domain.roles.Rol;
 import models.repositories.datos.RepositorioComunidades;
 import models.repositories.datos.RepositorioDeRoles;
@@ -167,7 +169,15 @@ public class UsuarioController extends Controller implements ICrudViewsHandler {
                usuario.setNombreDeUsuario(context.formParam("nombre"));
           }
           if(!Objects.equals(context.formParam("contrasenia"), "")) {
-               usuario.setContra(context.formParam("contrasenia"));
+               Contrasenia contrasenia = new Contrasenia(context.formParam("contrasenia"));
+               if(contrasenia.esValida()) {
+                    usuario.setContra(context.formParam("contrasenia"));
+               }else {
+                    String error = "Elija una contraseña más fuerte.";
+                    Map<String, Object> model = new HashMap<>();
+                    model.put("error", error);
+                    context.render("index/registro.hbs", model);
+               }
           }
           if(!Objects.equals(context.formParam("email"), "")) {
                usuario.setEmail(context.formParam("email"));

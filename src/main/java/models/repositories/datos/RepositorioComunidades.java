@@ -64,7 +64,7 @@ public class RepositorioComunidades implements WithSimplePersistenceUnit, ICrudR
     public List<Long> buscarComunidadesDe(long idUsuario) {
 
         // Define la consulta JPQL con un parámetro
-        String sql = "SELECT comunidad_id FROM comunidad_usuario WHERE usuarios_id = :usuarioId";
+        String sql = "SELECT comunidad_id FROM comunidad_usuario WHERE miembros_id = :usuarioId";
 
         // Crea una instancia de Query y asigna el parámetro
         Query query = entityManager().createNativeQuery(sql);

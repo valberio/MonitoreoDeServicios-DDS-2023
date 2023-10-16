@@ -22,6 +22,9 @@ public class PrestacionDeServicio extends Persistente {
     @JoinColumn(name="establecimiento_id", referencedColumnName = "id")
     private Establecimiento establecimiento;
 
+    @Column(name="nombre")
+    private String nombre;
+
     public PrestacionDeServicio() {
     }
 

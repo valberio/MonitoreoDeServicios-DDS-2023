@@ -6,10 +6,8 @@ import models.entities.domain.comunidad.Comunidad;
 import models.entities.domain.registro.Usuario;
 import models.entities.domain.roles.Rol;
 import models.entities.domain.servicios.PrestacionDeServicio;
-import models.repositories.datos.RepositorioComunidades;
-import models.repositories.datos.RepositorioDeRoles;
-import models.repositories.datos.RepositorioPrestacionesDeServicio;
-import models.repositories.datos.RepositorioUsuarios;
+import models.entities.domain.servicios.Servicio;
+import models.repositories.datos.*;
 import server.exceptions.AccessDeniedException;
 import server.utils.ICrudViewsHandler;
 
@@ -20,6 +18,7 @@ public class ComunidadController extends Controller implements ICrudViewsHandler
     private RepositorioComunidades repositorioComunidades;
     private RepositorioUsuarios repositorioUsuarios;
     private RepositorioPrestacionesDeServicio repositorioPrestacionesDeServicio;
+    private RepositorioServicios repositorioServicios;
 
     public ComunidadController(RepositorioComunidades repositorioComunidades, RepositorioUsuarios repositorioUsuarios, RepositorioPrestacionesDeServicio repositorioPrestacionesDeServicio) {
         this.repositorioComunidades = repositorioComunidades;
@@ -56,11 +55,12 @@ public class ComunidadController extends Controller implements ICrudViewsHandler
     @Override
     public void create(Context context) {
         //Valido unicamente para SuperAdmin de la plataforma
+        RepositorioServicios repositorio = new RepositorioServicios();
         Map<String, Object> model = new HashMap<>();
         String id = context.sessionAttribute("id").toString();
-
-            context.render("comunidades/crearComunidades.hbs");
-
+        List<Servicio> servicios = repositorio.buscarTodos();
+        model.put("servicios", servicios);
+        context.render("comunidades/crearComunidades.hbs", model);
     }
 
     @Override
@@ -85,6 +85,9 @@ public class ComunidadController extends Controller implements ICrudViewsHandler
 
     @Override
     public void delete(Context context) {
+        Comunidad comunidad = (Comunidad) this.repositorioComunidades.buscar(Long.parseLong(context.pathParam("id")));
+        this.repositorioComunidades.eliminar(comunidad);
+        context.redirect("/comunidades");
 
     }
 
@@ -96,7 +99,7 @@ public class ComunidadController extends Controller implements ICrudViewsHandler
             comunidad.setDescripcion(context.formParam("descripcion"));
         }
 
-        String[] serviciosInteres = context.formParams("serviciosInteres").toArray(new String[0]);
+        String[] serviciosInteres = context.formParams("servicios").toArray(new String[0]);
         List<PrestacionDeServicio> serviciosDeInteres = new ArrayList<>();
 
         if (serviciosInteres != null) {

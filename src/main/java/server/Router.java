@@ -16,7 +16,6 @@ import java.util.Map;
 import static io.javalin.apibuilder.ApiBuilder.*;
 
 public class Router {
-
     public static void init() {
         // index
         Server.app().before("/entidades", ctx -> {
