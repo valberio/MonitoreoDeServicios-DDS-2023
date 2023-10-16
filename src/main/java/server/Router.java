@@ -63,34 +63,10 @@ public class Router {
         });
 
         Server.app().routes(() -> {
-            get("rankings", ctx -> ctx.render("presentacion/rankings.hbs"));
-            get("rankings/rankingReportes", ctx -> {
-                Path pathAlArchivo = Paths.get("src/main/java/models/repositories/datos/rankingReportes.csv");
-                if (Files.exists(pathAlArchivo)) {
-                    ctx.result(new FileInputStream(pathAlArchivo.toFile()));
-                    ctx.header("Content-Disposition", "attachment; filename=rankingReportes.csv");
-                    ctx.contentType(Files.probeContentType(pathAlArchivo));
-                } else {
-                    ctx.status(404).result("File not found");
-                }});
-            get("rankings/rankingImpactoIncidentes", ctx -> {
-                Path pathAlArchivo = Paths.get("src/main/java/models/repositories/datos/rankingImpactoIncidentes.csv");
-                if (Files.exists(pathAlArchivo)) {
-                    ctx.result(new FileInputStream(pathAlArchivo.toFile()));
-                    ctx.header("Content-Disposition", "attachment; filename=rankingImpactoIncidentes.csv");
-                    ctx.contentType(Files.probeContentType(pathAlArchivo));
-                } else {
-                    ctx.status(404).result("File not found");
-                }});
-            get("rankings/rankingPromedioCierre", ctx -> {
-                Path pathAlArchivo = Paths.get("src/main/java/models/repositories/datos/rankingPromedioCierre.csv");
-                if (Files.exists(pathAlArchivo)) {
-                    ctx.result(new FileInputStream(pathAlArchivo.toFile()));
-                    ctx.header("Content-Disposition", "attachment; filename=rankingPromedioCierre.csv");
-                    ctx.contentType(Files.probeContentType(pathAlArchivo));
-                } else {
-                    ctx.status(404).result("File not found");
-                }});
+            get("rankings", ((RankingController) FactoryController.controller("Ranking"))::show);
+            get("rankings/rankingReportes", ((RankingController) FactoryController.controller("Ranking"))::rankingReportes);
+            get("rankings/rankingImpactoIncidentes", ((RankingController) FactoryController.controller("Ranking"))::rankingImpactoIncidentes);
+            get("rankings/rankingPromedioCierre", ((RankingController) FactoryController.controller("Ranking"))::rankingPromedioCierre);
         });
 
         Server.app().routes(() -> {
