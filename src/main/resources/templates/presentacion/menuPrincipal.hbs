@@ -16,6 +16,16 @@
             <div class="row borde redondeado m-2 p-1">
                 <h5><a href = "/comunidades/unirse" > Unirte a comunidad</a></h5>
             </div>
+            {{#if permisoCSV}}
+                <div class="row borde redondeado m-2 p-1">
+                    <h5><a href = "/cargadatos">Carga de Reguladores</a></h5>
+                </div>
+            {{/if}}
+            {{#if permisoRankings}}
+                <div class="row borde redondeado m-2 p-1">
+                    <h5><a href = "/rankings" >Ver rankings</a></h5>
+                </div>
+            {{/if}}
         </div>
         <div class="col-8 borde ml-3 mr-3">
             <div class="container mt-3">

@@ -17,10 +17,7 @@ import server.utils.ICrudViewsHandler;
 import models.entities.domain.incidentes.Incidente;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.List;
+import java.util.*;
 
 public class IncidenteController extends Controller implements ICrudViewsHandler {
     private RepositorioIncidentes repositorioIncidentes;
@@ -40,11 +37,18 @@ public class IncidenteController extends Controller implements ICrudViewsHandler
     @Override
     public void index(Context context) {
         Map<String, Object> model = new HashMap<>();
-        String id = context.sessionAttribute("id").toString();
+        String id = Objects.requireNonNull(context.sessionAttribute("id")).toString();
+        Usuario usuario = (Usuario) this.repositorioUsuarios.buscar(Long.parseLong(id));
         List<Incidente> incidentes = this.repositorioIncidentes.buscarIncidentesDeInteresPara(Long.parseLong(id));
         model.put("incidentes", incidentes);
 
+        //Aca tengo que buscar los permisos del usuario, tengo que saber: 1. si puede leer CSV
+        //2. si puede ver los rankings
+        Boolean permisoCSV = usuario.tenesPermiso("cargar_csv");
+        Boolean permisoRanking = usuario.tenesPermiso("ver_rankings");
 
+        model.put("permisoCSV", permisoCSV);
+        model.put("permisoRanking", permisoRanking);
 
         //context.result("Hola");
         context.render("presentacion/menuPrincipal.hbs", model);
@@ -147,6 +151,7 @@ public class IncidenteController extends Controller implements ICrudViewsHandler
         }
 
         if(context.formParam("resolucion").toString().equals("si")) {
+
 
             LocalDateTime fechaResolucion = LocalDateTime.now();
             EstadoIncidente nuevoEstado = new EstadoIncidente(usuarioLogueado, fechaResolucion, incidente);

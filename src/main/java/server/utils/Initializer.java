@@ -34,7 +34,7 @@ public class Initializer implements WithSimplePersistenceUnit {
     private Initializer permisos() {
         String[][] permisos = {
                 //Miembros de una comunidad
-                { "Reportar incidentes en comunidad", "reportar_incidentes" },
+                { "Reportar incidentes en comunidad", "reportar_incidentes"},
                 { "Cerrar incidentes", "cerrar_incidentes" },
                 {"Ver incidentes en comunidad", "ver_incidentes"},
                 //Admin de una comunidad
@@ -46,6 +46,9 @@ public class Initializer implements WithSimplePersistenceUnit {
                 //SuperAdmin
                 { "Cargar archivo CSV", "cargar_csv" },
                 {"Crear comunidades", "crear_comunidades"},
+
+                //Ver rankings (?
+                {"Ver rankings", "ver_rankings"}
         };
 
         for(String[] unPermiso: permisos) {
