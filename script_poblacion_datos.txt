@@ -1,0 +1,97 @@
+USE tpa_dds;
+
+SET foreign_key_checks = 0;
+TRUNCATE comunidad;
+TRUNCATE comunidad_prestacion_de_servicio;
+TRUNCATE comunidad_usuario;
+TRUNCATE entidad;
+TRUNCATE establecimiento;
+TRUNCATE estado_incidente;
+TRUNCATE incidente;
+TRUNCATE organismo_de_control;
+TRUNCATE permiso;
+TRUNCATE prestacion_de_servicio;
+TRUNCATE prestadora_de_servicio;
+TRUNCATE rol;
+TRUNCATE rol_contra_prestación;
+TRUNCATE rol_permiso;
+TRUNCATE servicio;
+TRUNCATE usuario;
+TRUNCATE usuario_entidad;
+TRUNCATE usuario_horario_disponible;
+TRUNCATE usurio_rol;
+SET foreign_key_checks = 1;
+
+--Inserto todos los permisos
+insert into permiso(id, nombre, nombreInterno)
+values (1, "Reportar incidentes en comunidad", "reportar_incidentes");
+insert into permiso(id, nombre, nombreInterno)
+values (2, "Cerrar incidentes",  "cerrar_incidentes");
+insert into permiso(id, nombre, nombreInterno)
+values (3, "Ver incidentes en comunidad", "ver_incidentes");
+insert into permiso(id, nombre, nombreInterno)
+values ( 4, "Editar comunidad", "editar_comunidad" );
+insert into permiso(id, nombre, nombreInterno)
+values (  5,"Ver miembros de una comunidad", "ver_participantes");
+insert into permiso(id, nombre, nombreInterno)
+values ( 6,"Validar publicaciones de los miembros de la comunidad", "controlar_miembros");
+insert into permiso(id, nombre, nombreInterno)
+values ( 7, "Designar servicios de interes para la comunidad", "registrar_servicios");
+insert into permiso(id, nombre, nombreInterno)
+values ( 8, "Cargar archivo CSV", "cargar_csv" );
+insert into permiso(id, nombre, nombreInterno)
+values ( 9, "Crear comunidades", "crear_comunidades");
+insert into permiso(id, nombre, nombreInterno)
+values ( 10, "Designar servicios de interes para la comunidad", "registrar_servicios");
+insert into permiso(id, nombre, nombreInterno)
+values (11, "Ver rankings", "ver_rankings");
+
+--ROLES
+
+--USUARIO SUPERADMIN
+insert into rol (id, nombre, tipo)
+values (1, "Superadmin", "superadmin");
+
+insert into rol_permiso(rol_id, permisos_id) values(1, 1);
+insert into rol_permiso(rol_id, permisos_id) values(1, 2);
+insert into rol_permiso(rol_id, permisos_id) values(1, 3);
+insert into rol_permiso(rol_id, permisos_id) values(1, 4);
+insert into rol_permiso(rol_id, permisos_id) values(1, 5);
+insert into rol_permiso(rol_id, permisos_id) values(1, 6);
+insert into rol_permiso(rol_id, permisos_id) values(1, 7);
+insert into rol_permiso(rol_id, permisos_id) values(1, 8);
+insert into rol_permiso(rol_id, permisos_id) values(1, 9);
+insert into rol_permiso(rol_id, permisos_id) values(1, 10);
+insert into rol_permiso(rol_id, permisos_id) values(1, 11);
+
+insert into usuario (id, contrasenia, email, nombreDeUsuario)
+values (1, "superadmin", "superadmin@gmail.com", "superadmin");
+insert into usuario_rol(usuario_id, roles_id) values (1, 1);
+
+--CREO SERVICIOS
+insert into servicio(descripcion, tipoServicio) values ("Baño de mujeres", "Baño");
+insert into servicio(descripcion, tipoServicio) values ("Baño de hombres", "Baño");
+insert into servicio(descripcion, tipoServicio) values ("Ascensor", "Ascensor");
+insert into servicio(descripcion, tipoServicio) values ("Escalera mecánica", "Escalera mecánica");
+
+--Creo prestadoras de servicio
+insert into prestadora_de_servicio (nombre) values ("UTN");
+insert into prestadora_de_servicio (nombre) values ("Trenes Argentinos");
+select * from prestadora_de_servicio
+--Creo entidades
+insert into entidad (nombre, prestadora_de_servicio_id) values ("Sede Medrano", 1);
+insert into entidad (nombre, prestadora_de_servicio_id) values ("Línea Roca", 2);
+insert into entidad (nombre, prestadora_de_servicio_id) values ("Línea Belgrano", 3);
+--Creo establecimientos
+insert into establecimiento (nombre, lat, lon, entidad_id) values ("Planta baja",-34.59887, -58.42015, 1 );
+insert into establecimiento (nombre, lat, lon, entidad_id) values ("Estación Banfield",-34.75, -58.4, 2 );
+insert into establecimiento (nombre, lat, lon, entidad_id) values ("Estación Banfield",-34.5627,  -58.45829, 3 );
+--Creo prestaciones de servicio
+insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (1, 1);
+insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (2, 2);
+insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (3, 3);
+
+--Creo comunidad
+insert into comunidad (nombre, descripcion) values ("UTNIANOS", "Alumnos de la UTN");
+--Añado servicios de interes
+insert into comunidad_prestacion_de_servicio (comunidad_id, serviciosDeInteres_id) values (1, 1);
