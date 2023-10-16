@@ -48,7 +48,8 @@ public class ComunidadController extends Controller implements ICrudViewsHandler
     @Override
     public void show(Context context) {
         Map<String, Object> model = new HashMap<>();
-        List<Comunidad> comunidades = this.repositorioComunidades.buscarTodos();
+        String id = context.sessionAttribute("id").toString();
+        List<Comunidad> comunidades = this.repositorioComunidades.buscarComunidadesNoDe(Long.parseLong(id));
         model.put("comunidades", comunidades);
         context.render("comunidades/unirseAComunidad.hbs", model);
 
@@ -127,7 +128,6 @@ public class ComunidadController extends Controller implements ICrudViewsHandler
         model.put("incidentes", incidentes);
 
         context.render("comunidades/comunidad.hbs", model);
-
 
     }
 }

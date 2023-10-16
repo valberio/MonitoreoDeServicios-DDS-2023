@@ -6,91 +6,109 @@ import models.entities.domain.entidades.Establecimiento;
 import models.entities.domain.entidades.OrganismoDeControl;
 import models.entities.domain.entidades.PrestadoraDeServicio;
 import models.entities.domain.services.georef.entities.Ubicacion;
+import models.entities.domain.servicios.PrestacionDeServicio;
+import models.entities.domain.servicios.Servicio;
 import models.repositories.datos.*;
 import server.Server;
 
 public class CargaOrganismos {
-    public static void main(String[] args){
-
-        RepositorioOrganismosDeControl repoOrganismos = new  RepositorioOrganismosDeControl();
-        RepositorioPrestadorasDeServicio repoPrestadoras = new RepositorioPrestadorasDeServicio();
-        RepositorioEntidades repositorioEntidades =new RepositorioEntidades();
-        RepositorioEstablecimientos repositorioEstablecimientos = new RepositorioEstablecimientos();
-
+    public static void main(String[] args) {
+        // Gral
         OrganismoDeControl organismo =  new OrganismoDeControl();
 
+        RepositorioOrganismosDeControl repoOrganismos = new  RepositorioOrganismosDeControl();
+
+        repoOrganismos.guardar(organismo);
+        repoOrganismos.actualizar(organismo);
         organismo.setNombre("CNRT");
         organismo.setCUIT("30715255703");
 
-        repoOrganismos.guardar(organismo);
+        // Servicios
+        Servicio banioMujeres = new Servicio("banio", "banio exclusivo para mujeres");
+        Servicio banioHombres = new Servicio("banio", "banio exclusivo para hombres");
+        Servicio escalerasMecanicas = new Servicio("escaleras", "escaleras mecánicas con maximo de 100 personas");
+        Servicio ascensor = new Servicio("ascensor", "ascensor de 120kg de máximo");
+
+        RepositorioServicios repositorioServicios = new RepositorioServicios();
+
+        repositorioServicios.guardar(banioMujeres);
+        repositorioServicios.guardar(banioHombres);
+        repositorioServicios.guardar(escalerasMecanicas);
+        repositorioServicios.guardar(ascensor);
+
+        // Establecimiento
+        Establecimiento retiro = new Establecimiento("Retiro", new Ubicacion(-34.5927,-58.3786));
+        Establecimiento tigre = new Establecimiento("Tigre", new Ubicacion(-34.4255,-58.5704));
+        Establecimiento once = new Establecimiento("Estacion Once", new Ubicacion( -34.6097,-58.4083  ));
+        Establecimiento liniers = new Establecimiento("Estacion Liniers", new Ubicacion( -34.6432, -58.5199));
+
+        RepositorioEstablecimientos repositorioEstablecimientos = new RepositorioEstablecimientos();
+
+        repositorioEstablecimientos.guardar(retiro);
+        repositorioEstablecimientos.guardar(tigre);
+        repositorioEstablecimientos.guardar(once);
+        repositorioEstablecimientos.guardar(liniers);
+
+        // Prestacion de servicio
+        PrestacionDeServicio banioMujeresEnEstacionMitre = new PrestacionDeServicio();
+        PrestacionDeServicio ascensorEstacionSarmiento = new PrestacionDeServicio();
+        PrestacionDeServicio escalerasMecanicasEstacionMitre = new PrestacionDeServicio();
+
+        RepositorioPrestacionesDeServicio repositorioPrestacionesDeServicio = new RepositorioPrestacionesDeServicio();
+
+        repositorioPrestacionesDeServicio.guardar(banioMujeresEnEstacionMitre);
+        repositorioPrestacionesDeServicio.guardar(ascensorEstacionSarmiento);
+        repositorioPrestacionesDeServicio.guardar(escalerasMecanicasEstacionMitre);
+
+        // Prestaciones de servicio
 
         PrestadoraDeServicio prestadora = new PrestadoraDeServicio();
 
-        prestadora.setNombre("Trenes Argentinos");
-
-        prestadora.setOrganismoDeControl(organismo);
+        RepositorioPrestadorasDeServicio repoPrestadoras = new RepositorioPrestadorasDeServicio();
 
         repoPrestadoras.guardar(prestadora);
-
-        organismo.aniadirPrestadoraControlada(prestadora);
-
         repoPrestadoras.actualizar(prestadora);
+        prestadora.setNombre("Trenes Argentinos");
+        prestadora.setOrganismoDeControl(organismo);
 
-        repoOrganismos.actualizar(organismo);
 
+        // Comunidades
+        Comunidad comunidad = new Comunidad();
+        Comunidad unaComunidad = new Comunidad();
+        Comunidad otraComunidad = new Comunidad();
+
+        comunidad.setNombre("UTNIANOS");
+        comunidad.setDescripcion("Interesados en ver los servicios alrededor de nuestra querida universidad");
+        unaComunidad.setNombre("Diseñadoras, no graficas");
+        unaComunidad.setDescripcion("Aquellas personas a las que nunca les anda Javalin");
+        otraComunidad.setNombre("Comedores de helados en la linea A");
+        otraComunidad.setDescripcion("Aca importa mucho el funcionamiento de la linea A, especialmente en verano");
+
+        new RepositorioComunidades().guardar(comunidad);
+        new RepositorioComunidades().guardar(unaComunidad);
+        new RepositorioComunidades().guardar(otraComunidad);
+
+        //Entidades
         Entidad entidad1 = new Entidad();
+        Entidad entidad2 = new Entidad();
+
+        RepositorioEntidades repositorioEntidades =new RepositorioEntidades();
 
         entidad1.setNombre("Linea Mitre");
-
-        Entidad entidad2 = new Entidad();
         entidad2.setNombre("Linea Sarmiento");
 
         repositorioEntidades.guardar(entidad1);
         repositorioEntidades.guardar(entidad2);
-
-        Establecimiento retiro = new Establecimiento("Retiro", new Ubicacion(-34.5927,-58.3786));
-        Establecimiento tigre = new Establecimiento("Tigre", new Ubicacion(-34.4255,-58.5704));
-
-        repositorioEstablecimientos.guardar(retiro);
-        repositorioEstablecimientos.guardar(tigre);
-
-        Establecimiento once = new Establecimiento("Estacion Once", new Ubicacion( -34.6097,-58.4083  ));
-
-        Establecimiento liniers = new Establecimiento("Estacion Liniers", new Ubicacion( -34.6432, -58.5199));
-
-        repositorioEstablecimientos.guardar(once);
-        repositorioEstablecimientos.guardar(liniers);
-
-        entidad1.agregarEstablecimientos(retiro,tigre);
-        entidad2.agregarEstablecimientos(once, liniers);
-
         repositorioEntidades.actualizar(entidad1);
         repositorioEntidades.actualizar(entidad2);
 
         prestadora.aniadirEntidad(entidad1);
         prestadora.aniadirEntidad(entidad2);
 
-        repoPrestadoras.actualizar(prestadora);
+        entidad1.agregarEstablecimientos(retiro,tigre);
+        entidad2.agregarEstablecimientos(once, liniers);
 
-        Comunidad comunidad = new Comunidad();
-
-        comunidad.setNombre("UTNIANOS");
-
-        comunidad.setDescripcion("Interesados en ver los servicios alrededor de nuestra querida universidad");
-
-        new RepositorioComunidades().guardar(comunidad);
-
-        Comunidad unaComunidad = new Comunidad();
-
-        unaComunidad.setNombre("Diseñadoras, no graficas");
-
-        unaComunidad.setDescripcion("Aquellas personas a las que nunca les anda Javalin");
-
-        new RepositorioComunidades().guardar(unaComunidad);
-
-
-
+        organismo.aniadirPrestadoraControlada(prestadora);
 
     }
-
 }

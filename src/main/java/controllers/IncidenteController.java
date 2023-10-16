@@ -9,11 +9,13 @@ import models.entities.domain.incidentes.EstadoIncidente;
 import models.entities.domain.registro.Usuario;
 import models.entities.domain.servicios.PrestacionDeServicio;
 import models.repositories.datos.*;
+import org.checkerframework.checker.units.qual.A;
 import server.exceptions.AccessDeniedException;
 import server.utils.ICrudViewsHandler;
 import models.entities.domain.incidentes.Incidente;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
@@ -51,8 +53,34 @@ public class IncidenteController extends Controller implements ICrudViewsHandler
 
     @Override
     public void create(Context context) {
+        Map<String, Object> model = new HashMap<>();
+        String id = context.sessionAttribute("id").toString();
+        List<Long> idComunidades = this.repositorioComunidades.buscarComunidadesDe(Long.parseLong(id));
+        List<Comunidad> comunidades = new ArrayList<>();
 
-        context.render("incidentes/aperturaIncidentes.hbs");
+        for(Long idComunidad: idComunidades) {
+            comunidades.add(this.repositorioComunidades.obtenerComunidad(idComunidad));
+        }
+
+        String referrer = context.header("Referer");
+        if (referrer != null && referrer.contains("/comunidades/")) {
+            String comunidadIdFromReferrer = referrer.substring(referrer.lastIndexOf("/") + 1);
+            Long idComunidadSeleccionada = Long.parseLong(comunidadIdFromReferrer);
+
+            Comunidad comunidad = this.repositorioComunidades.obtenerComunidad(idComunidadSeleccionada);
+
+            List<PrestacionDeServicio> prestacionDeServicios = comunidad.getServiciosDeInteres();
+
+            if (comunidad!=null) {
+                model.put("comunidadSeleccionada", comunidad);
+                model.put("servicios", prestacionDeServicios);
+            }
+
+        }
+
+        model.put("comunidades", comunidades);
+
+        context.render("incidentes/aperturaIncidentes.hbs", model);
     }
 
     @Override

@@ -66,7 +66,7 @@ public class Router {
             get("rankings", ctx -> ctx.render("presentacion/rankings.hbs"));
             get("rankings/{tipoRanking}", ctx -> {
                 String tipoRanking = ctx.queryParam("tipoRanking");
-                Path pathAlArchivo = Paths.get("../models/repositories.datos/" + tipoRanking);
+                Path pathAlArchivo = Paths.get("src/main/java/models/repositories/datos/rankingReportes.csv" + tipoRanking);
                 if (Files.exists(pathAlArchivo) && Files.isRegularFile(pathAlArchivo)) {
                     ctx.result(new FileInputStream(pathAlArchivo.toFile()));
                     ctx.header("Content-Disposition", "attachment; filename=" + tipoRanking);
@@ -99,19 +99,9 @@ public class Router {
         });
 
         Server.app().routes(() -> {
-            get("cargadatos/", ((CargaOrganismosYEntidadesController) FactoryController.controller("CargaOrganismosYEntidadesController"))::index);
-            post("cargadatos/", ((CargaOrganismosYEntidadesController) FactoryController.controller("CargaOrganismosYEntidadesController"))::save, TipoRol.SUPERADMINISTRADOR);
+            get("cargadatos", ((CargaOrganismosYEntidadesController) FactoryController.controller("CargaOrganismosYEntidadesController"))::index);
+            post("cargadatos", ((CargaOrganismosYEntidadesController) FactoryController.controller("CargaOrganismosYEntidadesController"))::save);
         });
-        // presentacion
-
-
-
-        /*((IncidenteController) FactoryController.controller("Incidentes"))
-            ((UsuarioController) FactoryController.controller("Usuario"))
-            ((EntidadController) FactoryController.controller("Entidad"))
-            ((OrganismoDeController) FactoryController.controller("OrganismoDeControl"))
-         */
-
     }
 
     private static Long retornarIDSiCredencialesSonCorrectas(String username, String password) {

@@ -28,6 +28,10 @@ public class CargaOrganismosYEntidadesController extends Controller implements I
 
     @Override
     public void index(Context context) {
+        Usuario usuarioLogueado = super.usuarioLogueado(context);
+        if(usuarioLogueado == null || !usuarioLogueado.tenesPermiso("cargar_csv")) {
+            throw new AccessDeniedException();
+        }
         context.render("admin/cargaMasivaDeDatos.hbs");
     }
 
@@ -51,7 +55,7 @@ public class CargaOrganismosYEntidadesController extends Controller implements I
         if(usuarioLogueado == null || !usuarioLogueado.tenesPermiso("cargar_csv")) {
             throw new AccessDeniedException();
         }
-        context.uploadedFiles("files").forEach(file -> {
+        context.uploadedFiles("archivos").forEach(file -> {
             try {
                 File nuevoArchivo = new File("src/main/resources/subidas" + file.filename());
                 FileUtils.copyInputStreamToFile(file.content(), nuevoArchivo);
@@ -64,6 +68,9 @@ public class CargaOrganismosYEntidadesController extends Controller implements I
                 throw new RuntimeException(e);
             }
         });
+
+        context.redirect("home");
+
 
     }
 

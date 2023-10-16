@@ -187,9 +187,16 @@ public class Usuario extends Persistente {
 
 
     public boolean tenesPermiso(String nombreInternoDePermiso) {
+        if(this.permisoEspecialDeDesignado!=null) {
+            return this.permisoEspecialDeDesignado.coincideConNombreInterno(nombreInternoDePermiso) || this.roles.stream().anyMatch(r->r.tenesPermiso(nombreInternoDePermiso));
 
-        return this.permisoEspecialDeDesignado.coincideConNombreInterno(nombreInternoDePermiso);
+        }
+
+        else
+            return this.roles.stream().anyMatch(r->r.tenesPermiso(nombreInternoDePermiso));
     }
+
+
 
     public boolean tiene(Rol rol) {
         return this.roles.contains(rol);

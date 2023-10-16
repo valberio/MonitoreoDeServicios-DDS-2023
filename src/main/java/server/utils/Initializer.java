@@ -65,9 +65,11 @@ public class Initializer implements WithSimplePersistenceUnit {
 
         Rol superAdmin = new Rol();
         superAdmin.setNombre("Super Administrador de la Plataforma");
-        superAdmin.setTipo(TipoRol.ADMINISTRADOR);
+        superAdmin.setTipo(TipoRol.SUPERADMINISTRADOR);
         superAdmin.agregarPermisos(buscadorDePermisos.buscarPermisoPorNombre("cargar_csv"),buscadorDePermisos.buscarPermisoPorNombre("crear_comunidades"));
         entityManager().persist(superAdmin);
+
+
 
         return this;
     }

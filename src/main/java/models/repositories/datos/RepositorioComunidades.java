@@ -82,6 +82,20 @@ public class RepositorioComunidades implements WithSimplePersistenceUnit, ICrudR
 
     }
 
+    public List<Comunidad> buscarComunidadesNoDe(Long idUsuario) {
+        String sql = "SELECT c.* FROM comunidad c " +
+                "WHERE c.id NOT IN " +
+                "(SELECT cu.comunidad_id FROM comunidad_usuario cu " +
+                "WHERE cu.miembros_id = :usuarioId)";
+
+        Query query = entityManager().createNativeQuery(sql, Comunidad.class);
+
+        query.setParameter("usuarioId", idUsuario);
+
+        List<Comunidad> comunidades = query.getResultList();
+
+        return comunidades;
+    }
     public List filtrarPorNombre(String nombreComunidad) {
         List comunidades = entityManager().createQuery("from Comunidad where nombre = :nombre")
                 .setParameter("nombre", nombreComunidad).getResultList();
