@@ -14,7 +14,7 @@ import server.Server;
 public class CargaOrganismos {
     public static void main(String[] args) {
         // Gral
-        OrganismoDeControl organismo =  new OrganismoDeControl();
+       /* OrganismoDeControl organismo =  new OrganismoDeControl();
 
         RepositorioOrganismosDeControl repoOrganismos = new  RepositorioOrganismosDeControl();
 
@@ -22,6 +22,8 @@ public class CargaOrganismos {
         repoOrganismos.actualizar(organismo);
         organismo.setNombre("CNRT");
         organismo.setCUIT("30715255703");
+
+        */
 
         // Servicios
         Servicio banioMujeres = new Servicio("banio", "banio exclusivo para mujeres");
@@ -36,7 +38,11 @@ public class CargaOrganismos {
         repositorioServicios.guardar(escalerasMecanicas);
         repositorioServicios.guardar(ascensor);
 
+        /*
+
+         */
         // Establecimiento
+        /*
         Establecimiento retiro = new Establecimiento("Retiro", new Ubicacion(-34.5927,-58.3786));
         Establecimiento tigre = new Establecimiento("Tigre", new Ubicacion(-34.4255,-58.5704));
         Establecimiento once = new Establecimiento("Estacion Once", new Ubicacion( -34.6097,-58.4083  ));
@@ -47,12 +53,28 @@ public class CargaOrganismos {
         repositorioEstablecimientos.guardar(retiro);
         repositorioEstablecimientos.guardar(tigre);
         repositorioEstablecimientos.guardar(once);
-        repositorioEstablecimientos.guardar(liniers);
+        repositorioEstablecimientos.guardar(liniers); */
+
+        Establecimiento retiro = (Establecimiento) new RepositorioEstablecimientos().buscar(1L);
+        Establecimiento tigre = (Establecimiento) new RepositorioEstablecimientos().buscar(2L);
+
+        Establecimiento once = (Establecimiento) new RepositorioEstablecimientos().buscar(3L);
+
+        Establecimiento liniers = (Establecimiento) new RepositorioEstablecimientos().buscar(4L);
+
 
         // Prestacion de servicio
         PrestacionDeServicio banioMujeresEnEstacionMitre = new PrestacionDeServicio();
         PrestacionDeServicio ascensorEstacionSarmiento = new PrestacionDeServicio();
         PrestacionDeServicio escalerasMecanicasEstacionMitre = new PrestacionDeServicio();
+
+        banioMujeresEnEstacionMitre.setNombre("Banio de mujeres en Estacion Retiro");
+        banioMujeresEnEstacionMitre.setServicio(banioMujeres);
+        banioMujeresEnEstacionMitre.setEstablecimiento(retiro);
+
+        ascensorEstacionSarmiento.setNombre("Ascensor en Estacion Liniers");
+        ascensorEstacionSarmiento.setServicio(ascensor);
+        ascensorEstacionSarmiento.setEstablecimiento(liniers);
 
         RepositorioPrestacionesDeServicio repositorioPrestacionesDeServicio = new RepositorioPrestacionesDeServicio();
 
@@ -61,7 +83,7 @@ public class CargaOrganismos {
         repositorioPrestacionesDeServicio.guardar(escalerasMecanicasEstacionMitre);
 
         // Prestaciones de servicio
-
+/*
         PrestadoraDeServicio prestadora = new PrestadoraDeServicio();
 
         RepositorioPrestadorasDeServicio repoPrestadoras = new RepositorioPrestadorasDeServicio();
@@ -109,6 +131,8 @@ public class CargaOrganismos {
         entidad2.agregarEstablecimientos(once, liniers);
 
         organismo.aniadirPrestadoraControlada(prestadora);
+    }
+    */
 
     }
 }

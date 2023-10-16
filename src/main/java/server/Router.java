@@ -64,12 +64,29 @@ public class Router {
 
         Server.app().routes(() -> {
             get("rankings", ctx -> ctx.render("presentacion/rankings.hbs"));
-            get("rankings/{tipoRanking}", ctx -> {
-                String tipoRanking = ctx.queryParam("tipoRanking");
-                Path pathAlArchivo = Paths.get("src/main/java/models/repositories/datos/rankingReportes.csv" + tipoRanking);
-                if (Files.exists(pathAlArchivo) && Files.isRegularFile(pathAlArchivo)) {
+            get("rankings/rankingReportes", ctx -> {
+                Path pathAlArchivo = Paths.get("src/main/java/models/repositories/datos/rankingReportes.csv");
+                if (Files.exists(pathAlArchivo)) {
                     ctx.result(new FileInputStream(pathAlArchivo.toFile()));
-                    ctx.header("Content-Disposition", "attachment; filename=" + tipoRanking);
+                    ctx.header("Content-Disposition", "attachment; filename=rankingReportes.csv");
+                    ctx.contentType(Files.probeContentType(pathAlArchivo));
+                } else {
+                    ctx.status(404).result("File not found");
+                }});
+            get("rankings/rankingImpactoIncidentes", ctx -> {
+                Path pathAlArchivo = Paths.get("src/main/java/models/repositories/datos/rankingImpactoIncidentes.csv");
+                if (Files.exists(pathAlArchivo)) {
+                    ctx.result(new FileInputStream(pathAlArchivo.toFile()));
+                    ctx.header("Content-Disposition", "attachment; filename=rankingImpactoIncidentes.csv");
+                    ctx.contentType(Files.probeContentType(pathAlArchivo));
+                } else {
+                    ctx.status(404).result("File not found");
+                }});
+            get("rankings/rankingPromedioCierre", ctx -> {
+                Path pathAlArchivo = Paths.get("src/main/java/models/repositories/datos/rankingPromedioCierre.csv");
+                if (Files.exists(pathAlArchivo)) {
+                    ctx.result(new FileInputStream(pathAlArchivo.toFile()));
+                    ctx.header("Content-Disposition", "attachment; filename=rankingPromedioCierre.csv");
                     ctx.contentType(Files.probeContentType(pathAlArchivo));
                 } else {
                     ctx.status(404).result("File not found");

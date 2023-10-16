@@ -26,6 +26,7 @@ public class PrestacionDeServicio extends Persistente {
     private String nombre;
 
     public PrestacionDeServicio() {
+        this.estaHabilitado=true; 
     }
 
     public void habilitar(){ estaHabilitado = true;}
@@ -35,7 +36,7 @@ public class PrestacionDeServicio extends Persistente {
     public PrestacionDeServicio(Servicio servicio, Establecimiento establecimiento) {
         this.servicio = servicio;
         this.establecimiento = establecimiento;
-        this. estaHabilitado = true;
+        this.estaHabilitado = true;
         new RepositorioPrestacionesDeServicio().guardar(this);
     }
 

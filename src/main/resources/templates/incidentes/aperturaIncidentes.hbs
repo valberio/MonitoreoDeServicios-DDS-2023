@@ -32,7 +32,7 @@
                             </div>
                             <div class="row mt-2">
                                 <label for="servicio">Servicio afectado:</label>
-                                <select id="servicio" name="servicio" required>
+                                <select id="servicio" name="servicio" required data-services="{{JSON.stringify(comunidades)}}">
                                     <option value="">Seleccione un servicio</option>
                                     {{#each servicios}}
                                         <option value="{{this.id}}">{{this.nombre}}</option>
@@ -58,7 +58,38 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div><script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const comunidadDropdown = document.getElementById("comunidad");
+            const servicioDropdown = document.getElementById("servicio");
+            const comunidadesData = JSON.parse(comunidadDropdown.getAttribute("data-comunidades"));
+
+            // Función para actualizar el desplegable de Servicios en función de la Comunidad seleccionada
+            function updateServiciosDropdown(selectedComunidadId) {
+                servicioDropdown.innerHTML = ""; // Borra las opciones existentes
+
+                if (selectedComunidadId) {
+                    const selectedComunidad = comunidadesData.find((comunidad) => comunidad.id === selectedComunidadId);
+                    if (selectedComunidad) {
+                        selectedComunidad.serviciosDeInteres.forEach((servicio) => {
+                            const option = document.createElement("option");
+                            option.value = servicio.id;
+                            option.textContent = servicio.nombre;
+                            servicioDropdown.appendChild(option);
+                        });
+                    }
+                }
+            }
+
+            comunidadDropdown.addEventListener("change", function () {
+                const selectedComunidadId = comunidadDropdown.value;
+                updateServiciosDropdown(selectedComunidadId);
+            });
+
+            // Actualización inicial basada en el valor seleccionado
+            updateServiciosDropdown(comunidadDropdown.value);
+        });
+    </script>
 
 {{/partial}}
 {{> templates/baseConNavegador }}

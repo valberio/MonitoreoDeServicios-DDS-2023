@@ -57,6 +57,7 @@ public class IncidenteController extends Controller implements ICrudViewsHandler
         String id = context.sessionAttribute("id").toString();
         List<Long> idComunidades = this.repositorioComunidades.buscarComunidadesDe(Long.parseLong(id));
         List<Comunidad> comunidades = new ArrayList<>();
+        List<PrestacionDeServicio> prestacionesDeServicios = new ArrayList<>();
 
         for(Long idComunidad: idComunidades) {
             comunidades.add(this.repositorioComunidades.obtenerComunidad(idComunidad));
@@ -69,16 +70,17 @@ public class IncidenteController extends Controller implements ICrudViewsHandler
 
             Comunidad comunidad = this.repositorioComunidades.obtenerComunidad(idComunidadSeleccionada);
 
-            List<PrestacionDeServicio> prestacionDeServicios = comunidad.getServiciosDeInteres();
+            prestacionesDeServicios = comunidad.getServiciosDeInteres();
 
             if (comunidad!=null) {
                 model.put("comunidadSeleccionada", comunidad);
-                model.put("servicios", prestacionDeServicios);
+                prestacionesDeServicios = comunidad.getServiciosDeInteres();
             }
 
         }
 
         model.put("comunidades", comunidades);
+        model.put("servicios", prestacionesDeServicios);
 
         context.render("incidentes/aperturaIncidentes.hbs", model);
     }
