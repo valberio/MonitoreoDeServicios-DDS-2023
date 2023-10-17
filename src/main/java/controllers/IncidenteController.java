@@ -137,7 +137,7 @@ public class IncidenteController extends Controller implements ICrudViewsHandler
         model.put("establecimiento", establecimiento);
         model.put("servicioAfectado", servicioAfectado);
         model.put("estado", estado);
-        model.put("")
+        model.put("descripcion", descripcion);
         context.render("incidentes/cierreIncidentes.hbs", model);
 
     }
