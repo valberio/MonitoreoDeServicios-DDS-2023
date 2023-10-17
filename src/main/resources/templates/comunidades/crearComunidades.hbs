@@ -8,7 +8,7 @@
                         <h1>Crear comunidad</h1>
                     </div>
                 </div>
-                <form method="POST" action="signup">
+                <div method="POST" action="/comunidades/crear">
                 <div class="row">
                     <div class="col-md-12">
                         <label for="nombre">Nombre nueva comunidad:</label>
@@ -28,10 +28,11 @@
                         <div class="col-md-12>
                             {{#each servicios}}
                             <label for="servicio{{@index}}">{{this.tipoServicio}}</label>
-                            <input type="checkbox" id="servicio{{@index}}" name="servicios" value="{{this.tipoServicio}}">
+                            <input type="checkbox" id="servicio{{@index}}" name="servicios" value="{{this.nombre}}">
                             {{/each}}
                         </div>
-                    </div>
+                </div>
+
                 </form>
                 <div class="row d-flex align-items-center justify-content-center">
                     <div class="col-md-3 borde redondeado d-flex justify-content-center mt-3">

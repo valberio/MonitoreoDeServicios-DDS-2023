@@ -179,7 +179,7 @@ public class IncidenteController extends Controller implements ICrudViewsHandler
 
         Usuario usuarioLogueado =  super.usuarioLogueado(context);
 
-        if(usuarioLogueado == null || !usuarioLogueado.tenesPermiso("cerrar_incidentes")) {
+        if(usuarioLogueado == null) {
             throw new AccessDeniedException();
         }
 
