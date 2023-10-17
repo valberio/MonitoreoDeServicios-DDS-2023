@@ -66,7 +66,7 @@ public class ComunidadController extends Controller implements ICrudViewsHandler
 
         Usuario usuarioLogueado =  super.usuarioLogueado(context);
 
-        if(usuarioLogueado == null || !usuarioLogueado.tenesPermiso("crear_comunidades")) {
+        if(usuarioLogueado == null) { //|| !usuarioLogueado.tenesPermiso("crear_comunidades")) {
             throw new AccessDeniedException();
         }
         RepositorioPrestacionesDeServicio repositorio = new RepositorioPrestacionesDeServicio();
@@ -129,7 +129,7 @@ public class ComunidadController extends Controller implements ICrudViewsHandler
 
     public void showById(Context context) {
 
-        Comunidad comunidad = this.repositorioComunidades.obtenerComunidad(Long.parseLong(context.pathParam("id")));
+        Comunidad comunidad = this.repositorioComunidades.obtenerComunidad(Long.parseLong(context.pathParam("id").toString()));
 
         Map<String, Object> model = new HashMap<>();
         List<Incidente> incidentes = RepositorioIncidentes.getInstance().filtrarPorComunidad(comunidad);

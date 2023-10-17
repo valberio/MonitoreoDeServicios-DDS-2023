@@ -45,7 +45,7 @@ public class IncidenteController extends Controller implements ICrudViewsHandler
         //Aca tengo que buscar los permisos del usuario, tengo que saber: 1. si puede leer CSV
         //2. si puede ver los rankings
         Boolean permisoCSV = usuario.tenesPermiso("cargar_csv");
-        Boolean permisoRanking = usuario.tenesPermiso("ver_rankings");
+        Boolean permisoRanking = usuario.tenesPermiso("ver_rankings_entidades");
 
         model.put("permisoCSV", permisoCSV);
         model.put("permisoRanking", permisoRanking);

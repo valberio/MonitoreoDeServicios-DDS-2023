@@ -8,7 +8,7 @@ public class Config {
 
     public static final String URL_APIGEOREF = "https://apis.datos.gob.ar/georef/api/";
 
-    public static final String URL_APICALCULADORAGRADOCONFIANZA = "http://localhost:8080/";
+    public static final String URL_APICALCULADORAGRADOCONFIANZA = "localhost:8080/";
 
     public static final String RUTA_CSV = "src/main/java/datos/entidades.csv";
 
@@ -20,7 +20,7 @@ public class Config {
 
     public static final float GRADO_DE_CONFIANZA_INICIAL = 5f;
 
-    public static final String URL_API_SUGERIR_FUSION_COMUNIDADES = "localhost:8080/comunidad/sugerirFusiones";
+    public static final String URL_API_SUGERIR_FUSION_COMUNIDADES = "http://localhost:8080/comunidad/sugerirFusiones/";
 
 
 }

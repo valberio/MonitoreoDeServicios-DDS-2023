@@ -44,7 +44,7 @@ values ( 9, "Crear comunidades", "crear_comunidades");
 insert into permiso(id, nombre, nombreInterno)
 values ( 10, "Designar servicios de interes para la comunidad", "registrar_servicios");
 insert into permiso(id, nombre, nombreInterno)
-values (11, "Ver rankings", "ver_rankings");
+values (11, "Ver rankings", "ver_rankings_entidades");
 
 -- ROLES
 
