@@ -57,5 +57,31 @@
             </div>
         </div>
     </div>
+    <!-- Modal de éxito -->
+    <div class="modal fade" id="reportSuccessModal" tabindex="-1" aria-labelledby="reportSuccessModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="reportSuccessModalLabel">Reporte Exitoso</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ¡El incidente se ha reportado con éxito!
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+    // JavaScript para mostrar el modal de éxito después de enviar el formulario
+    document.querySelector('form').addEventListener('submit', function (e) {
+        // Evitar que el formulario se envíe de inmediato
+        var reportSuccessModal = new bootstrap.Modal(document.getElementById('reportSuccessModal'));
+        reportSuccessModal.show();
+    });
+</script>
+
 {{/partial}}
 {{> templates/baseConNavegador }}
