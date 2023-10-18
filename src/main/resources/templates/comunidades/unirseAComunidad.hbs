@@ -1,42 +1,22 @@
 {{#partial "contenido" }}
-
-<div class="container mt-15">
-    <div class="row justify-content-center">
-        <div class="col-md-12 borde redondeado p-4">
-            <div class="row p-4">
-                <div class="borde redondeado d-flex justify-content-center p-2">
-                    <h1>Comunidades</h1>
-                </div>
-            </div>
-
-            <form method="POST" action="/comunidades/unirse" class="form-control">
+    <div class="container mt-15">
+        <div class="row row-cols-1 row-cols-md-2 g-4 justify-content-center">
             {{#each comunidades}}
-                <div class="row borde redondeado m-2">
-                    <div class="col-md-4">
-                        <div class="p-4 mt-2 mb-2 borde d-flex align-items-center justify-content-center redondeado">
-                            <h4>{{this.nombre}}</h4>
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <div class="p-4 mt-2 mb-2 borde d-flex align-items-center justify-content-center redondeado">
-                            <h4>{{this.descripcion}}</h4>
-                        </div>
-                    </div>
-                    <div class="col-md-4 d-flex align-items-center justify-content-center">
-                        <div class="borde redondeado d-flex justify-content-center mt-3">
-                            <!-- <label for="comunidad{{@index}}">{{this}}</label> -->
-                            <input placeholder="" type="radio" id="comunidad{{@index}}" name="comunidades" value="{{this.nombre}}">
+                <div class="col">
+                    <div class="card">
+                        <img src="..." class="card-img-top" alt="Community Image">
+                        <div class="card-body">
+                            <h5 class="card-title">{{this.nombre}}</h5>
+                            <p class="card-text">{{this.descripcion}}</p>
+                            <form method="POST" action="/comunidades/unirse">
+                                <input type="radio" id="comunidad{{@index}}" name="comunidades" value="{{this.nombre}}">
+                                <button type="submit" class="btn btn-primary">Unirse</button>
+                            </form>
                         </div>
                     </div>
                 </div>
             {{/each}}
-            <!-- DEBERÍA ANDAR CON ALGO EN LA BASE DE DATOS -->
-            <button type="submit">Unirse</button>
-            </form>
         </div>
     </div>
-</div>
-
-
 {{/partial}}
 {{> templates/baseConNavegador }}

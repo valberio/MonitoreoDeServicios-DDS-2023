@@ -1,64 +1,61 @@
 {{#partial "contenido" }}
-
     <!-- PARTE DE APERTURA DE INCIDENTES -->
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-6 offset-3">
-                <div class="row borde redondeado m-5">
-                    <h2 class="text-center">Apertura de incidente</h2>
-                </div>
-                <div class="row borde redondeado p-4">
-                    <form method="post" action="/incidentes/crear">
-                        <div class="col-md-5 ms-4 me-5">
-                            <div class="row borde redondeado">
-                                <h5 class="text-center">¿En qué comunidad queres reportar el incidente?</h5>
-                            </div>
-                            <div class="row mt-2">
-                                <label for="comunidad">Comunidad:</label>
-                                {{#if comunidadSeleccionada}}
-                                    <p>{{comunidadSeleccionada.nombre}}</p>
-                                    <input type="hidden" name="comunidad" value="{{comunidadSeleccionada.nombre}}">
-                                {{else}}
-                                    <select id="comunidad" name="comunidad" required>
-                                        <option value="">Selecciona una comunidad</option>
-                                        {{#each comunidades}}
-                                            <option value="{{this.id}}">{{this.nombre}}</option>
-                                        {{/each}}
-                                    </select>
-                                {{/if}}
-                            </div>
-                            <div class="row borde redondeado mt-2">
-                                <h5 class="text-center">¿Cuál es el servicio afectado?</h5>
-                            </div>
-                            <div class="row mt-2">
-                                <label for="servicio">Servicio afectado:</label>
-                                <select id="servicio" name="servicio" required >
-                                    <option value="">Seleccione un servicio</option>
-                                    {{#each servicios}}
-                                        <option value="{{this.id}}">{{this.nombre}}</option>
-                                    {{/each}}
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-5">
-                            <div class="row borde redondeado p-2">
-                                <h5 class="text-center">Observaciones</h5>
-                            </div>
-                            <div class="row mt-2">
-                                <label for="observaciones">Observaciones:</label>
-                                <input type="text" id="observaciones" name="observaciones" placeholder="" required>
-                            </div>
-                            <div class="row mt-5 d-flex align-items-center justify-content-center">
-                                <div class="col-md-4">
-                                    <button type="submit">Reportar</button>
+        <div class="row justify-content-center mt-5">
+            <div class="col-8">
+                <div class="card m-5" style="font-family: 'Poppins', sans-serif;">
+                    <div class="card-body">
+                        <h2 class="card-title text-center">Apertura de incidente</h2>
+                        <form method="post" action="/incidentes/crear">
+                            <div class="row mt-3">
+                                <div class="col-md-8 offset-md-2">
+                                    <div class="form-group">
+                                        <label for="comunidad" class="form-label" style="font-weight: 500;">¿En qué comunidad quieres reportar el incidente?</label>
+                                        {{#if comunidadSeleccionada}}
+                                            <p class="form-control-static">{{comunidadSeleccionada.nombre}}</p>
+                                            <input type="hidden" name="comunidad" value="{{comunidadSeleccionada.nombre}}">
+                                        {{else}}
+                                            <select id="comunidad" name="comunidad" required class="form-control">
+                                                <option value="">Selecciona una comunidad</option>
+                                                {{#each comunidades}}
+                                                    <option value="{{this.id}}">{{this.nombre}}</option>
+                                                {{/each}}
+                                            </select>
+                                        {{/if}}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </form>
+                            <div class="row mt-3">
+                                <div class="col-md-8 offset-md-2">
+                                    <div class="form-group">
+                                        <label for="servicio" class="form-label" style="font-weight: 500;">¿Cuál es el servicio afectado?</label>
+                                        <select id="servicio" name="servicio" required class="form-control">
+                                            <option value="">Seleccione un servicio</option>
+                                            {{#each servicios}}
+                                                <option value="{{this.id}}">{{this.nombre}}</option>
+                                            {{/each}}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-8 offset-md-2">
+                                    <div class="form-group">
+                                        <label for="observaciones" class="form-label" style="font-weight: 500;">Observaciones</label>
+                                        <input type="text" id="observaciones" name="observaciones" placeholder="" required class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-5">
+                                <div class="col-md-8 offset-md-2 d-flex justify-content-center align-items-center">
+                                    <button type="submit" class="btn btn-primary">Reportar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
 {{/partial}}
 {{> templates/baseConNavegador }}
