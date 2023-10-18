@@ -2,35 +2,35 @@
     <div class="container-fluid">
         <div class="row mt-5 ml-3 p-3">
             <div class="col-3 borde">
-                <div class="row borde redondeado m-2">
-                    <div class="col-4 p-3 borde redondeado d-flex align-items-center justify-content-center">
+                <div class="row m-2">
+                    <div class="col-4 p-3 d-flex align-items-center justify-content-center">
                         <h3>Icono</h3>
                     </div>
                     <div class="col p-3 mb-6">
-                        <h3><a href="/editar">Mi perfil</a></h3>
+                        <h3><a href="/editar" class="btn btn-primary btn-estetico btn-block">Mi perfil</a></h3>
                     </div>
                 </div>
-                <div class="row borde redondeado m-2 p-1">
-                    <h5><a href="/comunidades">Tus comunidades</a></h5>
+                <div class="row m-2">
+                    <h5><a href="/comunidades" class="btn btn-secondary btn-estetico btn-block">Tus comunidades</a></h5>
                 </div>
-                <div class="row borde redondeado m-2 p-1">
-                    <h5><a href="/comunidades/unirse">Unirte a comunidad</a></h5>
+                <div class="row m-2">
+                    <h5><a href="/comunidades/unirse" class="btn btn-secondary btn-estetico btn-block">Unirte a comunidad</a></h5>
                 </div>
-                <div class="row borde redondeado m-2 p-1">
-                    <h5><a href="/incidentes/sugerencias">Ver incidentes cercanos a vos</a></h5>
+                <div class="row m-2">
+                    <h5><a href="/incidentes/sugerencias" class="btn btn-secondary btn-estetico btn-block">Ver incidentes cercanos a vos</a></h5>
                 </div>
                 {{#if permisoCSV}}
-                    <div class="row borde redondeado m-2 p-1">
-                        <h5><a href="/cargadatos">Carga de Reguladores</a></h5>
+                    <div class="row m-2">
+                        <h5><a href="/cargadatos" class="btn btn-secondary btn-estetico btn-block">Carga de Reguladores</a></h5>
                     </div>
                 {{/if}}
                 {{#if permisoRankings}}
-                    <div class="row borde redondeado m-2 p-1">
-                        <h5><a href="/rankings">Ver rankings</a></h5>
+                    <div class="row m-2">
+                        <h5><a href="/rankings" class="btn btn-secondary btn-estetico btn-block">Ver rankings</a></h5>
                     </div>
                 {{/if}}
-                <div class="row borde redondeado m-2 p-1">
-                    <h5><a href="/">Cerrar Sesión</a></h5>
+                <div class="row m-2">
+                    <h5><a href="/" class="btn btn-danger btn-estetico btn-block">Cerrar Sesión</a></h5>
                 </div>
             </div>
             <div class="col-8 borde ml-3 mr-3">
@@ -41,12 +41,12 @@
                         </div>
                     </div>
                     <form method="post">
-                        <div class="row borde redondeado m-2">
+                        <div class="row m-2">
                             <div class="col-8">
-                                <input placeholder="Buscar...">
+                                <input placeholder="Buscar..." class="form-control">
                             </div>
                             <div class="col-4">
-                                <input placeholder="Estado">
+                                <input placeholder="Estado" class="form-control">
                             </div>
                         </div>
                     </form>
