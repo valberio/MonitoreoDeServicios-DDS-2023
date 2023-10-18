@@ -1,61 +1,48 @@
 {{#partial "contenido" }}
-
-    <!--Barra lateral de comunidades-->
-    <div class="col-md-4 borde">
-        <div class="row">
-            <div class="col text-center">
-                <div class="comunidad ">
-                    <div class="row borde redondeado m-3">
-                        <div class="col-md-3 p-3 d-flex align-items-center">
-                            <h6 class="borde redondeado text-center p-4">Imagen</h6>
+    <div class="container mt-15">
+        <div class="row justify-content-center">
+            <div class="col-md-4 borde">
+                <div class="row">
+                    <div class="col text-center">
+                        <div class="comunidad">
+                            <div class="row borde redondeado m-3">
+                                <div class="col-md-3 p-3 d-flex align-items-center">
+                                    <h6 class="borde redondeado text-center p-4">Imagen</h6>
+                                </div>
+                                <div class="col-md-8 ms-3 mt-2 p-3">
+                                    <h6 class="text-start">{{comunidad.nombre}}</h6>
+                                    <h6 class="text-start">{{comunidad.descripcion}}</h6>
+                                </div>
+                                <div class="col-md-8 ms-3 mt-2 p-3">
+                                    <h6 class="text-start"><a href="/incidentes/crear">Reporta un incidente</a></h6>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-md-8 ms-3 mt-2 p-3">
-                            <h6 class="text-start">   {{comunidad.nombre}}</h6>
-                            <h6 class="text-start"> {{comunidad.descripcion}}</h6>
-                        </div>
-                        <div class="col-md-8 ms-3 mt-2 p-3">
-                            <h6 class="text-start"> <a href = "/incidentes/crear">Reporta un incidente</a></h6>
-                        </div>
-
                     </div>
                 </div>
-
             </div>
-        </div>
-    </div>
-
-    <!--Incidentes de las comunidades-->
-    <div class="col-md-7 borde">
-        <div class="row">
-            <div class="col m-3">
-                <h2>Incidentes reportados de la Comunidad</h2>
-            </div>
-
-        </div>
-        <div class="row">
-            <div class="tall-container incidentes">
-                    <div class="row borde redondeado m-3 p-2 ">
+            <div class="col-md-7 borde">
+                <div class="row">
+                    <div class="col m-3">
+                        <h2>Incidentes reportados de la Comunidad</h2>
+                    </div>
+                </div>
+                <div class="row row-cols-1 row-cols-md-2 g-4">
                     {{#each incidentes}}
-                    <div class="col-md-4 d-flex align-items-center justify-content-center borde redondeado me-3 ms-2 p-3">
-                        <h5 class="text-center">Establecimiento: {{this.servicioAfectado.establecimiento.nombre}} </h5>
-                    </div>
-                    <div class="col-md-3 me-3 d-flex align-items-center justify-content-center borde redondeado">
-                        <h5 class=" text-center">Servicio: {{this.servicioAfectado.nombre}} </h5>
-                    </div>
-                   <!--Ver
-                    <div class="col-md-2  me-2 d-flex align-items-center justify-content-center borde redondeado">
-                        <h5 class="text-center">Ubicación: </h5>
-                    </div>-->
-                    <div class="col-md-2  me-2 d-flex align-items-center justify-content-center borde redondeado">
-                        <h5 class="text-center">Estado: {{this.estado.estado}}</h5>
-                    </div>
-                {{/each}}
+                        <div class="col">
+                            <div class="card m-2">
+                                <img src="URL_DE_LA_IMAGEN" class="card-img-top" alt="Incident Image">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{this.servicioAfectado.establecimiento.nombre}}</h5>
+                                    <p class="card-text">Servicio: {{this.servicioAfectado.nombre}}</p>
+                                    <p class="card-text">Estado: {{this.estado.estado}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    {{/each}}
+                </div>
             </div>
         </div>
     </div>
-    </div>
-    </div>
-
-
 {{/partial}}
 {{> templates/baseConNavegador }}
