@@ -1,65 +1,66 @@
 {{#partial "contenido" }}
 
-<!-- PARTE DE CIERRE DE INCIDENTES -->
-<div>
-    <div class="row justify-text-center mt-4">
-        <div class="col-md-12 text-center ">
-            <h1>Cierre de Incidente </h1>
+    <!-- PARTE DE CIERRE DE INCIDENTES -->
+    <div>
+        <div class="row justify-text-center mt-4">
+            <div class="col-md-12 text-center ">
+                <h1>Cierre de Incidente </h1>
+            </div>
         </div>
-    </div>
 
-    <div> <!-- Parte del medio -->
-        <div class="row">
-            <div class="col-md-8 offset-2">
-                <div class="tall-container incidentes">
-                    <div class="row borde redondeado m-3 p-2 ">
-                        <div class="col-md-4 d-flex align-items-center justify-content-center borde redondeado me-3 ms-3 p-3">
-                            <h6 class="text-center">{{establecimiento.nombre}}</h6>
-                        </div>
-                        <div class="col-md-3 me-3 d-flex align-items-center justify-content-center borde redondeado">
-                            <h6 class=" text-center">{{servicioAfectado.nombre}}</h6>
-                        </div>
-                        <div class="col-md-2  me-2 d-flex align-items-center justify-content-center borde redondeado">
-                            <h6 class="text-center">Ubicación</h6>
-                        </div>
-                        <div class="col-md-2  me-2 d-flex align-items-center justify-content-center borde redondeado">
-                            <h6 class="text-center">{{estado}}</h6>
-                        </div>
+        <div> <!-- Parte del medio -->
+            <div class="row">
+                <div class="col-md-8 offset-2">
+                    <div class="tall-container incidentes">
+                        {{#with incidente}}
+                            <div class="card text-center m-3">
+                                <div class="card-header">
+                                    {{establecimiento.nombre}}
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">{{servicioAfectado.nombre}}</h5>
+                                    <p class="card-text">Ubicación</p>
+                                    <p class="card-text">{{estado}}</p>
+                                    <p class="card-text">{{descripcion}}</p>
+                                </div>
+                                <div class="card-footer text-body-secondary">
+                                    Fecha del incidente: {{fecha}}
+                                </div>
+                            </div>
+                        {{/with}}
                     </div>
                 </div>
             </div>
+        </div>
 
+        <div class="row">  <!-- Parte del final -->
+            <div class="col-md-12">
+                <div class="row d-flex align-items-center">
+                    <div class="col-md-8 offset-2">
+                        <div class="row justify-text-center">
+                            <div class="col-md-12 text-center mt-3">
+                                <h3>¿Se resolvió el incidente?</h3>
+                            </div>
+                        </div>
+
+                        <form method="post" action="/incidentes/{{incidente.id}}/editar">
+                            <div class="row d-flex align-items-center justify-content-center mt-1">
+                                <div class="col-2 d-flex justify-content-center align-items-center">
+                                    <select id="resolucion" name="resolucion" class="form-select">
+                                        <option value="si" class="btn borde redondeado">Sí</option>
+                                        <option value="no" class="btn borde redondeado">No</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-2 text-center mt-4">
+                                    <button type ="submit" >Confirmar</button>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-
-    <div class="row">  <!-- Parte del final -->
-    <div class="col-md-12">
-        <div class="row d-flex align-items-center">
-            <div class="col-md-8 offset-2">
-                    <div class="row justify-text-center">
-                        <div class="col-md-12 text-center mt-3">
-                            <h3>¿Se resolvió el incidente?</h3>
-                        </div>
-                    </div>
-
-                <form method="post" action="/incidentes/{{incidente.id}}/editar">
-                    <div class="row d-flex align-items-center justify-content-center mt-1">
-                        <div class="col-2 d-flex justify-content-center align-items-center">
-                            <select id="resolucion" name="resolucion" class="form-select">
-                                <option value="si" class="btn borde redondeado">Sí</option>
-                                <option value="no" class="btn borde redondeado">No</option>
-                            </select>
-                        </div>
-                        <div class="col-md-2 text-center mt-4">
-                            <button type ="submit" >Confirmar</button>
-                        </div>
-                    </div>
-                </form>
-
-            </div>
-            </div>
-        </div>
-    </div>
-</div>
 {{/partial}}
 {{> templates/baseConNavegador }}

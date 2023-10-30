@@ -1,115 +1,124 @@
-{{#partial "contenido" }}
-<!-- PARTE DEL REGISTRO -->
-<div>
-    <div class="row">
-        <h1>  </h1> <!-- Este es un espacio -->
-        <h1 class="col-md-12 text-center"> Registra Tu Perfil </h1>
-    </div>
-</div>
+{{#partial "contenido"}}
+    <!-- PARTE DEL REGISTRO -->
+    <div class="container my-5">
+        <h1 class="text-center">Registra Tu Perfil</h1>
 
-<form method="POST" action="signup">
-<div class = "container-fluid">
-    <div class="row">
-        <!-- Parte de la izquierda -->
-        <div class="col-md-6">
-            <div class="row h-100 align-items-center">
-                <div class="col-md-2">
+        <form method="POST" action="signup" class="row g-3">
+            <!-- Parte de la izquierda -->
+            <div class="col-md-6">
+                <h3 class="text-center">Datos personales</h3>
 
+                <div class="mb-3">
+                    <label for="nombre" class="form-label">Nombre de usuario:</label>
+                    <input name="nombre" class="form-control" placeholder="Nombre de usuario" required>
                 </div>
-                <div class="col-md-8">
-                    <div class="container">
-                        <div class="row justify-text-center">
-                            <div class="col-md-12 text-center">
-                                <h3>USUARIO</h3>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <label for="nombre">Nombre de usuario:</label>
-                                <input name = "nombre" class="form-control mr-sm-2" placeholder="Nombre de usuario" required></input>
-                            </div>
-                        </div>
-                        <!--{{#if error}}
-                            <div class="alert alert-danger">
-                                <h2>{{error}}</h2>
-                            </div>
-                        {{/if}}-->
-                        <div class="row">
-                            <div class="col-md-12">
-                                <label for="contrasena">Contraseña:</label>
-                                <input type="password" name="contrasenia" class="form-control mr-sm-2" placeholder="Contraseña" required></input>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <label for="email">Email:</label>
-                                <input type = "email" name = "email" class="form-control mr-sm-2" placeholder="Email" required></input>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <label for="telefono">Teléfono:</label>
-                                <input type = "telefono" name="telefono" class="form-control mr-sm-2" placeholder="Teléfono" required></input>
-                            </div>
-                        </div>
-                        <!--
-                        <div class="row">
-                            <div class="col-md-12">
-                                <label for="localizacion">Localización:</label>
-                                <input name="localizacion" class="form-control mr-sm-2" placeholder="Localización"></input>
-                            </div>
-                        </div>
-                        -->
-                        <div class="col-md-2">
-                        </div>
-                            <div>
-                                <input type="submit" value="Enviar">
-                            </div>
-                    </div>
+
+                <div class="mb-3">
+                    <label for="contrasena" class="form-label">Contraseña:</label>
+                    <input type="password" name="contrasenia" class="form-control" placeholder="Contraseña" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email:</label>
+                    <input type="email" name="email" class="form-control" placeholder="Email" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="telefono" class="form-label">Teléfono:</label>
+                    <input type="text" name "telefono" class="form-control" placeholder="Teléfono" required>
+                </div>
+
+                <div>
+                    <input type="submit" value="Enviar" class="btn btn-primary">
                 </div>
             </div>
-        </div>
+            <!-- Parte de la derecha -->
+            <div class="col-md-6">
+                <h3 class="text-center">Preferencias para recibir notificaciones</h3>
 
-        <!-- Parte de la derecha -->
-        <div class="col-md-6">
-            <div class="row h-100 align-items-center">
-                <div class="col-md-2">
-                </div>
-                <div class="col-md-8">
-                    <div class="container">
-                        <div class="row justify-text-center">
-                            <div class="col-md-12 text-center">
-                                <h3>NOTIFICACIÓN</h3>
+                <div class="mb-3">
+                    <label class="form-label">Medio preferido:</label>
+                    <div class="d-flex justify-content-center">
+                        {{#each medios}}
+                            <div class="form-check mx-3">
+                                <input type="radio" class="form-check-input" id="medio{{@index}}" name="medios" value="{{this}}">
+                                <label class="form-check-label" for="medio{{@index}}">{{this}}</label>
                             </div>
-                        </div>
-                        <div class="row">
-                                <div class="form-group">
-                                    {{#each medios}}
-                                        <label for="medio{{@index}}">{{this}}</label>
-                                        <input type="radio" id="medio{{@index}}" name="medios" value="{{this}}" placeholder="Medio para recibir Notificaciones">
-                                    {{/each}}
-                                </div>
-                        </div>
-                            <div class="form-group">
-                                {{#each modos}}
-                                    <label for="modo{{@index}}">{{this}}</label>
-                                    <input type="radio" id="modo{{@index}}" name="modos" value="{{this}}" placeholder="Modo de Recepción">
-                                {{/each}}
-                            </div>
+                        {{/each}}
                     </div>
                 </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Modo de notificación:</label>
+                    <div class="d-flex justify-content-center">
+                        {{#each modos}}
+                            <div class="form-check mx-3">
+                                <input type="radio" class="form-check-input" id="modo{{@index}}" name="modos" value="{{this}}">
+                                <label class="form-check-label" for="modo{{@index}}">{{this}}</label>
+                            </div>
+                        {{/each}}
+                    </div>
+                </div>
+
+                <div class="mb-3" id="botonAdicionalContainer" style="display: none;">
+                    <button id="botonAdicional" class="btn btn-secondary">Configurar horarios disponibles</button>
+                </div>
+
+                <div id="desplegableContainer" style="display: none;">
+                    <label for="horarios">Horarios disponibles:</label>
+                    <select id="horarios" name="horarios" multiple class="form-select">
+                    </select>
+                </div>
             </div>
-        </div>
+        </form>
     </div>
-</div>
-</form>
 
-<!--<div class="row">
-    <div class="col-12 d-flex justify-content-center align-items-center">
+    <script>
+       document.addEventListener("DOMContentLoaded", function() {
+    var radioModos = document.querySelectorAll('input[name="modos"]');
+    var botonAdicionalContainer = document.getElementById("botonAdicionalContainer");
+    var desplegableContainer = document.getElementById("desplegableContainer");
 
-        <button><a href="/entidades">SELECCIONAR ENTIDADES DE INTERES</a>  </button>
-    </div>
-</div> -->
+    radioModos.forEach(function(radioModo) {
+        radioModo.addEventListener("change", function() {
+            if (radioModo.value === "Asincronica") {
+                botonAdicionalContainer.style.display = "block";
+            } else {
+                botonAdicionalContainer.style.display = "none";
+                // Oculta el desplegable si no estás en "Asincronica"
+                desplegableContainer.style.display = "none";
+            }
+        });
+    });
+
+            var botonAdicional = document.getElementById("botonAdicional");
+            var horariosSelect = document.getElementById("horarios");
+
+            // Función para generar opciones de horarios
+            function generarHorarios() {
+                var horariosSelect = document.getElementById("horarios");
+
+                for (var hora = 0; hora < 24; hora++) {
+                    for (var minuto = 0; minuto < 60; minuto += 30) {
+                        var horaStr = hora.toString().padStart(2, "0");
+                        var minutoStr = minuto.toString().padStart(2, "0");
+                        var horaCompleta = horaStr + ":" + minutoStr;
+                        var option = new Option(horaCompleta, horaCompleta);
+                        horariosSelect.appendChild(option);
+                    }
+                }
+            }
+
+            botonAdicional.addEventListener("click", function() {
+                if (desplegableContainer.style.display === "block") {
+                    desplegableContainer.style.display = "none";
+                } else {
+                    desplegableContainer.style.display = "block";
+                    generarHorarios();
+                }
+            });
+        });
+    </script>
 
 {{/partial}}
 {{> templates/base }}

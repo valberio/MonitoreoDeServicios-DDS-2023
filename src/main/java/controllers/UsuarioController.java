@@ -17,6 +17,8 @@ import io.javalin.http.Context;
 import server.utils.Initializer;
 
 import java.lang.reflect.Array;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 
@@ -188,6 +190,18 @@ public class UsuarioController extends Controller implements ICrudViewsHandler {
           if(modo!=null) {
                usuario.setModoRecepcion(ModoRecepcion.valueOf(modo.toUpperCase()));
           }
+
+          if(context.formParams("horarios")!=null) {
+               List<String> horariosSeleccionados = context.formParams("horarios");
+               DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+
+               for(String horario: horariosSeleccionados) {
+                    System.out.println(horario);
+                    LocalTime hora = LocalTime.parse(horario, formatter);
+                    usuario.configurarHorariosDisponibles(hora);
+               }
+          }
+
      }
 
      /*private void asignarParametros(Usuario usuario, Context context) {

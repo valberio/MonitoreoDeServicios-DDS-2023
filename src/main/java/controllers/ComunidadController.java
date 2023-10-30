@@ -31,7 +31,12 @@ public class ComunidadController extends Controller implements ICrudViewsHandler
     @Override
     public void index(Context context) {
         Map<String, Object> model = new HashMap<>();
-        String id = context.sessionAttribute("id").toString();
+        String id = Objects.requireNonNull(context.sessionAttribute("id")).toString();
+        Usuario usuario = (Usuario) this.repositorioUsuarios.buscar(Long.parseLong(id));
+
+        Boolean permisoCreacion = usuario.tenesPermiso("crear_comunidades");
+        model.put("permisoCreacion", permisoCreacion);
+
         List<Long> idComunidades = this.repositorioComunidades.buscarComunidadesDe(Long.parseLong(id));
 
         List<Comunidad> comunidades = new ArrayList<>();
@@ -58,10 +63,16 @@ public class ComunidadController extends Controller implements ICrudViewsHandler
     @Override
     public void create(Context context) {
         //Valido unicamente para SuperAdmin de la plataforma
-        RepositorioServicios repositorio = new RepositorioServicios();
+
+        Usuario usuarioLogueado =  super.usuarioLogueado(context);
+
+        if(usuarioLogueado == null) { //|| !usuarioLogueado.tenesPermiso("crear_comunidades")) {
+            throw new AccessDeniedException();
+        }
+        RepositorioPrestacionesDeServicio repositorio = new RepositorioPrestacionesDeServicio();
         Map<String, Object> model = new HashMap<>();
         String id = context.sessionAttribute("id").toString();
-        List<Servicio> servicios = repositorio.buscarTodos();
+        List<PrestacionDeServicio> servicios = repositorio.buscarTodos();
         model.put("servicios", servicios);
         context.render("comunidades/crearComunidades.hbs", model);
     }
@@ -118,7 +129,7 @@ public class ComunidadController extends Controller implements ICrudViewsHandler
 
     public void showById(Context context) {
 
-        Comunidad comunidad = this.repositorioComunidades.obtenerComunidad(Long.parseLong(context.pathParam("id")));
+        Comunidad comunidad = this.repositorioComunidades.obtenerComunidad(Long.parseLong(context.pathParam("id").toString()));
 
         Map<String, Object> model = new HashMap<>();
         List<Incidente> incidentes = RepositorioIncidentes.getInstance().filtrarPorComunidad(comunidad);

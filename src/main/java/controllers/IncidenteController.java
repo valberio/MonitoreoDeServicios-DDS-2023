@@ -45,7 +45,7 @@ public class IncidenteController extends Controller implements ICrudViewsHandler
         //Aca tengo que buscar los permisos del usuario, tengo que saber: 1. si puede leer CSV
         //2. si puede ver los rankings
         Boolean permisoCSV = usuario.tenesPermiso("cargar_csv");
-        Boolean permisoRanking = usuario.tenesPermiso("ver_rankings");
+        Boolean permisoRanking = usuario.tenesPermiso("ver_rankings_entidades");
 
         model.put("permisoCSV", permisoCSV);
         model.put("permisoRanking", permisoRanking);
@@ -132,10 +132,12 @@ public class IncidenteController extends Controller implements ICrudViewsHandler
         PrestacionDeServicio servicioAfectado = incidente.getServicioAfectado();
         Establecimiento establecimiento = servicioAfectado.getEstablecimiento();
         String estado = incidente.getEstado().getEstado().toString();
+        String descripcion =  incidente.getDescripcion();
         model.put("incidente", incidente);
         model.put("establecimiento", establecimiento);
         model.put("servicioAfectado", servicioAfectado);
         model.put("estado", estado);
+        model.put("descripcion", descripcion);
         context.render("incidentes/cierreIncidentes.hbs", model);
 
     }
@@ -177,7 +179,7 @@ public class IncidenteController extends Controller implements ICrudViewsHandler
 
         Usuario usuarioLogueado =  super.usuarioLogueado(context);
 
-        if(usuarioLogueado == null || !usuarioLogueado.tenesPermiso("cerrar_incidentes")) {
+        if(usuarioLogueado == null) {
             throw new AccessDeniedException();
         }
 

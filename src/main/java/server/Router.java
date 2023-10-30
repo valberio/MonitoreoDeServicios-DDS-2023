@@ -3,6 +3,7 @@ package server;
 
 
 import controllers.*;
+import jakarta.servlet.http.HttpSession;
 import models.entities.domain.roles.TipoRol;
 import server.exceptions.AccessDeniedException;
 import java.util.HashMap;
@@ -49,6 +50,12 @@ public class Router {
 
             get("/entidades", ((EntidadController) FactoryController.controller("Entidad"))::index);
             post("/entidades", ((UsuarioController) FactoryController.controller("Usuario"))::updateEntities);
+
+            get("/logout", ctx -> {
+                ctx.sessionAttribute("authenticated", false);
+                ctx.sessionAttribute("id", "");
+                ctx.redirect("/");
+            });
         });
 
         Server.app().routes(() -> {
@@ -60,11 +67,12 @@ public class Router {
 
         Server.app().routes(() -> {
             get("/comunidades", ((ComunidadController) FactoryController.controller("Comunidad"))::index);
+            get("/comunidades/crear", ((ComunidadController) FactoryController.controller("Comunidad"))::create);
+            post("/comunidades/crear", ((ComunidadController) FactoryController.controller("Comunidad"))::save);
             get("/comunidades/unirse", ((ComunidadController) FactoryController.controller("Comunidad"))::show);
             get("/comunidades/{id}", ((ComunidadController) FactoryController.controller("Comunidad"))::showById);
             post("/comunidades/unirse", ((UsuarioController) FactoryController.controller("Usuario"))::joinCommunity);
-            get("/comunidades/crear", ((ComunidadController) FactoryController.controller("Comunidad"))::create, TipoRol.SUPERADMINISTRADOR);
-            post("/comunidades/crear", ((ComunidadController) FactoryController.controller("Comunidad"))::save, TipoRol.SUPERADMINISTRADOR);
+
         });
 
         Server.app().routes(() -> {

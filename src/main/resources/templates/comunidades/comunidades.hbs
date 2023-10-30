@@ -1,40 +1,31 @@
 {{#partial "contenido" }}
-
     <div class="container mt-15">
         <div class="row justify-content-center">
-            <div class="col-md-12 borde redondeado p-4">
-                <div class="row p-4">
-                    <div class="borde redondeado d-flex justify-content-center p-2">
-                        <h1>Mis Comunidades</h1>
-                    </div>
+            <div class="col-md-12">
+                <div class="row row-cols-1 row-cols-md-2 g-4">
+                    {{#each comunidades}}
+                        <div class="col">
+                            <div class="card">
+                                <!-- Puedes incluir una imagen aquí: <img src="URL_DE_LA_IMAGEN" class="card-img-top" alt="..."> -->
+                                <div class="card-body">
+                                    <h5 class="card-title"><a href="comunidades/{{this.id}}">{{this.nombre}}</a></h5>
+                                    <p class="card-text">{{this.descripcion}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    {{/each}}
                 </div>
-
-                {{#each comunidades}}
-                <div class="row borde redondeado m-2">
-                    <div class="col-md-4">
-                        <div class="p-4 mt-2 mb-2 borde d-flex align-items-center justify-content-center redondeado">
-                            <h4><a href="comunidades/{{this.id}}">{{this.nombre}}</a></h4>
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <div class="p-4 mt-2 mb-2 borde d-flex align-items-center justify-content-center redondeado">
-                            <h4>{{this.descripcion}}</h4>
-                        </div>
-                    </div>
-                {{/each}}
 
                 <div class="row d-flex align-items-center justify-content-center">
                     <div class="col-md-5 borde redondeado d-flex justify-content-center mt-3">
-                        <a href="/comunidades/unirse" class="btn">Unirte a una comunidad</a>
-                        <a href="/comunidades/crear" class="btn">Crear</a>
+                        <a href="/comunidades/unirse" class="btn btn-primary">Unirte a una comunidad</a>
+                        {{#if permisoCreacion}}
+                            <a href="/comunidades/crear" class="btn btn-success">Crear</a>
+                        {{/if}}
                     </div>
                 </div>
             </div>
-            </div>
-
-
         </div>
     </div>
-
 {{/partial}}
 {{> templates/baseConNavegador }}
