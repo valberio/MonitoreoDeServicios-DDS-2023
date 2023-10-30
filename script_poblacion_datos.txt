@@ -50,7 +50,7 @@ values (11, "Ver rankings", "ver_rankings");
 
 --USUARIO SUPERADMIN
 insert into rol (id, nombre, tipo)
-values (1, "Superadmin", "superadmin");
+values (1, "Superadmin", "superadministrador");
 
 insert into rol_permiso(rol_id, permisos_id) values(1, 1);
 insert into rol_permiso(rol_id, permisos_id) values(1, 2);
