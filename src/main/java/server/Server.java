@@ -8,7 +8,6 @@ import io.javalin.http.HttpStatus;
 import io.javalin.rendering.JavalinRenderer;
 import server.handlers.AppHandlers;
 import server.middlewares.AuthMiddleware;
-import server.utils.Initializer;
 
 import java.io.IOException;
 import java.util.function.Consumer;
@@ -39,7 +38,7 @@ public class Server {
         return config -> {
             config.staticFiles.add(staticFiles -> {
                 staticFiles.hostedPath = "/";
-                staticFiles.directory = "/public";
+                staticFiles.directory = "/assets";
             });
             AuthMiddleware.apply(config);
         };
