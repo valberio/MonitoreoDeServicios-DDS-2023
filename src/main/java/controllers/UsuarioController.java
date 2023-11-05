@@ -179,13 +179,14 @@ public class UsuarioController extends Controller implements ICrudViewsHandler {
           }
 
           String medio = context.formParam("medios");
+          System.out.println("Medio: " + medio);
 
           if(medio!=null) {
-
                usuario.setMedioDeNotificacion(medio);
           }
 
           String modo = context.formParam("modos");
+          System.out.println("Modo: " + modo);
 
           if(modo!=null) {
                usuario.setModoRecepcion(ModoRecepcion.valueOf(modo.toUpperCase()));

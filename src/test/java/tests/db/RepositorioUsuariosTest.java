@@ -53,7 +53,5 @@ public class RepositorioUsuariosTest implements SimplePersistenceTest {
         noPersistente.setNombreDeUsuario("marsoteras");
         repo.agregarUsuario(noPersistente);
 
-        Assertions.assertEquals(1, repo.filtrarPorNombre("marsoteras").size());
-
-    }
+        Assertions.assertEquals(1, repo.filtrarPorNombre("marsoteras").size());}
 }

@@ -51,6 +51,7 @@ public class Usuario extends Persistente {
     @Column(name = "medioNotificacion")
     @Nullable
     private MedioNotificacion medioPreferido; // Email o Wpp
+    @Nullable
     @Enumerated(EnumType.STRING)
     private ModoRecepcion modoRecepcion; // Sincronico o asincronico
 
