@@ -25,18 +25,20 @@
                     </div>
                 </div>
                     <div class="row">
-                        <div class="col-md-12>
+                        <div class="col-md-12">
                             {{#each servicios}}
-                            <label for="servicio{{@index}}">{{this.servicio.tipoServicio}}</label>
-                            <input type="checkbox" id="servicio{{@index}}" name="servicios" value="{{this.nombre}}">
+                                <label for="servicio{{@index}}">{{this}}</label>
+                                <input type="checkbox" id="servicio{{@index}}" name="servicios" value="{{this}}">
                             {{/each}}
                         </div>
-                </form>
-                <div class="row d-flex align-items-center justify-content-center">
-                    <div class="col-md-3 borde redondeado d-flex justify-content-center mt-3">
-                        <a href="/home" class="btn">Crear</a>
                     </div>
-                </div>
+                        <div class="row d-flex align-items-center justify-content-center">
+                            <div class="col-md-3 borde redondeado d-flex justify-content-center mt-3">
+                                <button class="btn btn-primary" name="crearComunidad" type="submit">Unirse</button>
+                            </div>
+                        </div>
+                </form>
+
             </div>
         </div>
     </div>

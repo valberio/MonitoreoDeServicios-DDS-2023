@@ -5,6 +5,7 @@ import models.entities.domain.servicios.PrestacionDeServicio;
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 
 import javax.persistence.EntityTransaction;
+import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
@@ -15,6 +16,11 @@ public class RepositorioPrestacionesDeServicio implements WithSimplePersistenceU
         return entityManager().createQuery("from " + PrestacionDeServicio.class.getName()).getResultList();
     }
 
+    public List<String> buscarTodosLosNombres() {
+        return entityManager()
+                .createQuery("SELECT p.nombre FROM PrestacionDeServicio p")
+                .getResultList();
+    }
     @Override
     public Object buscar(Long id) {
         return entityManager().find(PrestacionDeServicio.class, id);
@@ -43,10 +49,16 @@ public class RepositorioPrestacionesDeServicio implements WithSimplePersistenceU
 
 
     public Long obtenerIdDelServicioPorNombre(String nombrePrestacion) {
-        List entidades = entityManager().createQuery("from PrestacionDeServicio where nombre = :nombre")
-                .setParameter("nombre", nombrePrestacion).getResultList();
-
-        return ((PrestacionDeServicio) entidades.get(0)).getId();
+        try {
+            TypedQuery<PrestacionDeServicio> query = entityManager().createQuery(
+                            "SELECT p FROM PrestacionDeServicio p WHERE p.nombre = :nombre", PrestacionDeServicio.class)
+                    .setParameter("nombre", nombrePrestacion);
+            PrestacionDeServicio prestacion = query.getSingleResult();
+            return prestacion.getId();
+        } catch (NoResultException e) {
+            // Manejar el caso en el que no se encuentra ninguna coincidencia
+            return null;
+        }
     }
 
 }

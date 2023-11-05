@@ -69,19 +69,44 @@
                     ¡El incidente se ha reportado con éxito!
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Aceptar</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="btnAceptarModal">Aceptar</button>
                 </div>
             </div>
         </div>
     </div>
     <script>
-    // JavaScript para mostrar el modal de éxito después de enviar el formulario
+
     document.querySelector('form').addEventListener('submit', function (e) {
-        // Evitar que el formulario se envíe de inmediato
-        var reportSuccessModal = new bootstrap.Modal(document.getElementById('reportSuccessModal'));
-        reportSuccessModal.show();
+        e.preventDefault(); // Evitar que el formulario se envíe de inmediato
+
+        // Realizar una llamada AJAX para enviar los datos al servidor
+        fetch('/incidentes/crear', {
+            method: 'POST',
+            body: new FormData(e.target) // Enviar los datos del formulario
+        })
+                .then(response => {
+                    if (response.ok) {
+                        // Si la operación se completó con éxito, muestra el modal de éxito
+                        var reportSuccessModal = new bootstrap.Modal(document.getElementById('reportSuccessModal'));
+                        reportSuccessModal.show();
+
+                        // Agregar un manejador de eventos al botón "Aceptar" en el modal
+                        document.getElementById('btnAceptarModal').addEventListener('click', function () {
+                            // Redirigir a "/home"
+                            window.location.href = "/home";
+                        });
+                    } else {
+                        // Manejar errores si la operación no fue exitosa
+                        console.error('Error al enviar el formulario');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error de red al enviar el formulario', error);
+                });
     });
-</script>
+
+
+    </script>
 
 {{/partial}}
 {{> templates/baseConNavegador }}

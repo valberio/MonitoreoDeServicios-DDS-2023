@@ -71,8 +71,7 @@ public class ComunidadController extends Controller implements ICrudViewsHandler
         }
         RepositorioPrestacionesDeServicio repositorio = new RepositorioPrestacionesDeServicio();
         Map<String, Object> model = new HashMap<>();
-        String id = context.sessionAttribute("id").toString();
-        List<PrestacionDeServicio> servicios = repositorio.buscarTodos();
+        List<String> servicios = repositorio.buscarTodosLosNombres();
         model.put("servicios", servicios);
         context.render("comunidades/crearComunidades.hbs", model);
     }
@@ -84,7 +83,7 @@ public class ComunidadController extends Controller implements ICrudViewsHandler
         this.asignarParametros(comunidad, context);
         this.repositorioComunidades.guardar(comunidad);
         context.status(HttpStatus.CREATED);
-        context.redirect("home");
+        context.redirect("/comunidades/unirse");
     }
 
     @Override
@@ -113,14 +112,16 @@ public class ComunidadController extends Controller implements ICrudViewsHandler
             comunidad.setDescripcion(context.formParam("descripcion"));
         }
 
-        String[] serviciosInteres = context.formParams("servicios").toArray(new String[0]);
+        List<String> serviciosInteres = context.formParams("servicios");
         List<PrestacionDeServicio> serviciosDeInteres = new ArrayList<>();
 
         if (serviciosInteres != null) {
             for (String servicioInteresNombre : serviciosInteres) {
                 Long servicioInteresId = this.repositorioPrestacionesDeServicio.obtenerIdDelServicioPorNombre(servicioInteresNombre);
-                PrestacionDeServicio servicioInteres = (PrestacionDeServicio) this.repositorioPrestacionesDeServicio.buscar(servicioInteresId);
-                serviciosDeInteres.add(servicioInteres);
+                if (servicioInteresId != null) {
+                    PrestacionDeServicio servicioInteres = (PrestacionDeServicio) this.repositorioPrestacionesDeServicio.buscar(servicioInteresId);
+                    serviciosDeInteres.add(servicioInteres);
+                }
             }
         }
         comunidad.setServiciosDeInteres(serviciosDeInteres);

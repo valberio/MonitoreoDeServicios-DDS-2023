@@ -9,8 +9,7 @@
                             <h5 class="card-title">{{this.nombre}}</h5>
                             <p class="card-text">{{this.descripcion}}</p>
                             <form method="POST" action="/comunidades/unirse">
-                                <input type="radio" id="comunidad{{@index}}" name="comunidades" value="{{this.nombre}}">
-                                <button type="submit" class="btn btn-primary">Unirse</button>
+                                <button id="comunidad{{@index}}" class="btn btn-primary" name="comunidades" value="{{this.nombre}}">Unirse</button>
                             </form>
                         </div>
                     </div>
