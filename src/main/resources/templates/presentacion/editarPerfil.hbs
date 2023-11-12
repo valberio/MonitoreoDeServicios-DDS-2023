@@ -9,14 +9,11 @@
 </div>
 
 <form method="POST" action="editar">
-    <div class = "container-fluid">
-        <div class="row">
+    <div class = "container mx-fluid borde">
+        <div class="row align-items-center">
             <!-- Parte de la izquierda -->
-            <div class="col-md-6">
+            <div class="col-md-6 ms-1">
                 <div class="row h-100 align-items-center">
-                    <div class="col-md-2">
-
-                    </div>
                     <div class="col-md-8">
                         <div class="container">
                             <div class="row justify-text-center">
@@ -48,18 +45,10 @@
                                     <input type = "telefono" name="telefono" class="form-control mr-sm-2" placeholder="{{usuario.numeroTelefono}}"></input>
                                 </div>
                             </div>
-                            <!--
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <label for="localizacion">Localización:</label>
-                                    <input name="localizacion" class="form-control mr-sm-2" placeholder="Localización"></input>
+                            <div class="row justify-content-center">
+                                <div class="col-4 ms-4 me-4 mt-2 mb-2">
+                                    <input type="submit" value="Enviar" class="btn btn-primary btn-block btn-group-sm">
                                 </div>
-                            </div>
-                            -->
-                            <div class="col-md-2">
-                            </div>
-                            <div>
-                                <input type="submit" value="Enviar">
                             </div>
                         </div>
                     </div>
@@ -67,10 +56,8 @@
             </div>
 
             <!-- Parte de la derecha -->
-            <div class="col-md-6">
+            <div class="col-md-5">
                 <div class="row h-100 align-items-center">
-                    <div class="col-md-2">
-                    </div>
                     <div class="col-md-8">
                         <div class="container">
                             <div class="row justify-text-center">
@@ -100,9 +87,9 @@
     </div>
 </form>
 
-<div class="row">
+<div class="row mt-2">
     <div class="col-12 d-flex justify-content-center align-items-center">
-        <button><a href="/entidades">SELECCIONAR ENTIDADES DE INTERES</a>  </button>
+        <button class="btn btn-primary btn-block p-4 btn-primary"><a class="link-white" href="/entidades">SELECCIONAR ENTIDADES DE INTERES</a>  </button>
     </div>
 </div>
 
