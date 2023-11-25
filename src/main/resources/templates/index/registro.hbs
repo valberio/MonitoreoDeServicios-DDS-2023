@@ -3,67 +3,65 @@
 
     <div class="container my-12">
         <div class="row mt-lg-n10 mt-md-n11 mt-n10 justify-content-center">
-            <div class="col-xl-10 col-lg-5 col-md-7 mx-auto">
+            <div class="col-xl-10 col-lg-10 col-md-10 mx-auto">
                 <div class="card z-index-0">
                     <div class="card-header text-center pt-4">
                         <h4>Registrate</h4>
                     </div>
                     <div class="card-body row">
-                        <div class="col-6">
+                        <div class="col-md-6">
                             <form role="form" method="POST" action="">
                                 <h3 class="text-center pt-4">Datos personales</h3>
                                 <div class="mb-3">
-                                    <input type="text" class="form-control" placeholder="Nombre y apellido" aria-label="Nombre y apellido" name="nombre" required>
+                                    <input type="text" class="form-control" placeholder="Nombre de usuario" aria-label="Nombre de usuario" name="nombre" required>
                                 </div>
                                 <div class="mb-3">
-                                    <input type="password" class="form-control" placeholder="Contrasenia" aria-label="Contraseña" name="contrasenia" required>
+                                    <input type="password" class="form-control" placeholder="Contraseña" aria-label="Contraseña" name="contrasenia" required>
                                 </div>
                                 <div class="mb-3">
                                     <input type="email" class="form-control" placeholder="Email" aria-label="Email" name="email" required>
                                 </div>
                                 <div class="mb-3">
-                                    <input class="form-control" placeholder="Número de teléfono" aria-label="teléfono" name="telefono" required>
+                                    <input class="form-control" placeholder="Número de teléfono" aria-label="Teléfono" name="telefono" required>
                                 </div>
-
-
                                 <div class="text-center">
                                     <button type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">Enviar</button>
                                 </div>
+                            </form>
+                        </div>
 
-
-                                <div class="col-6">
-                                    <h4 class="text-center pt-4">Preferencias al recibir notificaciones</h4>
-                                    <div class="mb-3">
-                                        <label class="form-label">Medio preferido:</label>
-                                        <div class="d-flex justify-content-center">
-                                            {{#each medios}}
-                                                <div class="form-check mx-3">
-                                                    <input type="radio" class="form-check-input" id="medio{{@index}}" name="medios" value="{{this}}">
-                                                    <label class="form-check-label" for="medio{{@index}}">{{this}}</label>
-                                                </div>
-                                            {{/each}}
-                                        </div>
+                        <div class="col-md-6">
+                            <form role="form" method="POST" action="">
+                                <h3 class="text-center pt-4">Preferencias al recibir notificaciones</h3>
+                                <div class="mb-3">
+                                    <label class="form-label">Medio preferido:</label>
+                                    <div class="d-flex justify-content-center">
+                                        {{#each medios}}
+                                            <div class="form-check mx-3">
+                                                <input type="radio" class="form-check-input" id="medio{{@index}}" name="medios" value="{{this}}">
+                                                <label class="form-check-label" for="medio{{@index}}">{{this}}</label>
+                                            </div>
+                                        {{/each}}
                                     </div>
-                                    <div class="mb-3">
-                                        <label class="form-label">Modo de notificación:</label>
-                                        <div class="d-flex justify-content-center">
-                                            {{#each modos}}
-                                                <div class="form-check mx-3">
-                                                    <input type="radio" class="form-check-input" id="modo{{@index}}" name="modos" value="{{this}}">
-                                                    <label class="form-check-label" for="modo{{@index}}">{{this}}</label>
-                                                </div>
-                                            {{/each}}
-                                        </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Modo de notificación:</label>
+                                    <div class="d-flex justify-content-center">
+                                        {{#each modos}}
+                                            <div class="form-check mx-3">
+                                                <input type="radio" class="form-check-input" id="modo{{@index}}" name="modos" value="{{this}}">
+                                                <label class="form-check-label" for="modo{{@index}}">{{this}}</label>
+                                            </div>
+                                        {{/each}}
                                     </div>
-                                    <div class="mb-3" id="botonAdicionalContainer" style="display: none;">
-                                        <button id="botonAdicional" type="button" class="btn btn-secondary">Configurar horarios disponibles</button>
-                                    </div>
-
-                                    <div id="desplegableContainer" style="display: none;">
-                                        <label for="horarios">Horarios disponibles:</label>
-                                        <select id="horarios" name="horarios" multiple class="form-select">
-                                        </select>
-                                    </div>
+                                </div>
+                                <div class="mb-3" id="botonAdicionalContainer" style="display: none;">
+                                    <button id="botonAdicional" type="button" class="btn btn-secondary">Configurar horarios disponibles</button>
+                                </div>
+                                <div id="desplegableContainer" style="display: none;">
+                                    <label for="horarios">Horarios disponibles:</label>
+                                    <select id="horarios" name="horarios" multiple class="form-select">
+                                    </select>
                                 </div>
                             </form>
                         </div>
@@ -72,50 +70,49 @@
             </div>
         </div>
     </div>
-        <script>
-            document.addEventListener("DOMContentLoaded", function() {
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
             var radioModos = document.querySelectorAll('input[name="modos"]');
             var botonAdicionalContainer = document.getElementById("botonAdicionalContainer");
             var desplegableContainer = document.getElementById("desplegableContainer");
 
             radioModos.forEach(function(radioModo) {
-            radioModo.addEventListener("change", function() {
-            if (radioModo.value === "Asincronica") {
-            botonAdicionalContainer.style.display = "block";
-        } else {
-            botonAdicionalContainer.style.display = "none";
-            // Oculta el desplegable si no estás en "Asincronica"
-            desplegableContainer.style.display = "none";
-        }
-        });
-        });
+                radioModo.addEventListener("change", function() {
+                    if (radioModo.value === "Asincronica") {
+                        botonAdicionalContainer.style.display = "block";
+                    } else {
+                        botonAdicionalContainer.style.display = "none";
+                        desplegableContainer.style.display = "none";
+                    }
+                });
+            });
 
             var botonAdicional = document.getElementById("botonAdicional");
             var horariosSelect = document.getElementById("horarios");
 
-            // Función para generar opciones de horarios
             function generarHorarios() {
-            var horariosSelect = document.getElementById("horarios");
+                var horariosSelect = document.getElementById("horarios");
 
-            for (var hora = 0; hora < 24; hora++) {
-            for (var minuto = 0; minuto < 60; minuto += 30) {
-            var horaStr = hora.toString().padStart(2, "0");
-            var minutoStr = minuto.toString().padStart(2, "0");
-            var horaCompleta = horaStr + ":" + minutoStr;
-            var option = new Option(horaCompleta, horaCompleta);
-            horariosSelect.appendChild(option);
-        }
-        }
-        }
+                for (var hora = 0; hora < 24; hora++) {
+                    for (var minuto = 0; minuto < 60; minuto += 30) {
+                        var horaStr = hora.toString().padStart(2, "0");
+                        var minutoStr = minuto.toString().padStart(2, "0");
+                        var horaCompleta = horaStr + ":" + minutoStr;
+                        var option = new Option(horaCompleta, horaCompleta);
+                        horariosSelect.appendChild(option);
+                    }
+                }
+            }
 
             botonAdicional.addEventListener("click", function() {
-            if (desplegableContainer.style.display === "block") {
-            desplegableContainer.style.display = "none";
-        } else {
-            desplegableContainer.style.display = "block";
-            generarHorarios();
-        }
-        });
+                if (desplegableContainer.style.display === "block") {
+                    desplegableContainer.style.display = "none";
+                } else {
+                    desplegableContainer.style.display = "block";
+                    generarHorarios();
+                }
+            });
         });
     </script>
 {{/partial}}
