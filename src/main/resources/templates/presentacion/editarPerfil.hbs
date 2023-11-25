@@ -1,97 +1,97 @@
 {{#partial "contenido" }}
 
-<!-- PARTE DEL REGISTRO -->
-<div>
-    <div class="row">
-        <h1>  </h1> <!-- Este es un espacio -->
-        <h1 class="col-md-12 text-center"> Edita Tu Perfil </h1>
+    <!-- PARTE DEL REGISTRO -->
+    <div>
+        <div class="row">
+            <h1>  </h1> <!-- Este es un espacio -->
+            <h1 class="col-md-12 text-center"> Edita Tu Perfil </h1>
+        </div>
     </div>
-</div>
 
-<form method="POST" action="editar">
-    <div class = "container mx-fluid borde">
-        <div class="row align-items-center">
-            <!-- Parte de la izquierda -->
-            <div class="col-md-6 ms-1">
-                <div class="row h-100 align-items-center">
-                    <div class="col-md-8">
-                        <div class="container">
-                            <div class="row justify-text-center">
-                                <div class="col-md-12 text-center">
-                                    <h3>USUARIO</h3>
+    <form method="POST" action="editar">
+        <div class="container mx-fluid borde">
+            <div class="row">
+                <!-- Parte de la izquierda -->
+                <div class="col-md-6">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <div class="container">
+                                <div class="row justify-text-center">
+                                    <div class="col-md-12 text-center">
+                                        <h3>USUARIO</h3>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <label for="nombre">Nombre de usuario:</label>
-                                    <input name = "nombre" class="form-control mr-sm-2" placeholder="{{usuario.nombreDeUsuario}}"></input>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label for="nombre">Nombre de usuario:</label>
+                                        <input name="nombre" class="form-control mr-sm-2" placeholder="{{usuario.nombreDeUsuario}}">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <label for="contrasena">Contraseña:</label>
-                                    <input type="password" name="contrasenia" class="form-control mr-sm-2"></input>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label for="contrasena">Contraseña:</label>
+                                        <input type="password" name="contrasenia" class="form-control mr-sm-2">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <label for="email">Email:</label>
-                                    <input type = "email" name = "email" class="form-control mr-sm-2" placeholder={{usuario.email}}></input>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label for="email">Email:</label>
+                                        <input type="email" name="email" class="form-control mr-sm-2" placeholder="{{usuario.email}}">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <label for="telefono">Teléfono:</label>
-                                    <input type = "telefono" name="telefono" class="form-control mr-sm-2" placeholder="{{usuario.numeroTelefono}}"></input>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label for="telefono">Teléfono:</label>
+                                        <input type="tel" name="telefono" class="form-control mr-sm-2" placeholder="{{usuario.numeroTelefono}}">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row justify-content-center">
-                                <div class="col-4 ms-4 me-4 mt-2 mb-2">
-                                    <input type="submit" value="Enviar" class="btn btn-primary btn-block btn-group-sm">
+                                <div class="row justify-content-center">
+                                    <div class="col-4 ms-4 me-4 mt-2 mb-2">
+                                        <input type="submit" value="Enviar" class="btn btn-primary btn-block btn-group-sm">
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Parte de la derecha -->
-            <div class="col-md-5">
-                <div class="row h-100 align-items-center">
-                    <div class="col-md-8">
-                        <div class="container">
-                            <div class="row justify-text-center">
-                                <div class="col-md-12 text-center">
-                                    <h3>NOTIFICACIÓN</h3>
+                <!-- Parte de la derecha -->
+                <div class="col-md-6">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <div class="container">
+                                <div class="row justify-text-center">
+                                    <div class="col-md-12 text-center">
+                                        <h3>Preferencias al recibir notificaciones</h3>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row">
+                                <div class="row">
+                                    <div class="form-group">
+                                        {{#each medios}}
+                                            <label for="medio{{@index}}">{{this}}</label>
+                                            <input type="radio" id="medio{{@index}}" name="medios" value="{{this}}" placeholder="Medio para recibir Notificaciones">
+                                        {{/each}}
+                                    </div>
+                                </div>
                                 <div class="form-group">
-                                    {{#each medios}}
-                                        <label for="medio{{@index}}">{{this}}</label>
-                                        <input type="radio" id="medio{{@index}}" name="medios" value="{{this}}" placeholder="Medio para recibir Notificaciones">
+                                    {{#each modos}}
+                                        <label for="modo{{@index}}">{{this}}</label>
+                                        <input type="radio" id="modo{{@index}}" name="modos" value="{{this}}" placeholder="Modo de Recepción">
                                     {{/each}}
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                {{#each modos}}
-                                    <label for="modo{{@index}}">{{this}}</label>
-                                    <input type="radio" id="modo{{@index}}" name="modos" value="{{this}}" placeholder="Modo de Recepción">
-                                {{/each}}
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</form>
+    </form>
 
-<div class="row mt-2">
-    <div class="col-12 d-flex justify-content-center align-items-center">
-        <button class="btn btn-primary btn-block p-4 btn-primary"><a class="link-white" href="/entidades">SELECCIONAR ENTIDADES DE INTERES</a>  </button>
+    <div class="row mt-2">
+        <div class="col-12 d-flex justify-content-center align-items-center">
+            <button class="btn btn-primary btn-block p-4 btn-primary"><a class="link-white" href="/entidades">SELECCIONAR ENTIDADES DE INTERÉS</a></button>
+        </div>
     </div>
-</div>
 
 {{/partial}}
 {{> templates/baseConNavegador }}

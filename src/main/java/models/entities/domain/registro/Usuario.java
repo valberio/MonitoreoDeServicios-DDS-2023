@@ -38,7 +38,11 @@ public class Usuario extends Persistente {
     @Column(name="email")
     private String email;
     @Embedded
-    private Contrasenia contrasenia;
+    private Contrasenia contrasenia; //hasheada
+
+    @Column(name="salt")
+    private String salt; //para decodificar
+
     @Column(name="telefono")
     private String numeroTelefono;
     @Column(name="bloqueado")
