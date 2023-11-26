@@ -58,7 +58,7 @@
                                 <div class="mb-3" id="botonAdicionalContainer" style="display: none;">
                                     <button id="botonAdicional" type="button" class="btn btn-secondary">Configurar horarios disponibles</button>
                                 </div>
-                                <div id="desplegableContainer" style="display: none;">
+                                <div id="desplegableContainer" style="display: none; max-height: 120px; overflow-y: auto;">
                                     {{#each horarios}}
                                         <input type="checkbox" id="{{this}}" name="opciones" value="{{this}}">
                                         <label for="{{this}}">{{this}}</label><br>
