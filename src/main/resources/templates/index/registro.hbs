@@ -59,9 +59,10 @@
                                     <button id="botonAdicional" type="button" class="btn btn-secondary">Configurar horarios disponibles</button>
                                 </div>
                                 <div id="desplegableContainer" style="display: none;">
-                                    <label for="horarios">Horarios disponibles:</label>
-                                    <select id="horarios" name="horarios" multiple class="form-select">
-                                    </select>
+                                    {{#each horarios}}
+                                        <input type="checkbox" id="{{this}}" name="opciones" value="{{this}}">
+                                        <label for="{{this}}">{{this}}</label><br>
+                                    {{/each}}
                                 </div>
                             </form>
                         </div>
@@ -89,31 +90,16 @@
             });
 
             var botonAdicional = document.getElementById("botonAdicional");
-            var horariosSelect = document.getElementById("horarios");
-
-            function generarHorarios() {
-                var horariosSelect = document.getElementById("horarios");
-
-                for (var hora = 0; hora < 24; hora++) {
-                    for (var minuto = 0; minuto < 60; minuto += 30) {
-                        var horaStr = hora.toString().padStart(2, "0");
-                        var minutoStr = minuto.toString().padStart(2, "0");
-                        var horaCompleta = horaStr + ":" + minutoStr;
-                        var option = new Option(horaCompleta, horaCompleta);
-                        horariosSelect.appendChild(option);
-                    }
-                }
-            }
 
             botonAdicional.addEventListener("click", function() {
                 if (desplegableContainer.style.display === "block") {
                     desplegableContainer.style.display = "none";
                 } else {
                     desplegableContainer.style.display = "block";
-                    generarHorarios();
                 }
             });
         });
     </script>
+
 {{/partial}}
 {{> templates/base }}

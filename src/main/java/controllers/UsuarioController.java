@@ -46,10 +46,12 @@ public class UsuarioController extends Controller implements ICrudViewsHandler {
      public void create(Context context) {
           ArrayList<String> medios = (ArrayList<String>) Initializer.obtenerMedioDeNotificacionValidos();
           ArrayList<String> modos = (ArrayList<String>) Initializer.obtenerModosDeRecepcionValidos();
+          ArrayList<LocalTime> horarios = (ArrayList<LocalTime>) Initializer.obtenerHorarios();
 
           Map<String, Object> model = new HashMap<>();
           model.put("medios", medios);
           model.put("modos", modos);
+          model.put("horarios", horarios);
 
           context.render("index/registro.hbs", model);
 

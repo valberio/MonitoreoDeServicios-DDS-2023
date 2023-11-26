@@ -1,5 +1,6 @@
 package server.utils;
 
+import com.twilio.rest.api.v2010.account.incomingphonenumber.Local;
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 import lombok.With;
 import models.entities.domain.notificaciones.tiempoDeEnvio.ModoRecepcion;
@@ -8,6 +9,7 @@ import models.entities.domain.roles.Rol;
 import models.entities.domain.roles.TipoRol;
 import models.repositories.datos.RepositorioDePermisos;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +21,25 @@ public class Initializer implements WithSimplePersistenceUnit {
                 .permisos()
                 .roles()
                 .commitearTransaccion();
+    }
+
+    public static List<LocalTime> obtenerHorarios() {
+
+        List<LocalTime> horarios = new ArrayList<>();
+
+        // Horario de inicio (00:00)
+        LocalTime inicio = LocalTime.MIDNIGHT;
+
+        // Horario de fin (23:30, ya que estamos agregando intervalos de 30 minutos)
+        LocalTime fin = LocalTime.of(23, 30);
+
+        // Intervalo de media hora
+        while (inicio.isBefore(fin)) {
+            horarios.add(inicio);
+            inicio = inicio.plusMinutes(30); // Agregar 30 minutos
+        }
+
+        return horarios;
     }
 
     private Initializer iniciarTransaccion() {
