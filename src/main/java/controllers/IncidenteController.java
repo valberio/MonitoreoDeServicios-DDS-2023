@@ -201,26 +201,8 @@ public class IncidenteController extends Controller implements ICrudViewsHandler
     }
 
     public void api(Context context){
-
-       /* Usuario usuarioLogueado =  super.usuarioLogueado(context);
-        List<Incidente> incidentes = this.repositorioIncidentes.buscarIncidentesDeInteresPara(usuarioLogueado.getId());
-        List<Map<String, Double>> markers  = new ArrayList<>();
-
-
-        for (Incidente incidente : incidentes) {
-            PrestacionDeServicio servicioAfectado = incidente.getServicioAfectado();
-            Establecimiento establecimiento = servicioAfectado.getEstablecimiento();
-            Ubicacion ubicacion = establecimiento.getUbicacionGeografica();
-
-            Map<String, Double> ubicacionMap = new HashMap<>();
-            markers.add(Map.of("lat", ubicacion.getLat(), "lng", ubicacion.getLon()));
-        }
-
-        context.render("incidentes/sugerencias.hbs", Map.of("incidentes", incidentes, "mapScript", getMapScript(markers)));
-*/
-
-        Usuario usuarioLogueado =  super.usuarioLogueado(context);
-        List<Map<String, Double>> ubicaciones = new ArrayList<>();
+        Usuario usuarioLogueado = super.usuarioLogueado(context);
+        List<Map<String, Object>> incidentesData = new ArrayList<>();
 
         List<Incidente> incidentes = this.repositorioIncidentes.buscarIncidentesDeInteresPara(usuarioLogueado.getId());
 
@@ -229,37 +211,20 @@ public class IncidenteController extends Controller implements ICrudViewsHandler
             Establecimiento establecimiento = servicioAfectado.getEstablecimiento();
             Ubicacion ubicacion = establecimiento.getUbicacionGeografica();
 
-            Map<String, Double> ubicacionMap = new HashMap<>();
-            ubicacionMap.put("latitud", ubicacion.getLat());
-            ubicacionMap.put("longitud", ubicacion.getLon());
+            Map<String, Object> incidenteData = new HashMap<>();
+            incidenteData.put("latitud", ubicacion.getLat());
+            incidenteData.put("longitud", ubicacion.getLon());
+            incidenteData.put("nombreEstablecimiento", establecimiento.getNombre());
+            incidenteData.put("nombreServicioAfectado", servicioAfectado.getNombre());
+            incidenteData.put("descripcion", incidente.getDescripcion());
+            incidenteData.put("id", incidente.getId());
 
-            ubicaciones.add(ubicacionMap);
+            incidentesData.add(incidenteData);
         }
 
-        context.json(ubicaciones);
-
-
+        context.json(incidentesData);
     }
 
-    /*private static String getMapScript(List<Map<String, Double>> markers) {
-        // Construye el script de Leaflet y OpenStreetMap con los marcadores
-        StringBuilder script = new StringBuilder();
-        script.append("var map = L.map('map').setView([51.505, -0.09], 13);");
-        script.append("L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {");
-        script.append("attribution: '© OpenStreetMap contributors'");
-        script.append("}).addTo(map);");
-
-        // Agrega marcadores al mapa
-        for (Map<String, Double> marker : markers) {
-            script.append("L.marker([").append(marker.get("lat")).append(", ").append(marker.get("lng")).append("]).addTo(map);");
-        }
-
-        System.out.println(script.toString());
-
-
-        return script.toString();
-    }
-*/
 
 
 

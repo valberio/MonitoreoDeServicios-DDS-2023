@@ -67,7 +67,6 @@
             </div>
         </div>
     </div>
-
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
     <script>
@@ -79,30 +78,35 @@
             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         }).addTo(map);
 
-        let iconOptions = {
-        iconUrl: "templates/incidentes/icono_incidente.png",
-        iconSize: [38, 95]}
-
-        let customIcon = L.icon(iconOptions);
-         var markerOptions = {
-            clickable: true,
-            icon: customIcon
-        }
-
         fetch('/incidentes/ubicaciones')
             .then(response => response.json())
             .then(data => {
-                data.forEach(ubicacion => {
-                    let latitud = ubicacion.latitud;
-                    let longitud = ubicacion.longitud;
-                    L.marker([latitud, longitud]).addTo(map);
+                data.forEach(incidente => {
+                    let latitud = incidente.latitud;
+                    let longitud = incidente.longitud;
+                    let nombreEstablecimiento = incidente.nombreEstablecimiento;
+                    let nombreServicio = incidente.nombreServicioAfectado;
+                    let descripcion = incidente.descripcion;
+                    let id = incidente.id;
+
+                    let marker = L.marker([latitud, longitud]).addTo(map);
+
+                    // Crear contenido del popup con la información del incidente
+                    let popupContent = `
+                        <strong>Establecimiento:</strong> ${nombreEstablecimiento}<br>
+                        <strong>Servicio Afectado:</strong> ${nombreServicio}<br>
+                        <strong>Descripción:</strong> ${descripcion}<br>
+                        <a href="/incidentes/${id}/editar">Cerrar Incidente</a>
+                    `;
+
+                    marker.bindPopup(popupContent);
                 });
             })
             .catch(error => {
                 console.error('Error al obtener las ubicaciones de los incidentes:', error);
             });
     });
-</script>
+    </script>
 
 {{/partial}}
 
