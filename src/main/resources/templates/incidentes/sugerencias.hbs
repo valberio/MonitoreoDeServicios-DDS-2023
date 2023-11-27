@@ -1,55 +1,112 @@
+
+<head>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+          crossorigin=""/>
+    <style>
+        #map {
+            height: 500px; /* Ajusta la altura del mapa */
+            width: 500px; /* Ajusta el ancho del mapa */
+            float: left; /* Alinea el mapa a la izquierda */
+        }
+        .incidentes-list {
+            margin-left: 520px; /* Espacio entre el mapa y la lista de incidentes */
+        }
+        /* Estilos adicionales para los elementos, ajusta según tus necesidades */
+        .borde {
+            border: 1px solid #ccc;
+        }
+        .redondeado {
+            border-radius: 5px;
+        }
+    </style>
+</head>
 {{#partial "contenido" }}
-
-<div class="container">
-    <div class="row">
-        <div class="col-md-6 d-flex align-items-center justify-content-center">
-            <iframe width="600" height="450" style="border:0" Loading="lazy" allowfullscreen src="https://www.google.com/maps/embed/v1/view?zoom=17&center=-34.5986%2C-58.4201&key=AIzaSyDBJD6fpJEj8pV7pB9QHKd7f8LnjbWexy0"></iframe>
-
-        </div>
-        <div class="col-md-5">
-            <div class="row">
-                <div class="container borde redondeado mt-5">
-                    <div class="col p-4">
-                        <div class="row borde redondeado p-2">
-                            <h4 class="text-center">¿Te podes acercar a la ubicación del incidente?</h4>
-                        </div>
-                        {{#each incidentes}}
-                            <div class="row borde redondeado m-2">
-                                <div class="col-md-4">
-                                    <div class="p-4 mt-2 mb-2 borde d-flex align-items-center justify-content-center redondeado">
-                                        <h4>{{this.servicioAfectado.establecimiento.nombre}}</h4>
-                                    </div>
-
-                                </div>
-                                <div class="col-4">
-                                    <div class="p-4 mt-2 mb-2 borde d-flex align-items-center justify-content-center redondeado">
-                                        <h4>{{this.servicioAfectado.nombre}}</h4>
-                                    </div>
-
-                                </div>
-                                <div class="col-2">
-                                    <div class="p-4 mt-2 mb-2 borde d-flex align-items-center justify-content-center redondeado">
-                                        <h5>{{this.descripcion}}</h5>
-                                    </div>
-                                </div>
-                                <div class="col-2">
-                                    <div class="p-4 mt-2 mb-2 borde d-flex align-items-center justify-content-center redondeado">
-                                        <a href="incidentes/{{this.id}}/editar">Me puedo acercar a este</a>
-                                    </div>
-                                </div>
-                            </div>
-                        {{/each}}
-                        <div class="p-4 mt-2 mb-2 borde d-flex align-items-center justify-content-center redondeado">
-                            <a href="/home">No puedo acercarme</a>
-                        </div>
-
-                </div>
-
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div id='map'></div>
             </div>
-
+            <div class="col-md-5">
+                <div class="row">
+                    <div class="container borde redondeado mt-5">
+                        <div class="col p-4">
+                            <div class="row borde redondeado p-2">
+                                <h4 class="text-center">¿Te puedes acercar a la ubicación del incidente?</h4>
+                            </div>
+                            {{#each incidentes}}
+                                <div class="row borde redondeado m-2">
+                                    <div class="col-md-4">
+                                        <div class="p-4 mt-2 mb-2 borde d-flex align-items-center justify-content-center redondeado">
+                                            <h4>{{this.servicioAfectado.establecimiento.nombre}}</h4>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="p-4 mt-2 mb-2 borde d-flex align-items-center justify-content-center redondeado">
+                                            <h4>{{this.servicioAfectado.nombre}}</h4>
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="p-4 mt-2 mb-2 borde d-flex align-items-center justify-content-center redondeado">
+                                            <h5>{{this.descripcion}}</h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="p-4 mt-2 mb-2 borde d-flex align-items-center justify-content-center redondeado">
+                                            <a href="incidentes/{{this.id}}/editar">Me puedo acercar a este</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            {{/each}}
+                            <div class="p-4 mt-2 mb-2 borde d-flex align-items-center justify-content-center redondeado">
+                                <a href="/home">No puedo acercarme</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function(){
+        let map = L.map('map').setView([-34.5986, -58.4201], 13);
+
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+
+        let iconOptions = {
+        iconUrl: "templates/incidentes/icono_incidente.png",
+        iconSize: [38, 95]}
+
+        let customIcon = L.icon(iconOptions);
+         var markerOptions = {
+            clickable: true,
+            icon: customIcon
+        }
+
+        fetch('/incidentes/ubicaciones')
+            .then(response => response.json())
+            .then(data => {
+                data.forEach(ubicacion => {
+                    let latitud = ubicacion.latitud;
+                    let longitud = ubicacion.longitud;
+                    L.marker([latitud, longitud]).addTo(map);
+                });
+            })
+            .catch(error => {
+                console.error('Error al obtener las ubicaciones de los incidentes:', error);
+            });
+    });
+</script>
+
 {{/partial}}
+
 {{> templates/baseConNavegador }}
+
+
 

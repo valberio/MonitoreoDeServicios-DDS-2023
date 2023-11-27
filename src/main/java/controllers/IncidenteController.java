@@ -9,9 +9,11 @@ import models.entities.domain.entidades.Establecimiento;
 import models.entities.domain.incidentes.Estado;
 import models.entities.domain.incidentes.EstadoIncidente;
 import models.entities.domain.registro.Usuario;
+import models.entities.domain.services.georef.entities.Ubicacion;
 import models.entities.domain.servicios.PrestacionDeServicio;
 import models.repositories.datos.*;
 import org.checkerframework.checker.units.qual.A;
+import org.jetbrains.annotations.NotNull;
 import server.exceptions.AccessDeniedException;
 import server.utils.ICrudViewsHandler;
 import models.entities.domain.incidentes.Incidente;
@@ -198,6 +200,66 @@ public class IncidenteController extends Controller implements ICrudViewsHandler
 
     }
 
+    public void api(Context context){
+
+       /* Usuario usuarioLogueado =  super.usuarioLogueado(context);
+        List<Incidente> incidentes = this.repositorioIncidentes.buscarIncidentesDeInteresPara(usuarioLogueado.getId());
+        List<Map<String, Double>> markers  = new ArrayList<>();
+
+
+        for (Incidente incidente : incidentes) {
+            PrestacionDeServicio servicioAfectado = incidente.getServicioAfectado();
+            Establecimiento establecimiento = servicioAfectado.getEstablecimiento();
+            Ubicacion ubicacion = establecimiento.getUbicacionGeografica();
+
+            Map<String, Double> ubicacionMap = new HashMap<>();
+            markers.add(Map.of("lat", ubicacion.getLat(), "lng", ubicacion.getLon()));
+        }
+
+        context.render("incidentes/sugerencias.hbs", Map.of("incidentes", incidentes, "mapScript", getMapScript(markers)));
+*/
+
+        Usuario usuarioLogueado =  super.usuarioLogueado(context);
+        List<Map<String, Double>> ubicaciones = new ArrayList<>();
+
+        List<Incidente> incidentes = this.repositorioIncidentes.buscarIncidentesDeInteresPara(usuarioLogueado.getId());
+
+        for (Incidente incidente : incidentes) {
+            PrestacionDeServicio servicioAfectado = incidente.getServicioAfectado();
+            Establecimiento establecimiento = servicioAfectado.getEstablecimiento();
+            Ubicacion ubicacion = establecimiento.getUbicacionGeografica();
+
+            Map<String, Double> ubicacionMap = new HashMap<>();
+            ubicacionMap.put("latitud", ubicacion.getLat());
+            ubicacionMap.put("longitud", ubicacion.getLon());
+
+            ubicaciones.add(ubicacionMap);
+        }
+
+        context.json(ubicaciones);
+
+
+    }
+
+    /*private static String getMapScript(List<Map<String, Double>> markers) {
+        // Construye el script de Leaflet y OpenStreetMap con los marcadores
+        StringBuilder script = new StringBuilder();
+        script.append("var map = L.map('map').setView([51.505, -0.09], 13);");
+        script.append("L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {");
+        script.append("attribution: '© OpenStreetMap contributors'");
+        script.append("}).addTo(map);");
+
+        // Agrega marcadores al mapa
+        for (Map<String, Double> marker : markers) {
+            script.append("L.marker([").append(marker.get("lat")).append(", ").append(marker.get("lng")).append("]).addTo(map);");
+        }
+
+        System.out.println(script.toString());
+
+
+        return script.toString();
+    }
+*/
 
 
 

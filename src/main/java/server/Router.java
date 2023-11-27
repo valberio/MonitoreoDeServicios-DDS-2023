@@ -87,6 +87,8 @@ public class Router {
             get("incidentes/{id}/editar", ((IncidenteController) FactoryController.controller("Incidente"))::edit);
             post("incidentes/{id}/editar", ((IncidenteController) FactoryController.controller("Incidente"))::update);
             get("incidentes/sugerencias", ((IncidenteController) FactoryController.controller("Incidente")) :: suggest);
+            get("incidentes/ubicaciones", ((IncidenteController) FactoryController.controller("Incidente")) :: api);
+
         });
 
         Server.app().routes(() -> {
