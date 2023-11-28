@@ -94,16 +94,14 @@
                     <form method="post">
                         <div class="row m-2">
                             <div class="col-8">
-                                <input placeholder="Buscar..." class="form-control">
+                                <input id="searchInput" placeholder="Buscar por establecimiento..." class="form-control">
                             </div>
-                            <div class="col-4">
-                                <input placeholder="Estado" class="form-control">
-                            </div>
+
                         </div>
                     </form>
                     <div class="row row-cols-1 row-cols-md-2 g-4">
                         {{#each incidentes}}
-                            <div class="col">
+                            <div class="col" data-nombre="{{this.servicioAfectado.establecimiento.nombre}}">
                                 <div class="card m-2">
                                     <img src="images/seguimiento.png" height="30px" width="30px" alt="Incident Image">
                                     <div class="card-body">
@@ -124,7 +122,24 @@
                 </div>
             </div>
         </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const searchInput = document.getElementById('searchInput');
+            searchInput.addEventListener('input', function () {
+                const searchTerm = searchInput.value.toLowerCase();
+                const cards = document.querySelectorAll('.col');
 
+                cards.forEach(card => {
+                    const nombre = card.getAttribute('data-nombre').toLowerCase();
+                    if (nombre.includes(searchTerm)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
     </body>
 
 

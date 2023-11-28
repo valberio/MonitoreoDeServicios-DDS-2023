@@ -3,6 +3,8 @@ package controllers;
 import io.javalin.http.Context;
 import io.javalin.http.HttpStatus;
 import models.entities.domain.comunidad.Comunidad;
+import models.entities.domain.incidentes.Estado;
+import models.entities.domain.incidentes.EstadoIncidente;
 import models.entities.domain.incidentes.Incidente;
 import models.entities.domain.registro.Usuario;
 import models.entities.domain.roles.Rol;
@@ -12,9 +14,14 @@ import models.repositories.datos.*;
 import org.jetbrains.annotations.NotNull;
 import server.exceptions.AccessDeniedException;
 import server.utils.ICrudViewsHandler;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
 
 import javax.swing.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class ComunidadController extends Controller implements ICrudViewsHandler {
     private RepositorioComunidades repositorioComunidades;
@@ -134,12 +141,25 @@ public class ComunidadController extends Controller implements ICrudViewsHandler
 
         Map<String, Object> model = new HashMap<>();
         List<Incidente> incidentes = RepositorioIncidentes.getInstance().filtrarPorComunidad(comunidad);
+        List<Incidente> incidentesOrdenados = ordenarPorEstadoActivo(incidentes);
 
         model.put("comunidad", comunidad);
 
-        model.put("incidentes", incidentes);
+        model.put("incidentes", incidentesOrdenados);
 
         context.render("comunidades/comunidad.hbs", model);
 
     }
+    public List<Incidente> ordenarPorEstadoActivo(List<Incidente> incidentes) {
+        return incidentes.stream()
+                .sorted(Comparator.comparing(incidente -> {
+                    EstadoIncidente estadoIncidente = incidente.getEstado();
+                    return estadoIncidente != null && estadoIncidente.getEstado() == Estado.ACTIVO ? 0 : 1;
+                }))
+                .collect(Collectors.toList());
+    }
+
 }
+
+
+
