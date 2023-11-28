@@ -88,8 +88,10 @@
                     let nombreServicio = incidente.nombreServicioAfectado;
                     let descripcion = incidente.descripcion;
                     let id = incidente.id;
+                    
+                    let marker = L.marker([latitud, longitud], ).addTo(map);
 
-                    let marker = L.marker([latitud, longitud]).addTo(map);
+
 
                     // Crear contenido del popup con la información del incidente
                     let popupContent = `

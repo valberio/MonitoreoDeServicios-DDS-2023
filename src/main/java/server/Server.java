@@ -8,6 +8,7 @@ import io.javalin.http.HttpStatus;
 import io.javalin.rendering.JavalinRenderer;
 import server.handlers.AppHandlers;
 import server.middlewares.AuthMiddleware;
+import server.middlewares.SessionMiddleware;
 
 import java.io.IOException;
 import java.util.function.Consumer;
@@ -41,6 +42,7 @@ public class Server {
                 staticFiles.directory = "/assets";
             });
             AuthMiddleware.apply(config);
+            SessionMiddleware.apply(config);
         };
     }
 
