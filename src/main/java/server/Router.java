@@ -24,7 +24,14 @@ public class Router {
         });
 
         Server.app().routes(() -> {
-            get("/", ctx -> ctx.render("index/inicioSesion.hbs"));
+
+
+            get("/", ctx -> {
+                ctx.header("Cache-Control", "no-store, no-cache, must-revalidate, max-age=0");
+                ctx.header("Pragma", "no-cache");
+                ctx.header("Expires", "0");
+                ctx.render("index/inicioSesion.hbs");
+            });
             post("/", ctx -> {
 
                 // Lógica de autenticación, por ejemplo, verificar el usuario y contraseña
@@ -52,8 +59,12 @@ public class Router {
             post("/entidades", ((UsuarioController) FactoryController.controller("Usuario"))::updateEntities);
 
             get("/logout", ctx -> {
-                ctx.sessionAttribute("authenticated", false);
-                ctx.sessionAttribute("id", "");
+                ctx.removeCookie("JSESSIONID");
+                ctx.header("Cache-Control", "no-store, no-cache, must-revalidate, max-age=0");
+                ctx.header("Pragma", "no-cache");
+                ctx.header("Expires", "0");
+                ctx.sessionAttribute("authenticated", null);
+                ctx.sessionAttribute("id", null);
                 ctx.redirect("/");
             });
         });
@@ -95,6 +106,8 @@ public class Router {
             get("cargadatos", ((CargaOrganismosYEntidadesController) FactoryController.controller("CargaOrganismosYEntidadesController"))::index);
             post("cargadatos", ((CargaOrganismosYEntidadesController) FactoryController.controller("CargaOrganismosYEntidadesController"))::save);
         });
+
+
     }
 
     private static Long retornarIDSiCredencialesSonCorrectas(String username, String password) {
