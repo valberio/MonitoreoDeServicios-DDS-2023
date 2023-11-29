@@ -145,23 +145,11 @@ public class ComunidadController extends Controller implements ICrudViewsHandler
         Map<String, Object> model = new HashMap<>();
         List<Incidente> incidentes = RepositorioIncidentes.getInstance().filtrarPorComunidad(comunidad);
         List<Incidente> incidentesOrdenados = ordenarPorEstadoActivo(incidentes);
-        List<String> fechasFormateadas = new ArrayList<>();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd HH:mm");
-        for (Incidente incidente : incidentesOrdenados) {
-            LocalDateTime fechaResolucion = incidente.getFechaResolucion(); // Obtener la fecha del incidente
-            if (fechaResolucion != null) {
-                String fechaFormateada = fechaResolucion.format(formatter);
-                fechasFormateadas.add(fechaFormateada);
-            } else {
-                fechasFormateadas.add(""); // Opcional: manejar el caso en que la fecha sea nula
-            }
-        }
+
 
         model.put("comunidad", comunidad);
 
         model.put("incidentes", incidentesOrdenados);
-
-        model.put("fechasFormateadas",fechasFormateadas);
 
         context.render("comunidades/comunidad.hbs", model);
 

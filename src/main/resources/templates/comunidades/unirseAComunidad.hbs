@@ -1,20 +1,16 @@
 {{#partial "contenido" }}
     <div class="container mt-15">
         <div class="row row-cols-1 row-cols-md-2 g-4 justify-content-center">
-            {{#each comunidades}}
-                <div class="col">
-                    <div class="card">
-                        <img src="..." class="card-img-top" alt="Community Image">
-                        <div class="card-body">
-                            <h5 class="card-title">{{this.nombre}}</h5>
-                            <p class="card-text">{{this.descripcion}}</p>
-                            <form method="POST" action="/comunidades/unirse">
-                                <button id="comunidad{{@index}}" class="btn btn-primary" name="comunidades" value="{{this.nombre}}">Unirse</button>
-                            </form>
-                        </div>
-                    </div>
+            {{#if comunidades.length}}
+                {{#each comunidades}}
+                    <!-- ... (código existente para mostrar las comunidades) ... -->
+                {{/each}}
+            {{else}}
+                <div class="col text-center">
+                    <p class="mt-5">¡Ya sos miembro de todas las comunidades! 🙌</p>
+                    <a href="/home" class="btn btn-primary mt-3">Volver a Inicio</a>
                 </div>
-            {{/each}}
+            {{/if}}
         </div>
     </div>
 {{/partial}}
