@@ -44,6 +44,17 @@ public class RepositorioEntidades implements WithSimplePersistenceUnit, ICrudRep
         return entityManager().createQuery(jpql, String.class).getResultList();
     }
 
+    public List<String> buscarTodosLosNombresDeEntidadesDeInteres(Long idUsuario) {
+        String jpql = "SELECT DISTINCT e.nombre FROM Usuario u " +
+                "JOIN u.entidadesDeInteres e " +
+                "WHERE u.id = :idUsuario";
+
+        return entityManager()
+                .createQuery(jpql, String.class)
+                .setParameter("idUsuario", idUsuario)
+                .getResultList();
+    }
+
     public List filtrarPorNombre(String nombreEntidad) {
         List entidades = entityManager().createQuery("from Entidad where nombre = :nombre")
                 .setParameter("nombre", nombreEntidad).getResultList();
