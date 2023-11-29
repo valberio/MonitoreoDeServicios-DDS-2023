@@ -4,10 +4,10 @@
           integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
           crossorigin=""/>
     <style>
-        #map {
+         #map {
             height: 500px; /* Ajusta la altura del mapa */
             width: 500px; /* Ajusta el ancho del mapa */
-            float: left; /* Alinea el mapa a la izquierda */
+            border-radius: 20px; /* Borde redondeado */
         }
         .incidentes-list {
             margin-left: 520px; /* Espacio entre el mapa y la lista de incidentes */
@@ -24,8 +24,8 @@
 {{#partial "contenido" }}
     <div class="container">
         <div class="row">
-            <div class="col-md-6">
-                <div id='map'></div>
+            <div class="col-md-6 ">
+                <div id='map' style="border: 5px; border-radius: 20px; width: 100%; height: 500px;"></div>
             </div>
             <div class="col-md-5">
                 <div class="row">
@@ -88,7 +88,7 @@
                     let nombreServicio = incidente.nombreServicioAfectado;
                     let descripcion = incidente.descripcion;
                     let id = incidente.id;
-                    
+
                     let marker = L.marker([latitud, longitud], ).addTo(map);
 
 
