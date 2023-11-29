@@ -14,6 +14,9 @@ import models.repositories.datos.*;
 import org.jetbrains.annotations.NotNull;
 import server.exceptions.AccessDeniedException;
 import server.utils.ICrudViewsHandler;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -142,10 +145,23 @@ public class ComunidadController extends Controller implements ICrudViewsHandler
         Map<String, Object> model = new HashMap<>();
         List<Incidente> incidentes = RepositorioIncidentes.getInstance().filtrarPorComunidad(comunidad);
         List<Incidente> incidentesOrdenados = ordenarPorEstadoActivo(incidentes);
+        List<String> fechasFormateadas = new ArrayList<>();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd HH:mm");
+        for (Incidente incidente : incidentesOrdenados) {
+            LocalDateTime fechaResolucion = incidente.getFechaResolucion(); // Obtener la fecha del incidente
+            if (fechaResolucion != null) {
+                String fechaFormateada = fechaResolucion.format(formatter);
+                fechasFormateadas.add(fechaFormateada);
+            } else {
+                fechasFormateadas.add(""); // Opcional: manejar el caso en que la fecha sea nula
+            }
+        }
 
         model.put("comunidad", comunidad);
 
         model.put("incidentes", incidentesOrdenados);
+
+        model.put("fechasFormateadas",fechasFormateadas);
 
         context.render("comunidades/comunidad.hbs", model);
 

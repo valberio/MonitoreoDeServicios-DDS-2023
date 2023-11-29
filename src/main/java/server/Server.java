@@ -1,6 +1,8 @@
 package server;
 
 import com.github.jknack.handlebars.Handlebars;
+import com.github.jknack.handlebars.Helper;
+import com.github.jknack.handlebars.Options;
 import com.github.jknack.handlebars.Template;
 import io.javalin.Javalin;
 import io.javalin.config.JavalinConfig;
@@ -11,6 +13,8 @@ import server.middlewares.AuthMiddleware;
 import server.middlewares.SessionMiddleware;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.function.Consumer;
 
 
@@ -50,6 +54,16 @@ public class Server {
         JavalinRenderer.register(
                 (path, model, context) -> { // Función que renderiza el template
                     Handlebars handlebars = new Handlebars();
+                    handlebars.registerHelper("formateo", new Helper<LocalDateTime>() {
+                        @Override
+                        public CharSequence apply(LocalDateTime fecha, Options options) {
+                            if (fecha == null) return "";
+
+                            // Formatear la fecha a MM/dd HH:mm
+                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd HH:mm");
+                            return fecha.format(formatter);
+                        }
+                    });
                     Template template = null;
                     try {
                         template = handlebars.compile(

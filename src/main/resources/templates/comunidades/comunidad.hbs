@@ -38,6 +38,7 @@
                                 <h5 class="card-title">{{this.servicioAfectado.establecimiento.nombre}}</h5>
                                 <p class="card-text">Servicio: {{this.servicioAfectado.nombre}}</p>
                                 <p class="card-text">Estado: {{this.estado.estado}}</p>
+                                <p class="card-text">Fecha de Resolucion: {{ formateo this.fechaResolucion }}</p>
                             </div>
                         </div>
                     </div>
@@ -46,6 +47,9 @@
         </div>
     </div>
 </div>
+
+
+
 {{/partial}}
 
 {{> templates/baseConNavegador }}
