@@ -1,18 +1,16 @@
-
 <head>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
           integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
           crossorigin=""/>
     <style>
          #map {
-            height: 500px; /* Ajusta la altura del mapa */
-            width: 500px; /* Ajusta el ancho del mapa */
-            border-radius: 20px; /* Borde redondeado */
+            height: 500px;
+            width: 500px;
+            border-radius: 20px;
         }
         .incidentes-list {
-            margin-left: 520px; /* Espacio entre el mapa y la lista de incidentes */
+            margin-left: 520px;
         }
-        /* Estilos adicionales para los elementos, ajusta según tus necesidades */
         .borde {
             border: 1px solid #ccc;
         }
@@ -28,38 +26,22 @@
                 <div id='map' style="border: 5px; border-radius: 20px; width: 100%; height: 500px;"></div>
             </div>
             <div class="col-md-5">
-                <div class="row">
-                    <div class="container borde redondeado mt-5">
-                        <div class="col p-4">
-                            <div class="row borde redondeado p-2">
-                                <h4 class="text-center">¿Te puedes acercar a la ubicación del incidente?</h4>
-                            </div>
-                            {{#each incidentes}}
-                                <div class="row borde redondeado m-2">
-                                    <div class="col-md-4">
-                                        <div class="p-4 mt-2 mb-2 borde d-flex align-items-center justify-content-center redondeado">
-                                            <h4>{{this.servicioAfectado.establecimiento.nombre}}</h4>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="p-4 mt-2 mb-2 borde d-flex align-items-center justify-content-center redondeado">
-                                            <h4>{{this.servicioAfectado.nombre}}</h4>
-                                        </div>
-                                    </div>
-                                    <div class="col-2">
-                                        <div class="p-4 mt-2 mb-2 borde d-flex align-items-center justify-content-center redondeado">
-                                            <h5>{{this.descripcion}}</h5>
-                                        </div>
-                                    </div>
-                                    <div class="col-2">
-                                        <div class="p-4 mt-2 mb-2 borde d-flex align-items-center justify-content-center redondeado">
-                                            <a href="incidentes/{{this.id}}/editar">Me puedo acercar a este</a>
-                                        </div>
-                                    </div>
+                <div class="card m-5">
+                    <div class="card-body">
+                        <h4 class="card-title text-center">¿Te puedes acercar a la ubicación del incidente?</h4>
+                        {{#each incidentes}}
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <h5>{{this.servicioAfectado.establecimiento.nombre}}</h5>
+                                    <h5>{{this.servicioAfectado.nombre}}</h5>
+                                    <p>{{this.descripcion}}</p>
+                                    <a href="incidentes/{{this.id}}/editar">Me puedo acercar a este</a>
                                 </div>
-                            {{/each}}
-                            <div class="p-4 mt-2 mb-2 borde d-flex align-items-center justify-content-center redondeado">
-                                <a href="/home">No puedo acercarme</a>
+                            </div>
+                        {{/each}}
+                        <div class="card">
+                            <div class="card-body d-flex justify-content-center">
+                                <a href="/home" class="btn btn-primary btn-estetico">No puedo acercarme</a>
                             </div>
                         </div>
                     </div>
@@ -91,9 +73,6 @@
 
                     let marker = L.marker([latitud, longitud], ).addTo(map);
 
-
-
-                    // Crear contenido del popup con la información del incidente
                     let popupContent = `
                         <strong>Establecimiento:</strong> ${nombreEstablecimiento}<br>
                         <strong>Servicio Afectado:</strong> ${nombreServicio}<br>
@@ -113,6 +92,3 @@
 {{/partial}}
 
 {{> templates/baseConNavegador }}
-
-
-
