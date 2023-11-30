@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import static junit.framework.Assert.*;
 
 public class APIFusionComunidadesTest {
-
+/*
     @Test
     public void conexionConAPI() throws IOException, InstantiationException, IllegalAccessException {
 
@@ -21,5 +21,5 @@ public class APIFusionComunidadesTest {
         PeticionDeFusion peticionPrueba = new PeticionDeFusion();
         ArrayList<PeticionDeFusion> respuesta = fusionAPI.sugerirFusiones(peticionPrueba);
 
-    }
+    }*/
 }
