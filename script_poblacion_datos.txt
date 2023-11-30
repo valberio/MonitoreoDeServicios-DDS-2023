@@ -32,7 +32,7 @@ values (3, "Ver incidentes en comunidad", "ver_incidentes");
 insert into permiso(id, nombre, nombreInterno)
 values ( 4, "Editar comunidad", "editar_comunidad" );
 insert into permiso(id, nombre, nombreInterno)
-values (  5,"Ver miembros de una comunidad", "ver_participantes");
+values ( 5,"Ver miembros de una comunidad", "ver_participantes");
 insert into permiso(id, nombre, nombreInterno)
 values ( 6,"Validar publicaciones de los miembros de la comunidad", "controlar_miembros");
 insert into permiso(id, nombre, nombreInterno)
@@ -42,9 +42,7 @@ values ( 8, "Cargar archivo CSV", "cargar_csv" );
 insert into permiso(id, nombre, nombreInterno)
 values ( 9, "Crear comunidades", "crear_comunidades");
 insert into permiso(id, nombre, nombreInterno)
-values ( 10, "Designar servicios de interes para la comunidad", "registrar_servicios");
-insert into permiso(id, nombre, nombreInterno)
-values (11, "Ver rankings", "ver_rankings_entidades");
+values (10, "Ver rankings", "ver_rankings_entidades");
 
 -- ROLES
 
@@ -62,36 +60,193 @@ insert into rol_permiso(rol_id, permisos_id) values(1, 7);
 insert into rol_permiso(rol_id, permisos_id) values(1, 8);
 insert into rol_permiso(rol_id, permisos_id) values(1, 9);
 insert into rol_permiso(rol_id, permisos_id) values(1, 10);
-insert into rol_permiso(rol_id, permisos_id) values(1, 11);
 
-insert into usuario (id, contrasenia, email, nombreDeUsuario)
-values (1, "superadmin", "superadmin@gmail.com", "superadmin");
-insert into usuario_rol(usuario_id, roles_id) values (1, 1);
+insert into rol (id, nombre, tipo)
+values (2, "DesginadoDeControl", "administrador");
+
+insert into rol_permiso(rol_id, permisos_id) values(1, 1);
+insert into rol_permiso(rol_id, permisos_id) values(1, 2);
+insert into rol_permiso(rol_id, permisos_id) values(1, 3);
+insert into rol_permiso(rol_id, permisos_id) values(1, 4);
+insert into rol_permiso(rol_id, permisos_id) values(1, 7);
+insert into rol_permiso(rol_id, permisos_id) values(1, 8);
+insert into rol_permiso(rol_id, permisos_id) values(1, 10);
+
+-- insert into usuario (id, contrasenia, email, nombreDeUsuario)
+-- values (1, "superadmin", "superadmin@gmail.com", "superadmin");
+-- insert into usuario_rol(usuario_id, roles_id) values (1, 1);
 
 -- CREO SERVICIOS
 insert into servicio(descripcion, tipoDeServicio) values ("Baño de mujeres", "Baño");
 insert into servicio(descripcion, tipoDeServicio) values ("Baño de hombres", "Baño");
 insert into servicio(descripcion, tipoDeServicio) values ("Ascensor", "Ascensor");
 insert into servicio(descripcion, tipoDeServicio) values ("Escalera mecánica", "Escalera mecánica");
+insert into servicio(descripcion, tipoDeServicio) values ("Rampa", "Rampa");
+insert into servicio(descripcion, tipoDeServicio) values ("Baño de discapacitados", "Baño");
+
 
 -- Creo prestadoras de servicio
 insert into prestadora_de_servicio (nombre) values ("UTN");
 insert into prestadora_de_servicio (nombre) values ("Trenes Argentinos");
-select * from prestadora_de_servicio;
+insert into prestadora_de_servicio (nombre) values ("UBA");
+
+
 -- Creo entidades
-insert into entidad (nombre, prestadora_de_servicio_id) values ("Sede Medrano", 1);
+insert into entidad (nombre, prestadora_de_servicio_id) values ("Sede BA - Medrano", 1);
+insert into entidad (nombre, prestadora_de_servicio_id) values ("Sede BA - Campus", 1);
+insert into entidad (nombre, prestadora_de_servicio_id) values ("Sede FIUBA - Paseo Colon", 3);
 insert into entidad (nombre, prestadora_de_servicio_id) values ("Línea Roca", 2);
-insert into entidad (nombre, prestadora_de_servicio_id) values ("Línea Belgrano", 2);
+insert into entidad (nombre, prestadora_de_servicio_id) values ("Línea Belgrano Sur", 2);
+insert into entidad (nombre, prestadora_de_servicio_id) values ("Línea Sarmiento", 2);
+insert into entidad (nombre, prestadora_de_servicio_id) values ("Línea Mitre", 2);
+insert into entidad (nombre, prestadora_de_servicio_id) values ("Línea San Martin", 2);
+insert into entidad (nombre, prestadora_de_servicio_id) values ("Sede Avellaneda", 1);
+
+
 -- Creo establecimientos
-insert into establecimiento (nombre, lat, lon, entidad_id) values ("Planta baja",-34.59887, -58.42015, 1 );
-insert into establecimiento (nombre, lat, lon, entidad_id) values ("Estación Banfield",-34.75, -58.4, 2 );
-insert into establecimiento (nombre, lat, lon, entidad_id) values ("Estación Banfield",-34.5627,  -58.45829, 3 );
+insert into establecimiento (nombre, lat, lon, entidad_id) values ("Planta baja Sede Medrano",-34.59887, -58.42015, 1);
+insert into establecimiento (nombre, lat, lon, entidad_id) values ("Buffet Albert Einstein Sede Medrano ",-34.59887, -58.42015, 1);
+insert into establecimiento (nombre, lat, lon, entidad_id) values ("Primer piso Sede Campus",-34.6599705, -58.4681958, 2);
+insert into establecimiento (nombre, lat, lon, entidad_id) values ("Planta baja Sede FIUBA Paseo Colon",-34.617639, -58.368056, 3);
+insert into establecimiento (nombre, lat, lon, entidad_id) values ("Estación Banfield",-34.5627,  -58.45829, 4);
+insert into establecimiento (nombre, lat, lon, entidad_id) values ("Estación Lozano", -34.5560549, -58.6694303, 5);
+insert into establecimiento (nombre, lat, lon, entidad_id) values ("Estación Once", -34.6104983, -58.4133019, 6);
+insert into establecimiento (nombre, lat, lon, entidad_id) values ("Estación Merlo", -34.6634776, -58.7273416, 6);
+insert into establecimiento (nombre, lat, lon, entidad_id) values ("Estación Belgrano R", -34.5688959, -58.4610736, 7) ;
+insert into establecimiento (nombre, lat, lon, entidad_id) values ("Estación Retiro - Mitre", -34.5560549, -58.6694303, 7);
+insert into establecimiento (nombre, lat, lon, entidad_id) values ("Estación Retiro - San Martin", -34.5560549, -58.6694303, 8);
+insert into establecimiento (nombre, lat, lon, entidad_id) values ("Planta Baja - Avellaneda", -34.5560549, -58.6694303, 8);
+
+
 -- Creo prestaciones de servicio
+
+-- Banios de Mujeres
 insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (1, 1);
+insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (2, 1);
+insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (3, 1);
+insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (4, 1);
+insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (5, 1);
+insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (6, 1);
+insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (7, 1);
+insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (8, 1);
+insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (9, 1);
+insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (10, 1);
+insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (11, 1);
+insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (12, 1);
+
+-- Banios de hombres
+insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (1, 2);
 insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (2, 2);
+insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (3, 2);
+insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (4, 2);
+insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (5, 2);
+insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (6, 2);
+insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (7, 2);
+insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (8, 2);
+insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (9, 2);
+insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (10, 2);
+insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (11, 2);
+insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (12, 2);
+
+-- ascensor
+insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (1, 3);
 insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (3, 3);
+insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (4, 3);
+
+--escalera mecanica
+insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (10, 4);
+insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (11, 4);
+
+--rampa
+insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (1, 5);
+insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (3, 5);
+insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (5, 5);
+insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (6, 5);
+insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (7, 5);
+insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (8, 5);
+insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (9, 5);
+insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (10, 5);
+insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (11, 5);
+insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (12, 5);
+
+--banio discapacitados
+insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (3, 6);
+insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (4, 6);
+insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (5, 6);
+insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (6, 6);
+insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (7, 6);
+insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (8, 6);
+insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (9, 6);
+insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (10, 6);
+insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (11, 6);
+insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (12, 6);
+
+
 
 -- Creo comunidad
 insert into comunidad (nombre, descripcion) values ("UTNIANOS", "Alumnos de la UTN");
+insert into comunidad (nombre, descripcion) values ("FIUBA", "Alumnos de la UBA");
+insert into comunidad (nombre, descripcion) values ("Diseñadoras, pero no graficas", "las integrantes de este grupo");
+insert into comunidad (nombre, descripcion) values ("Cosas del Roca", "Informacion del estado de la linea Roca");
+insert into comunidad (nombre, descripcion) values ("Comunidad Retiro", "Viajeros que en su recorrido transitan Retiro");
+
+
 -- Añado servicios de interes
 insert into comunidad_prestacion_de_servicio (comunidad_id, serviciosDeInteres_id) values (1, 1);
+insert into comunidad_prestacion_de_servicio (comunidad_id, serviciosDeInteres_id) values (1, 13);
+insert into comunidad_prestacion_de_servicio (comunidad_id, serviciosDeInteres_id) values (1, 25);
+insert into comunidad_prestacion_de_servicio (comunidad_id, serviciosDeInteres_id) values (1, 30);
+insert into comunidad_prestacion_de_servicio (comunidad_id, serviciosDeInteres_id) values (1, 2);
+insert into comunidad_prestacion_de_servicio (comunidad_id, serviciosDeInteres_id) values (1, 14);
+insert into comunidad_prestacion_de_servicio (comunidad_id, serviciosDeInteres_id) values (1, 3);
+insert into comunidad_prestacion_de_servicio (comunidad_id, serviciosDeInteres_id) values (1, 15);
+insert into comunidad_prestacion_de_servicio (comunidad_id, serviciosDeInteres_id) values (1, 26);
+insert into comunidad_prestacion_de_servicio (comunidad_id, serviciosDeInteres_id) values (1, 31);
+insert into comunidad_prestacion_de_servicio (comunidad_id, serviciosDeInteres_id) values (1, 40);
+insert into comunidad_prestacion_de_servicio (comunidad_id, serviciosDeInteres_id) values (1, 12);
+insert into comunidad_prestacion_de_servicio (comunidad_id, serviciosDeInteres_id) values (1, 24);
+insert into comunidad_prestacion_de_servicio (comunidad_id, serviciosDeInteres_id) values (1, 39);
+insert into comunidad_prestacion_de_servicio (comunidad_id, serviciosDeInteres_id) values (1, 49);
+
+
+insert into comunidad_prestacion_de_servicio (comunidad_id, serviciosDeInteres_id) values (2, 4);
+insert into comunidad_prestacion_de_servicio (comunidad_id, serviciosDeInteres_id) values (2, 16);
+insert into comunidad_prestacion_de_servicio (comunidad_id, serviciosDeInteres_id) values (2, 27);
+insert into comunidad_prestacion_de_servicio (comunidad_id, serviciosDeInteres_id) values (2, 41);
+
+insert into comunidad_prestacion_de_servicio (comunidad_id, serviciosDeInteres_id) values (3, 5);
+insert into comunidad_prestacion_de_servicio (comunidad_id, serviciosDeInteres_id) values (3, 6);
+insert into comunidad_prestacion_de_servicio (comunidad_id, serviciosDeInteres_id) values (3, 7);
+insert into comunidad_prestacion_de_servicio (comunidad_id, serviciosDeInteres_id) values (3, 8);
+insert into comunidad_prestacion_de_servicio (comunidad_id, serviciosDeInteres_id) values (3, 9);
+insert into comunidad_prestacion_de_servicio (comunidad_id, serviciosDeInteres_id) values (3, 17);
+insert into comunidad_prestacion_de_servicio (comunidad_id, serviciosDeInteres_id) values (3, 18);
+insert into comunidad_prestacion_de_servicio (comunidad_id, serviciosDeInteres_id) values (3, 19);
+insert into comunidad_prestacion_de_servicio (comunidad_id, serviciosDeInteres_id) values (3, 20);
+insert into comunidad_prestacion_de_servicio (comunidad_id, serviciosDeInteres_id) values (3, 21);
+insert into comunidad_prestacion_de_servicio (comunidad_id, serviciosDeInteres_id) values (3, 32);
+insert into comunidad_prestacion_de_servicio (comunidad_id, serviciosDeInteres_id) values (3, 34);
+insert into comunidad_prestacion_de_servicio (comunidad_id, serviciosDeInteres_id) values (3, 35);
+insert into comunidad_prestacion_de_servicio (comunidad_id, serviciosDeInteres_id) values (3, 36);
+insert into comunidad_prestacion_de_servicio (comunidad_id, serviciosDeInteres_id) values (3, 42);
+insert into comunidad_prestacion_de_servicio (comunidad_id, serviciosDeInteres_id) values (3, 43);
+insert into comunidad_prestacion_de_servicio (comunidad_id, serviciosDeInteres_id) values (3, 44);
+insert into comunidad_prestacion_de_servicio (comunidad_id, serviciosDeInteres_id) values (3, 45);
+insert into comunidad_prestacion_de_servicio (comunidad_id, serviciosDeInteres_id) values (3, 46);
+
+
+insert into comunidad_prestacion_de_servicio (comunidad_id, serviciosDeInteres_id) values (4, 5);
+insert into comunidad_prestacion_de_servicio (comunidad_id, serviciosDeInteres_id) values (4, 17);
+insert into comunidad_prestacion_de_servicio (comunidad_id, serviciosDeInteres_id) values (4, 32);
+insert into comunidad_prestacion_de_servicio (comunidad_id, serviciosDeInteres_id) values (4, 42);
+
+insert into comunidad_prestacion_de_servicio (comunidad_id, serviciosDeInteres_id) values (5, 10);
+insert into comunidad_prestacion_de_servicio (comunidad_id, serviciosDeInteres_id) values (5, 11);
+insert into comunidad_prestacion_de_servicio (comunidad_id, serviciosDeInteres_id) values (5, 22);
+insert into comunidad_prestacion_de_servicio (comunidad_id, serviciosDeInteres_id) values (5, 23);
+insert into comunidad_prestacion_de_servicio (comunidad_id, serviciosDeInteres_id) values (5, 28);
+insert into comunidad_prestacion_de_servicio (comunidad_id, serviciosDeInteres_id) values (5, 29);
+insert into comunidad_prestacion_de_servicio (comunidad_id, serviciosDeInteres_id) values (5, 37);
+insert into comunidad_prestacion_de_servicio (comunidad_id, serviciosDeInteres_id) values (5, 38);
+insert into comunidad_prestacion_de_servicio (comunidad_id, serviciosDeInteres_id) values (5, 47);
+insert into comunidad_prestacion_de_servicio (comunidad_id, serviciosDeInteres_id) values (5, 48);

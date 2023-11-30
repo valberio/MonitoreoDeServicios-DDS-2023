@@ -8,6 +8,10 @@ import models.entities.domain.notificaciones.tiempoDeEnvio.ModoRecepcion;
 import models.entities.domain.registro.Contrasenia;
 import models.entities.domain.registro.Encriptador;
 import models.entities.domain.registro.Validador;
+import models.entities.domain.registro.condicionesContra.ContraseniaNoCumpleConLongitudException;
+import models.entities.domain.registro.condicionesContra.ContraseniaRepiteCaracteresException;
+import models.entities.domain.registro.condicionesContra.ContraseniaUsoReiteradoException;
+import models.entities.domain.registro.condicionesContra.ContraseniaUtilizaCredencialesPorDefectoException;
 import models.entities.domain.roles.Rol;
 import models.repositories.datos.RepositorioComunidades;
 import models.repositories.datos.RepositorioDeRoles;
@@ -208,7 +212,25 @@ public class UsuarioController extends Controller implements ICrudViewsHandler {
           }
           if(!Objects.equals(context.formParam("contrasenia"), "")) {
                try{
-                    Validador
+                    String contrasenia = context.formParam("contrasenia");
+                    Validador validador = new Validador();
+                    Contrasenia contraseniaa = new Contrasenia(contrasenia);
+                    validador.esValida(contraseniaa);
+               } catch(ContraseniaUsoReiteradoException e) {
+                    // Capturar la excepción y configurar un mensaje de error
+                    String errorMessage = "La contraseña ingresada ya ha sido utilizada anteriormente. Por favor, elige una contraseña diferente.";
+
+                    // Establecer el mensaje de error en el contexto para que se muestre en la vista
+                    context.attribute("errorMessage", errorMessage);
+               } catch (ContraseniaUtilizaCredencialesPorDefectoException e){
+                    String errorMessage = "La contrasenia no puede ser su credencial. Por favor, elige una contraseña diferente.";
+                    context.attribute("errorMessage", errorMessage);
+               } catch (ContraseniaRepiteCaracteresException e){
+                    String errorMessage = "La contraseña ingresada ya ha sido utilizada anteriormente. Por favor, elige una contraseña diferente.";
+                    context.attribute("errorMessage", errorMessage);
+               }catch (ContraseniaNoCumpleConLongitudException e){
+                    String errorMessage = "La contraseña ingresada ya ha sido utilizada anteriormente. Por favor, elige una contraseña diferente.";
+                    context.attribute("errorMessage", errorMessage);
                }
                usuario.setContra(context.formParam("contrasenia"));
           }
