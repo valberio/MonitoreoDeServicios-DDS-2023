@@ -223,13 +223,13 @@ public class UsuarioController extends Controller implements ICrudViewsHandler {
                     // Establecer el mensaje de error en el contexto para que se muestre en la vista
                     context.attribute("errorMessage", errorMessage);
                } catch (ContraseniaUtilizaCredencialesPorDefectoException e){
-                    String errorMessage = "La contrasenia no puede ser su credencial. Por favor, elige una contraseña diferente.";
+                    String errorMessage = "La contraseña no puede ser su credencial. Por favor, elige una contraseña diferente.";
                     context.attribute("errorMessage", errorMessage);
                } catch (ContraseniaRepiteCaracteresException e){
-                    String errorMessage = "La contraseña ingresada ya ha sido utilizada anteriormente. Por favor, elige una contraseña diferente.";
+                    String errorMessage = "La contraseña no puede repertir caracteres. Por favor, elige una contraseña diferente.";
                     context.attribute("errorMessage", errorMessage);
                }catch (ContraseniaNoCumpleConLongitudException e){
-                    String errorMessage = "La contraseña ingresada ya ha sido utilizada anteriormente. Por favor, elige una contraseña diferente.";
+                    String errorMessage = "La contraseña ingresada no cumple con la longitud necesaria. Por favor, elige una contraseña diferente.";
                     context.attribute("errorMessage", errorMessage);
                }
                usuario.setContra(context.formParam("contrasenia"));
@@ -242,14 +242,12 @@ public class UsuarioController extends Controller implements ICrudViewsHandler {
           }
 
           String medio = context.formParam("medios");
-          System.out.println("Medio: " + medio);
 
           if(medio!=null) {
                usuario.setMedioDeNotificacion(medio);
           }
 
           String modo = context.formParam("modos");
-          System.out.println("Modo: " + modo);
 
           if(modo!=null) {
                usuario.setModoRecepcion(ModoRecepcion.valueOf(modo.toUpperCase()));
