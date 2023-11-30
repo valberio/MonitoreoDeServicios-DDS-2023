@@ -5,6 +5,7 @@ import models.entities.domain.comunidad.Comunidad;
 import models.entities.domain.entidades.Entidad;
 import models.entities.domain.notificaciones.tiempoDeEnvio.ModoRecepcion;
 import models.entities.domain.registro.Contrasenia;
+import models.entities.domain.registro.Encriptador;
 import models.entities.domain.registro.Validador;
 import models.entities.domain.roles.Rol;
 import models.repositories.datos.RepositorioComunidades;
@@ -249,6 +250,8 @@ public class UsuarioController extends Controller implements ICrudViewsHandler {
 
           List<Usuario> usuarios = repositorioUsuarios.filtrarPorNombre(username);
 
-          return usuarios.get(0).getContrasenia().getContrasenia().equals(password);
+          String passwordEncriptada = new Encriptador().encriptarContrasenia(password);
+
+          return usuarios.get(0).getContrasenia().getContrasenia().equals(passwordEncriptada);
      }
 }

@@ -89,12 +89,12 @@ public class RepositorioComunidades implements WithSimplePersistenceUnit, ICrudR
                 "WHERE cu.miembros_id = :usuarioId)";
 
         Query query = entityManager().createNativeQuery(sql, Comunidad.class);
-
         query.setParameter("usuarioId", idUsuario);
 
         List<Comunidad> comunidades = query.getResultList();
 
         return comunidades;
+
     }
     public List filtrarPorNombre(String nombreComunidad) {
         List comunidades = entityManager().createQuery("from Comunidad where nombre = :nombre")

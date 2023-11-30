@@ -39,10 +39,6 @@ public class Usuario extends Persistente {
     private String email;
     @Embedded
     private Contrasenia contrasenia; //hasheada
-
-    @Column(name="salt")
-    private String salt; //para decodificar
-
     @Column(name="telefono")
     private String numeroTelefono;
     @Column(name="bloqueado")
@@ -182,14 +178,15 @@ public class Usuario extends Persistente {
 
     public void setContra(String contrasenia) {
 
-        this.setContrasenia(new Contrasenia(contrasenia));
+        String contraEncriptada = new Encriptador().encriptarContrasenia(contrasenia);
+
+        this.setContrasenia(new Contrasenia(contraEncriptada));
     }
 
     public void agregarEntidadesDeInteres(List<Entidad> entidades) {
 
         this.entidadesDeInteres.addAll(entidades);
     }
-
 
     public boolean tenesPermiso(String nombreInternoDePermiso) {
         if(this.permisoEspecialDeDesignado!=null) {

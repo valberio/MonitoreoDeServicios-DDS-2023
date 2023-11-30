@@ -59,8 +59,7 @@ public class Server {
                         public CharSequence apply(LocalDateTime fecha, Options options) {
                             if (fecha == null) return "";
 
-                            // Formatear la fecha a MM/dd HH:mm
-                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd HH:mm");
+                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM HH:mm");
                             return fecha.format(formatter);
                         }
                     });
