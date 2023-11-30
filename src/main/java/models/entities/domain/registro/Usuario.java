@@ -43,8 +43,6 @@ public class Usuario extends Persistente {
     private String numeroTelefono;
     @Column(name="bloqueado")
     private Boolean bloqueado;
-    @Column(name="esta_activo")
-    private Boolean estaActivo;
     @Transient
     private Ubicacion localizacion;
     @Convert(converter = MedioNotificacionAttributeConverter.class)
@@ -86,7 +84,6 @@ public class Usuario extends Persistente {
         entidadesDeInteres = new ArrayList<>();
         rolFrenteAPrestaciones = new ArrayList<>();
         gradoDeConfianza = Config.GRADO_DE_CONFIANZA_INICIAL;
-        this.estaActivo = true;
         this.bloqueado = false;
     }
 
@@ -176,6 +173,9 @@ public class Usuario extends Persistente {
         roles.add(rol);
     }
 
+    public void quitarRol(Rol rol){
+        roles.remove(rol);
+    }
     public void setContra(String contrasenia) {
 
         String contraEncriptada = new Encriptador().encriptarContrasenia(contrasenia);

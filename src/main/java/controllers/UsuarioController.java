@@ -3,6 +3,7 @@ package controllers;
 import io.javalin.http.HttpStatus;
 import models.entities.domain.comunidad.Comunidad;
 import models.entities.domain.entidades.Entidad;
+import models.entities.domain.incidentes.Incidente;
 import models.entities.domain.notificaciones.tiempoDeEnvio.ModoRecepcion;
 import models.entities.domain.registro.Contrasenia;
 import models.entities.domain.registro.Encriptador;
@@ -81,9 +82,11 @@ public class UsuarioController extends Controller implements ICrudViewsHandler {
 
           ArrayList<String> medios = (ArrayList<String>) Initializer.obtenerMedioDeNotificacionValidos();
           ArrayList<String> modos = (ArrayList<String>) Initializer.obtenerModosDeRecepcionValidos();
+          ArrayList<LocalTime> horarios = (ArrayList<LocalTime>) Initializer.obtenerHorarios();
 
           model.put("medios", medios);
           model.put("modos", modos);
+          model.put("horarios", horarios);
 
           context.render("presentacion/editarPerfil.hbs", model);
 
@@ -116,7 +119,7 @@ public class UsuarioController extends Controller implements ICrudViewsHandler {
      @Override
      public void delete(Context context) {
          Usuario usuario = (Usuario) this.repositorioUsuarios.buscar(Long.parseLong(context.pathParam("id")));
-         usuario.setEstaActivo(false);
+         usuario.setBloqueado(true);
          this.repositorioUsuarios.actualizar(usuario);
          context.redirect("/");
      }
@@ -149,6 +152,38 @@ public class UsuarioController extends Controller implements ICrudViewsHandler {
           context.redirect("/comunidades");
 
      }
+     
+     public void leaveComunity(Context context){
+          String id = Objects.requireNonNull(context.sessionAttribute("id")).toString();
+          Usuario usuario = (Usuario) this.repositorioUsuarios.buscar(Long.parseLong(id));
+
+          String comunidadDeDondeSalir = context.pathParam("id");
+          Comunidad aSalir = (Comunidad) new RepositorioComunidades().buscar(Long.parseLong(comunidadDeDondeSalir));
+
+          List<Rol> rolesDeUsuario = usuario.getRoles();
+          Rol rolDeUsuario = null;
+
+          for (Rol rol : rolesDeUsuario) {
+              if (rol.getComunidad() != null && rol.getComunidad().equals(aSalir)){
+                   rolDeUsuario = rol;
+                   break;
+              }
+          }
+
+          if(rolDeUsuario !=null) {
+
+               new RepositorioDeRoles().remove(rolDeUsuario);
+               usuario.quitarRol(rolDeUsuario);
+
+          }
+          new RepositorioComunidades().eliminarUsuario(aSalir.getId(),Long.parseLong(id));
+          new RepositorioComunidades().actualizar(aSalir);
+          new RepositorioUsuarios().actualizar(usuario);
+          context.status(HttpStatus.OK);
+          context.redirect("/comunidades");
+
+
+     }
 
      public void addServices(Context context) {
 
@@ -172,6 +207,9 @@ public class UsuarioController extends Controller implements ICrudViewsHandler {
                usuario.setNombreDeUsuario(context.formParam("nombre"));
           }
           if(!Objects.equals(context.formParam("contrasenia"), "")) {
+               try{
+                    Validador
+               }
                usuario.setContra(context.formParam("contrasenia"));
           }
           if(!Objects.equals(context.formParam("email"), "")) {

@@ -7,17 +7,27 @@
                     <div class="comunidad">
                         <div class="row borde redondeado m-3">
                             <div class="col-md-3 p-3 d-flex align-items-center">
-                                <h6 class="borde redondeado text-center p-4">Imagen</h6>
+                                <img src="/images/comunidad.png" class="card-img-top" alt="Community Image">
                             </div>
-                            <div class="col-md-8 ms-3 mt-2 p-3">
+                            <div>
                                 <h6 class="text-start">{{comunidad.nombre}}</h6>
                                 <h6 class="text-start">{{comunidad.descripcion}}</h6>
                             </div>
                             <div class="col-md-8 ms-3 mt-2 p-3">
                                 <h6 class="text-start">
                                     <a href="/incidentes/crear" class="btn btn-primary btn-estetico">Reportar un incidente</a>
+                                    <form action="/comunidades/{{comunidad.id}}/salir" method="POST">
+                                        <button type="submit" class="btn btn-danger">Salir de la Comunidad</button>
+                                    </form>
                                 </h6>
                             </div>
+                            <!--
+                             <div class="row mt-4">
+                                <div class="col">
+
+                                </div>
+                            </div>
+                            -->
                         </div>
                     </div>
                 </div>
@@ -33,7 +43,9 @@
                 {{#each incidentes}}
                     <div class="col">
                         <div class="card m-2">
-                            <img src="URL_DE_LA_IMAGEN" class="card-img-top" alt="Incident Image">
+                            <div style="width: 63px; height: 50px;">
+                                <img src="/images/icono_incidente.png" alt="Incident Image">
+                            </div>
                             <div class="card-body">
                                 <h5 class="card-title">{{this.servicioAfectado.establecimiento.nombre}}</h5>
                                 <p class="card-text">Servicio: {{this.servicioAfectado.nombre}}</p>
@@ -44,12 +56,10 @@
                     </div>
                 {{/each}}
             </div>
+
         </div>
     </div>
 </div>
-
-
-
 {{/partial}}
 
 {{> templates/baseConNavegador }}

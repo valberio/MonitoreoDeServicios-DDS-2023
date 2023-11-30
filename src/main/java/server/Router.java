@@ -83,6 +83,7 @@ public class Router {
             get("/comunidades/unirse", ((ComunidadController) FactoryController.controller("Comunidad"))::show);
             get("/comunidades/{id}", ((ComunidadController) FactoryController.controller("Comunidad"))::showById);
             post("/comunidades/unirse", ((UsuarioController) FactoryController.controller("Usuario"))::joinCommunity);
+            post("/comunidades/{id}/salir" , ((UsuarioController) FactoryController.controller("Usuario"))::leaveComunity);
 
         });
 

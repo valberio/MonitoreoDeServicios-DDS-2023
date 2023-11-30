@@ -30,7 +30,7 @@
                                     <div class="form-group">
                                         <label for="servicio" class="form-label" style="font-weight: 500;">¿Cuál es el servicio afectado?</label>
                                         <select id="servicio" name="servicio" required class="form-control">
-                                            <option value="">Seleccione un servicio</option>
+                                            <option value="" disabled selected hidden>Seleccione un servicio</option>
                                             {{#each servicios}}
                                                 <option value="{{this.id}}">{{this.nombre}}</option>
                                             {{/each}}

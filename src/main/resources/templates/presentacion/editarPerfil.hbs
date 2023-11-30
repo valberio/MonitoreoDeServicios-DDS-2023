@@ -57,41 +57,76 @@
 
                 <!-- Parte de la derecha -->
                 <div class="col-md-6">
-                    <div class="row align-items-center">
-                        <div class="col-md-8">
-                            <div class="container">
-                                <div class="row justify-text-center">
-                                    <div class="col-md-12 text-center">
-                                        <h3>Preferencias al recibir notificaciones</h3>
+                    <form role="form" method="POST" action="/editar">
+                        <h3 class="text-center pt-4">Preferencias al recibir notificaciones</h3>
+                        <div class="mb-3">
+                            <label class="form-label">Medio preferido:</label>
+                            <div class="d-flex justify-content-center">
+                                {{#each medios}}
+                                    <div class="form-check mx-3">
+                                        <input type="radio" class="form-check-input" id="medio{{@index}}" name="medios" value="{{this}}">
+                                        <label class="form-check-label" for="medio{{@index}}">{{this}}</label>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group">
-                                        {{#each medios}}
-                                            <label for="medio{{@index}}">{{this}}</label>
-                                            <input type="radio" id="medio{{@index}}" name="medios" value="{{this}}" placeholder="Medio para recibir Notificaciones">
-                                        {{/each}}
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    {{#each modos}}
-                                        <label for="modo{{@index}}">{{this}}</label>
-                                        <input type="radio" id="modo{{@index}}" name="modos" value="{{this}}" placeholder="Modo de Recepción">
-                                    {{/each}}
-                                </div>
+                                {{/each}}
                             </div>
                         </div>
-                    </div>
+                        <div class="mb-3">
+                            <label class="form-label">Modo de notificación:</label>
+                            <div class="d-flex justify-content-center">
+                                {{#each modos}}
+                                    <div class="form-check mx-3">
+                                        <input type="radio" class="form-check-input" id="modo{{@index}}" name="modos" value="{{this}}">
+                                        <label class="form-check-label" for="modo{{@index}}">{{this}}</label>
+                                    </div>
+                                {{/each}}
+                            </div>
+                        </div>
+                        <div class="mb-3" id="botonAdicionalContainer" style="display: none;">
+                            <button id="botonAdicional" type="button" class="btn btn-secondary">Configurar horarios disponibles</button>
+                        </div>
+                        <div id="desplegableContainer" style="display: none; max-height: 120px; overflow-y: auto;">
+                            {{#each horarios}}
+                                <input type="checkbox" id="{{this}}" name="opciones" value="{{this}}">
+                                <label for="{{this}}">{{this}}</label><br>
+                            {{/each}}
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
-    </form>
-
-    <div class="row mt-2">
-        <div class="col-12 d-flex justify-content-center align-items-center">
-            <button class="btn btn-primary btn-block p-4 btn-primary"><a class="link-white" href="/entidades">SELECCIONAR ENTIDADES DE INTERÉS</a></button>
+        </form>
         </div>
-    </div>
+        </div>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                var radioModos = document.querySelectorAll('input[name="modos"]');
+                var botonAdicionalContainer = document.getElementById("botonAdicionalContainer");
+                var desplegableContainer = document.getElementById("desplegableContainer");
+
+                radioModos.forEach(function(radioModo) {
+                    radioModo.addEventListener("change", function() {
+                        if (radioModo.value === "Asincronica") {
+                            botonAdicionalContainer.style.display = "block";
+                        } else {
+                            botonAdicionalContainer.style.display = "none";
+                            desplegableContainer.style.display = "none";
+                        }
+                    });
+                });
+
+                var botonAdicional = document.getElementById("botonAdicional");
+
+                botonAdicional.addEventListener("click", function() {
+                    if (desplegableContainer.style.display === "block") {
+                        desplegableContainer.style.display = "none";
+                    } else {
+                        desplegableContainer.style.display = "block";
+                    }
+                });
+            });
+        </script>
+
 
 {{/partial}}
 {{> templates/baseConNavegador }}

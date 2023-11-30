@@ -40,6 +40,7 @@ public class RolPermisoController {
         return miembro;
     }
 
+
     public void asignarPermisosDeMiembro(Rol rol) {
         rol.agregarPermisos(repositorioDePermisos.buscarPermisoPorNombre("reportar_incidentes"), repositorioDePermisos.buscarPermisoPorNombre("cerrar_incidentes"), repositorioDePermisos.buscarPermisoPorNombre("ver_incidentes"));
 

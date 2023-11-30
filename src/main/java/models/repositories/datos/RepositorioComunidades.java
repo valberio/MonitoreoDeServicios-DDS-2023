@@ -103,5 +103,17 @@ public class RepositorioComunidades implements WithSimplePersistenceUnit, ICrudR
         return comunidades;
     }
 
+    public void eliminarUsuario(Long comunidad, Long id) {
+        withTransaction(() -> {
+            String sql = "DELETE FROM comunidad_usuario WHERE miembros_id = :Id AND comunidad_id = :Comunidad";
+
+            Query query = entityManager().createNativeQuery(sql);
+            query.setParameter("Id", id);
+            query.setParameter("Comunidad", comunidad);
+
+            query.executeUpdate();
+        });
+    }
+
 
 }
