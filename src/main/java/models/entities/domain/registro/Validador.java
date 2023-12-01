@@ -21,8 +21,8 @@ public class Validador {
 
     }
 
-    public boolean esValida(Contrasenia contrasenia) {
-        return this.validador.stream().allMatch(condicion->condicion.cumpleCondicion(contrasenia));
+    public boolean esValida(Contrasenia contrasenia, String nombreUsuario) {
+        return this.validador.stream().allMatch(condicion->condicion.cumpleCondicion(contrasenia, nombreUsuario));
     }
 
 }

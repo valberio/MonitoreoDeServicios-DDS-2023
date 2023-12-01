@@ -68,13 +68,46 @@ public class UsuarioController extends Controller implements ICrudViewsHandler {
 
           Usuario usuario= new Usuario();
           //sacar datos del form del contexto
-
           this.asignarParametros(usuario, context);
+
+          String errorMessage = "";
+          Map<String, Object> model = new HashMap<>();
+
+          try {
+               Validador validador = new Validador();
+               Contrasenia contrasenia = new Contrasenia(context.formParam("contrasenia"));
+               String nombreUsuario = context.formParam(("nombre"));
+               validador.esValida(contrasenia, nombreUsuario);
           repositorioUsuarios.agregarUsuario(usuario);
           context.status(HttpStatus.CREATED);
           context.sessionAttribute("authenticated", true);
           context.sessionAttribute("id", retornarIdSiExiste(usuario.getNombreDeUsuario()));
           context.redirect("/entidades"); // para que cargue sus entidades de interes
+          } catch (ContraseniaUsoReiteradoException e) {
+               errorMessage = "La contraseña ingresada ya ha sido utilizada anteriormente. Por favor, elige una contraseña diferente.";
+               // Aquí podrías redirigir al usuario a la página de registro nuevamente o mostrar un mensaje de error
+               // context.redirect("/registro"); o mostrar un mensaje de error en la vista
+          } catch (ContraseniaUtilizaCredencialesPorDefectoException e) {
+               errorMessage = "La contraseña no puede ser su credencial. Por favor, elige una contraseña diferente.";
+
+          } catch (ContraseniaRepiteCaracteresException e) {
+              errorMessage = "La contraseña no puede repetir caracteres. Por favor, elige una contraseña diferente.";
+
+          } catch (ContraseniaNoCumpleConLongitudException e) {
+               errorMessage = "La contraseña ingresada no cumple con la longitud necesaria. Por favor, elige una contraseña diferente.";
+
+          } finally {
+               if(errorMessage !="") {
+                    ArrayList<String> medios = (ArrayList<String>) Initializer.obtenerMedioDeNotificacionValidos();
+                    ArrayList<String> modos = (ArrayList<String>) Initializer.obtenerModosDeRecepcionValidos();
+                    ArrayList<LocalTime> horarios = (ArrayList<LocalTime>) Initializer.obtenerHorarios();
+                    model.put("errorMessage", errorMessage);
+                    model.put("medios", medios);
+                    model.put("modos", modos);
+                    model.put("horarios", horarios);
+                    context.render("index/registro.hbs", model);
+               }
+          }
      }
 
      @Override

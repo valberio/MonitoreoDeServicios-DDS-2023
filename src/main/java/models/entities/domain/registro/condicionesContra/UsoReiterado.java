@@ -9,44 +9,34 @@ import java.io.FileReader;
 
 public class UsoReiterado implements Condicion{
     @Override
-    public boolean cumpleCondicion(Contrasenia contrasenia) {
-
-        try{
-            this.esMuyUsada(contrasenia);
-        }catch (ContraseniaUsoReiteradoException e){
-            System.out.println(e.getMessage());
+    public boolean cumpleCondicion(Contrasenia contrasenia, String nombreUsuario) {
+        try {
+            return !this.esMuyUsada(contrasenia);
+        } catch (ContraseniaUsoReiteradoException e) {
+            throw new ContraseniaUsoReiteradoException("La contraseña ha sido utilizada anteriormente y es considerada débil. Por favor, elige una contraseña diferente.");
         }
-        return false;
-
     }
 
-
-    public boolean esMuyUsada (Contrasenia contrasenia) {
+    public boolean esMuyUsada(Contrasenia contrasenia) {
         File archivoContrasenias = new File(Config.RUTA_ARCHIVOS + Config.PEORES_CONTRASEÑAS_TXT);
         try {
-            if(archivoContrasenias.exists()) {
-
+            if (archivoContrasenias.exists()) {
                 BufferedReader leerArchivo = new BufferedReader(new FileReader(archivoContrasenias));
-                // LINEA LEIDA
                 String lineaLeida;
-                int lineasTotales=0;
-
-                // MIENTRAS LA LINEA LEIDA NO SEA NULL
-                while((lineaLeida = leerArchivo.readLine()) != null) {
-                    lineasTotales++;
+                while ((lineaLeida = leerArchivo.readLine()) != null) {
                     String[] contraseniasUsadas = lineaLeida.split(" ");
-                    for(int i = 0 ; i < contraseniasUsadas.length ; i++) {
-                        if(contraseniasUsadas[i].equals(contrasenia.getContrasenia())) {
+                    for (String contraseniaUsada : contraseniasUsadas) {
+                        if (contraseniaUsada.equals(contrasenia.getContrasenia())) {
                             return true;
                         }
                     }
                 }
             }
-        } catch(Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-
-        return true;
+        return false;
     }
+
 
 }

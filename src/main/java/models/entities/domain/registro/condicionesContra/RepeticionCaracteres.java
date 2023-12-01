@@ -4,13 +4,11 @@ import models.entities.domain.registro.Contrasenia;
 
 public class RepeticionCaracteres implements Condicion{
     @Override
-    public boolean cumpleCondicion(Contrasenia contrasenia) {
-        try{
-            this.noRepiteCaracteres(contrasenia);
-        }catch (ContraseniaRepiteCaracteresException e){
-            System.out.println(e.getMessage());
-        }
-        return false;
+    public boolean cumpleCondicion(Contrasenia contrasenia, String nombreUsuario) {
+        if (!this.noRepiteCaracteres(contrasenia)) {
+        throw new ContraseniaRepiteCaracteresException("La contraseña repite muchos caracteres");
+    }
+        return true;
     }
 
     public boolean noRepiteCaracteres(Contrasenia contrasenia)

@@ -7,17 +7,16 @@ import java.util.Objects;
 public class UsoDeCredenciales implements Condicion {
 
     @Override
-    public boolean cumpleCondicion(Contrasenia contrasenia) {
-        try{
-            this.utilizaCredencialesPorDefecto(contrasenia);
-        }catch (ContraseniaUtilizaCredencialesPorDefectoException e){
-            System.out.println(e.getMessage());
+    public boolean cumpleCondicion(Contrasenia contrasenia, String nombreUsuario) {
+        try {
+            return !this.utilizaCredencialesPorDefecto(contrasenia, nombreUsuario);
+        } catch (ContraseniaUtilizaCredencialesPorDefectoException e) {
+            throw new ContraseniaUtilizaCredencialesPorDefectoException("La contraseña no puede ser igual al nombre de usuario.");
         }
-        return false;
     }
 
-    public boolean utilizaCredencialesPorDefecto(Contrasenia contrasenia) {
-        return Objects.equals(contrasenia.getUsuario().getNombreDeUsuario(), contrasenia.getContrasenia());
+    public boolean utilizaCredencialesPorDefecto(Contrasenia contrasenia, String nombreUsuario) {
+        return nombreUsuario.equals(contrasenia.getContrasenia());
     }
 
 }
