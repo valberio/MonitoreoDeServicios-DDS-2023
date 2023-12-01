@@ -22,7 +22,7 @@ public class Registro {
         return instancia;
     }
     public void registrarUsuario(String usuario, Contrasenia contrasenia, String email, PreferenciaEnvioNotificacion preferenciaEnvioNotificacion) throws IOException {
-        if (this.noEstaRegistrado(usuario) && contrasenia.esValida()) {
+        if (this.noEstaRegistrado(usuario) && contrasenia.esValida(usuario)) {
             Usuario nuevoUsuario = new Usuario();
             nuevoUsuario.setNombreDeUsuario(usuario);
             nuevoUsuario.setContrasenia(contrasenia);
@@ -34,7 +34,7 @@ public class Registro {
     }
 
     public void registrarUsuario(Usuario usuario) {
-        if (this.noEstaRegistrado(usuario.getNombreDeUsuario()) && usuario.getContrasenia().esValida()) {
+        if (this.noEstaRegistrado(usuario.getNombreDeUsuario()) && usuario.getContrasenia().esValida(usuario.getNombreDeUsuario())) {
             this.repositorioUsuarios.agregarUsuario(usuario); // Para que se pueda persistir
             usuario.getContrasenia().mostrarFuerza();
         }

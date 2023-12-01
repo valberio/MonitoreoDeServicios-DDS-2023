@@ -27,6 +27,7 @@ public class ContraseniaTests {
     private Contrasenia contraseniaSinRepes = new Contrasenia("12345678");
     private Contrasenia contraseniaEspecial = new Contrasenia("123#");
     private static Contrasenia contraseniaValida = new Contrasenia("Abcd12345_");
+    private static String usuario = "pepito";
 
     private Validador validador = new Validador();
     private Longitud longitud = new Longitud();
@@ -78,12 +79,12 @@ public class ContraseniaTests {
     @Test
     public void testContraseniaEsValida(){
         this.instanciarCondiciones();
-        Assertions.assertFalse( contraseniaCorta.esValida());
+        Assertions.assertFalse( contraseniaCorta.esValida(usuario));
     }
     @Test
     public void testContraseniaNoEsValida(){
         this.instanciarCondiciones();
-        Assertions.assertFalse(contraseniaCorta.esValida());
+        Assertions.assertFalse(contraseniaCorta.esValida(usuario));
     }
     @Test
     public void testClaveConRepeticiones()

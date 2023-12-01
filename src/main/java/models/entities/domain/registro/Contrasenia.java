@@ -34,10 +34,10 @@ public class Contrasenia {
 
 
     //
-    public boolean esValida() {
+    public boolean esValida(String username) {
 
         this.reducirEspacios();
-        return validador.esValida(this);
+        return validador.esValida(this, username);
 
     }
 
