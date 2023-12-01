@@ -37,7 +37,7 @@ public class Server {
 
             String strport = System.getenv("PORT");
             if (strport == null){
-                strport = "8080";
+                strport = "8089";
             }
             Integer port = Integer.parseInt(strport);
 
