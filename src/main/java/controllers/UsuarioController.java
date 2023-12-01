@@ -211,27 +211,6 @@ public class UsuarioController extends Controller implements ICrudViewsHandler {
                usuario.setNombreDeUsuario(context.formParam("nombre"));
           }
           if(!Objects.equals(context.formParam("contrasenia"), "")) {
-               try{
-                    String contrasenia = context.formParam("contrasenia");
-                    Validador validador = new Validador();
-                    Contrasenia contraseniaa = new Contrasenia(contrasenia);
-                    validador.esValida(contraseniaa);
-               } catch(ContraseniaUsoReiteradoException e) {
-                    // Capturar la excepción y configurar un mensaje de error
-                    String errorMessage = "La contraseña ingresada ya ha sido utilizada anteriormente. Por favor, elige una contraseña diferente.";
-
-                    // Establecer el mensaje de error en el contexto para que se muestre en la vista
-                    context.attribute("errorMessage", errorMessage);
-               } catch (ContraseniaUtilizaCredencialesPorDefectoException e){
-                    String errorMessage = "La contraseña no puede ser su credencial. Por favor, elige una contraseña diferente.";
-                    context.attribute("errorMessage", errorMessage);
-               } catch (ContraseniaRepiteCaracteresException e){
-                    String errorMessage = "La contraseña no puede repertir caracteres. Por favor, elige una contraseña diferente.";
-                    context.attribute("errorMessage", errorMessage);
-               }catch (ContraseniaNoCumpleConLongitudException e){
-                    String errorMessage = "La contraseña ingresada no cumple con la longitud necesaria. Por favor, elige una contraseña diferente.";
-                    context.attribute("errorMessage", errorMessage);
-               }
                usuario.setContra(context.formParam("contrasenia"));
           }
           if(!Objects.equals(context.formParam("email"), "")) {

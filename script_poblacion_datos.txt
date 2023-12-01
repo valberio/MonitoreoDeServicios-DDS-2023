@@ -108,78 +108,78 @@ insert into establecimiento (nombre, lat, lon, entidad_id) values ("Planta baja 
 insert into establecimiento (nombre, lat, lon, entidad_id) values ("Buffet Albert Einstein Sede Medrano ",-34.59887, -58.42015, 1);
 insert into establecimiento (nombre, lat, lon, entidad_id) values ("Primer piso Sede Campus",-34.6599705, -58.4681958, 2);
 insert into establecimiento (nombre, lat, lon, entidad_id) values ("Planta baja Sede FIUBA Paseo Colon",-34.617639, -58.368056, 3);
-insert into establecimiento (nombre, lat, lon, entidad_id) values ("Estación Banfield",-34.5627,  -58.45829, 4);
+insert into establecimiento (nombre, lat, lon, entidad_id) values ("Estación Banfield",-34.7439168, -58.3958758, 4);
 insert into establecimiento (nombre, lat, lon, entidad_id) values ("Estación Lozano", -34.5560549, -58.6694303, 5);
 insert into establecimiento (nombre, lat, lon, entidad_id) values ("Estación Once", -34.6104983, -58.4133019, 6);
 insert into establecimiento (nombre, lat, lon, entidad_id) values ("Estación Merlo", -34.6634776, -58.7273416, 6);
 insert into establecimiento (nombre, lat, lon, entidad_id) values ("Estación Belgrano R", -34.5688959, -58.4610736, 7) ;
-insert into establecimiento (nombre, lat, lon, entidad_id) values ("Estación Retiro - Mitre", -34.5560549, -58.6694303, 7);
-insert into establecimiento (nombre, lat, lon, entidad_id) values ("Estación Retiro - San Martin", -34.5560549, -58.6694303, 8);
-insert into establecimiento (nombre, lat, lon, entidad_id) values ("Planta Baja - Avellaneda", -34.5560549, -58.6694303, 8);
+insert into establecimiento (nombre, lat, lon, entidad_id) values ("Estación Retiro - Mitre", -34.5894, -58.37318, 7);
+insert into establecimiento (nombre, lat, lon, entidad_id) values ("Estación Retiro - San Martin", -34.5894, -58.37318, 8);
+insert into establecimiento (nombre, lat, lon, entidad_id) values ("Planta Baja - Avellaneda", -34.6623821, -58.3645907, 8);
 
 
 -- Creo prestaciones de servicio
 
 -- Banios de Mujeres
-insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (1, 1);
-insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (2, 1);
-insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (3, 1);
-insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (4, 1);
-insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (5, 1);
-insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (6, 1);
-insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (7, 1);
-insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (8, 1);
-insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (9, 1);
-insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (10, 1);
-insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (11, 1);
-insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (12, 1);
+insert into prestacion_de_servicio (establecimiento_id, servicio_id, nombre) values (1, 1, "Baño de mujeres en planta baja Sede Medrano");
+insert into prestacion_de_servicio (establecimiento_id, servicio_id, nombre) values (2, 1,  "Baño de mujeres en el buffet de la Sede Medrano");
+insert into prestacion_de_servicio (establecimiento_id, servicio_id, nombre) values (3, 1,  "Baño de mujeres en planta baja Sede Campus");
+insert into prestacion_de_servicio (establecimiento_id, servicio_id, nombre) values (4, 1,  "Baño de mujeres en FIUBA Paseo Colon");
+insert into prestacion_de_servicio (establecimiento_id, servicio_id, nombre)values (5, 1,  "Baño de mujeres en Estacion Banfield");
+insert into prestacion_de_servicio (establecimiento_id, servicio_id, nombre) values (6, 1,  "Baño de mujeres en Estacion Lozano");
+insert into prestacion_de_servicio (establecimiento_id, servicio_id, nombre) values (7, 1,  "Baño de mujeres en Estacion Once");
+insert into prestacion_de_servicio (establecimiento_id, servicio_id, nombre) values (8, 1,  "Baño de mujeres en Estacion Merlo");
+insert into prestacion_de_servicio (establecimiento_id, servicio_id, nombre) values (9, 1,  "Baño de mujeres en Estacion Belgrano R");
+insert into prestacion_de_servicio (establecimiento_id, servicio_id, nombre) values (10, 1,  "Baño de mujeres en Estacion Retiro - Linea Mitre");
+insert into prestacion_de_servicio (establecimiento_id, servicio_id, nombre) values (11, 1,  "Baño de mujeres en Estacion Retiro - Linea San Martin");
+insert into prestacion_de_servicio (establecimiento_id, servicio_id, nombre) values (12, 1,  "Baño de mujeres en UTN Sede Avellaneda");
 
 -- Banios de hombres
-insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (1, 2);
-insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (2, 2);
-insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (3, 2);
-insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (4, 2);
-insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (5, 2);
-insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (6, 2);
-insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (7, 2);
-insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (8, 2);
-insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (9, 2);
-insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (10, 2);
-insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (11, 2);
-insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (12, 2);
+insert into prestacion_de_servicio (establecimiento_id, servicio_id, nombre) values (1, 2, "Baño de hombres en planta baja Sede Medrano");
+insert into prestacion_de_servicio (establecimiento_id, servicio_id, nombre) values (2, 2, "Baño de hombres en el buffet de la Sede Medrano");
+insert into prestacion_de_servicio (establecimiento_id, servicio_id, nombre) values (3, 2, "Baño de hombres en planta baja Sede Campus");
+insert into prestacion_de_servicio (establecimiento_id, servicio_id, nombre) values (4, 2, "Baño de hombres en FIUBA Paseo Colon");
+insert into prestacion_de_servicio (establecimiento_id, servicio_id, nombre) values (5, 2, "Baño de hombres en Estacion Banfield");
+insert into prestacion_de_servicio (establecimiento_id, servicio_id, nombre) values (6, 2,  "Baño de hombres en Estacion Lozano");
+insert into prestacion_de_servicio (establecimiento_id, servicio_id, nombre) values (7, 2, "Baño de hombres en Estacion Once");
+insert into prestacion_de_servicio (establecimiento_id, servicio_id, nombre) values (8, 2, "Baño de hombres en Estacion Merlo");
+insert into prestacion_de_servicio (establecimiento_id, servicio_id, nombre) values (9, 2, "Baño de hombres en Estacion Belgrano R");
+insert into prestacion_de_servicio (establecimiento_id, servicio_id, nombre) values (10, 2, "Baño de hombres en Estacion Retiro - Linea Mitre");
+insert into prestacion_de_servicio (establecimiento_id, servicio_id, nombre) values (11, 2, "Baño de hombres en Estacion Retiro - Linea San Martin");
+insert into prestacion_de_servicio (establecimiento_id, servicio_id, nombre) values (12, 2, "Baño de hombres en UTN Sede Avellaneda");
 
 -- ascensor
-insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (1, 3);
-insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (3, 3);
-insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (4, 3);
+insert into prestacion_de_servicio (establecimiento_id, servicio_id, nombre) values (1, 3, "Ascensor en planta baja Sede Medrano");
+insert into prestacion_de_servicio (establecimiento_id, servicio_id, nombre) values (3, 3, "Ascensor en planta baja Sede Campus");
+insert into prestacion_de_servicio (establecimiento_id, servicio_id, nombre) values (4, 3, "Ascensor en FIUBA Paseo Colon");
 
---escalera mecanica
-insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (10, 4);
-insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (11, 4);
+--  escalera mecanica
+insert into prestacion_de_servicio (establecimiento_id, servicio_id, nombre) values (10, 4, "Escaleras en Estacion Retiro - Linea Mitre");
+insert into prestacion_de_servicio (establecimiento_id, servicio_id, nombre) values (11, 4, "Escaleres en Estacion Retiro - Linea San Martin");
 
---rampa
-insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (1, 5);
-insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (3, 5);
-insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (5, 5);
-insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (6, 5);
-insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (7, 5);
-insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (8, 5);
-insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (9, 5);
-insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (10, 5);
-insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (11, 5);
-insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (12, 5);
+-- rampa
+insert into prestacion_de_servicio (establecimiento_id, servicio_id, nombre) values (1, 5, "Rampa en planta baja Sede Medrano");
+insert into prestacion_de_servicio (establecimiento_id, servicio_id, nombre) values (3, 5, "Rampa en planta baja Sede Campus");
+insert into prestacion_de_servicio (establecimiento_id, servicio_id, nombre) values (5, 5, "Rampa en Estacion Banfield");
+insert into prestacion_de_servicio (establecimiento_id, servicio_id, nombre) values (6, 5, "Rampa en Estacion Lozano");
+insert into prestacion_de_servicio (establecimiento_id, servicio_id, nombre) values (7, 5, "Rampa en Estacion Once");
+insert into prestacion_de_servicio (establecimiento_id, servicio_id, nombre) values (8, 5, "Rampa en Estacion Merlo");
+insert into prestacion_de_servicio (establecimiento_id, servicio_id, nombre) values (9, 5, "Rampa en Estacion Belgrano R");
+insert into prestacion_de_servicio (establecimiento_id, servicio_id, nombre) values (10, 5, "Rampa en Estacion Retiro - Linea Mitre");
+insert into prestacion_de_servicio (establecimiento_id, servicio_id, nombre) values (11, 5, "Rampa en Estacion Retiro - Linea San Martin");
+insert into prestacion_de_servicio (establecimiento_id, servicio_id, nombre) values (12, 5, "Rampa en UTN Sede Avellaneda");
 
---banio discapacitados
-insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (3, 6);
-insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (4, 6);
-insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (5, 6);
-insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (6, 6);
-insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (7, 6);
-insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (8, 6);
-insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (9, 6);
-insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (10, 6);
-insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (11, 6);
-insert into prestacion_de_servicio (establecimiento_id, servicio_id) values (12, 6);
+-- banio discapacitados
+insert into prestacion_de_servicio (establecimiento_id, servicio_id, nombre) values (3, 6, "Baño para discapacitados en planta baja Sede Campus");
+insert into prestacion_de_servicio (establecimiento_id, servicio_id, nombre) values (4, 6, "Baño para discapacitados en FIUBA Paseo Colon");
+insert into prestacion_de_servicio (establecimiento_id, servicio_id, nombre) values (5, 6, "Baño para discapacitados en Estacion Banfield");
+insert into prestacion_de_servicio (establecimiento_id, servicio_id, nombre) values (6, 6, "Baño para discapacitados en Estacion Lozano");
+insert into prestacion_de_servicio (establecimiento_id, servicio_id, nombre) values (7, 6, "Baño para discapacitados en Estacion Once");
+insert into prestacion_de_servicio (establecimiento_id, servicio_id, nombre) values (8, 6, "Baño para discapacitados en Estacion Merlo");
+insert into prestacion_de_servicio (establecimiento_id, servicio_id, nombre) values (9, 6, "Baño para discapacitados en Estacion Belgrano R");
+insert into prestacion_de_servicio (establecimiento_id, servicio_id, nombre) values (10, 6, "Baño para discapacitados en Estacion Retiro - Linea Mitre");
+insert into prestacion_de_servicio (establecimiento_id, servicio_id, nombre) values (11, 6, "Baño para discapacitados en Estacion Retiro - Linea San Martin");
+insert into prestacion_de_servicio (establecimiento_id, servicio_id, nombre) values (12, 6, "Baño para discapacitados en UTN Sede Avellaneda");
 
 
 
@@ -250,3 +250,19 @@ insert into comunidad_prestacion_de_servicio (comunidad_id, serviciosDeInteres_i
 insert into comunidad_prestacion_de_servicio (comunidad_id, serviciosDeInteres_id) values (5, 38);
 insert into comunidad_prestacion_de_servicio (comunidad_id, serviciosDeInteres_id) values (5, 47);
 insert into comunidad_prestacion_de_servicio (comunidad_id, serviciosDeInteres_id) values (5, 48);
+
+UPDATE prestacion_de_servicio set estaHabilitado=1 where estaHabilitado is null and id<50;
+
+select * from comunidad;
+select * from comunidad_usuario;
+select * from comunidad_prestacion_de_servicio;
+select * from prestacion_de_servicio;
+select * from servicio;
+select * from prestadora_de_servicio;
+select * from entidad;
+select * from incidente;
+select * from estado_incidente;
+select * from establecimiento;
+select * from rol_permiso;
+select * from usuario;
+
