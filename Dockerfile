@@ -13,4 +13,4 @@ FROM openjdk:17-jdk-slim
 COPY --from=build /target/ejercicio-1.0-SNAPSHOT-jar-with-dependencies.jar server.jar
   # ENV PORT=8080
 EXPOSE 8080
-ENTRYPOINT ["java","-classpath","server.jar","App"]
+ENTRYPOINT ["java","-classpath","server.jar","server.App"]
