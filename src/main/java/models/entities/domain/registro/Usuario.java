@@ -159,7 +159,8 @@ public class Usuario extends Persistente {
 
     public boolean estasEn(Comunidad comunidad) {
 
-        return roles.stream().anyMatch(rol -> rol.getComunidad().equals(comunidad));
+        return roles.stream().anyMatch(rol ->
+                (rol.getComunidad() != null && rol.getComunidad().equals(comunidad)));
     }
 
     public void modificarLocalizacion(Ubicacion nuevaLocalizacion) throws MessagingException {
