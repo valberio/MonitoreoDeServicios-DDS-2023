@@ -4,6 +4,8 @@ import com.github.jknack.handlebars.Handlebars;
 import com.github.jknack.handlebars.Helper;
 import com.github.jknack.handlebars.Options;
 import com.github.jknack.handlebars.Template;
+import io.github.flbulgarelli.jpa.extras.perthread.PerThreadEntityManagerProperties;
+import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 import io.javalin.Javalin;
 import io.javalin.config.JavalinConfig;
 import io.javalin.http.HttpStatus;
@@ -15,6 +17,8 @@ import server.middlewares.SessionMiddleware;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Consumer;
 
 
@@ -41,6 +45,7 @@ public class Server {
             initTemplateEngine();
             AppHandlers.applyHandlers(app);
             Router.init();
+            Server.configureEntityManagerProperties();
             //Initializer.init();
         }
     }
@@ -82,4 +87,38 @@ public class Server {
                 }, ".hbs" // Extensión del archivo de template
         );
     }
-}
+    public static void configureEntityManagerProperties() {
+
+        Map<String, String> env = System.getenv();
+        Map<String, Object> configOverrides = new HashMap<>();
+
+        String[] keys = new String[] {
+                "DATABASEURL",
+                "hibernate.archive.autodetection",
+                "hibernate.connection.driver_class",
+                "hibernate.connection.url",
+                "hibernate.connection.username",
+                "hibernate.connection.password",
+                "hibernate.dialect",
+                "hibernate.show_sql",
+                "hibernate.format_sql",
+                "use_sql_comments",
+                "hibernate.hbm2ddl.auto",
+                "SPRING_DATASOURCE_URL"};
+
+        for (String key : keys) {
+            if (env.containsKey(key)) {
+                String value = env.get(key);
+                System.out.println(key + ": " + value);
+                configOverrides.put(key, value);
+            }
+        }
+        Consumer<PerThreadEntityManagerProperties> propertiesConsumer = perThreadEntityManagerProperties -> {
+            perThreadEntityManagerProperties.putAll(configOverrides);
+        };
+
+        WithSimplePersistenceUnit.configure(propertiesConsumer);
+
+
+}}
+
