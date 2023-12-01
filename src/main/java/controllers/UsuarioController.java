@@ -85,8 +85,7 @@ public class UsuarioController extends Controller implements ICrudViewsHandler {
           context.redirect("/entidades"); // para que cargue sus entidades de interes
           } catch (ContraseniaUsoReiteradoException e) {
                errorMessage = "La contraseña ingresada ya ha sido utilizada anteriormente. Por favor, elige una contraseña diferente.";
-               // Aquí podrías redirigir al usuario a la página de registro nuevamente o mostrar un mensaje de error
-               // context.redirect("/registro"); o mostrar un mensaje de error en la vista
+
           } catch (ContraseniaUtilizaCredencialesPorDefectoException e) {
                errorMessage = "La contraseña no puede ser su credencial. Por favor, elige una contraseña diferente.";
 
@@ -262,59 +261,15 @@ public class UsuarioController extends Controller implements ICrudViewsHandler {
           String modo = context.formParam("modos");
 
           if(modo!=null) {
-               usuario.setModoRecepcion(ModoRecepcion.valueOf(modo.toUpperCase()));
+               usuario.setModoRecepcion(ModoRecepcion.valueOf(modo.toLowerCase()));
           }
 
           if(context.formParams("horarios")!=null) {
                List<String> horariosSeleccionados = context.formParams("horarios");
                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-
-               for(String horario: horariosSeleccionados) {
-                    System.out.println(horario);
-                    LocalTime hora = LocalTime.parse(horario, formatter);
-                    usuario.configurarHorariosDisponibles(hora);
-               }
           }
 
      }
-
-     /*private void asignarParametros(Usuario usuario, Context context) {
-          if(!Objects.equals(context.formParam("nombre"), "")) {
-               usuario.setNombreDeUsuario(context.formParam("nombre"));
-          }
-          if(!Objects.equals(context.formParam("contrasenia"), "")) {
-               Contrasenia contrasenia = new Contrasenia(context.formParam("contrasenia"));
-               if(contrasenia.esValida()) {
-                    usuario.setContra(context.formParam("contrasenia"));
-               }
-               else{
-                    String error = "Elija una contraseña más fuerte.";
-                    Map<String, Object> model = new HashMap<>();
-                    model.put("error", error);
-                    context.render("index/registro.hbs", model);
-               }
-          }
-          if(!Objects.equals(context.formParam("email"), "")) {
-               usuario.setEmail(context.formParam("email"));
-          }
-          if(!Objects.equals(context.formParam("telefono"), "")) {
-               usuario.setNumeroTelefono(context.formParam("telefono"));
-          }
-
-          String medio = context.formParam("medios");
-
-          if(medio!=null) {
-
-               usuario.setMedioDeNotificacion(medio);
-          }
-
-          String modo = context.formParam("modos");
-
-          if(modo!=null) {
-               usuario.setModoRecepcion(ModoRecepcion.valueOf(modo.toUpperCase()));
-          }
-     }*/
-
 
      public boolean esCorrecta(String username, String password) {
 

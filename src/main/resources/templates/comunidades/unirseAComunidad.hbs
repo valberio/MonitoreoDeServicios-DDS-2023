@@ -9,8 +9,8 @@
                             <div class="card-body">
                                 <h5 class="card-title">{{this.nombre}}</h5>
                                 <p class="card-text">{{this.descripcion}}</p>
-                                <form method="POST" action="/comunidades/unirse">
-                                    <button id="comunidad{{@index}}" class="btn btn-primary" name="comunidades" value="{{this.nombre}}">Unirse</button>
+                                <form id="formComunidad" method="POST" action="/comunidades/unirse">
+                                    <button id="comunidad{{@index}}" class="btn btn-primary btn-unirse" name="comunidades" type = "submit" data-comunidad="{{this.nombre}}" value="{{this.nombre}}">Unirse</button>
                                 </form>
                             </div>
                         </div>
@@ -24,5 +24,23 @@
             {{/if}}
         </div>
     </div>
+    <div class="modal fade" id="reportSuccessModal" tabindex="-1" aria-labelledby="reportSuccessModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="reportSuccessModalLabel">Creación exitosa</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ¡Te has unido a una comunidad con éxito!
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="btnAceptarModal">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 {{/partial}}
+
 {{> templates/baseConNavegador }}
