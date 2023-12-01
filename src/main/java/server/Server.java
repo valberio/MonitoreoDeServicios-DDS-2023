@@ -93,7 +93,6 @@ public class Server {
         Map<String, Object> configOverrides = new HashMap<>();
 
         String[] keys = new String[] {
-                "DATABASEURL",
                 "hibernate.archive.autodetection",
                 "hibernate.connection.driver_class",
                 "hibernate.connection.url",
@@ -104,7 +103,7 @@ public class Server {
                 "hibernate.format_sql",
                 "use_sql_comments",
                 "hibernate.hbm2ddl.auto",
-                "SPRING_DATASOURCE_URL"};
+                };
 
         for (String key : keys) {
             if (env.containsKey(key)) {
