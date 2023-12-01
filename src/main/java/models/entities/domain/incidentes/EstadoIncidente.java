@@ -28,9 +28,11 @@ public class EstadoIncidente extends Persistente {
         this.estado = Estado.ACTIVO;
     }
 
-    public EstadoIncidente(Usuario usuarioResponsable, LocalDateTime fechaModificacion, Incidente incidente) {
+    public EstadoIncidente(Usuario usuarioResponsable, LocalDateTime fechaModificacion) {
         this.usuarioResponsable = usuarioResponsable;
         this.fechaModificacion = fechaModificacion;
+        this.estado = Estado.ACTIVO;
         this.incidente = incidente;
+
     }
 }

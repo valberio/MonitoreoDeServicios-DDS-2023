@@ -18,6 +18,7 @@ import server.exceptions.AccessDeniedException;
 import server.utils.ICrudViewsHandler;
 import models.entities.domain.incidentes.Incidente;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -121,8 +122,16 @@ public class IncidenteController extends Controller implements ICrudViewsHandler
         }
 
         Incidente incidente = new Incidente(servicioAfectado, usuarioLogueado, comunidad, descripcion);
+
+
         //this.asignarParametros(incidente, context); lo vole porque el contructor de incidente tenia mas complejidad kjj
         this.repositorioIncidentes.guardar(incidente);
+        EstadoIncidente estado = new EstadoIncidente(usuarioLogueado, LocalDateTime.now());
+        new RepositorioEstadoIncidente().guardar(estado);
+        incidente.getEstadosDeIncidente().add(estado);
+        this.repositorioIncidentes.actualizar(incidente);
+        estado.setIncidente(incidente);
+        new RepositorioEstadoIncidente().actualizar(estado);
         context.status(HttpStatus.CREATED);
         context.redirect("/home");
     }
