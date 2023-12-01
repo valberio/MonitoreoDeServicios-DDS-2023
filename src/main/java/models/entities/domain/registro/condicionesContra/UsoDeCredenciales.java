@@ -8,7 +8,7 @@ public class UsoDeCredenciales implements Condicion {
 
     @Override
     public boolean cumpleCondicion(Contrasenia contrasenia, String nombreUsuario) {
-        if(!this.utilizaCredencialesPorDefecto(contrasenia, nombreUsuario))
+        if(this.utilizaCredencialesPorDefecto(contrasenia, nombreUsuario))
             throw new ContraseniaUtilizaCredencialesPorDefectoException("La contraseña no puede ser igual al nombre de usuario.");
         else
             return true;
