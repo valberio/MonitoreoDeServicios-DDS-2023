@@ -167,7 +167,8 @@ public class IncidenteController extends Controller implements ICrudViewsHandler
 
 
             LocalDateTime fechaResolucion = LocalDateTime.now();
-            EstadoIncidente nuevoEstado = new EstadoIncidente(usuarioLogueado, fechaResolucion, incidente);
+            EstadoIncidente nuevoEstado = new EstadoIncidente(usuarioLogueado, fechaResolucion);
+            nuevoEstado.setIncidente(incidente);
             nuevoEstado.setEstado(Estado.RESUELTO);
 
             incidente.setEstado(nuevoEstado);
