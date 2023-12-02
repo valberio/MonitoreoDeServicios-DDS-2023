@@ -6,6 +6,7 @@ import models.entities.domain.registro.Usuario;
 import models.entities.domain.services.georef.entities.Ubicacion;
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 import lombok.Getter;
+import server.Server;
 
 import javax.persistence.Query;
 import javax.persistence.EntityManager;
@@ -21,6 +22,8 @@ import java.util.stream.Collectors;
 @Getter
 public class RepositorioIncidentes implements WithSimplePersistenceUnit, ICrudRepository {
 
+    EntityManager entityManager = Server.createEntityManager();
+
     private static RepositorioIncidentes instancia = null;
 
     private List<Incidente> incidentesForTest = new ArrayList<>();
@@ -35,38 +38,37 @@ public class RepositorioIncidentes implements WithSimplePersistenceUnit, ICrudRe
 
     @Override
     public List buscarTodos() {
-        return entityManager().createQuery("from " + Incidente.class.getName()).getResultList();
+        return entityManager.createQuery("from " + Incidente.class.getName()).getResultList();
     }
 
     @Override
     public Object buscar(Long id) {
-        return entityManager().find(Incidente.class, id);
+        return entityManager.find(Incidente.class, id);
     }
 
     @Override
     public void guardar(Object o) {
 
-        EntityTransaction tx = entityManager().getTransaction();
+        EntityTransaction tx = entityManager.getTransaction();
         tx.begin();
-        entityManager().persist(o);
+        entityManager.persist(o);
         tx.commit();
     }
 
     @Override
     public void eliminar(Object o) {
-        entityManager().remove(o);
+        entityManager.remove(o);
     }
 
     @Override
     public void actualizar(Object o) {
-        withTransaction(() -> { entityManager().merge(o);});
+        withTransaction(() -> { entityManager.merge(o);});
     }
 
     public List<Incidente> filtrarUltimaSemana() {
-            EntityManager entityManager; // Asegúrate de inicializar este EntityManager en algún lugar
 
             String jpql = "SELECT i FROM Incidente i WHERE i.fechaReporte > :fecha";
-            Query query = entityManager().createQuery(jpql);
+            Query query = entityManager.createQuery(jpql);
             LocalDateTime fecha = LocalDateTime.now().minusWeeks(1);
             query.setParameter("fecha", fecha);
 
@@ -79,13 +81,13 @@ public class RepositorioIncidentes implements WithSimplePersistenceUnit, ICrudRe
 
         List incidentesCerca = null; // Inicializamos la lista
 
-        CriteriaBuilder cb = entityManager().getCriteriaBuilder();
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Incidente> criteriaQuery = cb.createQuery(Incidente.class);
         Root<Incidente> root = criteriaQuery.from(Incidente.class);
 
         criteriaQuery.select(root).where(root.get("fechaResolucion").isNull());
 
-        List<Incidente> incidentesSinResolver = entityManager().createQuery(criteriaQuery).getResultList();
+        List<Incidente> incidentesSinResolver = entityManager.createQuery(criteriaQuery).getResultList();
 
         incidentesCerca = incidentesSinResolver.stream().filter(incidente -> incidente.getUbicacion().estasCercaDe(ubicacion)).
                     collect(Collectors.toList());
@@ -103,7 +105,7 @@ public class RepositorioIncidentes implements WithSimplePersistenceUnit, ICrudRe
 
     public List<Incidente> filtrarPorComunidad(Comunidad comunidad) {
 
-        List usuarios = entityManager().createQuery("from Incidente where comunidadDondeSeReporta = :comunidad")
+        List usuarios = entityManager.createQuery("from Incidente where comunidadDondeSeReporta = :comunidad")
                 .setParameter("comunidad", comunidad).getResultList();
 
         return usuarios;
@@ -116,13 +118,13 @@ public class RepositorioIncidentes implements WithSimplePersistenceUnit, ICrudRe
 
         List incidentesDeInteres = null;
 
-        CriteriaBuilder cb = entityManager().getCriteriaBuilder();
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Incidente> criteriaQuery = cb.createQuery(Incidente.class);
         Root<Incidente> root = criteriaQuery.from(Incidente.class);
 
         criteriaQuery.select(root).where(root.get("fechaResolucion").isNull());
 
-        List<Incidente> incidentesSinResolver = entityManager().createQuery(criteriaQuery).getResultList();
+        List<Incidente> incidentesSinResolver = entityManager.createQuery(criteriaQuery).getResultList();
 
         incidentesDeInteres = incidentesSinResolver.stream().filter(incidente -> usuario.teInteresa(incidente)).
                 collect(Collectors.toList());

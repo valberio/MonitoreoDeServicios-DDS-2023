@@ -2,46 +2,48 @@ package models.repositories.datos;
 
 import models.entities.domain.entidades.Entidad;
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
+import server.Server;
 
 
+import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import java.util.List;
 
 public class RepositorioEntidades implements WithSimplePersistenceUnit, ICrudRepository {
-
+    EntityManager entityManager = Server.createEntityManager();
     @Override
     public List buscarTodos() {
-        return entityManager().createQuery("from " + Entidad.class.getName()).getResultList();
+        return entityManager.createQuery("from " + Entidad.class.getName()).getResultList();
     }
 
     @Override
     public Object buscar(Long id) {
-        return entityManager().find(Entidad.class, id);
+        return entityManager.find(Entidad.class, id);
     }
 
     @Override
     public void guardar(Object o) {
 
-        EntityTransaction tx = entityManager().getTransaction();
+        EntityTransaction tx = entityManager.getTransaction();
         tx.begin();
-        entityManager().persist(o);
+        entityManager.persist(o);
         tx.commit();
     }
 
     @Override
     public void eliminar(Object o) {
-        entityManager().remove(o);
+        entityManager.remove(o);
     }
 
     @Override
     public void actualizar(Object o) {
-        withTransaction(() -> { entityManager().merge(o);});
+        withTransaction(() -> { entityManager.merge(o);});
     }
 
 
     public List<String> buscarTodosLosNombresDeEntidades() {
         String jpql = "SELECT e.nombre FROM Entidad e";
-        return entityManager().createQuery(jpql, String.class).getResultList();
+        return entityManager.createQuery(jpql, String.class).getResultList();
     }
 
     public List<String> buscarTodosLosNombresDeEntidadesDeInteres(Long idUsuario) {
@@ -49,14 +51,14 @@ public class RepositorioEntidades implements WithSimplePersistenceUnit, ICrudRep
                 "JOIN u.entidadesDeInteres e " +
                 "WHERE u.id = :idUsuario";
 
-        return entityManager()
+        return entityManager
                 .createQuery(jpql, String.class)
                 .setParameter("idUsuario", idUsuario)
                 .getResultList();
     }
 
     public List filtrarPorNombre(String nombreEntidad) {
-        List entidades = entityManager().createQuery("from Entidad where nombre = :nombre")
+        List entidades = entityManager.createQuery("from Entidad where nombre = :nombre")
                 .setParameter("nombre", nombreEntidad).getResultList();
 
         return entidades;
