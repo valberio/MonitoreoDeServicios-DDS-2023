@@ -24,15 +24,17 @@
                         <hr>
                     </div>
                 </div>
-                    <div class="row">
-                        <div class="col-md-12">
+                    <div class="mb-3">
+                        <label class="form-label">Entidades:</label>
+                        <div id="serviciosContainer" style="max-height: 120px; overflow-y: auto;">
                             {{#each servicios}}
-                                <label for="servicio{{@index}}">{{this}}</label>
-                                <input type="checkbox" id="servicio{{@index}}" name="servicios" value="{{this}}">
+                                <input type="checkbox" id="{{this}}" name="servicios" value="{{this}}">
+                                <label for="{{this}}">{{this}}</label><br>
                             {{/each}}
                         </div>
                     </div>
-                        <div class="row d-flex align-items-center justify-content-center">
+
+                    <div class="row d-flex align-items-center justify-content-center">
                             <div class="col-md-3 borde redondeado d-flex justify-content-center mt-3">
                                 <button class="btn btn-primary" name="crearComunidad" type="submit">Unirse</button>
                             </div>
