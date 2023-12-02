@@ -8,13 +8,13 @@
     <persistence-unit name="simple-persistence-unit" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
-        <properties><!--
+        <properties>
             <property name="hibernate.archive.autodetection" value="class"/>
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.format_sql" value="true"/>
             <property name="use_sql_comments" value="true"/>
 
-
+            <!--
              CONFIGURACION MYSQL
 
             <property name="hibernate.connection.driver_class" value="com.mysql.cj.jdbc.Driver" />
@@ -22,20 +22,20 @@
             <property name="hibernate.connection.username" value="root" />
             <property name="hibernate.connection.password" value="root" />
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
-            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>-->
 
 
-             CONFIGURACION POSTGRESS
+            <!--CONFIGURACION POSTGRESS-->
 
-             <property name="hibernate.connection.driver_class" value="org.postgresql.Driver" />
-            <property name="hibernate.connection.url" value="jdbc:postgres://dpg-cll2k16aov6s73f1ne0g-a.oregon-postgres.render.com/dbtpama"/>
-            <property name="hibernate.connection.username" value="dbtpamama_user" />
-            <property name="hibernate.connection.password" value="RZj4bqi4JsDsm7nPla8I9XymHqx6oZrd" />
-            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
-            <property name="hibernate.hbm2ddl.auto" value="update"/>
--->
-        </properties>
+            <property name="hibernate.connection.driver_class" value="org.postgresql.Driver" />
+           <property name="hibernate.connection.url" value="jdbc:postgres://dpg-cll2k16aov6s73f1ne0g-a.oregon-postgres.render.com/dbtpama"/>
+           <property name="hibernate.connection.username" value="dbtpamama_user" />
+           <property name="hibernate.connection.password" value="RZj4bqi4JsDsm7nPla8I9XymHqx6oZrd" />
+           <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
+           <property name="hibernate.hbm2ddl.auto" value="update"/>
 
-    </persistence-unit>
+       </properties>
+
+   </persistence-unit>
 
 </persistence>

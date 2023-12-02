@@ -232,3 +232,5 @@ insert into comunidad_prestacion_de_servicio (comunidad_id, serviciosDeInteres_i
 insert into comunidad_prestacion_de_servicio (comunidad_id, serviciosDeInteres_id) values (5, 48);
 
 UPDATE prestacion_de_servicio set estaHabilitado=1 where estaHabilitado is null and id<50;
+
+
