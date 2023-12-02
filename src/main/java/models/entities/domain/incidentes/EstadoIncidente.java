@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 @Getter
 @Setter
@@ -16,7 +17,7 @@ public class EstadoIncidente extends Persistente {
     @OneToOne(fetch = FetchType.LAZY)
     private Usuario usuarioResponsable;
     @Column(name="fecha_modificacion")
-    private LocalDateTime fechaModificacion;
+    private LocalDate fechaModificacion;
     @Enumerated(EnumType.STRING)
     private Estado estado;
     @ManyToOne(fetch = FetchType.LAZY)
@@ -28,7 +29,7 @@ public class EstadoIncidente extends Persistente {
         this.estado = Estado.ACTIVO;
     }
 
-    public EstadoIncidente(Usuario usuarioResponsable, LocalDateTime fechaModificacion) {
+    public EstadoIncidente(Usuario usuarioResponsable, LocalDate fechaModificacion) {
         this.usuarioResponsable = usuarioResponsable;
         this.fechaModificacion = fechaModificacion;
         this.estado = Estado.ACTIVO;

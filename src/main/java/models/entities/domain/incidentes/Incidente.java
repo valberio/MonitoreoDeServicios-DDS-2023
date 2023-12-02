@@ -15,6 +15,7 @@ import lombok.Setter;
 import javax.mail.MessagingException;
 import javax.persistence.*;
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -33,9 +34,9 @@ public class Incidente extends Persistente {
     private Usuario usuarioReportador;
     //Debatible
     @Column(name="fecha_reporte")
-    private LocalDateTime fechaReporte;
+    private LocalDate fechaReporte;
     @Column(name="fecha_resolucion")
-    private LocalDateTime fechaResolucion;
+    private LocalDate fechaResolucion;
     //Las fechas de reporte y resolucion estan en los estadoIncidente, dejarlos acá sería
     //repetir datos y no cumplir las reglas de la normalización. Peero a nivel objeto, los
     //incidentes no tienen una lista de estados, tienen sólo el estado actual. Para pensar gente...
@@ -56,7 +57,7 @@ public class Incidente extends Persistente {
         this.setUsuarioReportador(usuarioReportador);
         this.setServicioAfectado(servicioAfectado);
         this.setComunidadDondeSeReporta(comunidadDondeSeReporta);
-        this.setFechaReporte(LocalDateTime.now());
+        this.setFechaReporte(LocalDate.now());
         this.setDescripcion(descripcion);
         this.servicioAfectado.setEstaHabilitado(false);
         RepositorioIncidentes archivo = RepositorioIncidentes.getInstance();
@@ -125,11 +126,11 @@ public class Incidente extends Persistente {
     }
 
     public void cerrarse(Usuario usuarioResponsable) throws MessagingException {
-        this.fechaResolucion = LocalDateTime.now();
+        this.fechaResolucion = LocalDate.now();
         estadosDeIncidente.add(this.estado); //guardo el anterior antes de actualizarlo
         EstadoIncidente estadoResuelto = new EstadoIncidente();
         estadoResuelto.setUsuarioResponsable(usuarioResponsable);
-        estadoResuelto.setFechaModificacion(LocalDateTime.now());
+        estadoResuelto.setFechaModificacion(LocalDate.now());
         estadoResuelto.setEstado(Estado.RESUELTO);
         estadoResuelto.setIncidente(this);
         this.setEstado(estadoResuelto);
