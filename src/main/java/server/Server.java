@@ -45,7 +45,7 @@ public class Server {
             initTemplateEngine();
             AppHandlers.applyHandlers(app);
             Router.init();
-            Server.configureEntityManagerProperties();
+            //Server.configureEntityManagerProperties();
             //Initializer.init();
         }
     }
