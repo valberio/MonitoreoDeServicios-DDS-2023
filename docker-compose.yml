@@ -7,8 +7,8 @@ services:
     image: postgres
     restart: always
     environment:
-      POSTGRES_PASSWORD: 123
-      POSTGRES_DB: dblibros
+      POSTGRES_PASSWORD: RZj4bqi4JsDsm7nPla8I9XymHqx6oZrd
+      POSTGRES_DB: dbtpama
     volumes:
       - ./posgresdb:/var/lib/postgresql/data
 
