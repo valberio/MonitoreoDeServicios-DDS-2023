@@ -14,11 +14,9 @@ import server.handlers.AppHandlers;
 import server.middlewares.AuthMiddleware;
 import server.middlewares.SessionMiddleware;
 
-import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.io.IOException;
-import org.hibernate.cfg.Configuration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
@@ -29,35 +27,23 @@ import java.util.function.Consumer;
 public class Server {
     
     private static Javalin app=null;
-
-    private static EntityManagerFactory entityManagerFactory = null;
     
     public static Javalin app(){
         if(app == null)
             throw new RuntimeException("App no inicializada");
         return app;
     }
-    
+
     public static void init(){
         if(app==null){
+
+
 
             String strport = System.getenv("PORT");
             if (strport == null){
                 strport = "8089";
             }
             Integer port = Integer.parseInt(strport);
-
-            if(entityManagerFactory == null) {
-
-                Configuration configuration = new Configuration();
-                configuration.setProperty("javax.persistence.jdbc.url", "jdbc:postgres://dpg-cll2k16aov6s73f1ne0g-a.oregon-postgres.render.com/dbtpama");
-                configuration.setProperty("javax.persistence.jdbc.username", "dbtpamama_user");
-                configuration.setProperty("javax.persistence.jdbc.password", "RZj4bqi4JsDsm7nPla8I9XymHqx6oZrd");
-
-                // Otras configuraciones de Hibernate si es necesario
-
-                entityManagerFactory = Persistence.createEntityManagerFactory("simple-persistence-unit", configuration.getProperties());
-            }
 
             app = Javalin.create(config()).start(port);
             initTemplateEngine();
@@ -105,12 +91,37 @@ public class Server {
                 }, ".hbs" // Extensión del archivo de template
         );
     }
-    public static EntityManager createEntityManager() {
-        if (entityManagerFactory == null) {
-            throw new RuntimeException("EntityManagerFactory no inicializado");
-        }
-        return entityManagerFactory.createEntityManager();
-    }
+    /*public static void configureEntityManagerProperties() {
 
+        Map<String, String> env = System.getenv();
+        Map<String, Object> configOverrides = new HashMap<>();
+
+        String[] keys = new String[] {
+                "hibernate.archive.autodetection",
+                "hibernate.connection.driver_class",
+                "hibernate.connection.url",
+                "hibernate.connection.username",
+                "hibernate.connection.password",
+                "hibernate.dialect",
+                "hibernate.show_sql",
+                "hibernate.format_sql",
+                "use_sql_comments",
+                "hibernate.hbm2ddl.auto",
+                };
+
+        for (String key : keys) {
+            if (env.containsKey(key)) {
+                String value = env.get(key);
+                System.out.println(key + ": " + value);
+                configOverrides.put(key, value);
+            }
+        }
+        Consumer<PerThreadEntityManagerProperties> propertiesConsumer = perThreadEntityManagerProperties -> {
+            perThreadEntityManagerProperties.putAll(configOverrides);
+        };
+
+        WithSimplePersistenceUnit.configure(propertiesConsumer);
+
+*/
 }
 
