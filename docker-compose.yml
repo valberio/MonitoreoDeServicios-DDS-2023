@@ -8,7 +8,7 @@ services:
     restart: always
     environment:
       POSTGRES_PASSWORD: RZj4bqi4JsDsm7nPla8I9XymHqx6oZrd
-      POSTGRES_DB: dbtpama
+      POSTGRES_DB: dbtpamama
     volumes:
       - ./posgresdb:/var/lib/postgresql/data
 
@@ -21,7 +21,7 @@ services:
       hibernate.hbm2ddl.auto: create
       javax.persistence.jdbc.driver: org.postgresql.Driver
       javax.persistence.jdbc.password: RZj4bqi4JsDsm7nPla8I9XymHqx6oZrd
-      javax.persistence.jdbc.url: jdbc:postgres://dpg-cll2k16aov6s73f1ne0g-a.oregon-postgres.render.com/dbtpama
+      javax.persistence.jdbc.url: jdbc:postgresql://dbservice/dbtpamama
       javax.persistence.jdbc.user: dbtpamama_user
     depends_on:
       - dbservice

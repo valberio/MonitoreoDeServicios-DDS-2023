@@ -2,14 +2,12 @@ package models.repositories.datos;
 
 import models.entities.domain.entidades.OrganismoDeControl;
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
-import server.Server;
 
-import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import java.util.List;
 
 public class RepositorioOrganismosDeControl implements WithSimplePersistenceUnit, ICrudRepository {
-    EntityManager entityManager = Server.createEntityManager();
+
     private static RepositorioOrganismosDeControl instancia = null;
 
     public static RepositorioOrganismosDeControl getInstance(){
@@ -19,36 +17,36 @@ public class RepositorioOrganismosDeControl implements WithSimplePersistenceUnit
 
     @Override
     public List buscarTodos() {
-        return entityManager.createQuery("from " + OrganismoDeControl.class.getName()).getResultList();
+        return entityManager().createQuery("from " + OrganismoDeControl.class.getName()).getResultList();
     }
 
     @Override
     public Object buscar(Long id) {
-        return entityManager.find(OrganismoDeControl.class, id);
+        return entityManager().find(OrganismoDeControl.class, id);
     }
 
     @Override
     public void guardar(Object o) {
 
-        EntityTransaction tx = entityManager.getTransaction();
+        EntityTransaction tx = entityManager().getTransaction();
         tx.begin();
-        entityManager.persist(o);
+        entityManager().persist(o);
         tx.commit();
     }
 
     @Override
     public void eliminar(Object o) {
-        entityManager.remove(o);
+        entityManager().remove(o);
     }
 
     @Override
     public void actualizar(Object o) {
-        withTransaction(() -> { entityManager.merge(o);});
+        withTransaction(() -> { entityManager().merge(o);});
     }
 
     public boolean estaRegistrado(String cuit) {
 
-        List<OrganismoDeControl> organismosDeControl = entityManager.createQuery("from OrganismoDeControl where CUIT = :c")
+        List<OrganismoDeControl> organismosDeControl = entityManager().createQuery("from OrganismoDeControl where CUIT = :c")
                 .setParameter("c", cuit).getResultList();
 
         return !organismosDeControl.isEmpty();

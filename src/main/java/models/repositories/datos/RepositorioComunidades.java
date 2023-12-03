@@ -2,9 +2,7 @@ package models.repositories.datos;
 
 import models.entities.domain.comunidad.Comunidad;
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
-import server.Server;
 
-import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
@@ -14,15 +12,13 @@ import java.util.List;
 
 public class RepositorioComunidades implements WithSimplePersistenceUnit, ICrudRepository{
 
-    EntityManager entityManager = Server.createEntityManager();
-
     public Comunidad obtenerComunidad(Long id) { //TODO
         return find(Comunidad.class, id);
     }
 
     public Long obtenerIdDeComunidadPorNombre(String nombreComunidad) {
         return withTransaction(() -> {
-            TypedQuery<Comunidad> query = entityManager.createQuery(
+            TypedQuery<Comunidad> query = entityManager().createQuery(
                     "SELECT c FROM Comunidad c WHERE c.nombre = :nombre", Comunidad.class);
             query.setParameter("nombre", nombreComunidad);
 
@@ -39,30 +35,30 @@ public class RepositorioComunidades implements WithSimplePersistenceUnit, ICrudR
     @Override
     public void guardar(Object o) {
 
-        EntityTransaction tx = entityManager.getTransaction();
+        EntityTransaction tx = entityManager().getTransaction();
         tx.begin();
-        entityManager.persist(o);
+        entityManager().persist(o);
         tx.commit();
     }
 
     @Override
     public void eliminar(Object o) {
-        entityManager.remove(o);
+        entityManager().remove(o);
     }
 
     @Override
     public void actualizar(Object o) {
-        withTransaction(() -> { entityManager.merge(o);});
+        withTransaction(() -> { entityManager().merge(o);});
     }
 
     @Override
     public List buscarTodos() {
-        return entityManager.createQuery("from " + Comunidad.class.getName()).getResultList();
+        return entityManager().createQuery("from " + Comunidad.class.getName()).getResultList();
     }
 
     @Override
     public Object buscar(Long id) {
-        return entityManager.find(Comunidad.class, id);
+        return entityManager().find(Comunidad.class, id);
     }
 
     public List<Long> buscarComunidadesDe(long idUsuario) {
@@ -71,7 +67,7 @@ public class RepositorioComunidades implements WithSimplePersistenceUnit, ICrudR
         String sql = "SELECT comunidad_id FROM comunidad_usuario WHERE miembros_id = :usuarioId";
 
         // Crea una instancia de Query y asigna el parámetro
-        Query query = entityManager.createNativeQuery(sql);
+        Query query = entityManager().createNativeQuery(sql);
         query.setParameter("usuarioId", idUsuario);
 
         List<BigInteger> result = query.getResultList();
@@ -92,7 +88,7 @@ public class RepositorioComunidades implements WithSimplePersistenceUnit, ICrudR
                 "(SELECT cu.comunidad_id FROM comunidad_usuario cu " +
                 "WHERE cu.miembros_id = :usuarioId)";
 
-        Query query = entityManager.createNativeQuery(sql, Comunidad.class);
+        Query query = entityManager().createNativeQuery(sql, Comunidad.class);
         query.setParameter("usuarioId", idUsuario);
 
         List<Comunidad> comunidades = query.getResultList();
@@ -101,7 +97,7 @@ public class RepositorioComunidades implements WithSimplePersistenceUnit, ICrudR
 
     }
     public List filtrarPorNombre(String nombreComunidad) {
-        List comunidades = entityManager.createQuery("from Comunidad where nombre = :nombre")
+        List comunidades = entityManager().createQuery("from Comunidad where nombre = :nombre")
                 .setParameter("nombre", nombreComunidad).getResultList();
 
         return comunidades;
@@ -111,7 +107,7 @@ public class RepositorioComunidades implements WithSimplePersistenceUnit, ICrudR
         withTransaction(() -> {
             String sql = "DELETE FROM comunidad_usuario WHERE miembros_id = :Id AND comunidad_id = :Comunidad";
 
-            Query query = entityManager.createNativeQuery(sql);
+            Query query = entityManager().createNativeQuery(sql);
             query.setParameter("Id", id);
             query.setParameter("Comunidad", comunidad);
 
