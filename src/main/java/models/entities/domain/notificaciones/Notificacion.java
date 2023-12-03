@@ -8,7 +8,6 @@ import lombok.Setter;
 
 
 import javax.mail.MessagingException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -20,10 +19,10 @@ public class Notificacion {
 
     private Boolean fueEnviada;
 
-    public LocalDate horaCreacion;
+    public LocalDateTime horaCreacion;
     public Notificacion(String texto, LocalDateTime hora) {
         this.texto = texto;
-        this.horaCreacion = LocalDate.from(hora);
+        this.horaCreacion = hora;
     }
 
     public void enviarseA(Usuario usuario) throws MessagingException {
