@@ -1,28 +1,112 @@
 {{#partial "contenido" }}
-
-<div class="row">
-    <div class="container borde redondeado mt-5">
-        <div class="col p-4">
-            <div class="row borde redondeado p-2 d-flex align-items-center justify-text-center">
-                <h4 class="text-center">¿El incidente sigue activo?</h4>
-            </div>
-            <form method="post">
-                <div class="row mt-3 d-flex align-items-center justify-content-center">
-                    <div class="col-md-3 d-flex align-items-center justify-content-center borde redondeado me-3">
-                        <h4>Si</h4>
+    <aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 " id="sidenav-main">
+        <div class="sidenav-header">
+            <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
+            <a class="navbar-brand m-0" target="_blank">
+                <img src="images/logo.png" class="navbar-brand-img h-100" alt="main_logo">
+                <span class="ms-1 font-weight-bold">¿Que PasApp?</span>
+            </a>
+        </div>
+        <hr class="horizontal dark mt-0">
+        <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" href="/home">
+                        <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                            <i class="ni ni-tv-2 text-primary text-sm opacity-10"></i>
+                        </div>
+                        <span class="nav-link-text ms-1">Menú principal</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="/editar">
+                        <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                            <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
+                        </div>
+                        <span class="nav-link-text ms-1">Mi perfil</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="/comunidades">
+                        <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                            <i class="ni ni-tv-2 text-dark text-sm opacity-10"></i>
+                        </div>
+                        <span class="nav-link-text ms-1">Mis comunidades</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="/comunidades/unirse">
+                        <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                            <i class="ni ni-tv-2 text-dark text-sm opacity-10"></i>
+                        </div>
+                        <span class="nav-link-text ms-1">Unirse a comunidad</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="/incidentes/sugerencias">
+                        <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                            <i class="ni ni-tv-2 text-dark text-sm opacity-10"></i>
+                        </div>
+                        <span class="nav-link-text ms-1">Incidentes cercanos</span>
+                    </a>
+                </li>
+                {{#if permisoCSV}}
+                    <li class="nav-item">
+                        <a class="nav-link " href="/cargadatos">
+                            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Cargar datos entidades</span>
+                        </a>
+                    </li>
+                {{/if}}
+                {{#if permisoRankings}}
+                    <li class="nav-item">
+                        <a class="nav-link " href="/rankings">
+                            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Ver rankings de entidades</span>
+                        </a>
+                    </li>
+                {{/if}}
+                <li class="nav-item">
+                    <a class="nav-link " href="/logout">
+                        <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                            <i class="ni ni-collection text-info text-sm opacity-10"></i>
+                        </div>
+                        <span class="nav-link-text ms-1">Cerrar sesión</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </aside>
+    <div class="main-content position-relative border-radius-lg card">
+        <div class="row">
+            <div class="container borde redondeado mt-5">
+                <div class="col p-4">
+                    <div class="row borde redondeado p-2 d-flex align-items-center justify-text-center">
+                        <h4 class="text-center">¿El incidente sigue activo?</h4>
                     </div>
-                    <div class="col-md-3 d-flex align-items-center justify-content-center borde redondeado me-3">
-                        <h4>No</h4>
-                    </div>
+                    <form method="post">
+                        <div class="row mt-3 d-flex align-items-center justify-content-center">
+                            <div class="col-md-3 d-flex align-items-center justify-content-center borde redondeado me-3">
+                                <h4>Si</h4>
+                            </div>
+                            <div class="col-md-3 d-flex align-items-center justify-content-center borde redondeado me-3">
+                                <h4>No</h4>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-            </form>
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <h4 class="text-center">¡Gracias por tu aporte!</h4>
         </div>
     </div>
-</div>
 
-<div class="row mt-3">
-    <h4 class="text-center">¡Gracias por tu aporte!</h4>
-</div>
 
 {{/partial}}
-{{> templates/baseConNavegador }}
+{{> templates/base}}

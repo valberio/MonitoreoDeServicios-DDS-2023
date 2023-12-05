@@ -1,79 +1,166 @@
 {{#partial "contenido" }}
     <!-- PARTE DE APERTURA DE INCIDENTES -->
-    <div class="container-fluid">
-        <div class="row justify-content-center mt-5">
-            <div class="col-8">
-                <div class="card m-5" style="font-family: 'Poppins', sans-serif;">
-                    <div class="card-body">
-                        <h2 class="card-title text-center">Apertura de incidente</h2>
-                        <form method="post" action="/incidentes/crear">
-                            <div class="row mt-3">
-                                <div class="col-md-8 offset-md-2">
-                                    <div class="form-group">
-                                        <label for="comunidad" class="form-label" style="font-weight: 500;">¿En qué comunidad quieres reportar el incidente?</label>
-                                        {{#if comunidadSeleccionada}}
-                                            <p class="form-control-static">{{comunidadSeleccionada.nombre}}</p>
-                                            <input type="hidden" name="comunidad" value="{{comunidadSeleccionada.nombre}}">
-                                        {{else}}
-                                            <select id="comunidad" name="comunidad" required class="form-control">
-                                                <option value="">Selecciona una comunidad</option>
-                                                {{#each comunidades}}
+    <body class="g-sidenav-show   bg-gray-100">
+    <div class="min-height-300 bg-primary position-absolute w-100"></div>
+    <aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 " id="sidenav-main">
+        <div class="sidenav-header">
+            <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
+            <a class="navbar-brand m-0" target="_blank">
+                <img src="images/logo.png" class="navbar-brand-img h-100" alt="main_logo">
+                <span class="ms-1 font-weight-bold">¿Que PasApp?</span>
+            </a>
+        </div>
+        <hr class="horizontal dark mt-0">
+        <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" href="/home">
+                        <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                            <i class="ni ni-tv-2 text-primary text-sm opacity-10"></i>
+                        </div>
+                        <span class="nav-link-text ms-1">Menú principal</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="/editar">
+                        <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                            <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
+                        </div>
+                        <span class="nav-link-text ms-1">Mi perfil</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="/comunidades">
+                        <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                            <i class="ni ni-tv-2 text-dark text-sm opacity-10"></i>
+                        </div>
+                        <span class="nav-link-text ms-1">Mis comunidades</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="/comunidades/unirse">
+                        <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                            <i class="ni ni-tv-2 text-dark text-sm opacity-10"></i>
+                        </div>
+                        <span class="nav-link-text ms-1">Unirse a comunidad</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="/incidentes/sugerencias">
+                        <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                            <i class="ni ni-tv-2 text-dark text-sm opacity-10"></i>
+                        </div>
+                        <span class="nav-link-text ms-1">Incidentes cercanos</span>
+                    </a>
+                </li>
+                {{#if permisoCSV}}
+                    <li class="nav-item">
+                        <a class="nav-link " href="/cargadatos">
+                            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Cargar datos entidades</span>
+                        </a>
+                    </li>
+                {{/if}}
+                {{#if permisoRankings}}
+                    <li class="nav-item">
+                        <a class="nav-link " href="/rankings">
+                            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Ver rankings de entidades</span>
+                        </a>
+                    </li>
+                {{/if}}
+                <li class="nav-item">
+                    <a class="nav-link " href="/logout">
+                        <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                            <i class="ni ni-collection text-info text-sm opacity-10"></i>
+                        </div>
+                        <span class="nav-link-text ms-1">Cerrar sesión</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </aside>
+    <div class="main-content position-relative border-radius-lg card">
+        <div class="container-fluid">
+            <div class="row justify-content-center mt-5">
+                <div class="col-8">
+                    <div class="card m-5" style="font-family: 'Poppins', sans-serif;">
+                        <div class="card-body">
+                            <h2 class="card-title text-center">Apertura de incidente</h2>
+                            <form method="post" action="/incidentes/crear">
+                                <div class="row mt-3">
+                                    <div class="col-md-8 offset-md-2">
+                                        <div class="form-group">
+                                            <label for="comunidad" class="form-label" style="font-weight: 500;">¿En qué comunidad quieres reportar el incidente?</label>
+                                            {{#if comunidadSeleccionada}}
+                                                <p class="form-control-static">{{comunidadSeleccionada.nombre}}</p>
+                                                <input type="hidden" name="comunidad" value="{{comunidadSeleccionada.nombre}}">
+                                            {{else}}
+                                                <select id="comunidad" name="comunidad" required class="form-control">
+                                                    <option value="">Selecciona una comunidad</option>
+                                                    {{#each comunidades}}
+                                                        <option value="{{this.id}}">{{this.nombre}}</option>
+                                                    {{/each}}
+                                                </select>
+                                            {{/if}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-md-8 offset-md-2">
+                                        <div class="form-group">
+                                            <label for="servicio" class="form-label" style="font-weight: 500;">¿Cuál es el servicio afectado?</label>
+                                            <select id="servicio" name="servicio" required class="form-control">
+                                                <option value="" disabled selected hidden>Seleccione un servicio</option>
+                                                {{#each servicios}}
                                                     <option value="{{this.id}}">{{this.nombre}}</option>
                                                 {{/each}}
                                             </select>
-                                        {{/if}}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row mt-3">
-                                <div class="col-md-8 offset-md-2">
-                                    <div class="form-group">
-                                        <label for="servicio" class="form-label" style="font-weight: 500;">¿Cuál es el servicio afectado?</label>
-                                        <select id="servicio" name="servicio" required class="form-control">
-                                            <option value="" disabled selected hidden>Seleccione un servicio</option>
-                                            {{#each servicios}}
-                                                <option value="{{this.id}}">{{this.nombre}}</option>
-                                            {{/each}}
-                                        </select>
+                                <div class="row mt-3">
+                                    <div class="col-md-8 offset-md-2">
+                                        <div class="form-group">
+                                            <label for="observaciones" class="form-label" style="font-weight: 500;">Observaciones</label>
+                                            <input type="text" id="observaciones" name="observaciones" placeholder="" required class="form-control">
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row mt-3">
-                                <div class="col-md-8 offset-md-2">
-                                    <div class="form-group">
-                                        <label for="observaciones" class="form-label" style="font-weight: 500;">Observaciones</label>
-                                        <input type="text" id="observaciones" name="observaciones" placeholder="" required class="form-control">
+                                <div class="row mt-5">
+                                    <div class="col-md-8 offset-md-2 d-flex justify-content-center align-items-center">
+                                        <button type="submit" class="btn btn-primary">Reportar</button>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row mt-5">
-                                <div class="col-md-8 offset-md-2 d-flex justify-content-center align-items-center">
-                                    <button type="submit" class="btn btn-primary">Reportar</button>
-                                </div>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal de éxito -->
+        <div class="modal fade" id="reportSuccessModal" tabindex="-1" aria-labelledby="reportSuccessModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="reportSuccessModalLabel">Reporte Exitoso</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        ¡El incidente se ha reportado con éxito!
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="btnAceptarModal">Aceptar</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Modal de éxito -->
-    <div class="modal fade" id="reportSuccessModal" tabindex="-1" aria-labelledby="reportSuccessModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="reportSuccessModalLabel">Reporte Exitoso</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    ¡El incidente se ha reportado con éxito!
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="btnAceptarModal">Aceptar</button>
-                </div>
-            </div>
-        </div>
-    </div>
+
     <script>
 
     document.querySelector('form').addEventListener('submit', function (e) {
@@ -109,4 +196,4 @@
     </script>
 
 {{/partial}}
-{{> templates/baseConNavegador }}
+{{> templates/base }}
