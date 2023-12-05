@@ -13,14 +13,6 @@ public class Encriptador {
                 .toString();
     }
 
-    public static void main(String[] args){
-
-        String contrasenia = "diseñadoras";
-                String hash = new Encriptador().encriptarContrasenia(contrasenia);
-        System.out.print(hash);
-        }
-
-
 
 }
 

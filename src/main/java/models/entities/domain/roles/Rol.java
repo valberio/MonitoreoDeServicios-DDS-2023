@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import models.entities.domain.entidades.OrganismoDeControl;
 import models.entities.domain.entidades.PrestadoraDeServicio;
+import org.jetbrains.annotations.Nullable;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -25,7 +26,10 @@ public class Rol extends Persistente {
     @Column(name = "tipo")
     private TipoRol tipo;
 
+
+
     @OneToOne
+    @Nullable
     private Comunidad comunidad;
 
     @ManyToMany

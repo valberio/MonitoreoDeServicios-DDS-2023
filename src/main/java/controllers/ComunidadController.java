@@ -80,9 +80,11 @@ public class ComunidadController extends Controller implements ICrudViewsHandler
             throw new AccessDeniedException();
         }
         RepositorioPrestacionesDeServicio repositorio = new RepositorioPrestacionesDeServicio();
+        RepositorioEntidades repositorioEntidades  = new RepositorioEntidades();
         Map<String, Object> model = new HashMap<>();
-        List<String> servicios = repositorio.buscarTodosLosNombres();
-        model.put("servicios", servicios);
+        List<String> entidades = repositorioEntidades.buscarTodosLosNombresDeEntidades();
+       List<String> servicios = repositorio.buscarTodosLosNombres();
+        model.put("servicios", entidades);
         context.render("comunidades/crearComunidades.hbs", model);
     }
 

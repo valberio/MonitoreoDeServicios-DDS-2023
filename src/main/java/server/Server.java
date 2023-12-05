@@ -14,6 +14,8 @@ import server.handlers.AppHandlers;
 import server.middlewares.AuthMiddleware;
 import server.middlewares.SessionMiddleware;
 
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -31,13 +33,15 @@ public class Server {
             throw new RuntimeException("App no inicializada");
         return app;
     }
-    
+
     public static void init(){
         if(app==null){
 
+
+
             String strport = System.getenv("PORT");
             if (strport == null){
-                strport = "8080";
+                strport = "8089";
             }
             Integer port = Integer.parseInt(strport);
 
@@ -45,7 +49,7 @@ public class Server {
             initTemplateEngine();
             AppHandlers.applyHandlers(app);
             Router.init();
-            Server.configureEntityManagerProperties();
+            //Server.configureEntityManagerProperties();
             //Initializer.init();
         }
     }
@@ -87,7 +91,7 @@ public class Server {
                 }, ".hbs" // Extensión del archivo de template
         );
     }
-    public static void configureEntityManagerProperties() {
+    /*public static void configureEntityManagerProperties() {
 
         Map<String, String> env = System.getenv();
         Map<String, Object> configOverrides = new HashMap<>();
@@ -118,6 +122,6 @@ public class Server {
 
         WithSimplePersistenceUnit.configure(propertiesConsumer);
 
-
-}}
+*/
+}
 

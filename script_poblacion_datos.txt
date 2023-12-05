@@ -1,26 +1,5 @@
 USE tpa_dds;
 
-SET foreign_key_checks = 0;
-TRUNCATE comunidad;
-TRUNCATE comunidad_prestacion_de_servicio;
-TRUNCATE comunidad_usuario;
-TRUNCATE entidad;
-TRUNCATE establecimiento;
-TRUNCATE estado_incidente;
-TRUNCATE incidente;
-TRUNCATE organismo_de_control;
-TRUNCATE permiso;
-TRUNCATE prestacion_de_servicio;
-TRUNCATE prestadora_de_servicio;
-TRUNCATE rol;
-TRUNCATE rol_contra_prestacion;
-TRUNCATE rol_permiso;
-TRUNCATE servicio;
-TRUNCATE usuario;
-TRUNCATE usuario_entidad;
-TRUNCATE usuario_horario_disponible;
-TRUNCATE usuario_rol;
-SET foreign_key_checks = 1;
 
 -- Inserto todos los permisos
 insert into permiso(id, nombre, nombreInterno)
@@ -48,8 +27,8 @@ values (10, "Ver rankings", "ver_rankings_entidades");
 
 -- USUARIO SUPERADMIN
 insert into rol (id, nombre, tipo)
-values (1, "Superadmin", "superadministrador");
-
+values (1, "Superadmin", "SUPERADMINISTRADOR");
+update rol set tipo ="SUPERADMINISTRADOR" where id=1
 insert into rol_permiso(rol_id, permisos_id) values(1, 1);
 insert into rol_permiso(rol_id, permisos_id) values(1, 2);
 insert into rol_permiso(rol_id, permisos_id) values(1, 3);
@@ -62,19 +41,20 @@ insert into rol_permiso(rol_id, permisos_id) values(1, 9);
 insert into rol_permiso(rol_id, permisos_id) values(1, 10);
 
 insert into rol (id, nombre, tipo)
-values (2, "DesginadoDeControl", "administrador");
+values (2, "DesginadoDeControl", "ADMINISTRADOR");
 
-insert into rol_permiso(rol_id, permisos_id) values(1, 1);
-insert into rol_permiso(rol_id, permisos_id) values(1, 2);
-insert into rol_permiso(rol_id, permisos_id) values(1, 3);
-insert into rol_permiso(rol_id, permisos_id) values(1, 4);
-insert into rol_permiso(rol_id, permisos_id) values(1, 7);
-insert into rol_permiso(rol_id, permisos_id) values(1, 8);
-insert into rol_permiso(rol_id, permisos_id) values(1, 10);
+insert into rol_permiso(rol_id, permisos_id) values(2, 1);
+insert into rol_permiso(rol_id, permisos_id) values(2, 2);
+insert into rol_permiso(rol_id, permisos_id) values(2, 3);
+insert into rol_permiso(rol_id, permisos_id) values(2, 4);
+insert into rol_permiso(rol_id, permisos_id) values(2, 7);
+insert into rol_permiso(rol_id, permisos_id) values(2, 8);
+insert into rol_permiso(rol_id, permisos_id) values(2, 10);
 
--- insert into usuario (id, contrasenia, email, nombreDeUsuario)
--- values (1, "superadmin", "superadmin@gmail.com", "superadmin");
--- insert into usuario_rol(usuario_id, roles_id) values (1, 1);
+ insert into usuario (id, contrasenia, email, nombreDeUsuario)
+ values (100, "superadmin", "superadmin@gmail.com", "superadmin");
+ insert into usuario_rol(usuario_id, roles_id) values (100, 1);
+
 
 -- CREO SERVICIOS
 insert into servicio(descripcion, tipoDeServicio) values ("Baño de mujeres", "Baño");
@@ -253,16 +233,4 @@ insert into comunidad_prestacion_de_servicio (comunidad_id, serviciosDeInteres_i
 
 UPDATE prestacion_de_servicio set estaHabilitado=1 where estaHabilitado is null and id<50;
 
-select * from comunidad;
-select * from comunidad_usuario;
-select * from comunidad_prestacion_de_servicio;
-select * from prestacion_de_servicio;
-select * from servicio;
-select * from prestadora_de_servicio;
-select * from entidad;
-select * from incidente;
-select * from estado_incidente;
-select * from establecimiento;
-select * from rol_permiso;
-select * from usuario;
 
